@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samantha Fernando — Composer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f7f7f6',
+                            100: '#efefec',
+                            200: '#dedede',
+                            800: '#232321',
+                            900: '#141413',
+                            accent: '#9a7b56',
+                            accentLight: '#c2a683'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Newsreader', 'Georgia', 'serif'],
+                        display: ['Cinzel', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d;
+            color: #e5e5e5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Keep labels and metadata in the same editorial sans-serif voice. */
+        .font-mono {
+            font-family: 'Inter', sans-serif !important;
+            letter-spacing: 0.02em;
+        }
+
+        body.light-mode {
+            background-color: #f4f0e8;
+            color: #18211f;
+        }
+
+        .font-serif-italic {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+        }
+
+        /* Opaque panels avoid scroll-time backdrop compositing and remain readable. */
+        .glass-panel {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .light-mode .glass-panel {
+            background: #fbfaf6;
+            border: 1px solid rgba(24, 33, 31, 0.16);
+        }
+
+        /* Tailwind's neutral utilities are designed for the dark palette above.
+           Remap them in light mode so every tab, including dynamically rendered works, remains legible. */
+        .light-mode .text-neutral-100 { color: #18211f !important; }
+        .light-mode .text-neutral-200 { color: #28332c !important; }
+        .light-mode .text-neutral-300 { color: #3f4b44 !important; }
+        .light-mode .text-neutral-400 { color: #6d7570 !important; }
+        .light-mode .text-neutral-500 { color: #6d7570 !important; }
+        .light-mode .text-neutral-600 { color: #858b84 !important; }
+        .light-mode .text-amber-300,
+        .light-mode .text-amber-400,
+        .light-mode .text-amber-500 { color: #a95700 !important; }
+        .light-mode .bg-neutral-950\/95,
+        .light-mode .bg-neutral-950\/80 { background-color: #e8e1d5 !important; }
+        .light-mode .bg-neutral-900,
+        .light-mode .bg-neutral-900\/90,
+        .light-mode .bg-neutral-900\/80 { background-color: #e8e1d5 !important; }
+        .light-mode .bg-neutral-800,
+        .light-mode .bg-neutral-800\/80 { background-color: #dcd3c7 !important; }
+        .light-mode .hover\:bg-neutral-800:hover,
+        .light-mode .hover\:bg-neutral-800\/80:hover { background-color: #d2c8bb !important; }
+        .light-mode .border-neutral-800,
+        .light-mode .border-neutral-800\/80,
+        .light-mode .border-neutral-800\/60,
+        .light-mode .border-neutral-700,
+        .light-mode .border-neutral-700\/60 { border-color: rgba(24, 33, 31, 0.24) !important; }
+        .light-mode .hover\:text-neutral-100:hover,
+        .light-mode .hover\:text-white:hover { color: #18211f !important; }
+        .light-mode input,
+        .light-mode select,
+        .light-mode textarea { color: #2d2924 !important; }
+        .light-mode input::placeholder,
+        .light-mode textarea::placeholder { color: #6d7570 !important; }
+        .light-mode .bg-amber-950\/30 { background-color: #f7e2d9 !important; }
+        .light-mode .text-amber-200 { color: #8d3823 !important; }
+        .light-mode #themeToggleBtn {
+            color: #a95700;
+            background: rgba(232, 225, 213, 0.5);
+            border: 1px solid rgba(24, 33, 31, 0.2);
+        }
+        .light-mode #themeToggleBtn:hover { color: #18211f; background: rgba(220, 211, 199, 0.72); border-color: #a95700; }
+        .light-mode #ambientSoundBtn {
+            color: #a95700;
+            background: rgba(232, 225, 213, 0.5) !important;
+            border-color: rgba(24, 33, 31, 0.2) !important;
+        }
+        .light-mode #ambientSoundBtn:hover { color: #18211f; background: rgba(220, 211, 199, 0.72) !important; border-color: #a95700 !important; }
+
+        #themeToggleBtn { width: 2.5rem; height: 2.5rem; display: inline-flex; align-items: center; justify-content: center; }
+        #mobilePreviewBtn { width: 2.5rem; height: 2.5rem; display: inline-flex; align-items: center; justify-content: center; }
+        #ambientSoundBtn { width: auto; justify-content: center; position: relative; }
+        #waveContainer { display: none; }
+        [data-tooltip] { position: relative; }
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: calc(100% + 0.35rem);
+            right: 0;
+            z-index: 60;
+            width: max-content;
+            max-width: 13rem;
+            padding: 0.45rem 0.65rem;
+            border-radius: 0.45rem;
+            background: #18211f;
+            color: #fbfaf6;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            text-transform: none;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(-0.2rem);
+            transition: opacity 0.08s ease;
+        }
+        [data-tooltip]:hover::after,
+        [data-tooltip]:focus-visible::after { opacity: 1; transform: none; }
+        #soundbar { transition: opacity 0.3s ease, transform 0.3s ease; }
+        #soundbar.hidden { display: none; }
+        .soundcloud-player { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+        .light-mode .bg-amber-900\/30 {
+            background-color: #dd5e3c !important;
+            border-color: #b94a2e !important;
+        }
+        .light-mode .bg-amber-900\/30 .text-amber-300,
+        .light-mode .bg-amber-900\/30 { color: #fffaf2 !important; }
+        .light-mode .bg-amber-900\/30 .bg-amber-400 { background-color: #b6ce74 !important; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 15, 15, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(154, 123, 86, 0.4);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(154, 123, 86, 0.8);
+        }
+
+        /* Soundwave animation for ambient player */
+        .wave-bar {
+            width: 3px;
+            height: 1rem;
+            background: #9a7b56;
+            border-radius: 3px;
+            transform: scaleY(var(--wave-scale, 0.25));
+            animation: wave 0.8s ease-in-out infinite alternate;
+        }
+        .wave-bar:nth-child(1) { animation-duration: 0.72s; }
+        .wave-bar:nth-child(2) { animation-duration: 0.94s; animation-delay: -0.2s; }
+        .wave-bar:nth-child(3) { animation-duration: 0.63s; animation-delay: -0.4s; }
+        .wave-bar:nth-child(4) { animation-duration: 1.05s; animation-delay: -0.1s; }
+
+        @keyframes wave {
+            0% { transform: scaleY(0.25); }
+            100% { transform: scaleY(1); }
+        }
+
+        .paused .wave-bar {
+            animation: none;
+            transform: scaleY(0.25);
+        }
+
+        /* Tab Content Display Logic */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image containers retain their crop without motion on hover. */
+        .img-hover-zoom {
+            overflow: hidden;
+        }
+
+        /* Force the narrow-screen layout for desktop browser testing. */
+        body.mobile-preview { background: #242522; }
+        body.light-mode.mobile-preview { background: #d8d3ca; }
+        body.site-locked > *:not(#sitePasswordGate) { display: none !important; }
+        #sitePasswordGate {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: #f4f0e8;
+            color: #18211f;
+        }
+        #sitePasswordGate.hidden { display: none; }
+        #sitePasswordGate form {
+            width: min(100%, 25rem);
+            padding: 2rem;
+            border: 1px solid rgba(24, 33, 31, 0.2);
+            border-radius: 1.25rem;
+            background: #fbfaf6;
+            box-shadow: 0 1rem 3rem rgba(24, 33, 31, 0.12);
+        }
+        #sitePasswordGate input {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.75rem 0.9rem;
+            border: 1px solid rgba(24, 33, 31, 0.25);
+            border-radius: 0.65rem;
+            background: #fff;
+            color: #18211f;
+        }
+        #sitePasswordGate button {
+            width: 100%;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.65rem;
+            background: #a95700;
+            color: #fff;
+            font-weight: 600;
+        }
+        #sitePasswordError { min-height: 1.25rem; margin-top: 0.5rem; color: #a33b24; font-size: 0.8rem; }
+        body.mobile-preview > header,
+        body.mobile-preview > main,
+        body.mobile-preview > footer {
+            width: 430px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 0 1px rgba(24, 33, 31, 0.12), 0 0 2rem rgba(0, 0, 0, 0.18);
+        }
+        body.mobile-preview > header { position: sticky; }
+        body.mobile-preview .max-w-7xl { max-width: 100%; }
+        body.mobile-preview header > div,
+        body.mobile-preview main,
+        body.mobile-preview footer > div { padding-left: 1rem; padding-right: 1rem; }
+        body.mobile-preview header > div { height: 5rem; }
+        body.mobile-preview header > div { gap: 0.5rem; }
+        body.mobile-preview header > div > a { min-width: 0; }
+        body.mobile-preview header > div > a span:first-child { font-size: 1rem; letter-spacing: 0.08em; }
+        body.mobile-preview header > div > a span:last-child { font-size: 0.625rem; }
+        body.mobile-preview header > div > div { min-width: 0; gap: 0.25rem; }
+        body.mobile-preview #themeToggleBtn,
+        body.mobile-preview #mobilePreviewBtn,
+        body.mobile-preview #mobileMenuToggle { flex: 0 0 2.25rem; width: 2.25rem; height: 2.25rem; padding: 0.5rem; }
+        body.mobile-preview #ambientSoundBtn { flex: 0 0 auto; padding-left: 0.65rem; padding-right: 0.65rem; }
+        body.mobile-preview #ambientSoundBtn .text-sm { font-size: 0.75rem; }
+        body.mobile-preview header nav.hidden { display: none; }
+        body.mobile-preview #mobileMenuToggle { display: inline-flex !important; }
+        body.mobile-preview .grid-cols-1.lg\:grid-cols-12,
+        body.mobile-preview .grid-cols-1.lg\:grid-cols-3,
+        body.mobile-preview .grid-cols-1.lg\:grid-cols-2,
+        body.mobile-preview .grid-cols-1.md\:grid-cols-3,
+        body.mobile-preview .grid-cols-1.md\:grid-cols-2 { grid-template-columns: minmax(0, 1fr); }
+        body.mobile-preview .lg\:col-span-2,
+        body.mobile-preview .lg\:col-span-5,
+        body.mobile-preview .lg\:col-span-7 { grid-column: span 1 / span 1; }
+        body.mobile-preview .md\:flex-row,
+        body.mobile-preview .sm\:flex-row { flex-direction: column; align-items: stretch; }
+        body.mobile-preview .md\:w-72 { width: 100%; }
+        body.mobile-preview .sm\:p-10,
+        body.mobile-preview .sm\:p-8 { padding: 1.5rem; }
+        body.mobile-preview .sm\:text-5xl { font-size: 2.25rem; }
+        body.mobile-preview .sm\:text-3xl { font-size: 1.875rem; }
+        body.mobile-preview #soundbar { max-width: calc(100% - 2rem); }
+    </style>
+</head>
+<body class="site-locked light-mode min-h-screen flex flex-col selection:bg-amber-800/30 selection:text-amber-200">
+    <div id="sitePasswordGate" role="dialog" aria-labelledby="sitePasswordTitle">
+        <form onsubmit="unlockSite(event)">
+            <h1 id="sitePasswordTitle" class="text-2xl font-serif">Private site</h1>
+            <p class="mt-2 text-sm text-neutral-500">Enter the password to continue.</p>
+            <label class="sr-only" for="sitePassword">Password</label>
+            <input id="sitePassword" type="password" autocomplete="current-password" placeholder="Password" autofocus>
+            <button type="submit">Enter site</button>
+            <p id="sitePasswordError" role="alert"></p>
+        </form>
+    </div>
+
+    <header class="sticky top-0 z-50 glass-panel border-b border-neutral-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Site Title / Logo -->
+            <a href="#bio" onclick="switchTab('bio')" class="flex flex-col group cursor-pointer flex-shrink-0">
+                <span class="font-display text-lg sm:text-2xl font-medium tracking-wider text-neutral-100 group-hover:text-amber-400 transition-colors uppercase">
+                    Samantha Fernando
+                </span>
+                <span class="text-[10px] sm:text-xs uppercase tracking-widest text-neutral-400 font-light -mt-1 group-hover:text-amber-300/80 transition-colors">
+                    Composer
+                </span>
+            </a>
+
+            <!-- Streamlined Desktop Navigation (Exact 6 items on 1 line without scroll) -->
+            <nav class="hidden md:flex items-center space-x-6 text-xs font-medium tracking-wider uppercase">
+                <button onclick="switchTab('bio')" id="nav-bio" class="nav-btn py-1.5 text-amber-400 border-b-2 border-amber-400 transition-all">Biography</button>
+                <button onclick="switchTab('works')" id="nav-works" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Works List</button>
+                <button onclick="switchTab('watch')" id="nav-watch" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Watch</button>
+                <button onclick="switchTab('listen')" id="nav-listen" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Listen</button>
+                <button onclick="switchTab('writing')" id="nav-writing" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Writing</button>
+                <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Contact</button>
+            </nav>
+
+            <!-- Utility Controls (Theme Toggle + Soundscape + Mobile Menu Toggle) -->
+            <div class="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+                <button id="themeToggleBtn" onclick="toggleTheme()" title="Switch to dark mode" class="p-2 rounded-full text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800/60 transition-colors">
+                    <i class="fa-solid fa-moon text-sm"></i>
+                </button>
+                <button id="mobilePreviewBtn" onclick="toggleMobilePreview()" title="Switch to mobile preview" aria-label="Switch to mobile preview" class="p-2 rounded-full text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800/60 transition-colors">
+                    <i class="fa-solid fa-mobile-screen-button text-sm"></i>
+                </button>
+
+                <!-- Audio Soundscape Toggle Button -->
+                <button id="ambientSoundBtn" onclick="toggleAmbientAudio()" data-tooltip="Listen to Samantha's music" aria-label="Listen to Samantha's music" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-700/60 text-xs text-amber-300 hover:border-amber-500/50 transition-all">
+                    <div id="waveContainer" class="flex items-center gap-1 paused h-4" aria-hidden="true">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                    <span id="soundLabel">Listen</span>
+                    <i id="soundStatusIcon" class="fa-solid fa-play text-sm" aria-hidden="true"></i>
+                </button>
+
+                <!-- Mobile Navigation Toggle Button -->
+                <button id="mobileMenuToggle" onclick="toggleMobileMenu()" class="md:hidden p-2 text-neutral-300 hover:text-white text-lg">
+                    <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider uppercase">
+            <button onclick="switchTab('bio'); toggleMobileMenu()" class="block w-full text-left py-2 text-amber-400">Biography</button>
+            <button onclick="switchTab('works'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
+            <button onclick="switchTab('watch'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Watch</button>
+            <button onclick="switchTab('listen'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen</button>
+            <button onclick="switchTab('writing'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Writing</button>
+            <button onclick="switchTab('contact'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Contact</button>
+        </div>
+    </header>
+
+    <div id="soundbar" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 px-5 py-2.5 rounded-full glass-panel shadow-lg flex items-center gap-3 text-xs text-neutral-700 whitespace-nowrap">
+        <span class="flex items-end gap-0.5 h-4" aria-hidden="true">
+            <span class="w-0.5 h-2 bg-amber-700 rounded-full animate-pulse"></span>
+            <span class="w-0.5 h-4 bg-amber-700 rounded-full animate-pulse [animation-delay:150ms]"></span>
+            <span class="w-0.5 h-3 bg-amber-700 rounded-full animate-pulse [animation-delay:300ms]"></span>
+            <span class="w-0.5 h-1.5 bg-amber-700 rounded-full animate-pulse [animation-delay:450ms]"></span>
+        </span>
+        <span id="soundbarLabel" class="font-medium">Samantha Fernando · Soundscape</span>
+    </div>
+    <iframe id="soundcloudPlayer" title="SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A236811796&auto_play=false"></iframe>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+        <!-- ================= TAB 1: BIOGRAPHY ================= -->
+        <section id="tab-bio" class="tab-content active space-y-16">
+            
+            <!-- Hero Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Composer Portrait -->
+                <div class="lg:col-span-5 relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-amber-700/20 to-neutral-700/20 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition duration-1000"></div>
+                    <div class="relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl img-hover-zoom">
+                        <img src="assets/sam-1.webp" 
+                             alt="Samantha Fernando portrait" 
+                             class="w-full h-[480px] object-cover object-center">
+                        <div class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                            <p class="text-xs text-neutral-300 font-mono">Samantha Fernando</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bio Hero Text -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-900/30 border border-amber-600/30 text-amber-300 text-xs font-mono tracking-widest uppercase">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                        British Composer & Academic
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-serif font-light text-neutral-100 leading-tight">
+                        "Creating a space in sound that an audience can enter and inhabit."
+                    </h1>
+
+                    <p class="text-lg text-neutral-300 font-serif-italic font-light leading-relaxed">
+                        Samantha Fernando (b. 1984) is a British composer whose work is centred on an exploration of timbre, space, and the unfolding of sound. She is drawn to ideas of landscape, architecture, and place.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono">
+                        <div class="px-4 py-2 rounded-lg bg-neutral-900/80 border border-neutral-800 text-neutral-300">
+                            <span class="text-amber-400 font-semibold block text-sm">RPS Prize Winner</span>
+                            Royal Philharmonic Society Composition Award
+                        </div>
+                        <div class="px-4 py-2 rounded-lg bg-neutral-900/80 border border-neutral-800 text-neutral-300">
+                            <span class="text-amber-400 font-semibold block text-sm">Royal Holloway</span>
+                            Honorary Research Fellow in Composition
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex flex-wrap gap-4">
+                        <button onclick="switchTab('works')" class="px-6 py-3 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-medium text-xs tracking-widest uppercase transition-all shadow-lg shadow-amber-900/20">
+                            Explore Works List
+                        </button>
+                        <button onclick="switchTab('watch')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
+                            Watch Performances
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-12 border-t border-neutral-800/80">
+                <div class="lg:col-span-2 space-y-6 text-neutral-300 leading-relaxed font-light text-base">
+                    <h2 class="text-2xl font-display uppercase tracking-wider text-neutral-100 mb-6 flex items-center gap-3">
+                         Artistic Philosophy & Biography
+                    </h2>
+
+                    <p>
+                        In recent years, her music has moved towards a language that values clarity, directness, and openness: working with deliberately limited material, allowing music time to breathe, and attending with precision to gesture, texture, and form.
+                    </p>
+                    <p>
+                        Collaboration with performers is central to her practice, particularly in shaping sound worlds that respond to the physicality of instruments and the acoustic space in which music is heard.
+                    </p>
+                    <p>
+                        Samantha has worked with numerous world-leading ensembles including the <strong class="text-neutral-100">Philharmonia Orchestra</strong>, <strong class="text-neutral-100">London Sinfonietta</strong>, <strong class="text-neutral-100">BCMG</strong>, <strong class="text-neutral-100">Riot Ensemble</strong>, <strong class="text-neutral-100">The BBC Singers</strong>, <strong class="text-neutral-100">LOD Muziektheater (Ghent)</strong>, <strong class="text-neutral-100">Silbersee Vocal Ensemble (Amsterdam)</strong>, and <strong class="text-neutral-100">The Crossing (USA)</strong>. Her music has been performed at major international festivals including Aldeburgh Music, Huddersfield Contemporary Music Festival, Sounds New, Gaudeamus Muziekweek, York Late Music, and the Oxford Lieder Festival.
+                    </p>
+                    <p>
+                        In 2021, Samantha saw the opening of <em class="text-amber-300">Current, Rising</em>, a world-first hyper-reality opera experience produced by the Royal Opera House and Figment Productions. Her chamber opera <em class="text-amber-300">glass human</em>, created in collaboration with Melanie Wilson, premiered at Glyndebourne in Autumn 2022. Recent commissions include <em class="text-amber-300">Sound Inhabitants</em> for the London Sinfonietta and <em class="text-amber-300">Wintering</em>, commissioned by Wigmore Hall and performed by Manchester Collective and The Marian Consort.
+                    </p>
+                </div>
+
+                <!-- Highlights Sidebar -->
+                <div class="space-y-6">
+                    <div class="glass-panel p-6 rounded-2xl border border-neutral-800 space-y-6">
+                        <h3 class="text-sm font-mono uppercase tracking-widest text-amber-400 border-b border-neutral-800 pb-3">Key Highlights</h3>
+                        
+                        <div class="space-y-4 text-xs">
+                            <div>
+                                <span class="text-neutral-500 font-mono block">2025</span>
+                                <p class="text-neutral-200 font-medium">Wintering</p>
+                                <p class="text-neutral-400">Commissioned by Wigmore Hall with Manchester Collective & The Marian Consort.</p>
+                            </div>
+                            <div>
+                                <span class="text-neutral-500 font-mono block">2023</span>
+                                <p class="text-neutral-200 font-medium">Sound Inhabitants</p>
+                                <p class="text-neutral-400">15 players commission premiered by London Sinfonietta at Southbank Centre.</p>
+                            </div>
+                            <div>
+                                <span class="text-neutral-500 font-mono block">2022</span>
+                                <p class="text-neutral-200 font-medium">glass human</p>
+                                <p class="text-neutral-400">Chamber opera premiered at Glyndebourne & UK national tour.</p>
+                            </div>
+                            <div>
+                                <span class="text-neutral-500 font-mono block">2021</span>
+                                <p class="text-neutral-200 font-medium">Current, Rising</p>
+                                <p class="text-neutral-400">Hyper-reality opera experience at the Royal Opera House, London.</p>
+                            </div>
+                            <div>
+                                <span class="text-neutral-500 font-mono block">2013</span>
+                                <p class="text-neutral-200 font-medium">RPS Composition Prize</p>
+                                <p class="text-neutral-400">Royal Philharmonic Society award & Philharmonia commission.</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-neutral-800">
+                            <span class="text-xs font-mono uppercase text-neutral-400 block mb-2">Education & Fellowship</span>
+                            <p class="text-xs text-neutral-300">
+                                Royal Academy of Music & University of Oxford. Honorary Research Fellow at Royal Holloway, University of London.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-12 border-t border-neutral-800/80">
+                <div class="glass-panel rounded-3xl p-6 border border-neutral-800 space-y-5">
+                    <div>
+                        <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Calendar</span>
+                        <h2 class="text-2xl font-display uppercase tracking-wider text-neutral-100 mt-1">Events</h2>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <p><strong class="text-amber-300">2 Feb 2025</strong> · <em>Fault Line</em> · Tim Gill, London Sinfonietta · Turner Sims, Southampton</p>
+                        <p><strong class="text-amber-300">6 Sep 2025</strong> · <em>THE EXOPLANETS</em> · City of London Sinfonia · Norwich Theatre</p>
+                        <p><strong class="text-amber-300">22 Nov 2025</strong> · <em>Wintering</em> (World Premiere) · Manchester Collective & The Marian Consort · Wigmore Hall, London</p>
+                        <p><strong class="text-amber-300">27 Nov 2025</strong> · <em>Wintering</em> · Manchester Collective · Stoller Hall, Manchester</p>
+                        <p><strong class="text-amber-300">28 Nov 2025</strong> · <em>Wintering</em> · Manchester Collective · Howard Assembly Room, Leeds</p>
+                        <p><strong class="text-amber-300">29 Nov 2025</strong> · <em>Wintering</em> · Manchester Collective · Tung Auditorium, Liverpool</p>
+                        <p><strong class="text-amber-300">3 Dec 2025</strong> · <em>Wintering</em> · Manchester Collective · Sir Jack Lyons, York</p>
+                        <p><strong class="text-amber-300">5 Dec 2025</strong> · <em>Wintering</em> · Manchester Collective · Bristol Beacon, Bristol</p>
+                        <p><strong class="text-amber-300">12 Mar 2026</strong> · <em>THE EXOPLANETS</em> · City of London Sinfonia · Hackney Empire, London</p>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-3xl p-6 border border-neutral-800 space-y-5">
+                    <div>
+                        <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Archive</span>
+                        <h2 class="text-2xl font-display uppercase tracking-wider text-neutral-100 mt-1">Past Performances</h2>
+                    </div>
+                    <div class="space-y-3 text-xs text-neutral-300">
+                        <p><strong class="text-neutral-100">Autumn 2022:</strong> <em>glass human</em> · Glyndebourne Opera UK Tour: Glyndebourne, Canterbury, Norwich, Milton Keynes, Liverpool.</p>
+                        <p><strong class="text-neutral-100">Portrait Concert at Kettle's Yard:</strong> Chamber works including the premiere of <em>The Way Home</em> with Raphaela Papakadis, Dominic Saunders, and Corentin Chassard.</p>
+                        <p><strong class="text-neutral-100">National Opera Studio 40th Anniversary:</strong> Commissioned new aria performed at Hoxton Hall, London.</p>
+                        <p><strong class="text-neutral-100">2023–2024:</strong> <em>Sound Inhabitants</em>, <em>Balconies</em>, <em>Everything Passes, Everything is Connected</em>, and a panel at Eavesdropping Festival, Café Oto.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="featured-projects" class="pt-12 border-t border-neutral-800/80 space-y-12">
+                <div>
+                    <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Spotlight Works</span>
+                    <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Featured Operas & Major Projects</h2>
+                    <p class="text-neutral-400 text-sm mt-1">Detailed overviews, creative credits, and movement structures for landmark stage and ensemble works.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Project 1: Wintering -->
+                    <div class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
+                        <div class="space-y-4 flex-1">
+                            <div class="aspect-video bg-neutral-900 rounded-2xl overflow-hidden img-hover-zoom border border-neutral-800">
+                                <img src="assets/wintering.webp" alt="Wintering tour artwork" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="text-[11px] font-mono text-amber-400 uppercase tracking-wider block">Wigmore Hall Commission (2025)</span>
+                                <h3 class="text-2xl font-serif text-neutral-100 mt-1">Wintering</h3>
+                                <p class="text-xs text-neutral-400 font-mono mt-0.5">SATB Chorus + String Quartet | 27 mins</p>
+                            </div>
+                             <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">
+                                Inspired by Katherine May's book. Performed by Manchester Collective and The Marian Consort, exploring human retreat, quiet introspection, and seasonal cycles.
+                            </p>
+                             <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
+                                <span class="text-amber-300 font-semibold block uppercase">Movements:</span>
+                                <p>I. Vista • II. Cloud Canvas 1 • III. Cloud Canvas 2 • IV. To Do: Do Less • V. Snow on Snow • VI. Cocoon</p>
+                            </div>
+                        </div>
+                         <button onclick="openModal('wintering')" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
+                            View Full Project Details
+                        </button>
+                    </div>
+
+                    <!-- Project 2: glass human -->
+                    <div class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
+                        <div class="space-y-4 flex-1">
+                            <div class="aspect-video bg-neutral-900 rounded-2xl overflow-hidden img-hover-zoom border border-neutral-800">
+                                <img src="assets/glass-huma.webp" alt="glass human artwork" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="text-[11px] font-mono text-amber-400 uppercase tracking-wider block">Glyndebourne Opera (2022)</span>
+                                <h3 class="text-2xl font-serif text-neutral-100 mt-1">glass human</h3>
+                                <p class="text-xs text-neutral-400 font-mono mt-0.5">3 Singers, 5 Players & Electronics | 50 mins</p>
+                            </div>
+                             <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">
+                                Chamber opera created with librettist Melanie Wilson for Glyndebourne. Three isolated voices find their way towards each other, charting a journey from loneliness to connection.
+                            </p>
+                             <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
+                                <span class="text-amber-300 font-semibold block uppercase">Creative Team:</span>
+                                <p>Libretto: Melanie Wilson | Director: Lucy Bailey | Cast: Anna Cavaliero, Camille Maalawy, Denver Martin Smith</p>
+                            </div>
+                        </div>
+                         <button onclick="openModal('glasshuman')" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
+                            View Full Project Details
+                        </button>
+                    </div>
+
+                    <!-- Project 3: Current, Rising -->
+                    <div class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
+                        <div class="space-y-4 flex-1">
+                            <div class="aspect-video bg-neutral-900 rounded-2xl overflow-hidden img-hover-zoom border border-neutral-800">
+                                <img src="assets/sam-3.webp" alt="Samantha Fernando" class="w-full h-full object-cover object-center">
+                            </div>
+                            <div>
+                                <span class="text-[11px] font-mono text-amber-400 uppercase tracking-wider block">Royal Opera House (2021)</span>
+                                <h3 class="text-2xl font-serif text-neutral-100 mt-1">Current, Rising</h3>
+                                <p class="text-xs text-neutral-400 font-mono mt-0.5">Soprano, CHROMA & VR Electronics | 15 mins</p>
+                            </div>
+                             <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">
+                                World-first hyper-reality opera produced by ROH & Figment Productions. Blending stagecraft with CG technology, placing the audience at the center of the performance.
+                            </p>
+                             <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
+                                <span class="text-amber-300 font-semibold block uppercase">Creative Team:</span>
+                                <p>Director: Netia Jones | Soprano: Anna Dennis | Ensemble: CHROMA | CGI: Figment Productions</p>
+                            </div>
+                        </div>
+                         <button onclick="openModal('currentrising')" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
+                            View Full Project Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: WORKS LIST ================= -->
+        <section id="tab-works" class="tab-content space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-800 pb-6">
+                <div>
+                    <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Catalogue of Compositions</span>
+                    <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Works List</h2>
+                    <p class="text-neutral-400 text-sm mt-1">Full repertoire categorized by instrumentation and scale.</p>
+                </div>
+
+                <div class="relative w-full md:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-xs"></i>
+                    <input type="text" id="worksSearchInput" oninput="filterWorks()" placeholder="Search title or instrumentation..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-amber-600 transition-colors">
+                </div>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+                <button onclick="setWorkCategory('all')" id="cat-all" class="cat-btn px-4 py-2 rounded-xl bg-amber-700 text-white font-medium transition-all">All Works</button>
+                <button onclick="setWorkCategory('chamber')" id="cat-chamber" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Solo & Chamber (1-4)</button>
+                <button onclick="setWorkCategory('ensemble')" id="cat-ensemble" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Large Ensemble (5+)</button>
+                <button onclick="setWorkCategory('vocal')" id="cat-vocal" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Vocal & Choral</button>
+                <button onclick="setWorkCategory('opera')" id="cat-opera" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Opera & Stage</button>
+                <button onclick="setWorkCategory('orchestral')" id="cat-orchestral" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Orchestral</button>
+            </div>
+
+            <!-- Works Container -->
+            <div id="worksContainer" class="space-y-4"></div>
+        </section>
+
+        <!-- ================= TAB 3: WATCH ================= -->
+        <section id="tab-watch" class="tab-content space-y-10">
+            <div class="border-b border-neutral-800 pb-6">
+                <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Video Films & Performances</span>
+                <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Watch</h2>
+                <p class="text-neutral-400 text-sm mt-1">Performance films, opera trailers, and documentations of Samantha Fernando's compositions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video 1: Sound Inhabitants -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/sam-2.webp" alt="Samantha Fernando at work in her studio" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <a href="https://www.youtube.com/watch?v=hirZmf8DoA4" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">London Sinfonietta Academy (2023)</span>
+                        <h3 class="text-xl font-serif text-neutral-100">Sound Inhabitants — Live Performance Film</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">
+                            Recorded as part of the London Sinfonietta Academy's "Musicians of Tomorrow" Concert at Purcell Room, Southbank Centre, co-produced with Folkestone New Music. Constructed out of contrasting blocks and rooms of sound.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video 2: Wintering Trailer -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/wintering.webp" alt="Wintering film trailer artwork" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                             <a href="https://www.youtube.com/watch?v=KXrYuIWLv60" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">Wigmore Hall Commission (2025)</span>
+                        <h3 class="text-xl font-serif text-neutral-100">Wintering — Film Trailer</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">
+                            Manchester Collective & The Marian Consort. Exploring Katherine May's concept of wintering—embracing life's fallow periods rather than resisting them.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video 3: glass human -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/glass-huma.webp" alt="glass human trailer artwork" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <button onclick="openModal('glasshuman')" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">Glyndebourne Chamber Opera (2022)</span>
+                        <h3 class="text-xl font-serif text-neutral-100">glass human — Production Insights</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">
+                            A chamber opera created with librettist Melanie Wilson for Glyndebourne, exploring human loneliness through three isolated voices finding resonance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video 4: Current, Rising -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/sam-6.webp" alt="Samantha Fernando working with a score" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <button onclick="openModal('currentrising')" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">Royal Opera House (2021)</span>
+                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising — Hyper-Reality Opera Experience</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">
+                            Behind the scenes and VR documentation of the world's first hyper-reality opera experience produced at the Royal Opera House, London.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video 5: Current, Rising creation -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/sam-3.webp" alt="Portrait of Samantha Fernando" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <a href="https://www.youtube.com/watch?v=AVXYPqdAYdY" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">Royal Opera House Insights (2021)</span>
+                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising — How it was created</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">
+                            A documentary featurette exploring the CGI, VR, and sound composition process.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video 6: Composer interview -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/sam-1.webp" alt="Portrait of Samantha Fernando" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <a href="https://www.youtube.com/watch?v=94EkZLEuKBA" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">London Sinfonietta</span>
+                        <h3 class="text-xl font-serif text-neutral-100">Samantha Fernando: The Composer's Mind</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">
+                            Interview feature exploring Samantha Fernando's compositional philosophy and process.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video 7: enoa community -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/sam-6.webp" alt="Samantha Fernando working with a score" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <a href="https://www.youtube.com/watch?v=b_w_uYmFwZ4" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">enoa community</span>
+                        <h3 class="text-xl font-serif text-neutral-100">Composition for Voice & Electronics</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Workshop final concert performance of experimental vocal and electronic work.</p>
+                    </div>
+                </div>
+
+                <!-- Video 8: 4 Klee Miniatures -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/sam-1.webp" alt="Samantha Fernando portrait" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <a href="https://www.youtube.com/watch?v=x2q25aBh48Y" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110"><i class="fa-solid fa-play ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="space-y-2"><span class="text-xs font-mono text-amber-400">Solo Horn (2021)</span><h3 class="text-xl font-serif text-neutral-100">4 Klee Miniatures</h3><p class="text-neutral-400 text-xs leading-relaxed">Performed by Deepa Goonetilleke / Trio Radial; inspired by Paul Klee.</p></div>
+                </div>
+
+                <!-- Video 9: Fault Line -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/sam-2.webp" alt="Samantha Fernando at work" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <a href="https://www.youtube.com/watch?v=k3jRJHzIu4Q" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110"><i class="fa-solid fa-play ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="space-y-2"><span class="text-xs font-mono text-amber-400">Solo Cello (2015)</span><h3 class="text-xl font-serif text-neutral-100">Fault Line</h3><p class="text-neutral-400 text-xs leading-relaxed">Solo cello performance by Louise McMonagle / Oliver Coates.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: LISTEN ================= -->
+        <section id="tab-listen" class="tab-content space-y-10">
+            <div class="border-b border-neutral-800 pb-6">
+                <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Audio Recordings</span>
+                <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Listen</h2>
+                <p class="text-neutral-400 text-sm mt-1">Studio recordings, broadcasts, and album tracks.</p>
+            </div>
+
+            <!-- Tracklist -->
+            <div class="glass-panel p-6 rounded-3xl border border-neutral-800 space-y-4">
+                <h3 class="text-lg font-serif text-neutral-100 border-b border-neutral-800 pb-3">Featured Audio Catalog</h3>
+                <p id="audioAvailabilityMessage" class="hidden text-sm text-amber-900 bg-amber-100 border border-amber-700/40 rounded-xl px-4 py-3" role="status"></p>
+
+                <div class="space-y-3">
+                    <div data-track="illuminations" onclick="playTrack('4 Illuminations', 'Xasax Saxophone Quartet', 'illuminations')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">4 Illuminations</h4>
+                                <p class="text-xs text-neutral-400">Saxophone Quartet — Performed by Xasax Saxophone Quartet at Royaumont Abbey</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500">8:08</span>
+                    </div>
+
+                    <div data-track="faultline" onclick="playTrack('Fault-Line', 'Oliver Coates (cello)', 'faultline')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Fault-Line</h4>
+                                <p class="text-xs text-neutral-400">Solo Cello — Performed by Oliver Coates (London Sinfonietta Commission)</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500">6:03</span>
+                    </div>
+
+                    <div data-track="recollections" onclick="playTrack('Recollections', 'Elsbeth Gerritsen & Eva Reiter', 'recollections')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Recollections</h4>
+                                <p class="text-xs text-neutral-400">Mezzo-soprano & Paetzold Contrabass Recorder — Elsbeth Gerritsen & Eva Reiter</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500">1:25</span>
+                    </div>
+
+                    <div data-track="kinesphere" onclick="playTrack('Kinesphere (excerpt)', 'Michael Cox (flute)', 'kinesphere')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere (excerpt)</h4>
+                                <p class="text-xs text-neutral-400">Solo Flute — Performed by Michael Cox (NMC Recordings)</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500">1:06</span>
+                    </div>
+
+                    <div data-track="balconies" onclick="playTrack('Balconies', 'Olivia de Prato (violin)', 'balconies')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Balconies</h4>
+                                <p class="text-xs text-neutral-400">Multi-tracked Solo Violin — Olivia de Prato (Panorama Album, New Focus Recordings)</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500">8:42</span>
+                    </div>
+
+                    <div data-track="3songs" onclick="playTrack('3 Songs for Soprano and Cello', 'Riot Ensemble', '3songs')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">3 Songs for Soprano and Cello</h4>
+                                <p class="text-xs text-neutral-400">Sarah Dacey (Soprano) & Louise McMonagle (Cello) — Riot Ensemble</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500">11:05</span>
+                    </div>
+
+                    <div data-track="crossing" onclick="playTrack('Everything Passes, Everything is Connected', 'The Crossing', 'crossing')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Everything Passes, Everything is Connected</h4>
+                                <p class="text-xs text-neutral-400">Unaccompanied Choir — Commissioned and performed by The Crossing (USA)</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500">7:15</span>
+                    </div>
+
+                    <div data-track="bbcsingers" onclick="playTrack('Have It All', 'BBC Singers', 'bbcsingers')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Have It All</h4>
+                                <p class="text-xs text-neutral-400">Unaccompanied Choir — BBC Singers (Broadcast on BBC Radio 3)</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-500">5:50</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recording availability note follows the listening options. -->
+            <div class="p-4 rounded-2xl bg-amber-100 border border-amber-700/40 text-amber-900 text-xs font-sans flex items-start gap-3">
+                <i class="fa-solid fa-circle-info text-amber-800 text-base mt-0.5"></i>
+                <div class="space-y-1">
+                    <p class="font-semibold text-amber-900">Recording Availability Notice:</p>
+                    <p class="text-amber-950 leading-relaxed">
+                        More tracks are available on Samantha's <a href="https://soundcloud.com" target="_blank" class="underline text-amber-950">SoundCloud page</a> and Spotify. Recordings exist for all compositions, but for rights reasons not all of these are hosted publicly online. Please <button onclick="switchTab('contact')" class="underline text-amber-950">contact Samantha directly</button> if you would like to request audio for specific unreleased works.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: WRITING ================= -->
+        <section id="tab-writing" class="tab-content space-y-12">
+            <div class="border-b border-neutral-800 pb-6">
+                <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Essays, Reflections & Research</span>
+                <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Writing</h2>
+                <p class="text-neutral-400 text-sm mt-1">Personal essays on creative process, composition, and artistic philosophy.</p>
+            </div>
+
+            <!-- Featured Article: On My Creative Process: 1. Wintering -->
+            <article class="glass-panel p-6 sm:p-10 rounded-3xl border border-neutral-800 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-800 pb-4">
+                    <div>
+                        <span class="text-xs font-mono text-amber-400 uppercase tracking-wider">Featured Essay</span>
+                        <h3 class="text-2xl sm:text-3xl font-serif text-neutral-100 mt-1">On My Creative Process: 1. Wintering</h3>
+                    </div>
+                    <span class="text-xs font-mono text-neutral-500">November 2025 • Photo ©️ Mike Skelton</span>
+                </div>
+
+                <div class="space-y-5 text-neutral-300 text-sm leading-relaxed font-serif font-light">
+                    <p class="text-base text-neutral-200 font-serif-italic">
+                        "Why do I write? What makes me start? Sometimes it's a book, sometimes a painting, a poem, or a place. Reflecting on my practice, I see there is always the impulse to respond to something or somewhere. It is an emotive impulse before it is a musical utterance..."
+                    </p>
+
+                    <p>
+                        When I began thinking about <em class="text-amber-300">Wintering</em>, I was reading Katherine May's book of the same title. Her reflections on human life and its natural cycles resonated deeply with me. Rather than pushing against the cold and darkness, could I find value in stillness and restoration?
+                    </p>
+
+                    <p>
+                        Scored for four voices (soprano, alto, tenor, and baritone) and string quartet, <em class="text-amber-300">Wintering</em> explores the tension between quiet introspection and the ever-present hum of the outside world. I was drawn to this ensemble for its rich potential—the voices not only convey text but also blur into the instrumental texture, becoming part of the quartet's fabric.
+                    </p>
+
+                    <p>
+                        The sound world is often hazy and ambiguous. At times, it evokes frozen landscapes and moments of stasis; at others, it reflects a restless, churning mind caught in the noise of modern urban life. One movement (IV) is hectic and even playful—an attempt to find stillness through meditation, yet thwarted by internal chatter.
+                    </p>
+
+                    <div class="p-5 rounded-2xl bg-neutral-900/80 border border-neutral-800 my-6 font-mono text-xs space-y-2">
+                        <span class="text-amber-400 font-bold uppercase block mb-1">Structure of Movements in Wintering:</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-neutral-300">
+                            <div>I. Vista</div>
+                            <div>II. Cloud Canvas 1</div>
+                            <div>III. Cloud Canvas 2</div>
+                            <div>IV. To Do: Do Less</div>
+                            <div>V. Snow on Snow</div>
+                            <div>VI. Cocoon</div>
+                        </div>
+                    </div>
+
+                    <p>
+                        <em class="text-amber-300">Wintering</em> moves through restlessness and retreat, ultimately leading the listener toward a place of stillness and quiet resilience in the turning of the seasons.
+                    </p>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- ================= TAB 6: CONTACT ================= -->
+        <section id="tab-contact" class="tab-content space-y-12">
+            <div class="border-b border-neutral-800 pb-6">
+                <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Get in Touch</span>
+                <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Contact & Score Hire</h2>
+                <p class="text-neutral-400 text-sm mt-1">For commissions, score hire inquiries, or performance notifications.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Direct Information Card -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-6">
+                        <img src="assets/sam-6.webp" alt="Samantha Fernando" class="w-full h-48 object-cover rounded-2xl border border-neutral-800">
+                        <h3 class="text-xl font-serif text-neutral-100">Direct Contact</h3>
+                        <p class="text-neutral-300 text-xs leading-relaxed">
+                            If you would like to contact Samantha about her compositions, score hire, performance materials, or academic research, please send a message or email directly:
+                        </p>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-mono text-neutral-500 block">Email Address</span>
+                                    <a href="mailto:sam@samanthafernando.com" class="text-sm font-medium text-amber-300 hover:underline">sam@samanthafernando.com</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-mono text-neutral-500 block">Academic Affiliation</span>
+                                    <span class="text-xs text-neutral-300">Department of Music, Royal Holloway, University of London</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-6 border-t border-neutral-800 space-y-2 text-xs">
+                            <span class="font-mono uppercase text-neutral-400 block">Score Availability</span>
+                            <p class="text-neutral-400 leading-relaxed">
+                                Performance scores for chamber, orchestral, and opera works are available upon request or via NMC Recordings and the British Music Collection.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7">
+                    <form onsubmit="handleContactSubmit(event)" class="glass-panel p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-6">
+                        <h3 class="text-xl font-serif text-neutral-100">Send a Message</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Your Name *</label>
+                                <input type="text" required placeholder="Name..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Email Address *</label>
+                                <input type="email" required placeholder="Email..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Inquiry Type</label>
+                            <select class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 focus:outline-none focus:border-amber-600 transition-colors">
+                                <option value="score">Score Hire / Purchase Request</option>
+                                <option value="commission">Composition Commission</option>
+                                <option value="performance">Performance Notification</option>
+                                <option value="general">General / Academic Inquiry</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Message *</label>
+                            <textarea required rows="5" placeholder="Specify work title or details..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-medium text-xs tracking-widest uppercase transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-paper-plane"></i> Send Inquiry Message
+                        </button>
+
+                        <div id="contactToast" class="hidden p-4 rounded-xl bg-emerald-950/80 border border-emerald-600/40 text-emerald-300 text-xs font-mono text-center">
+                            <i class="fa-solid fa-circle-check mr-2"></i> Message sent successfully! We will respond shortly.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Project Details Modal Overlay -->
+    <div id="modalOverlay" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 transition-opacity">
+        <div class="glass-panel w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl p-6 sm:p-8 border border-neutral-700 shadow-2xl relative space-y-6">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-neutral-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <div id="videoModalOverlay" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="w-full max-w-4xl relative">
+            <button onclick="closeVideoModal()" class="absolute -top-10 right-0 text-neutral-300 hover:text-white text-xl" aria-label="Close video">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="aspect-video rounded-2xl overflow-hidden border border-neutral-700 bg-black shadow-2xl">
+                <iframe id="videoFrame" class="w-full h-full" title="Embedded YouTube video" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <p id="videoModalTitle" class="text-sm text-neutral-300 font-serif mt-3"></p>
+        </div>
+    </div>
+
+    <!-- Global Footer -->
+    <footer class="border-t border-neutral-800/80 bg-neutral-950/80 py-10 text-xs text-neutral-500 font-mono mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <p class="text-neutral-300 font-medium font-display tracking-wider uppercase text-sm">Samantha Fernando</p>
+                <p class="text-neutral-500 mt-1">© <span id="currentYear"></span> Samantha Fernando. All rights reserved.</p>
+            </div>
+
+            <div class="flex items-center space-x-6 text-neutral-400">
+                <a href="https://soundcloud.com" target="_blank" rel="noopener" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-soundcloud text-base"></i></a>
+                <a href="https://www.nmcrec.co.uk" target="_blank" rel="noopener" class="hover:text-amber-400 transition-colors font-sans text-xs uppercase font-semibold">NMC Profile</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Complete Works List Data
+        const worksData = [
+            // Solo / Chamber (1-4 players)
+            { id: 1, title: 'Balconies', year: 2023, category: 'chamber', instrumentation: 'Solo violin (multi-tracked or ensemble of 5 violins)', duration: '8 mins', details: 'Commissioned by Olivia de Prato for her album Panorama (2023, New Focus Recordings).', badge: 'Solo Violin' },
+            { id: 2, title: '4 Klee Miniatures', year: 2021, category: 'chamber', instrumentation: 'Solo horn', duration: '6 mins', details: 'Commissioned by Deepa Goonetilleke.', badge: 'Solo Horn' },
+            { id: 3, title: 'The Way Home', year: 2018, category: 'vocal', instrumentation: 'Soprano, cello & piano', duration: '9 mins', details: 'Commissioned by Kettle\'s Yard, premiered June 2018.', badge: 'Chamber Vocal' },
+            { id: 4, title: 'Fault-Line', year: 2015, category: 'chamber', instrumentation: 'Solo cello', duration: '6 mins', details: 'Commissioned by London Sinfonietta, premiered at Peckham Asylum (June 2015).', badge: 'Solo Cello' },
+            { id: 5, title: 'Kinesphere', year: 2013, category: 'chamber', instrumentation: 'Solo flute', duration: '6 mins', details: 'Commissioned by London Sinfonietta, premiered at Purcell Room. Released on NMC Recordings.', badge: 'NMC Recording' },
+             { id: 6, title: '4 Illuminations', year: 2012, category: 'chamber', instrumentation: 'Saxophone quartet', duration: '8 mins', details: 'Premiered at Royaumont Abbey, France, by the Xasax Quartet.', badge: 'Saxophone Quartet' },
+            { id: 7, title: 'Sissay Settings', year: 2016, category: 'vocal', instrumentation: 'Soprano and piano', duration: '7 mins', details: 'Settings of poetry by Lemn Sissay. Commissioned by York Late Music.', badge: 'Soprano & Piano' },
+            { id: 8, title: 'Look Up', year: 2014, category: 'vocal', instrumentation: '4 voices, bass viol & electronics', duration: '12 mins', details: 'Commissioned by LOD Music Theatre & Silbersee vocal ensemble (Ghent).', badge: 'Stage / Vocal' },
+            { id: 9, title: 'Ganymede', year: 2014, category: 'vocal', instrumentation: 'Tenor and piano', duration: '5 mins', details: 'Commissioned by Oxford Lieder Festival at Holywell Music Room.', badge: 'Oxford Lieder' },
+            { id: 10, title: '3 Songs for Soprano and Cello', year: 2014, category: 'vocal', instrumentation: 'Soprano and cello', duration: '11 mins', details: 'Recorded and released by Riot Ensemble (Sarah Dacey & Louise McMonagle, 2020).', badge: 'Riot Ensemble' },
+            { id: 11, title: 'Square of Light', year: 2013, category: 'vocal', instrumentation: 'Soprano and piano', duration: '4 mins', details: 'Chamber vocal settings.', badge: 'Vocal' },
+             { id: 12, title: 'War Without End', year: 2009, category: 'vocal', instrumentation: 'Baritone and piano', duration: '8 mins', details: 'Text by Euan Ferguson. Commissioned by London Sinfonietta & Opera Genesis.', badge: 'Kings Place' },
+
+            // Large Ensemble (5+ players)
+            { id: 13, title: 'Wintering', year: 2025, category: 'vocal', instrumentation: 'SATB + String Quartet', duration: '27 mins', details: 'Commissioned by Wigmore Hall. Premiered by Manchester Collective & The Marian Consort.', badge: 'Wigmore Hall Commission' },
+            { id: 14, title: 'Sound Inhabitants', year: 2023, category: 'ensemble', instrumentation: '15 players (fl, cl, ob, bsn, hn, tpt, trb, perc, hp, pno, 2vlns, vla, vc, db)', duration: '12 mins', details: 'Commissioned and premiered by London Sinfonietta at Purcell Room.', badge: 'London Sinfonietta' },
+            { id: 15, title: 'Breathing Forest', year: 2022, category: 'vocal', instrumentation: 'Solo soprano, strings and percussion', duration: '15 mins', details: 'Commissioned by Birmingham Contemporary Music Group (BCMG) & Anna Dennis.', badge: 'BCMG Commission' },
+            { id: 16, title: 'Formations', year: 2018, category: 'ensemble', instrumentation: '15 players', duration: '10 mins', details: 'Commissioned for London Sinfonietta 50th Anniversary at Royal Festival Hall (dir. Vladimir Jurowski).', badge: 'Royal Festival Hall' },
+            { id: 17, title: 'Positive/Negative Space', year: 2013, category: 'ensemble', instrumentation: 'Flute, clarinet, alto saxophone & cello', duration: '8 mins', details: 'RPS Composition Prize commission. Premiered by London Sinfonietta.', badge: 'RPS Award' },
+            { id: 18, title: 'Shadows on Shadows', year: 2010, category: 'ensemble', instrumentation: 'Solo double bass & string ensemble (2vlns, 2vlas, 2vcs)', duration: '9 mins', details: 'Premiered at Christ Church Cathedral, Oxford.', badge: 'String Ensemble' },
+
+            // Opera & Stage
+            { id: 19, title: 'glass human', year: 2022, category: 'opera', instrumentation: '3 singers, 5 players & electronics', duration: '50 mins', details: 'Chamber opera created with Melanie Wilson. Premiered at Glyndebourne.', badge: 'Glyndebourne Opera' },
+            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble CHROMA & electronics', duration: '15 mins', details: 'Hyper-reality opera experience produced by Royal Opera House & Figment Productions.', badge: 'Royal Opera House' },
+
+            // Choral
+            { id: 21, title: 'Everything Passes, Everything is Connected', year: 2021, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '7 mins', details: 'Commissioned and premiered by The Crossing (USA).', badge: 'The Crossing' },
+            { id: 22, title: 'Have It All', year: 2020, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '6 mins', details: 'Commissioned by the BBC Singers, broadcast on BBC Radio 3.', badge: 'BBC Singers' },
+            { id: 23, title: 'Change', year: 2009, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '5 mins', details: 'Selected by John Armitage Memorial, performed by Chapel Choir of Selwyn College Cambridge.', badge: 'Choral' },
+
+            // Orchestral
+            { id: 24, title: 'Breathing Space', year: 2019, category: 'orchestral', instrumentation: 'Symphony Orchestra', duration: '12 mins', details: 'Commissioned by the Philharmonia Orchestra, conducted by Martyn Brabbins.', badge: 'Philharmonia' },
+             { id: 25, title: 'Echo of a Woman', year: 2018, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '14 mins', details: 'Commissioned by Royal Holloway University Symphony Orchestra.', badge: 'Soprano & Orchestra' }
+            ,{ id: 26, title: 'Glimmer', year: 2011, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '10 mins', details: 'Premiered by Lux Orchestra.', badge: 'Orchestral' }
+        ];
+
+        let activeCategory = 'all';
+
+        // Tab Switching Handler
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-amber-400', 'border-amber-400');
+                btn.classList.add('text-neutral-400', 'border-transparent');
+            });
+
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            const activeNavBtn = document.getElementById(`nav-${tabId}`);
+            if (activeNavBtn) {
+                activeNavBtn.classList.remove('text-neutral-400', 'border-transparent');
+                activeNavBtn.classList.add('text-amber-400', 'border-amber-400');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Works List Renderer
+        function renderWorks() {
+            const container = document.getElementById('worksContainer');
+            const searchVal = document.getElementById('worksSearchInput').value.toLowerCase();
+
+            const filtered = worksData.filter(w => {
+                const matchesCategory = activeCategory === 'all' || w.category === activeCategory;
+                const matchesSearch = w.title.toLowerCase().includes(searchVal) || 
+                                      w.instrumentation.toLowerCase().includes(searchVal) ||
+                                      w.badge.toLowerCase().includes(searchVal);
+                return matchesCategory && matchesSearch;
+            }).sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-panel p-8 text-center text-neutral-500 font-mono text-xs rounded-2xl">
+                        No compositions found matching your search query.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(w => `
+                <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 group">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-mono text-amber-400">${w.year}</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-300 text-[10px] font-mono">${w.badge}</span>
+                            <span class="text-xs font-mono text-neutral-500">${w.duration}</span>
+                        </div>
+                        <h3 class="text-lg font-serif text-neutral-100 group-hover:text-amber-300 transition-colors">${w.title}</h3>
+                        <p class="text-xs text-neutral-400">${w.instrumentation}</p>
+                        <p class="text-xs text-neutral-500 font-serif-italic pt-1">${w.details}</p>
+                    </div>
+
+                    <div class="flex items-center gap-2 pt-2 md:pt-0">
+                        <button onclick="requestScore('${w.title}')" class="px-3.5 py-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors">
+                            Score Request
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setWorkCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-700', 'text-white');
+                btn.classList.add('bg-neutral-900', 'text-neutral-400');
+            });
+            const activeBtn = document.getElementById(`cat-${cat}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-neutral-900', 'text-neutral-400');
+                activeBtn.classList.add('bg-amber-700', 'text-white');
+            }
+            renderWorks();
+        }
+
+        function filterWorks() {
+            renderWorks();
+        }
+
+        // SoundCloud playback for Samantha Fernando's published recordings.
+        let isAudioPlaying = false;
+        let currentTrackName = 'Fault Line · Oliver Coates (cello)';
+        let currentTrackUrl = 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A236811796';
+        let currentTrackId = 'faultline';
+        const soundcloudPlayer = SC.Widget(document.getElementById('soundcloudPlayer'));
+        const soundcloudTracks = {
+            illuminations: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A105152235',
+            faultline: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A236811796',
+            recollections: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A125817887',
+            kinesphere: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A332996028',
+            balconies: null,
+            '3songs': null,
+            crossing: null,
+            bbcsingers: null
+        };
+
+        soundcloudPlayer.bind(SC.Widget.Events.PLAY, () => setPlaybackState(true));
+        soundcloudPlayer.bind(SC.Widget.Events.PAUSE, () => setPlaybackState(false));
+        soundcloudPlayer.bind(SC.Widget.Events.FINISH, () => setPlaybackState(false));
+        soundcloudPlayer.bind(SC.Widget.Events.ERROR, () => showTrackUnavailable());
+
+        function toggleAmbientAudio() {
+            const waveContainer = document.getElementById('waveContainer');
+            document.getElementById('soundbarLabel').textContent = currentTrackName;
+
+            if (!isAudioPlaying) {
+                soundcloudPlayer.play();
+            } else {
+                soundcloudPlayer.pause();
+            }
+        }
+
+        function setPlaybackState(playing) {
+            isAudioPlaying = playing;
+            const activeTrack = document.querySelector(`[data-track="${currentTrackId}"]`);
+            document.querySelectorAll('[data-track] .fa-play, [data-track] .fa-pause').forEach(icon => {
+                icon.className = 'fa-solid fa-play text-xs';
+            });
+
+            if (playing && activeTrack) {
+                activeTrack.querySelector('.fa-play').className = 'fa-solid fa-pause text-xs';
+            }
+
+            if (playing) {
+                document.getElementById('waveContainer').classList.remove('paused');
+                document.getElementById('soundStatusIcon').className = 'fa-solid fa-pause text-sm';
+                document.getElementById('soundbar').classList.remove('hidden');
+                return;
+            }
+
+            document.getElementById('waveContainer').classList.add('paused');
+            document.getElementById('soundStatusIcon').className = 'fa-solid fa-play text-sm';
+            document.getElementById('soundbar').classList.add('hidden');
+        }
+
+        function showTrackUnavailable() {
+            setPlaybackState(false);
+            const notice = document.getElementById('audioAvailabilityMessage');
+            notice.classList.remove('hidden');
+            notice.textContent = 'This recording is not currently available to embed from SoundCloud.';
+        }
+
+        function playTrack(title, artist, id) {
+            const trackUrl = soundcloudTracks[id];
+            const notice = document.getElementById('audioAvailabilityMessage');
+
+            if (id === currentTrackId && isAudioPlaying) {
+                soundcloudPlayer.pause();
+                return;
+            }
+
+            if (!trackUrl) {
+                notice.textContent = `${title} does not yet have a verified embeddable SoundCloud source.`;
+                notice.classList.remove('hidden');
+                return;
+            }
+
+            currentTrackName = `${title} · ${artist}`;
+            currentTrackUrl = trackUrl;
+            currentTrackId = id;
+            document.getElementById('soundbarLabel').textContent = currentTrackName;
+            notice.classList.add('hidden');
+            soundcloudPlayer.load(currentTrackUrl, { auto_play: true });
+        }
+
+        // Modal Controls
+        function openModal(type) {
+            const overlay = document.getElementById('modalOverlay');
+            const content = document.getElementById('modalContent');
+
+            if (type === 'glasshuman') {
+                content.innerHTML = `
+                    <span class="text-xs font-mono text-amber-400 uppercase block mb-1">Glyndebourne Chamber Opera</span>
+                    <h2 class="text-2xl font-serif text-neutral-100 mb-2">glass human (2022)</h2>
+                    <p class="text-xs text-neutral-400 font-mono mb-4">Libretto: Melanie Wilson | Director: Lucy Bailey</p>
+                    <p class="text-sm text-neutral-300 leading-relaxed mb-4">
+                        Three lonely people live isolated lives in a tower block: Grace, a geology student; Oma, a Syrian refugee waiting for leave to remain; and Edward, bereaved and experiencing the early effects of dementia. A mysterious sound draws them outside to a sinkhole, where they face their deepest wounds and find connection.
+                    </p>
+                    <div class="space-y-2 text-xs text-neutral-300 font-mono bg-neutral-900 p-4 rounded-xl border border-neutral-800 my-4">
+                        <p class="text-amber-400 font-semibold">Cast & Instrumentalists:</p>
+                        <p>• Grace (Soprano) — Anna Cavaliero</p>
+                        <p>• Oma (Mezzo-Soprano) — Camille Maalawy</p>
+                        <p>• Edward (Baritone) — Denver Martin Smith</p>
+                        <p class="text-neutral-400 pt-2 border-t border-neutral-800">Instrumentation: Viola (Daisy Spiers), Cello (Rosie Banks Francis), Harp (Sue Blair), Accordion (Iñigo Mikeleiz Berrade), Percussion (Cameron Sinclair) & Live Electronics.</p>
+                    </div>
+                    <button onclick="requestScore('glass human')" class="w-full py-2.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-mono text-xs transition-colors">Request Score / Materials</button>
+                `;
+            } else if (type === 'wintering') {
+                content.innerHTML = `
+                    <span class="text-xs font-mono text-amber-400 uppercase block mb-1">Wigmore Hall Commission (2025)</span>
+                    <h2 class="text-2xl font-serif text-neutral-100 mb-2">Wintering</h2>
+                    <p class="text-xs text-neutral-400 font-mono mb-4">SATB Chorus + String Quartet | 27 mins</p>
+                    <p class="text-sm text-neutral-300 leading-relaxed mb-4">
+                        Commissioned by Wigmore Hall and performed by Manchester Collective and The Marian Consort. Inspired by Katherine May's book of the same title, exploring human retreat, quiet introspection, and seasonal cycles.
+                    </p>
+                    <div class="p-4 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono space-y-1 text-neutral-300 my-4">
+                        <span class="text-amber-400 font-semibold block mb-2">Movements:</span>
+                        <p>I. Vista</p>
+                        <p>II. Cloud Canvas 1</p>
+                        <p>III. Cloud Canvas 2</p>
+                        <p>IV. To Do: Do Less</p>
+                        <p>V. Snow on Snow</p>
+                        <p>VI. Cocoon</p>
+                    </div>
+                    <button onclick="requestScore('Wintering')" class="w-full py-2.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-mono text-xs transition-colors">Request Score / Materials</button>
+                `;
+            } else if (type === 'currentrising') {
+                content.innerHTML = `
+                    <span class="text-xs font-mono text-amber-400 uppercase block mb-1">Royal Opera House Hyper-Reality Opera</span>
+                    <h2 class="text-2xl font-serif text-neutral-100 mb-2">Current, Rising (2021)</h2>
+                    <p class="text-xs text-neutral-400 font-mono mb-4">Hyper-reality Opera Experience | 15 mins</p>
+                    <p class="text-sm text-neutral-300 leading-relaxed mb-4">
+                        Produced by the Royal Opera House and Figment Productions. A world-first hyper-reality opera experience combining virtual reality with a multisensory physical set. It invites audiences to step into an atmospheric virtual world carried musically by a poem layered in song.
+                    </p>
+                    <div class="p-4 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono space-y-1 text-neutral-300 my-4">
+                        <span class="text-amber-400 font-semibold block mb-1">Creative Team & Performers:</span>
+                        <p>Director: Netia Jones | Designer & CG Art Director: Joanna Scotcher</p>
+                        <p>Writer / Librettist: Melanie Wilson | Sound Designer: David Sheppard</p>
+                        <p>Movement: Anna Morrisey | Lighting: Zoe Spurr | CGI & Software: Figment Productions</p>
+                        <p>Soprano: Anna Dennis | Ensemble: CHROMA | Conductor: Richard Baker</p>
+                        <p>Recording Engineer: David Lefeber</p>
+                    </div>
+                    <button onclick="requestScore('Current, Rising')" class="w-full py-2.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-mono text-xs transition-colors">Request Score / Materials</button>
+                `;
+            }
+
+            overlay.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.add('hidden');
+        }
+
+        function openVideoModal(url, title) {
+            const videoId = new URL(url).searchParams.get('v');
+            if (!videoId) return;
+            document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            document.getElementById('videoModalTitle').textContent = title || 'YouTube video';
+            const overlay = document.getElementById('videoModalOverlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
+
+        function closeVideoModal() {
+            const overlay = document.getElementById('videoModalOverlay');
+            document.getElementById('videoFrame').src = '';
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
+        }
+
+        function requestScore(title) {
+            closeModal();
+            switchTab('contact');
+            const msgBox = document.querySelector('textarea');
+            if (msgBox) {
+                msgBox.value = `Hello Samantha, I am interested in acquiring/renting score and performance materials for: ${title}.`;
+            }
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const toast = document.getElementById('contactToast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                e.target.reset();
+            }, 4000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const themeBtn = document.getElementById('themeToggleBtn');
+            if (document.body.classList.contains('light-mode')) {
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon text-sm"></i>';
+                themeBtn.title = 'Switch to dark mode';
+            } else {
+                themeBtn.innerHTML = '<i class="fa-solid fa-sun text-sm"></i>';
+                themeBtn.title = 'Switch to light mode';
+            }
+        }
+
+        function toggleMobilePreview() {
+            const isPreview = document.body.classList.toggle('mobile-preview');
+            const previewBtn = document.getElementById('mobilePreviewBtn');
+            previewBtn.title = isPreview ? 'Switch to desktop layout' : 'Switch to mobile preview';
+            previewBtn.setAttribute('aria-label', previewBtn.title);
+            previewBtn.classList.toggle('text-amber-400', isPreview);
+            previewBtn.classList.toggle('text-neutral-400', !isPreview);
+        }
+
+        function unlockSite(event) {
+            event.preventDefault();
+            const password = document.getElementById('sitePassword').value;
+            const error = document.getElementById('sitePasswordError');
+
+            if (password === 'verysecretsite') {
+                document.body.classList.remove('site-locked');
+                document.getElementById('sitePasswordGate').classList.add('hidden');
+                sessionStorage.setItem('siteUnlocked', 'true');
+                return;
+            }
+
+            error.textContent = 'Incorrect password.';
+            document.getElementById('sitePassword').select();
+        }
+
+        window.onload = function() {
+            if (sessionStorage.getItem('siteUnlocked') === 'true') {
+                document.body.classList.remove('site-locked');
+                document.getElementById('sitePasswordGate').classList.add('hidden');
+            }
+            renderWorks();
+            document.querySelectorAll('#tab-watch a[href*="youtube.com/watch"]').forEach(link => {
+                link.addEventListener('click', event => {
+                    event.preventDefault();
+                    openVideoModal(link.href, link.closest('.glass-panel')?.querySelector('h3')?.textContent);
+                });
+            });
+        };
+    </script>
+</body>
+</html>

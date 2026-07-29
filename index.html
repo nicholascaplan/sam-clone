@@ -314,7 +314,17 @@
         body.mobile-preview #ambientSoundBtn .text-sm { font-size: 0.75rem; }
         body.mobile-preview header nav.hidden { display: none; }
         body.mobile-preview #mobileMenuToggle { display: inline-flex !important; }
-        body.mobile-preview #mobileMenu:not(.hidden) { display: block !important; position: relative; z-index: 55; }
+        body.mobile-preview #mobileMenu:not(.hidden) {
+            display: block !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 55;
+            background: #f4f0e8;
+            border-bottom: 1px solid rgba(24, 33, 31, 0.2);
+            box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14);
+        }
         body.mobile-preview .grid-cols-1.lg\:grid-cols-12,
         body.mobile-preview .grid-cols-1.lg\:grid-cols-3,
         body.mobile-preview .grid-cols-1.lg\:grid-cols-2,
@@ -342,6 +352,21 @@
         body.mobile-preview #featured-projects button,
         body.mobile-preview #tab-contact form button { width: 100%; }
         #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 12.5rem; }
+        @media (max-width: 767px) {
+            #mobilePreviewBtn { display: none; }
+            header { position: sticky; top: 0; }
+            #mobileMenu:not(.hidden) {
+                display: block !important;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                z-index: 55;
+                background: #f4f0e8;
+                border-bottom: 1px solid rgba(24, 33, 31, 0.2);
+                box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14);
+            }
+        }
     </style>
 </head>
 <body class="light-mode min-h-screen flex flex-col selection:bg-amber-800/30 selection:text-amber-200">
@@ -415,7 +440,7 @@
                 </button>
 
                 <!-- Mobile Navigation Toggle Button -->
-                <button id="mobileMenuToggle" onclick="toggleMobileMenu()" class="md:hidden p-2 text-neutral-300 hover:text-white text-lg">
+                <button id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden p-2 text-neutral-300 hover:text-white text-lg">
                     <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -1504,7 +1529,8 @@
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             const icon = document.getElementById('mobileMenuIcon');
-            if (menu.classList.contains('hidden')) {
+            const isClosed = menu.classList.contains('hidden');
+            if (isClosed) {
                 menu.classList.remove('hidden');
                 icon.classList.remove('fa-bars');
                 icon.classList.add('fa-xmark');
@@ -1513,6 +1539,7 @@
                 icon.classList.remove('fa-xmark');
                 icon.classList.add('fa-bars');
             }
+            document.getElementById('mobileMenuToggle').setAttribute('aria-expanded', String(isClosed));
         }
 
         function toggleTheme() {

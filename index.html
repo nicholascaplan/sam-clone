@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samantha Fernando — Composer</title>
+    <link rel="preload" as="image" href="assets/sam-1.webp" fetchpriority="high">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -223,6 +224,7 @@
         body.mobile-preview { background: #242522; }
         body.light-mode.mobile-preview { background: #d8d3ca; }
         body.site-locked > *:not(#sitePasswordGate) { display: none !important; }
+        body:not(.site-locked) #sitePasswordGate { display: none; }
         #sitePasswordGate {
             position: fixed;
             inset: 0;
@@ -271,24 +273,33 @@
             margin-right: auto;
             box-shadow: 0 0 0 1px rgba(24, 33, 31, 0.12), 0 0 2rem rgba(0, 0, 0, 0.18);
         }
+        body.light-mode.mobile-preview > main,
+        body.light-mode.mobile-preview > header,
+        body.light-mode.mobile-preview > footer { background-color: #f4f0e8 !important; }
         body.mobile-preview > header { position: sticky; }
         body.mobile-preview .max-w-7xl { max-width: 100%; }
         body.mobile-preview header > div,
         body.mobile-preview main,
         body.mobile-preview footer > div { padding-left: 1rem; padding-right: 1rem; }
         body.mobile-preview header > div { height: 5rem; }
+        body.mobile-preview #tab-bio { gap: 2.5rem; }
+        body.mobile-preview main { padding-top: 1.5rem; padding-bottom: 2rem; }
+        body.mobile-preview #tab-bio > .grid:first-child { gap: 1rem; }
+        body.mobile-preview #tab-bio > .grid:first-child > .lg\:col-span-7 { gap: 1rem; }
         body.mobile-preview header > div { gap: 0.5rem; }
-        body.mobile-preview header > div > a { min-width: 0; }
-        body.mobile-preview header > div > a span:first-child { font-size: 1rem; letter-spacing: 0.08em; }
+        body.mobile-preview header > div > a { min-width: 0; flex: 1 1 auto; overflow: hidden; }
+        body.mobile-preview header > div > a span:first-child { display: block; white-space: nowrap; font-size: 0.78rem; letter-spacing: 0.055em; }
         body.mobile-preview header > div > a span:last-child { font-size: 0.625rem; }
-        body.mobile-preview header > div > div { min-width: 0; gap: 0.25rem; }
+        body.mobile-preview header > div > div { min-width: 0; flex: 0 0 auto; margin-left: auto; gap: 0.15rem; }
+        body.mobile-preview header > div > div > * { margin-left: 0 !important; margin-right: 0 !important; }
         body.mobile-preview #themeToggleBtn,
         body.mobile-preview #mobilePreviewBtn,
         body.mobile-preview #mobileMenuToggle { flex: 0 0 2.25rem; width: 2.25rem; height: 2.25rem; padding: 0.5rem; }
-        body.mobile-preview #ambientSoundBtn { flex: 0 0 auto; padding-left: 0.65rem; padding-right: 0.65rem; }
+        body.mobile-preview #ambientSoundBtn { flex: 0 0 auto; padding-left: 0.55rem; padding-right: 0.55rem; }
         body.mobile-preview #ambientSoundBtn .text-sm { font-size: 0.75rem; }
         body.mobile-preview header nav.hidden { display: none; }
         body.mobile-preview #mobileMenuToggle { display: inline-flex !important; }
+        body.mobile-preview #mobileMenu:not(.hidden) { display: block !important; position: relative; z-index: 55; }
         body.mobile-preview .grid-cols-1.lg\:grid-cols-12,
         body.mobile-preview .grid-cols-1.lg\:grid-cols-3,
         body.mobile-preview .grid-cols-1.lg\:grid-cols-2,
@@ -305,9 +316,29 @@
         body.mobile-preview .sm\:text-5xl { font-size: 2.25rem; }
         body.mobile-preview .sm\:text-3xl { font-size: 1.875rem; }
         body.mobile-preview #soundbar { max-width: calc(100% - 2rem); }
+        body.mobile-preview #tab-bio .lg\:col-span-5 img { height: 16rem; }
+        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; }
+        body.mobile-preview #tab-bio .lg\:col-span-2 + div > div,
+        body.mobile-preview #tab-bio .lg\:col-span-2 ~ div > div { width: 100%; }
+        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-2 > div { width: 100%; }
+        body.mobile-preview #bioCredentials { display: none; }
+        body.mobile-preview .cat-btn,
+        body.mobile-preview #worksContainer button,
+        body.mobile-preview #featured-projects button,
+        body.mobile-preview #tab-contact form button { width: 100%; }
+        #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 12.5rem; }
     </style>
 </head>
-<body class="site-locked light-mode min-h-screen flex flex-col selection:bg-amber-800/30 selection:text-amber-200">
+<body class="light-mode min-h-screen flex flex-col selection:bg-amber-800/30 selection:text-amber-200">
+    <script>
+        // Keep local development friction-free; only gate the published GitHub Pages site.
+        const isDeployedSite = window.location.hostname === 'nicholascaplan.github.io';
+        if (isDeployedSite) {
+            document.body.classList.add('site-locked');
+        } else {
+            document.body.classList.remove('site-locked');
+        }
+    </script>
     <div id="sitePasswordGate" role="dialog" aria-labelledby="sitePasswordTitle">
         <form onsubmit="unlockSite(event)">
             <h1 id="sitePasswordTitle" class="text-2xl font-serif">Private site</h1>
@@ -404,8 +435,11 @@
                     <div class="absolute -inset-1 bg-gradient-to-r from-amber-700/20 to-neutral-700/20 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition duration-1000"></div>
                     <div class="relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl img-hover-zoom">
                         <img src="assets/sam-1.webp" 
-                             alt="Samantha Fernando portrait" 
-                             class="w-full h-[480px] object-cover object-center">
+                              alt="Samantha Fernando portrait" 
+                              class="w-full h-[480px] object-cover object-center"
+                              loading="eager"
+                              fetchpriority="high"
+                              decoding="async">
                         <div class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
                             <p class="text-xs text-neutral-300 font-mono">Samantha Fernando</p>
                         </div>
@@ -427,7 +461,7 @@
                         Samantha Fernando (b. 1984) is a British composer whose work is centred on an exploration of timbre, space, and the unfolding of sound. She is drawn to ideas of landscape, architecture, and place.
                     </p>
 
-                    <div class="pt-2 flex flex-wrap gap-4 text-xs font-mono">
+                    <div id="bioCredentials" class="pt-2 flex flex-wrap gap-4 text-xs font-mono">
                         <div class="px-4 py-2 rounded-lg bg-neutral-900/80 border border-neutral-800 text-neutral-300">
                             <span class="text-amber-400 font-semibold block text-sm">RPS Prize Winner</span>
                             Royal Philharmonic Society Composition Award
@@ -444,6 +478,9 @@
                         </button>
                         <button onclick="switchTab('watch')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
                             Watch Performances
+                        </button>
+                        <button onclick="switchTab('contact')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
+                            Get in Touch
                         </button>
                     </div>
                 </div>
@@ -1496,7 +1533,7 @@
         }
 
         window.onload = function() {
-            if (sessionStorage.getItem('siteUnlocked') === 'true') {
+            if (isDeployedSite && sessionStorage.getItem('siteUnlocked') === 'true') {
                 document.body.classList.remove('site-locked');
                 document.getElementById('sitePasswordGate').classList.add('hidden');
             }

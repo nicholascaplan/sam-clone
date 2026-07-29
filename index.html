@@ -152,6 +152,9 @@
         }
         [data-tooltip]:hover::after,
         [data-tooltip]:focus-visible::after { opacity: 1; transform: none; }
+        @media (hover: none) {
+            [data-tooltip]::after { display: none; }
+        }
         #soundbar { transition: opacity 0.3s ease, transform 0.3s ease; }
         #soundbar.hidden { display: none; }
         .soundcloud-player { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
@@ -358,6 +361,11 @@
         body.mobile-preview #featured-projects button,
         body.mobile-preview #tab-contact form button { width: 100%; }
         #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 12.5rem; }
+        @media (min-width: 641px) {
+            #bioCredentials { gap: 0.75rem; }
+            #bioCredentials > div { padding: 0.6rem 0.8rem; font-size: 0.7rem; }
+            #bioCredentials > div span { font-size: 0.8rem; }
+        }
         @media (max-width: 767px) {
             #mobilePreviewBtn { display: none; }
             header { position: sticky; top: 0; }
@@ -459,12 +467,12 @@
 
         <!-- Mobile Navigation Drawer -->
         <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider uppercase">
-            <button onclick="switchTab('bio'); toggleMobileMenu()" class="block w-full text-left py-2 text-amber-400">Biography</button>
-            <button onclick="switchTab('works'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
-            <button onclick="switchTab('watch'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Watch</button>
-            <button onclick="switchTab('listen'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen</button>
-            <button onclick="switchTab('writing'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Writing</button>
-            <button onclick="switchTab('contact'); toggleMobileMenu()" class="block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Contact</button>
+            <button data-mobile-nav="bio" onclick="switchTab('bio'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-amber-400 hover:text-amber-400">Biography</button>
+            <button data-mobile-nav="works" onclick="switchTab('works'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
+            <button data-mobile-nav="watch" onclick="switchTab('watch'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Watch</button>
+            <button data-mobile-nav="listen" onclick="switchTab('listen'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen</button>
+            <button data-mobile-nav="writing" onclick="switchTab('writing'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Writing</button>
+            <button data-mobile-nav="contact" onclick="switchTab('contact'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Contact</button>
         </div>
     </header>
 
@@ -1283,6 +1291,12 @@
                 activeNavBtn.classList.remove('text-neutral-400', 'border-transparent');
                 activeNavBtn.classList.add('text-amber-400', 'border-amber-400');
             }
+
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                const isActive = btn.dataset.mobileNav === tabId;
+                btn.classList.toggle('text-amber-400', isActive);
+                btn.classList.toggle('text-neutral-300', !isActive);
+            });
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }

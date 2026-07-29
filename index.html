@@ -10,6 +10,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -126,6 +127,10 @@
         #themeToggleBtn { width: 2.5rem; height: 2.5rem; display: inline-flex; align-items: center; justify-content: center; }
         #mobilePreviewBtn { width: 2.5rem; height: 2.5rem; display: inline-flex; align-items: center; justify-content: center; }
         #ambientSoundBtn { width: auto; justify-content: center; position: relative; }
+        .audio-track-play { flex: 0 0 2.5rem; width: 2.5rem; height: 2.5rem; aspect-ratio: 1; }
+        .audio-provider { position: absolute; top: 1rem; right: 1rem; width: 1.25rem; height: 1.25rem; display: inline-flex; align-items: center; justify-content: center; color: #8b8175; font-size: 0.78rem; }
+        .audio-duration { position: absolute; right: 1rem; bottom: 1rem; }
+        .audio-card-heading { display: block; }
         #waveContainer { display: none; }
         [data-tooltip] { position: relative; }
         [data-tooltip]::after {
@@ -158,6 +163,7 @@
         #soundbar { transition: opacity 0.3s ease, transform 0.3s ease; }
         #soundbar.hidden { display: none; }
         .soundcloud-player { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+        .spotify-player { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
         .light-mode .bg-amber-900\/30 {
             background-color: #dd5e3c !important;
             border-color: #b94a2e !important;
@@ -935,9 +941,9 @@
                 <p id="audioAvailabilityMessage" class="hidden text-sm text-amber-900 bg-amber-100 border border-amber-700/40 rounded-xl px-4 py-3" role="status"></p>
 
                 <div class="space-y-3">
-                    <div data-track="illuminations" onclick="playTrack('4 Illuminations', 'Xasax Saxophone Quartet', 'illuminations')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                    <div data-track="illuminations" onclick="playTrack('4 Illuminations', 'Xasax Saxophone Quartet', 'illuminations')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
                                 <i class="fa-solid fa-play text-xs"></i>
                             </div>
                             <div>
@@ -945,12 +951,12 @@
                                 <p class="text-xs text-neutral-400">Saxophone Quartet — Performed by Xasax Saxophone Quartet at Royaumont Abbey</p>
                             </div>
                         </div>
-                        <span class="text-xs font-mono text-neutral-500">8:08</span>
+                        <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">8:08</span>
                     </div>
 
-                    <div data-track="faultline" onclick="playTrack('Fault-Line', 'Oliver Coates (cello)', 'faultline')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                    <div data-track="faultline" onclick="playTrack('Fault-Line', 'Oliver Coates (cello)', 'faultline')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
                                 <i class="fa-solid fa-play text-xs"></i>
                             </div>
                             <div>
@@ -958,12 +964,12 @@
                                 <p class="text-xs text-neutral-400">Solo Cello — Performed by Oliver Coates (London Sinfonietta Commission)</p>
                             </div>
                         </div>
-                        <span class="text-xs font-mono text-neutral-500">6:03</span>
+                        <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:03</span>
                     </div>
 
-                    <div data-track="recollections" onclick="playTrack('Recollections', 'Elsbeth Gerritsen & Eva Reiter', 'recollections')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                    <div data-track="recollections" onclick="playTrack('Recollections', 'Elsbeth Gerritsen & Eva Reiter', 'recollections')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
                                 <i class="fa-solid fa-play text-xs"></i>
                             </div>
                             <div>
@@ -971,63 +977,48 @@
                                 <p class="text-xs text-neutral-400">Mezzo-soprano & Paetzold Contrabass Recorder — Elsbeth Gerritsen & Eva Reiter</p>
                             </div>
                         </div>
-                        <span class="text-xs font-mono text-neutral-500">1:25</span>
+                        <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:25</span>
                     </div>
 
-                    <div data-track="kinesphere" onclick="playTrack('Kinesphere (excerpt)', 'Michael Cox (flute)', 'kinesphere')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                    <div data-spotify-track="2wNL47uCuwDpbOqCIpbSTS" onclick="playSpotifyTrack('2wNL47uCuwDpbOqCIpbSTS')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs"></i>
+                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere (excerpt)</h4>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Balconies</h4>
+                                <p class="text-xs text-neutral-400">Multi-tracked Solo Violin — Olivia de Prato (Panorama Album, New Focus Recordings)</p>
+                            </div>
+                        </div>
+                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:53</span>
+                    </div>
+
+                    <div data-spotify-track="7lmUNPa9oAkmYwdo88guI4" onclick="playSpotifyTrack('7lmUNPa9oAkmYwdo88guI4')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere</h4>
                                 <p class="text-xs text-neutral-400">Solo Flute — Performed by Michael Cox (NMC Recordings)</p>
                             </div>
                         </div>
-                        <span class="text-xs font-mono text-neutral-500">1:06</span>
+                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">4:49</span>
                     </div>
 
-                    <div class="rounded-2xl bg-neutral-900/80 border border-neutral-800 p-4 space-y-3">
-                        <div>
-                            <h4 class="text-sm font-medium text-neutral-200">Balconies</h4>
-                            <p class="text-xs text-neutral-400">Multi-tracked Solo Violin — Olivia de Prato (Panorama Album, New Focus Recordings)</p>
-                        </div>
-                        <iframe data-testid="embed-iframe" class="w-full rounded-xl" src="https://open.spotify.com/embed/track/2wNL47uCuwDpbOqCIpbSTS?utm_source=generator&amp;si=928471cee6b242e2" height="152" frameborder="0" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                    </div>
-
-                    <div class="rounded-2xl bg-neutral-900/80 border border-neutral-800 p-4 space-y-3">
-                        <div>
-                            <h4 class="text-sm font-medium text-neutral-200">Spotify recording</h4>
-                            <p class="text-xs text-neutral-400">Additional recording</p>
-                        </div>
-                        <iframe data-testid="embed-iframe" class="w-full rounded-xl" src="https://open.spotify.com/embed/track/3YV79qjiJLOgYjjEzTsVEy?utm_source=generator&amp;si=03cafc8d75c74105" height="152" frameborder="0" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                    </div>
-
-                    <div data-track="crossing" onclick="playTrack('Everything Passes, Everything is Connected', 'The Crossing', 'crossing')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                    <div data-spotify-track="3YV79qjiJLOgYjjEzTsVEy" onclick="playSpotifyTrack('3YV79qjiJLOgYjjEzTsVEy')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs"></i>
+                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Everything Passes, Everything is Connected</h4>
                                 <p class="text-xs text-neutral-400">Unaccompanied Choir — Commissioned and performed by The Crossing (USA)</p>
                             </div>
                         </div>
-                        <span class="text-xs font-mono text-neutral-500">7:15</span>
+                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">3:30</span>
                     </div>
 
-                    <div data-track="bbcsingers" onclick="playTrack('Have It All', 'BBC Singers', 'bbcsingers')" class="flex items-center justify-between p-4 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Have It All</h4>
-                                <p class="text-xs text-neutral-400">Unaccompanied Choir — BBC Singers (Broadcast on BBC Radio 3)</p>
-                            </div>
-                        </div>
-                        <span class="text-xs font-mono text-neutral-500">5:50</span>
-                    </div>
                 </div>
             </div>
 
@@ -1035,12 +1026,13 @@
             <div class="p-4 rounded-2xl bg-amber-100 border border-amber-700/40 text-amber-900 text-xs font-sans flex items-start gap-3">
                 <i class="fa-solid fa-circle-info text-amber-800 text-base mt-0.5"></i>
                 <div class="space-y-1">
-                    <p class="font-semibold text-amber-900">Recording Availability Notice:</p>
+                    <p class="font-semibold text-amber-900">Recording Availability:</p>
                     <p class="text-amber-950 leading-relaxed">
-                        More tracks are available on Samantha's <a href="https://soundcloud.com" target="_blank" class="underline text-amber-950">SoundCloud page</a> and Spotify. Recordings exist for all compositions, but for rights reasons not all of these are hosted publicly online. Please <button onclick="switchTab('contact')" class="underline text-amber-950">contact Samantha directly</button> if you would like to request audio for specific unreleased works.
+                        More tracks are available on Samantha's <a href="https://on.soundcloud.com/Ohbj2UPBnWa5Scw8AB" target="_blank" rel="noopener" class="underline text-amber-950">SoundCloud page</a> and <a href="https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM?si=-nnE1u-AQnypJGW2RpvPMg" target="_blank" rel="noopener" class="underline text-amber-950">Spotify page</a>. Recordings exist for all compositions, but for rights reasons not all of these are hosted publicly online. Please <button onclick="switchTab('contact')" class="underline text-amber-950">contact Samantha directly</button> if you would like to request audio for specific unreleased works.
                     </p>
                 </div>
             </div>
+
         </section>
 
         <!-- ================= TAB 5: WRITING ================= -->
@@ -1223,7 +1215,8 @@
             </div>
 
             <div class="flex items-center space-x-6 text-neutral-400">
-                <a href="https://soundcloud.com" target="_blank" rel="noopener" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-soundcloud text-base"></i></a>
+                <a href="https://on.soundcloud.com/Ohbj2UPBnWa5Scw8AB" target="_blank" rel="noopener" aria-label="Samantha Fernando on SoundCloud" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-soundcloud text-base"></i></a>
+                <a href="https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM?si=-nnE1u-AQnypJGW2RpvPMg" target="_blank" rel="noopener" aria-label="Samantha Fernando on Spotify" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-spotify text-base"></i></a>
                 <a href="https://www.nmcrec.co.uk" target="_blank" rel="noopener" class="hover:text-amber-400 transition-colors font-sans text-xs uppercase font-semibold">NMC Profile</a>
             </div>
         </div>
@@ -1368,6 +1361,10 @@
         let currentTrackName = 'Fault Line · Oliver Coates (cello)';
         let currentTrackUrl = 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A236811796';
         let currentTrackId = 'faultline';
+        let spotifyController = null;
+        let spotifyReady = null;
+        let activeSpotifyTrack = null;
+        let isSpotifyPlaying = false;
         const soundcloudPlayer = SC.Widget(document.getElementById('soundcloudPlayer'));
         const soundcloudTracks = {
             illuminations: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A105152235',
@@ -1375,8 +1372,71 @@
             recollections: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A125817887',
             kinesphere: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A332996028',
             crossing: null,
-            bbcsingers: null
         };
+
+        window.onSpotifyIframeApiReady = (IFrameAPI) => {
+            spotifyReady = IFrameAPI;
+        };
+
+        function playSpotifyTrack(trackId) {
+            const track = document.querySelector(`[data-spotify-track="${trackId}"]`);
+            if (!spotifyReady) return;
+            const spotifyTrackNames = {
+                '2wNL47uCuwDpbOqCIpbSTS': 'Balconies · Olivia de Prato',
+                '7lmUNPa9oAkmYwdo88guI4': 'Kinesphere · Michael Cox',
+                '3YV79qjiJLOgYjjEzTsVEy': 'Everything Passes, Everything is Connected · The Crossing'
+            };
+            currentTrackName = spotifyTrackNames[trackId] || 'Spotify recording';
+
+            if (isAudioPlaying) {
+                soundcloudPlayer.pause();
+            }
+
+            if (spotifyController) {
+                if (activeSpotifyTrack === trackId && isSpotifyPlaying) {
+                    spotifyController.pause();
+                    isSpotifyPlaying = false;
+                    setSpotifyPlaybackState(false, trackId);
+                    if (track) track.querySelector('.fa-pause').className = 'fa-solid fa-play text-xs';
+                    return;
+                }
+                spotifyController.loadUri(`spotify:track:${trackId}`);
+                spotifyController.play();
+                activeSpotifyTrack = trackId;
+                isSpotifyPlaying = true;
+                setSpotifyPlaybackState(true, trackId);
+                document.querySelectorAll('[data-spotify-track] .fa-play, [data-spotify-track] .fa-pause').forEach(icon => {
+                    icon.className = 'fa-solid fa-play text-xs';
+                });
+                if (track) track.querySelector('.fa-play').className = 'fa-solid fa-pause text-xs';
+                return;
+            }
+
+            const container = document.createElement('div');
+            container.className = 'spotify-player';
+            document.body.appendChild(container);
+            spotifyReady.createController(container, { width: 1, height: 1 }, controller => {
+                spotifyController = controller;
+                controller.loadUri(`spotify:track:${trackId}`);
+                controller.play();
+                activeSpotifyTrack = trackId;
+                isSpotifyPlaying = true;
+                setSpotifyPlaybackState(true, trackId);
+            });
+
+            document.querySelectorAll('[data-spotify-track] .fa-play, [data-spotify-track] .fa-pause').forEach(icon => {
+                icon.className = 'fa-solid fa-play text-xs';
+            });
+            if (track) track.querySelector('.fa-play').className = 'fa-solid fa-pause text-xs';
+        }
+
+        function setSpotifyPlaybackState(playing, trackId) {
+            isAudioPlaying = playing;
+            document.getElementById('soundStatusIcon').className = `fa-solid fa-${playing ? 'pause' : 'play'} text-sm`;
+            document.getElementById('soundbarLabel').textContent = currentTrackName;
+            document.getElementById('soundbar').classList.toggle('hidden', !playing);
+            document.getElementById('waveContainer').classList.toggle('paused', !playing);
+        }
 
         soundcloudPlayer.bind(SC.Widget.Events.PLAY, () => setPlaybackState(true));
         soundcloudPlayer.bind(SC.Widget.Events.PAUSE, () => setPlaybackState(false));
@@ -1437,6 +1497,14 @@
                 notice.textContent = `${title} does not yet have a verified embeddable SoundCloud source.`;
                 notice.classList.remove('hidden');
                 return;
+            }
+
+            if (isSpotifyPlaying && spotifyController) {
+                spotifyController.pause();
+                isSpotifyPlaying = false;
+                document.querySelectorAll('[data-spotify-track] .fa-play, [data-spotify-track] .fa-pause').forEach(icon => {
+                    icon.className = 'fa-solid fa-play text-xs';
+                });
             }
 
             currentTrackName = `${title} · ${artist}`;

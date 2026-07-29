@@ -7,7 +7,7 @@ Static single-page portfolio for composer Samantha Fernando. It presents her bio
 - Plain HTML, CSS, and JavaScript in `index.html`.
 - Tailwind CSS, Font Awesome, and Google Fonts loaded from CDNs.
 - SoundCloud Widget API for verified SoundCloud recordings.
-- Spotify embeds for Spotify recordings.
+- Spotify track playback through the Spotify IFrame API.
 - GitHub Pages deployment through `.github/workflows/pages.yml`.
 
 ## Run Locally

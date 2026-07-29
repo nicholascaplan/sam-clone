@@ -160,7 +160,8 @@
         @media (hover: none) {
             [data-tooltip]::after { display: none; }
         }
-        #soundbar { transition: opacity 0.3s ease, transform 0.3s ease; }
+        #soundbar { width: min(34rem, calc(100vw - 2rem)); box-sizing: border-box; display: grid; grid-template-columns: 2rem minmax(0, 1fr) 2rem; align-items: center; justify-items: center; transition: opacity 0.3s ease, transform 0.3s ease; }
+        #soundbarLabel { min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; }
         #soundbar.hidden { display: none; }
         .soundcloud-player { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
         .spotify-player { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
@@ -355,9 +356,10 @@
         body.mobile-preview .sm\:p-8 { padding: 1.5rem; }
         body.mobile-preview .sm\:text-5xl { font-size: 2.25rem; }
         body.mobile-preview .sm\:text-3xl { font-size: 1.875rem; }
-        body.mobile-preview #soundbar { max-width: calc(100% - 2rem); }
+        body.mobile-preview #soundbar { width: min(398px, calc(100vw - 2rem)); max-width: 398px; }
         body.mobile-preview #tab-bio .lg\:col-span-5 img { height: 16rem; }
-        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; }
+        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; padding-left: 0.5rem; padding-right: 0.5rem; font-size: 0.65rem; }
         body.mobile-preview #tab-bio .lg\:col-span-2 + div > div,
         body.mobile-preview #tab-bio .lg\:col-span-2 ~ div > div { width: 100%; }
         body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-2 > div { width: 100%; }
@@ -481,7 +483,7 @@
     </header>
 
     <div id="soundbar" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 px-5 py-2.5 rounded-full glass-panel shadow-lg flex items-center gap-3 text-xs text-neutral-700 whitespace-nowrap">
-        <span class="flex items-end gap-0.5 h-4" aria-hidden="true">
+        <span class="flex items-end justify-center gap-0.5 h-4" aria-hidden="true">
             <span class="w-0.5 h-2 bg-amber-700 rounded-full animate-pulse"></span>
             <span class="w-0.5 h-4 bg-amber-700 rounded-full animate-pulse [animation-delay:150ms]"></span>
             <span class="w-0.5 h-3 bg-amber-700 rounded-full animate-pulse [animation-delay:300ms]"></span>
@@ -1277,6 +1279,7 @@
 
         // Tab Switching Handler
         function switchTab(tabId) {
+            history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
             document.getElementById('soundbar').classList.add('hidden');
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1288,6 +1291,7 @@
             if (targetTab) {
                 targetTab.classList.add('active');
             }
+            if (tabId === 'works') renderWorks();
 
             const activeNavBtn = document.getElementById(`nav-${tabId}`);
             if (activeNavBtn) {
@@ -1359,7 +1363,7 @@
                 activeBtn.classList.remove('bg-neutral-900', 'text-neutral-400');
                 activeBtn.classList.add('bg-amber-700', 'text-white');
             }
-            renderWorks();
+            document.getElementById('worksContainer').innerHTML = '<div class="glass-panel p-8 text-center text-neutral-500 font-mono text-xs rounded-2xl">Open the Works List tab to load the catalogue.</div>';
         }
 
         function filterWorks() {

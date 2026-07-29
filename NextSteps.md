@@ -2,6 +2,7 @@
 
 ## Content
 
+- Investigate whether each primary section should have its own URL, such as `/works`, `/listen-watch`, `/writing` and `/contact`, while preserving the current single-page experience where appropriate.
 - Review the combined `Listen & Watch` page and decide whether its internal Listen and Watch tabs should remain the permanent media experience.
 - Confirm whether Sam wants the Aaron album songs available to listen.
 - Keep the confirmed Spotify rows for `Balconies`, `Kinesphere`, and `Everything Passes, Everything is Connected`.

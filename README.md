@@ -113,9 +113,14 @@ The following tracks have confirmed SoundCloud embed sources in the current impl
 - `Positive/Negative Space` — track ID `132165483`
 - `Square Of Light` — track ID `105347231`
 
+### Open Question
+
+- Does Sam want the Aaron album songs available to listen?
+
 ### Next Steps
 
-- Obtain confirmed SoundCloud iframe code or track IDs for `Balconies`, `3 Songs`, `Everything Passes, Everything is Connected`, and `Have It All`.
+- Obtain confirmed SoundCloud iframe code or track IDs for `Everything Passes, Everything is Connected`, and `Have It All`.
+- `Balconies` is embedded from Spotify. `3 Songs for Soprano and Cello` has been removed because it does not exist.
 - Add those confirmed sources to the `soundcloudTracks` map in `index.html`.
 - Update the corresponding Listen rows and the confirmed-source section of `Website Content Map & Specifications.md`.
 - Test each source through `http://localhost:8000`, not by opening `index.html` with a `file://` URL.

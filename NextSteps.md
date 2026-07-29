@@ -2,7 +2,7 @@
 
 ## Content
 
-- Consider combining the `Watch` and `Listen` pages into a single `Watch & Listen` page, with tabs allowing visitors to switch between video and audio content.
+- Review the combined `Listen & Watch` page and decide whether its internal Listen and Watch tabs should remain the permanent media experience.
 - Confirm whether Sam wants the Aaron album songs available to listen.
 - Keep the confirmed Spotify rows for `Balconies`, `Kinesphere`, and `Everything Passes, Everything is Connected`.
 - Keep `Kinesphere` sourced from Spotify rather than the duplicate SoundCloud listing.
@@ -12,6 +12,8 @@
 - Test each recording through `http://localhost:8000`, not by opening `index.html` with a `file://` URL.
 - Confirm SoundCloud `PLAY`, `PAUSE`, and `FINISH` events update the row icon and soundbar correctly.
 - Confirm Spotify playback pauses SoundCloud and updates the shared soundbar correctly.
+- Confirm the soundbar remains visible while paused and hides when navigation or other non-track controls are used.
+- Confirm Watch thumbnails display and open the existing in-page YouTube modal without Error 153.
 - Do not treat a generic soundbar message as proof that audio is playing; use widget events.
 
 ## Known Constraints

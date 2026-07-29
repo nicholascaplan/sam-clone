@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samantha Fernando — Composer</title>
+    <title>Samantha Fernando - Composer</title>
     <link rel="preload" as="image" href="assets/sam-1.webp" fetchpriority="high">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -437,8 +437,7 @@
             <nav class="hidden md:flex items-center space-x-6 text-xs font-medium tracking-wider uppercase">
                 <button onclick="switchTab('bio')" id="nav-bio" class="nav-btn py-1.5 text-amber-400 border-b-2 border-amber-400 transition-all">Biography</button>
                 <button onclick="switchTab('works')" id="nav-works" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Works List</button>
-                <button onclick="switchTab('watch')" id="nav-watch" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Watch</button>
-                <button onclick="switchTab('listen')" id="nav-listen" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Listen</button>
+                <button onclick="switchTab('watch-listen')" id="nav-watch-listen" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Listen & Watch</button>
                 <button onclick="switchTab('writing')" id="nav-writing" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Writing</button>
                 <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Contact</button>
             </nav>
@@ -475,8 +474,7 @@
         <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider uppercase">
             <button data-mobile-nav="bio" onclick="switchTab('bio'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-amber-400 hover:text-amber-400">Biography</button>
             <button data-mobile-nav="works" onclick="switchTab('works'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
-            <button data-mobile-nav="watch" onclick="switchTab('watch'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Watch</button>
-            <button data-mobile-nav="listen" onclick="switchTab('listen'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen</button>
+            <button data-mobile-nav="watch-listen" onclick="switchTab('watch-listen'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen & Watch</button>
             <button data-mobile-nav="writing" onclick="switchTab('writing'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Writing</button>
             <button data-mobile-nav="contact" onclick="switchTab('contact'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Contact</button>
         </div>
@@ -490,6 +488,9 @@
             <span class="w-0.5 h-1.5 bg-amber-700 rounded-full animate-pulse [animation-delay:450ms]"></span>
         </span>
         <span id="soundbarLabel" class="font-medium">Samantha Fernando · Soundscape</span>
+        <button id="soundbarPauseBtn" onclick="toggleActivePlayback()" aria-label="Pause playback" title="Pause playback" class="w-7 h-7 rounded-full flex items-center justify-center text-amber-700 hover:bg-amber-100 transition-colors">
+            <i id="soundbarPauseIcon" class="fa-solid fa-pause text-xs" aria-hidden="true"></i>
+        </button>
     </div>
     <iframe id="soundcloudPlayer" title="SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A236811796&auto_play=false"></iframe>
 
@@ -519,7 +520,6 @@
                 <!-- Bio Hero Text -->
                 <div class="lg:col-span-7 space-y-6">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-900/30 border border-amber-600/30 text-amber-300 text-xs font-mono tracking-widest uppercase">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                         British Composer & Academic
                     </div>
 
@@ -531,22 +531,11 @@
                         Samantha Fernando (b. 1984) is a British composer whose work is centred on an exploration of timbre, space, and the unfolding of sound. She is drawn to ideas of landscape, architecture, and place.
                     </p>
 
-                    <div id="bioCredentials" class="pt-2 flex flex-wrap gap-4 text-xs font-mono">
-                        <div class="px-4 py-2 rounded-lg bg-neutral-900/80 border border-neutral-800 text-neutral-300">
-                            <span class="text-amber-400 font-semibold block text-sm">RPS Prize Winner</span>
-                            Royal Philharmonic Society Composition Award
-                        </div>
-                        <div class="px-4 py-2 rounded-lg bg-neutral-900/80 border border-neutral-800 text-neutral-300">
-                            <span class="text-amber-400 font-semibold block text-sm">Royal Holloway</span>
-                            Honorary Research Fellow in Composition
-                        </div>
-                    </div>
-
                     <div class="pt-4 flex flex-wrap gap-4">
                         <button onclick="switchTab('works')" class="px-6 py-3 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-medium text-xs tracking-widest uppercase transition-all shadow-lg shadow-amber-900/20">
                             Explore Works List
                         </button>
-                        <button onclick="switchTab('watch')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
+                        <button onclick="switchTab('watch-listen')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
                             Watch Performances
                         </button>
                         <button onclick="switchTab('contact')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
@@ -569,7 +558,10 @@
                         Collaboration with performers is central to her practice, particularly in shaping sound worlds that respond to the physicality of instruments and the acoustic space in which music is heard.
                     </p>
                     <p>
-                        Samantha has worked with numerous world-leading ensembles including the <strong class="text-neutral-100">Philharmonia Orchestra</strong>, <strong class="text-neutral-100">London Sinfonietta</strong>, <strong class="text-neutral-100">BCMG</strong>, <strong class="text-neutral-100">Riot Ensemble</strong>, <strong class="text-neutral-100">The BBC Singers</strong>, <strong class="text-neutral-100">LOD Muziektheater (Ghent)</strong>, <strong class="text-neutral-100">Silbersee Vocal Ensemble (Amsterdam)</strong>, and <strong class="text-neutral-100">The Crossing (USA)</strong>. Her music has been performed at major international festivals including Aldeburgh Music, Huddersfield Contemporary Music Festival, Sounds New, Gaudeamus Muziekweek, York Late Music, and the Oxford Lieder Festival.
+                        Samantha has worked with numerous world-leading ensembles including the <strong class="text-neutral-100">Philharmonia Orchestra</strong>, <strong class="text-neutral-100">London Sinfonietta</strong>, <strong class="text-neutral-100">BCMG</strong>, <strong class="text-neutral-100">Riot Ensemble</strong>, <strong class="text-neutral-100">The BBC Singers</strong>, <strong class="text-neutral-100">LOD Muziektheater (Ghent)</strong>, <strong class="text-neutral-100">Silbersee Vocal Ensemble (Amsterdam)</strong> and <strong class="text-neutral-100">The Crossing (USA)</strong>. Her music has been performed at major international festivals including Aldeburgh Music, Huddersfield Contemporary Music Festival, Sounds New, Gaudeamus Muziekweek, York Late Music and the Oxford Lieder Festival.
+                    </p>
+                    <p>
+                        Samantha studied Composition at the Royal Academy of Music and the University of Oxford. She is an Honorary Research Fellow in Composition at Royal Holloway, University of London.
                     </p>
                     <p>
                         In 2021, Samantha saw the opening of <em class="text-amber-300">Current, Rising</em>, a world-first hyper-reality opera experience produced by the Royal Opera House and Figment Productions. Her chamber opera <em class="text-amber-300">glass human</em>, created in collaboration with Melanie Wilson, premiered at Glyndebourne in Autumn 2022. Recent commissions include <em class="text-amber-300">Sound Inhabitants</em> for the London Sinfonietta and <em class="text-amber-300">Wintering</em>, commissioned by Wigmore Hall and performed by Manchester Collective and The Marian Consort.
@@ -644,9 +636,9 @@
                     </div>
                     <div class="space-y-3 text-xs text-neutral-300">
                         <p><strong class="text-neutral-100">Autumn 2022:</strong> <em>glass human</em> · Glyndebourne Opera UK Tour: Glyndebourne, Canterbury, Norwich, Milton Keynes, Liverpool.</p>
-                        <p><strong class="text-neutral-100">Portrait Concert at Kettle's Yard:</strong> Chamber works including the premiere of <em>The Way Home</em> with Raphaela Papakadis, Dominic Saunders, and Corentin Chassard.</p>
+                        <p><strong class="text-neutral-100">Portrait Concert at Kettle's Yard:</strong> Chamber works including the premiere of <em>The Way Home</em> with Raphaela Papakadis, Dominic Saunders and Corentin Chassard.</p>
                         <p><strong class="text-neutral-100">National Opera Studio 40th Anniversary:</strong> Commissioned new aria performed at Hoxton Hall, London.</p>
-                        <p><strong class="text-neutral-100">2023–2024:</strong> <em>Sound Inhabitants</em>, <em>Balconies</em>, <em>Everything Passes, Everything is Connected</em>, and a panel at Eavesdropping Festival, Café Oto.</p>
+                        <p><strong class="text-neutral-100">2023–2024:</strong> <em>Sound Inhabitants</em>, <em>Balconies</em>, <em>Everything Passes, Everything is Connected</em> and a panel at Eavesdropping Festival, Café Oto.</p>
                     </div>
                 </div>
             </div>
@@ -655,7 +647,7 @@
                 <div>
                     <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Spotlight Works</span>
                     <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Featured Operas & Major Projects</h2>
-                    <p class="text-neutral-400 text-sm mt-1">Detailed overviews, creative credits, and movement structures for landmark stage and ensemble works.</p>
+                    <p class="text-neutral-400 text-sm mt-1">Detailed overviews, creative credits and movement structures for landmark stage and ensemble works.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -768,7 +760,7 @@
             <div class="border-b border-neutral-800 pb-6">
                 <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Video Films & Performances</span>
                 <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Watch</h2>
-                <p class="text-neutral-400 text-sm mt-1">Performance films, opera trailers, and documentations of Samantha Fernando's compositions.</p>
+                <p class="text-neutral-400 text-sm mt-1">Performance films, opera trailers and documentations of Samantha Fernando's compositions.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -784,7 +776,7 @@
                     </div>
                     <div class="space-y-2">
                         <span class="text-xs font-mono text-amber-400">London Sinfonietta Academy (2023)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Sound Inhabitants — Live Performance Film</h3>
+                        <h3 class="text-xl font-serif text-neutral-100">Sound Inhabitants - Live Performance Film</h3>
                         <p class="text-neutral-400 text-xs leading-relaxed">
                             Recorded as part of the London Sinfonietta Academy's "Musicians of Tomorrow" Concert at Purcell Room, Southbank Centre, co-produced with Folkestone New Music. Constructed out of contrasting blocks and rooms of sound.
                         </p>
@@ -803,9 +795,9 @@
                     </div>
                     <div class="space-y-2">
                         <span class="text-xs font-mono text-amber-400">Wigmore Hall Commission (2025)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Wintering — Film Trailer</h3>
+                        <h3 class="text-xl font-serif text-neutral-100">Wintering - Film Trailer</h3>
                         <p class="text-neutral-400 text-xs leading-relaxed">
-                            Manchester Collective & The Marian Consort. Exploring Katherine May's concept of wintering—embracing life's fallow periods rather than resisting them.
+                            Manchester Collective & The Marian Consort. Exploring Katherine May's concept of wintering, embracing life's fallow periods rather than resisting them.
                         </p>
                     </div>
                 </div>
@@ -822,7 +814,7 @@
                     </div>
                     <div class="space-y-2">
                         <span class="text-xs font-mono text-amber-400">Glyndebourne Chamber Opera (2022)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">glass human — Production Insights</h3>
+                        <h3 class="text-xl font-serif text-neutral-100">glass human - Production Insights</h3>
                         <p class="text-neutral-400 text-xs leading-relaxed">
                             A chamber opera created with librettist Melanie Wilson for Glyndebourne, exploring human loneliness through three isolated voices finding resonance.
                         </p>
@@ -841,7 +833,7 @@
                     </div>
                     <div class="space-y-2">
                         <span class="text-xs font-mono text-amber-400">Royal Opera House (2021)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising — Hyper-Reality Opera Experience</h3>
+                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising - Hyper-Reality Opera Experience</h3>
                         <p class="text-neutral-400 text-xs leading-relaxed">
                             Behind the scenes and VR documentation of the world's first hyper-reality opera experience produced at the Royal Opera House, London.
                         </p>
@@ -860,7 +852,7 @@
                     </div>
                     <div class="space-y-2">
                         <span class="text-xs font-mono text-amber-400">Royal Opera House Insights (2021)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising — How it was created</h3>
+                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising - How it was created</h3>
                         <p class="text-neutral-400 text-xs leading-relaxed">
                             A documentary featurette exploring the CGI, VR, and sound composition process.
                         </p>
@@ -948,7 +940,7 @@
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">4 Illuminations</h4>
-                                <p class="text-xs text-neutral-400">Saxophone Quartet — Performed by Xasax Saxophone Quartet at Royaumont Abbey</p>
+                                <p class="text-xs text-neutral-400">Saxophone Quartet, performed by Xasax Saxophone Quartet at Royaumont Abbey</p>
                             </div>
                         </div>
                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">8:08</span>
@@ -961,7 +953,7 @@
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Fault-Line</h4>
-                                <p class="text-xs text-neutral-400">Solo Cello — Performed by Oliver Coates (London Sinfonietta Commission)</p>
+                                <p class="text-xs text-neutral-400">Solo Cello, performed by Oliver Coates (London Sinfonietta Commission)</p>
                             </div>
                         </div>
                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:03</span>
@@ -974,7 +966,7 @@
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Recollections</h4>
-                                <p class="text-xs text-neutral-400">Mezzo-soprano & Paetzold Contrabass Recorder — Elsbeth Gerritsen & Eva Reiter</p>
+                                <p class="text-xs text-neutral-400">Mezzo-soprano & Paetzold Contrabass Recorder, Elsbeth Gerritsen & Eva Reiter</p>
                             </div>
                         </div>
                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:25</span>
@@ -987,7 +979,7 @@
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Balconies</h4>
-                                <p class="text-xs text-neutral-400">Multi-tracked Solo Violin — Olivia de Prato (Panorama Album, New Focus Recordings)</p>
+                                <p class="text-xs text-neutral-400">Multi-tracked Solo Violin, Olivia de Prato (Panorama Album, New Focus Recordings)</p>
                             </div>
                         </div>
                         <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:53</span>
@@ -1000,7 +992,7 @@
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere</h4>
-                                <p class="text-xs text-neutral-400">Solo Flute — Performed by Michael Cox (NMC Recordings)</p>
+                                <p class="text-xs text-neutral-400">Solo Flute, performed by Michael Cox (NMC Recordings)</p>
                             </div>
                         </div>
                         <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">4:49</span>
@@ -1013,7 +1005,7 @@
                             </div>
                             <div>
                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Everything Passes, Everything is Connected</h4>
-                                <p class="text-xs text-neutral-400">Unaccompanied Choir — Commissioned and performed by The Crossing (USA)</p>
+                                <p class="text-xs text-neutral-400">Unaccompanied Choir, commissioned and performed by The Crossing (USA)</p>
                             </div>
                         </div>
                         <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">3:30</span>
@@ -1033,6 +1025,23 @@
                 </div>
             </div>
 
+        </section>
+
+        <!-- ================= EXPERIMENTAL TAB: WATCH & LISTEN ================= -->
+        <section id="tab-watch-listen" class="tab-content space-y-10">
+            <div class="border-b border-neutral-800 pb-6">
+                <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Films & Audio</span>
+                <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Listen & Watch</h2>
+                <p class="text-neutral-400 text-sm mt-1">Listen to recordings and watch performances in one place.</p>
+            </div>
+
+            <div class="flex gap-2 border-b border-neutral-800 pb-3" role="tablist" aria-label="Listen and watch content">
+                <button id="combined-tab-listen" onclick="switchCombinedTab('listen')" role="tab" aria-selected="true" class="combined-tab-btn px-4 py-2 rounded-xl bg-amber-700 text-white text-xs font-medium">Listen</button>
+                <button id="combined-tab-watch" onclick="switchCombinedTab('watch')" role="tab" aria-selected="false" class="combined-tab-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 border border-neutral-800 text-xs font-medium">Watch</button>
+            </div>
+
+            <div id="combined-listen-content"></div>
+            <div id="combined-watch-content" class="hidden"></div>
         </section>
 
         <!-- ================= TAB 5: WRITING ================= -->
@@ -1063,11 +1072,11 @@
                     </p>
 
                     <p>
-                        Scored for four voices (soprano, alto, tenor, and baritone) and string quartet, <em class="text-amber-300">Wintering</em> explores the tension between quiet introspection and the ever-present hum of the outside world. I was drawn to this ensemble for its rich potential—the voices not only convey text but also blur into the instrumental texture, becoming part of the quartet's fabric.
+                        Scored for four voices (soprano, alto, tenor and baritone) and string quartet, <em class="text-amber-300">Wintering</em> explores the tension between quiet introspection and the ever-present hum of the outside world. I was drawn to this ensemble for its rich potential: the voices not only convey text but also blur into the instrumental texture, becoming part of the quartet's fabric.
                     </p>
 
                     <p>
-                        The sound world is often hazy and ambiguous. At times, it evokes frozen landscapes and moments of stasis; at others, it reflects a restless, churning mind caught in the noise of modern urban life. One movement (IV) is hectic and even playful—an attempt to find stillness through meditation, yet thwarted by internal chatter.
+                        The sound world is often hazy and ambiguous. At times, it evokes frozen landscapes and moments of stasis; at others, it reflects a restless, churning mind caught in the noise of modern urban life. One movement (IV) is hectic and even playful: an attempt to find stillness through meditation, yet thwarted by internal chatter.
                     </p>
 
                     <div class="p-5 rounded-2xl bg-neutral-900/80 border border-neutral-800 my-6 font-mono text-xs space-y-2">
@@ -1095,7 +1104,7 @@
             <div class="border-b border-neutral-800 pb-6">
                 <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Get in Touch</span>
                 <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Contact & Score Hire</h2>
-                <p class="text-neutral-400 text-sm mt-1">For commissions, score hire inquiries, or performance notifications.</p>
+                <p class="text-neutral-400 text-sm mt-1">For commissions, score hire inquiries or performance notifications.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -1105,7 +1114,7 @@
                         <img src="assets/sam-6.webp" alt="Samantha Fernando" class="w-full h-48 object-cover rounded-2xl border border-neutral-800">
                         <h3 class="text-xl font-serif text-neutral-100">Direct Contact</h3>
                         <p class="text-neutral-300 text-xs leading-relaxed">
-                            If you would like to contact Samantha about her compositions, score hire, performance materials, or academic research, please send a message or email directly:
+                            If you would like to contact Samantha about her compositions, score hire, performance materials or academic research, please send a message or email directly:
                         </p>
 
                         <div class="space-y-4 pt-2">
@@ -1200,7 +1209,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="aspect-video rounded-2xl overflow-hidden border border-neutral-700 bg-black shadow-2xl">
-                <iframe id="videoFrame" class="w-full h-full" title="Embedded YouTube video" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe id="videoFrame" class="w-full h-full" title="Embedded YouTube video" src="" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
             <p id="videoModalTitle" class="text-sm text-neutral-300 font-serif mt-3"></p>
         </div>
@@ -1217,7 +1226,7 @@
             <div class="flex items-center space-x-6 text-neutral-400">
                 <a href="https://on.soundcloud.com/Ohbj2UPBnWa5Scw8AB" target="_blank" rel="noopener" aria-label="Samantha Fernando on SoundCloud" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-soundcloud text-base"></i></a>
                 <a href="https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM?si=-nnE1u-AQnypJGW2RpvPMg" target="_blank" rel="noopener" aria-label="Samantha Fernando on Spotify" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-spotify text-base"></i></a>
-                <a href="https://www.nmcrec.co.uk" target="_blank" rel="noopener" class="hover:text-amber-400 transition-colors font-sans text-xs uppercase font-semibold">NMC Profile</a>
+                <a href="https://www.nmcrec.co.uk/composers/samantha-fernando" target="_blank" rel="noopener" class="hover:text-amber-400 transition-colors font-sans text-xs uppercase font-semibold">NMC Profile</a>
             </div>
         </div>
     </footer>
@@ -1268,6 +1277,7 @@
 
         // Tab Switching Handler
         function switchTab(tabId) {
+            document.getElementById('soundbar').classList.add('hidden');
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-amber-400', 'border-amber-400');
@@ -1356,6 +1366,48 @@
             renderWorks();
         }
 
+        function initialiseCombinedMedia() {
+            const watchSource = document.querySelector('#tab-watch > .grid');
+            const listenSource = document.querySelector('#tab-listen > .glass-panel');
+            const availabilitySource = document.querySelector('#tab-listen > .p-4.bg-amber-100');
+            const watchTarget = document.getElementById('combined-watch-content');
+            const listenTarget = document.getElementById('combined-listen-content');
+
+            if (watchSource && watchTarget) {
+                const watchClone = watchSource.cloneNode(true);
+                watchClone.querySelectorAll('.glass-panel').forEach(card => {
+                    if (!card.querySelector('a[href*="youtube.com/watch"]')) card.remove();
+                });
+                watchClone.querySelectorAll('a[href*="youtube.com/watch"]').forEach(link => {
+                    const media = link.closest('.relative.aspect-video');
+                    if (!media) return;
+                    const cardTitle = link.closest('.glass-panel')?.querySelector('h3')?.textContent || 'Watch video';
+                    const videoId = new URL(link.href).searchParams.get('v');
+                    if (!videoId) return;
+                    media.innerHTML = `<button type="button" class="combined-video-placeholder relative w-full h-full bg-neutral-900 flex items-center justify-center" onclick="openVideoModal('${link.href}', '${cardTitle.replace(/'/g, "\\'")}')" aria-label="Watch ${cardTitle.replace(/"/g, '&quot;')}"><img src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg" alt="" class="absolute inset-0 w-full h-full object-cover"><span class="relative z-10 w-14 h-14 rounded-full bg-amber-600/90 text-white flex items-center justify-center text-xl"><i class="fa-solid fa-play ml-1" aria-hidden="true"></i></span></button>`;
+                });
+                watchClone.querySelectorAll('a[href*="youtube.com/watch"]').forEach(link => link.remove());
+                watchTarget.appendChild(watchClone);
+            }
+            if (listenSource && listenTarget) listenTarget.appendChild(listenSource.cloneNode(true));
+            if (availabilitySource && listenTarget) listenTarget.appendChild(availabilitySource.cloneNode(true));
+            switchCombinedTab('listen');
+        }
+
+        function switchCombinedTab(tabId) {
+            const isWatch = tabId === 'watch';
+            document.getElementById('combined-watch-content').classList.toggle('hidden', !isWatch);
+            document.getElementById('combined-listen-content').classList.toggle('hidden', isWatch);
+            document.querySelectorAll('.combined-tab-btn').forEach(button => {
+                const active = button.id === `combined-tab-${tabId}`;
+                button.classList.toggle('bg-amber-700', active);
+                button.classList.toggle('text-white', active);
+                button.classList.toggle('bg-neutral-900', !active);
+                button.classList.toggle('text-neutral-400', !active);
+                button.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+        }
+
         // SoundCloud playback for Samantha Fernando's published recordings.
         let isAudioPlaying = false;
         let currentTrackName = 'Fault Line · Oliver Coates (cello)';
@@ -1363,8 +1415,10 @@
         let currentTrackId = 'faultline';
         let spotifyController = null;
         let spotifyReady = null;
+        let pendingSpotifyTrack = null;
         let activeSpotifyTrack = null;
         let isSpotifyPlaying = false;
+        let activeAudioProvider = 'soundcloud';
         const soundcloudPlayer = SC.Widget(document.getElementById('soundcloudPlayer'));
         const soundcloudTracks = {
             illuminations: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A105152235',
@@ -1376,17 +1430,26 @@
 
         window.onSpotifyIframeApiReady = (IFrameAPI) => {
             spotifyReady = IFrameAPI;
+            if (pendingSpotifyTrack) {
+                const trackId = pendingSpotifyTrack;
+                pendingSpotifyTrack = null;
+                playSpotifyTrack(trackId);
+            }
         };
 
         function playSpotifyTrack(trackId) {
             const track = document.querySelector(`[data-spotify-track="${trackId}"]`);
-            if (!spotifyReady) return;
+            if (!spotifyReady) {
+                pendingSpotifyTrack = trackId;
+                return;
+            }
             const spotifyTrackNames = {
                 '2wNL47uCuwDpbOqCIpbSTS': 'Balconies · Olivia de Prato',
                 '7lmUNPa9oAkmYwdo88guI4': 'Kinesphere · Michael Cox',
                 '3YV79qjiJLOgYjjEzTsVEy': 'Everything Passes, Everything is Connected · The Crossing'
             };
             currentTrackName = spotifyTrackNames[trackId] || 'Spotify recording';
+            activeAudioProvider = 'spotify';
 
             if (isAudioPlaying) {
                 soundcloudPlayer.pause();
@@ -1405,10 +1468,6 @@
                 activeSpotifyTrack = trackId;
                 isSpotifyPlaying = true;
                 setSpotifyPlaybackState(true, trackId);
-                document.querySelectorAll('[data-spotify-track] .fa-play, [data-spotify-track] .fa-pause').forEach(icon => {
-                    icon.className = 'fa-solid fa-play text-xs';
-                });
-                if (track) track.querySelector('.fa-play').className = 'fa-solid fa-pause text-xs';
                 return;
             }
 
@@ -1423,24 +1482,43 @@
                 isSpotifyPlaying = true;
                 setSpotifyPlaybackState(true, trackId);
             });
-
-            document.querySelectorAll('[data-spotify-track] .fa-play, [data-spotify-track] .fa-pause').forEach(icon => {
-                icon.className = 'fa-solid fa-play text-xs';
-            });
-            if (track) track.querySelector('.fa-play').className = 'fa-solid fa-pause text-xs';
         }
 
         function setSpotifyPlaybackState(playing, trackId) {
             isAudioPlaying = playing;
             document.getElementById('soundStatusIcon').className = `fa-solid fa-${playing ? 'pause' : 'play'} text-sm`;
+            document.getElementById('soundbarPauseIcon').className = `fa-solid fa-${playing ? 'pause' : 'play'} text-xs`;
+            document.getElementById('soundbarPauseBtn').setAttribute('aria-label', playing ? 'Pause playback' : 'Resume playback');
+            document.getElementById('soundbarPauseBtn').title = playing ? 'Pause playback' : 'Resume playback';
             document.getElementById('soundbarLabel').textContent = currentTrackName;
-            document.getElementById('soundbar').classList.toggle('hidden', !playing);
+            document.getElementById('soundbar').classList.remove('hidden');
             document.getElementById('waveContainer').classList.toggle('paused', !playing);
+            updatePlaybackIcons();
         }
 
-        soundcloudPlayer.bind(SC.Widget.Events.PLAY, () => setPlaybackState(true));
-        soundcloudPlayer.bind(SC.Widget.Events.PAUSE, () => setPlaybackState(false));
-        soundcloudPlayer.bind(SC.Widget.Events.FINISH, () => setPlaybackState(false));
+        function updatePlaybackIcons() {
+            document.querySelectorAll('[data-track] .fa-play, [data-track] .fa-pause, [data-spotify-track] .fa-play, [data-spotify-track] .fa-pause').forEach(icon => {
+                icon.className = 'fa-solid fa-play text-xs';
+            });
+            if (isAudioPlaying) {
+                const selectors = isSpotifyPlaying
+                    ? `[data-spotify-track="${activeSpotifyTrack}"] .fa-play`
+                    : `[data-track="${currentTrackId}"] .fa-play`;
+                document.querySelectorAll(selectors).forEach(icon => {
+                    icon.className = 'fa-solid fa-pause text-xs';
+                });
+            }
+        }
+
+        soundcloudPlayer.bind(SC.Widget.Events.PLAY, () => {
+            if (activeAudioProvider === 'soundcloud') setPlaybackState(true);
+        });
+        soundcloudPlayer.bind(SC.Widget.Events.PAUSE, () => {
+            if (activeAudioProvider === 'soundcloud') setPlaybackState(false);
+        });
+        soundcloudPlayer.bind(SC.Widget.Events.FINISH, () => {
+            if (activeAudioProvider === 'soundcloud') setPlaybackState(false);
+        });
         soundcloudPlayer.bind(SC.Widget.Events.ERROR, () => showTrackUnavailable());
 
         function toggleAmbientAudio() {
@@ -1454,6 +1532,24 @@
             }
         }
 
+        function toggleActivePlayback() {
+            if (activeAudioProvider === 'spotify' && spotifyController) {
+                if (isSpotifyPlaying) {
+                    spotifyController.pause();
+                    isSpotifyPlaying = false;
+                    setSpotifyPlaybackState(false, activeSpotifyTrack);
+                } else {
+                    spotifyController.play();
+                    isSpotifyPlaying = true;
+                    setSpotifyPlaybackState(true, activeSpotifyTrack);
+                }
+                return;
+            }
+
+            if (isAudioPlaying) soundcloudPlayer.pause();
+            else soundcloudPlayer.play();
+        }
+
         function setPlaybackState(playing) {
             isAudioPlaying = playing;
             const activeTrack = document.querySelector(`[data-track="${currentTrackId}"]`);
@@ -1465,16 +1561,20 @@
                 activeTrack.querySelector('.fa-play').className = 'fa-solid fa-pause text-xs';
             }
 
+            updatePlaybackIcons();
+
             if (playing) {
                 document.getElementById('waveContainer').classList.remove('paused');
                 document.getElementById('soundStatusIcon').className = 'fa-solid fa-pause text-sm';
+                document.getElementById('soundbarPauseIcon').className = 'fa-solid fa-pause text-xs';
                 document.getElementById('soundbar').classList.remove('hidden');
                 return;
             }
 
             document.getElementById('waveContainer').classList.add('paused');
             document.getElementById('soundStatusIcon').className = 'fa-solid fa-play text-sm';
-            document.getElementById('soundbar').classList.add('hidden');
+            document.getElementById('soundbarPauseIcon').className = 'fa-solid fa-play text-xs';
+            document.getElementById('soundbar').classList.remove('hidden');
         }
 
         function showTrackUnavailable() {
@@ -1502,12 +1602,11 @@
             if (isSpotifyPlaying && spotifyController) {
                 spotifyController.pause();
                 isSpotifyPlaying = false;
-                document.querySelectorAll('[data-spotify-track] .fa-play, [data-spotify-track] .fa-pause').forEach(icon => {
-                    icon.className = 'fa-solid fa-play text-xs';
-                });
+                updatePlaybackIcons();
             }
 
             currentTrackName = `${title} · ${artist}`;
+            activeAudioProvider = 'soundcloud';
             currentTrackUrl = trackUrl;
             currentTrackId = id;
             document.getElementById('soundbarLabel').textContent = currentTrackName;
@@ -1530,9 +1629,9 @@
                     </p>
                     <div class="space-y-2 text-xs text-neutral-300 font-mono bg-neutral-900 p-4 rounded-xl border border-neutral-800 my-4">
                         <p class="text-amber-400 font-semibold">Cast & Instrumentalists:</p>
-                        <p>• Grace (Soprano) — Anna Cavaliero</p>
-                        <p>• Oma (Mezzo-Soprano) — Camille Maalawy</p>
-                        <p>• Edward (Baritone) — Denver Martin Smith</p>
+                        <p>• Grace (Soprano), Anna Cavaliero</p>
+                        <p>• Oma (Mezzo-Soprano), Camille Maalawy</p>
+                        <p>• Edward (Baritone), Denver Martin Smith</p>
                         <p class="text-neutral-400 pt-2 border-t border-neutral-800">Instrumentation: Viola (Daisy Spiers), Cello (Rosie Banks Francis), Harp (Sue Blair), Accordion (Iñigo Mikeleiz Berrade), Percussion (Cameron Sinclair) & Live Electronics.</p>
                     </div>
                     <button onclick="requestScore('glass human')" class="w-full py-2.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-mono text-xs transition-colors">Request Score / Materials</button>
@@ -1683,6 +1782,13 @@
             icon.classList.toggle('fa-eye', isVisible);
             icon.classList.toggle('fa-eye-slash', !isVisible);
         }
+
+        document.addEventListener('DOMContentLoaded', initialiseCombinedMedia);
+        document.addEventListener('click', event => {
+            const button = event.target.closest('button');
+            if (!button || button.id === 'soundbarPauseBtn' || button.closest('[data-track], [data-spotify-track]')) return;
+            document.getElementById('soundbar').classList.add('hidden');
+        });
 
         window.onload = function() {
             document.getElementById('togglePasswordVisibility').addEventListener('click', event => {

@@ -254,6 +254,21 @@
             background: #fff;
             color: #18211f;
         }
+        .password-field { position: relative; }
+        .password-field input { padding-right: 3rem !important; }
+        #sitePasswordGate #togglePasswordVisibility {
+            position: absolute;
+            right: 0.75rem;
+            bottom: 0.7rem;
+            color: #6d7570;
+            width: auto;
+            margin-top: 0;
+            padding: 0;
+            background: transparent;
+            font-weight: 400;
+        }
+        #sitePasswordGate #togglePasswordVisibility:hover,
+        #sitePasswordGate #togglePasswordVisibility:focus-visible { color: #18211f; }
         #sitePasswordGate button {
             width: 100%;
             margin-top: 0.75rem;
@@ -344,7 +359,12 @@
             <h1 id="sitePasswordTitle" class="text-2xl font-serif">Private site</h1>
             <p class="mt-2 text-sm text-neutral-500">Enter the password to continue.</p>
             <label class="sr-only" for="sitePassword">Password</label>
-            <input id="sitePassword" type="password" autocomplete="current-password" placeholder="Password" autofocus>
+            <div class="password-field">
+                <input id="sitePassword" type="password" autocomplete="current-password" placeholder="Password" autofocus>
+                <button id="togglePasswordVisibility" type="button" onclick="togglePasswordVisibility()" aria-label="Show password" title="Show password">
+                    <i id="passwordVisibilityIcon" class="fa-solid fa-eye" aria-hidden="true"></i>
+                </button>
+            </div>
             <button type="submit">Enter site</button>
             <p id="sitePasswordError" role="alert"></p>
         </form>
@@ -1532,7 +1552,22 @@
             document.getElementById('sitePassword').select();
         }
 
+        function togglePasswordVisibility() {
+            const input = document.getElementById('sitePassword');
+            const button = document.getElementById('togglePasswordVisibility');
+            const icon = document.getElementById('passwordVisibilityIcon');
+            const isVisible = input.type === 'text';
+            input.type = isVisible ? 'password' : 'text';
+            button.setAttribute('aria-label', isVisible ? 'Show password' : 'Hide password');
+            button.title = isVisible ? 'Show password' : 'Hide password';
+            icon.classList.toggle('fa-eye', isVisible);
+            icon.classList.toggle('fa-eye-slash', !isVisible);
+        }
+
         window.onload = function() {
+            if (window.matchMedia('(max-width: 767px)').matches) {
+                document.body.classList.add('mobile-preview');
+            }
             if (isDeployedSite && sessionStorage.getItem('siteUnlocked') === 'true') {
                 document.body.classList.remove('site-locked');
                 document.getElementById('sitePasswordGate').classList.add('hidden');

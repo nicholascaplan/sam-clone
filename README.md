@@ -22,3 +22,5 @@ Open <http://localhost:8000>. The site should be served over HTTP rather than op
 
 - Repository: <https://github.com/nicholascaplan/sam-clone>
 - Live site: <https://nicholascaplan.github.io/sam-clone/>
+
+Project maintenance notes and future work are documented in [`AGENTS.md`](AGENTS.md) and [`NextSteps.md`](NextSteps.md).

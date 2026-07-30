@@ -503,7 +503,9 @@
             <i id="soundbarPauseIcon" class="fa-solid fa-pause text-xs" aria-hidden="true"></i>
         </button>
     </div>
-    <iframe id="soundcloudPlayer" title="SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media; fullscreen" playsinline src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A236811796&auto_play=false"></iframe>
+    <iframe id="soundcloudPlayerIlluminations" title="4 Illuminations SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media; fullscreen" playsinline src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/105152235&auto_play=false"></iframe>
+    <iframe id="soundcloudPlayerFaultline" title="Fault-Line SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media; fullscreen" playsinline src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/236811796&auto_play=false"></iframe>
+    <iframe id="soundcloudPlayerRecollections" title="Recollections SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media; fullscreen" playsinline src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/125817887&auto_play=false"></iframe>
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
@@ -983,10 +985,6 @@
                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:25</span>
                     </div>
 
-                    <div id="mobileSoundCloudPlayer" class="hidden rounded-2xl border border-neutral-800 bg-neutral-950 p-3">
-                        <iframe id="mobileSoundCloudFrame" title="SoundCloud recording" class="h-[166px] w-full rounded-xl border-0" allow="autoplay; encrypted-media; fullscreen" playsinline src=""></iframe>
-                    </div>
-
                     <div data-spotify-track="2wNL47uCuwDpbOqCIpbSTS" onclick="playSpotifyTrack('2wNL47uCuwDpbOqCIpbSTS')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
                             <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
@@ -1445,7 +1443,6 @@
         // SoundCloud playback for Samantha Fernando's published recordings.
         let isAudioPlaying = false;
         let currentTrackName = 'Fault Line · Oliver Coates (cello)';
-        let currentTrackUrl = 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A236811796';
         let currentTrackId = 'faultline';
         let spotifyController = null;
         let spotifyReady = null;
@@ -1453,13 +1450,10 @@
         let activeSpotifyTrack = null;
         let isSpotifyPlaying = false;
         let activeAudioProvider = 'soundcloud';
-        const soundcloudPlayer = SC.Widget(document.getElementById('soundcloudPlayer'));
-        const soundcloudTracks = {
-            illuminations: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A105152235',
-            faultline: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A236811796',
-            recollections: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A125817887',
-            kinesphere: 'https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A332996028',
-            crossing: null,
+        const soundcloudPlayers = {
+            illuminations: SC.Widget(document.getElementById('soundcloudPlayerIlluminations')),
+            faultline: SC.Widget(document.getElementById('soundcloudPlayerFaultline')),
+            recollections: SC.Widget(document.getElementById('soundcloudPlayerRecollections'))
         };
 
         window.onSpotifyIframeApiReady = (IFrameAPI) => {
@@ -1473,11 +1467,6 @@
 
         function playSpotifyTrack(trackId) {
             const track = document.querySelector(`[data-spotify-track="${trackId}"]`);
-            stopMobileSoundCloudPlayback();
-            if (!spotifyReady) {
-                pendingSpotifyTrack = trackId;
-                return;
-            }
             const spotifyTrackNames = {
                 '2wNL47uCuwDpbOqCIpbSTS': 'Balconies · Olivia de Prato',
                 '7lmUNPa9oAkmYwdo88guI4': 'Kinesphere · Michael Cox',
@@ -1485,9 +1474,10 @@
             };
             currentTrackName = spotifyTrackNames[trackId] || 'Spotify recording';
             activeAudioProvider = 'spotify';
-
-            if (isAudioPlaying) {
-                soundcloudPlayer.pause();
+            pauseSoundCloudPlayers();
+            if (!spotifyReady) {
+                pendingSpotifyTrack = trackId;
+                return;
             }
 
             if (spotifyController) {
@@ -1511,6 +1501,7 @@
             document.body.appendChild(container);
             spotifyReady.createController(container, { width: 1, height: 1 }, controller => {
                 spotifyController = controller;
+                if (activeAudioProvider !== 'spotify') return;
                 controller.loadUri(`spotify:track:${trackId}`);
                 controller.play();
                 activeSpotifyTrack = trackId;
@@ -1545,25 +1536,29 @@
             }
         }
 
-        soundcloudPlayer.bind(SC.Widget.Events.PLAY, () => {
-            if (activeAudioProvider === 'soundcloud') setPlaybackState(true);
+        Object.entries(soundcloudPlayers).forEach(([id, player]) => {
+            player.bind(SC.Widget.Events.PLAY, () => {
+                if (activeAudioProvider === 'soundcloud' && currentTrackId === id) setPlaybackState(true);
+            });
+            player.bind(SC.Widget.Events.PAUSE, () => {
+                if (activeAudioProvider === 'soundcloud' && currentTrackId === id) setPlaybackState(false);
+            });
+            player.bind(SC.Widget.Events.FINISH, () => {
+                if (activeAudioProvider === 'soundcloud' && currentTrackId === id) setPlaybackState(false);
+            });
+            player.bind(SC.Widget.Events.ERROR, () => {
+                if (currentTrackId === id) showTrackUnavailable();
+            });
         });
-        soundcloudPlayer.bind(SC.Widget.Events.PAUSE, () => {
-            if (activeAudioProvider === 'soundcloud') setPlaybackState(false);
-        });
-        soundcloudPlayer.bind(SC.Widget.Events.FINISH, () => {
-            if (activeAudioProvider === 'soundcloud') setPlaybackState(false);
-        });
-        soundcloudPlayer.bind(SC.Widget.Events.ERROR, () => showTrackUnavailable());
 
         function toggleAmbientAudio() {
             const waveContainer = document.getElementById('waveContainer');
             document.getElementById('soundbarLabel').textContent = currentTrackName;
 
             if (!isAudioPlaying) {
-                soundcloudPlayer.play();
+                soundcloudPlayers[currentTrackId].play();
             } else {
-                soundcloudPlayer.pause();
+                soundcloudPlayers[currentTrackId].pause();
             }
         }
 
@@ -1581,8 +1576,8 @@
                 return;
             }
 
-            if (isAudioPlaying) soundcloudPlayer.pause();
-            else soundcloudPlayer.play();
+            if (isAudioPlaying) soundcloudPlayers[currentTrackId].pause();
+            else soundcloudPlayers[currentTrackId].play();
         }
 
         function setPlaybackState(playing) {
@@ -1620,68 +1615,40 @@
         }
 
         function playTrack(title, artist, id) {
-            const trackUrl = soundcloudTracks[id];
+            const player = soundcloudPlayers[id];
             const notice = document.getElementById('audioAvailabilityMessage');
 
-            if (id === currentTrackId && isAudioPlaying) {
-                soundcloudPlayer.pause();
+            if (activeAudioProvider === 'soundcloud' && id === currentTrackId && isAudioPlaying) {
+                player.pause();
                 return;
             }
 
-            if (!trackUrl) {
+            if (!player) {
                 notice.textContent = `${title} does not yet have a verified embeddable SoundCloud source.`;
                 notice.classList.remove('hidden');
                 return;
             }
 
-            if (window.matchMedia('(max-width: 640px)').matches || document.body.classList.contains('mobile-preview')) {
-                pendingSpotifyTrack = null;
-                if (isSpotifyPlaying && spotifyController) {
-                    spotifyController.pause();
-                    isSpotifyPlaying = false;
-                }
-                soundcloudPlayer.pause();
-                activeAudioProvider = 'soundcloud';
-                isAudioPlaying = false;
-                updatePlaybackIcons();
-                document.getElementById('soundbar').classList.add('hidden');
-                notice.classList.add('hidden');
-                openMobileSoundCloudPlayer(id, trackUrl);
-                return;
-            }
-
+            pendingSpotifyTrack = null;
             if (isSpotifyPlaying && spotifyController) {
                 spotifyController.pause();
                 isSpotifyPlaying = false;
-                updatePlaybackIcons();
             }
+            isAudioPlaying = false;
 
             currentTrackName = `${title} · ${artist}`;
             activeAudioProvider = 'soundcloud';
-            currentTrackUrl = trackUrl;
             currentTrackId = id;
             document.getElementById('soundbarLabel').textContent = currentTrackName;
             notice.classList.add('hidden');
-            // Mobile browsers can deny autoplay after a widget source change. Keep
-            // the selected, loaded recording available from the soundbar either way.
-            setPlaybackState(false);
-            soundcloudPlayer.load(currentTrackUrl, { auto_play: true });
+            pauseSoundCloudPlayers(id);
+            player.play();
         }
 
-        function openMobileSoundCloudPlayer(id, trackUrl) {
-            const player = document.getElementById('mobileSoundCloudPlayer');
-            const frame = document.getElementById('mobileSoundCloudFrame');
-            document.querySelector(`[data-track="${id}"]`).insertAdjacentElement('afterend', player);
-            frame.src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(trackUrl)}&auto_play=true`;
-            player.classList.remove('hidden');
-        }
-
-        function stopMobileSoundCloudPlayback() {
-            const player = document.getElementById('mobileSoundCloudPlayer');
-            const frame = document.getElementById('mobileSoundCloudFrame');
-            if (!player || player.classList.contains('hidden')) return;
-            frame.src = '';
-            player.classList.add('hidden');
+        function pauseSoundCloudPlayers(exceptId = null) {
+            Object.entries(soundcloudPlayers).forEach(([id, player]) => {
+                if (id !== exceptId) player.pause();
+            });
         }
 
         // Modal Controls

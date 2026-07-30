@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samantha Fernando - Composer</title>
-    <link rel="preload" as="image" href="assets/sam-1-compressed.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/sam-1-1200.webp" type="image/webp" fetchpriority="high">
     <link rel="icon" type="image/png" href="assets/new-favicon.png">
     <link rel="apple-touch-icon" href="assets/new-favicon.png">
     <!-- Tailwind CSS -->
@@ -518,23 +518,22 @@
                 <div class="lg:col-span-5 relative group">
                     <div class="absolute -inset-1 bg-gradient-to-r from-amber-700/20 to-neutral-700/20 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition duration-1000"></div>
                     <div class="relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl img-hover-zoom">
-                        <img src="assets/sam-1-compressed.jpg"
-                              alt="Samantha Fernando portrait" 
+                        <img src="assets/sam-1-1200.webp"
+                              alt="Samantha Fernando portrait"
+                              width="1200"
+                              height="800"
                               class="w-full h-[480px] object-cover object-center"
                               loading="eager"
                               fetchpriority="high"
-                              decoding="async">
-                        <div class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-                            <p class="text-xs text-neutral-300 font-mono">Samantha Fernando</p>
-                        </div>
+                              decoding="sync">
                     </div>
                 </div>
 
                 <!-- Bio Hero Text -->
                 <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-900/30 border border-amber-600/30 text-amber-300 text-xs font-mono tracking-widest uppercase">
-                        British Composer & Academic
-                    </div>
+                    <p class="text-xs font-sans font-medium tracking-[0.18em] uppercase text-neutral-500">
+                        British Composer
+                    </p>
 
                     <h1 class="text-3xl sm:text-5xl font-serif font-light text-neutral-100 leading-tight">
                         "Creating a space in sound that an audience can enter and inhabit."
@@ -1028,12 +1027,12 @@
             </div>
 
             <!-- Recording availability note follows the listening options. -->
-            <div class="p-4 rounded-2xl bg-amber-100 border border-amber-700/40 text-amber-900 text-xs font-sans flex items-start gap-3">
-                <i class="fa-solid fa-circle-info text-amber-800 text-base mt-0.5"></i>
+            <div data-recording-availability-note class="glass-panel p-4 rounded-2xl text-xs font-sans flex items-start gap-3">
+                <i class="fa-regular fa-note-sticky text-neutral-500 text-base mt-0.5" aria-hidden="true"></i>
                 <div class="space-y-1">
-                    <p class="font-semibold text-amber-900">Recording Availability:</p>
-                    <p class="text-amber-950 leading-relaxed">
-                        More tracks are available on Samantha's <a href="https://on.soundcloud.com/Ohbj2UPBnWa5Scw8AB" target="_blank" rel="noopener" class="underline text-amber-950">SoundCloud page</a> and <a href="https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM?si=-nnE1u-AQnypJGW2RpvPMg" target="_blank" rel="noopener" class="underline text-amber-950">Spotify page</a>. Recordings exist for all compositions, but for rights reasons not all of these are hosted publicly online. Please <button onclick="switchTab('contact')" class="underline text-amber-950">contact Samantha directly</button> if you would like to request audio for specific unreleased works.
+                    <p class="font-semibold text-neutral-300">Recording availability</p>
+                    <p class="text-neutral-400 leading-relaxed">
+                        More tracks are available on Samantha's <a href="https://on.soundcloud.com/Ohbj2UPBnWa5Scw8AB" target="_blank" rel="noopener" class="underline text-neutral-300 hover:text-neutral-100">SoundCloud page</a> and <a href="https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM?si=-nnE1u-AQnypJGW2RpvPMg" target="_blank" rel="noopener" class="underline text-neutral-300 hover:text-neutral-100">Spotify page</a>. Recordings exist for all compositions, but for rights reasons not all of these are hosted publicly online. Please <button onclick="switchTab('contact')" class="underline text-neutral-300 hover:text-neutral-100">contact Samantha directly</button> if you would like to request audio for specific unreleased works.
                     </p>
                 </div>
             </div>
@@ -1391,7 +1390,7 @@
                 activeBtn.classList.remove('bg-neutral-900', 'text-neutral-400');
                 activeBtn.classList.add('bg-amber-700', 'text-white');
             }
-            document.getElementById('worksContainer').innerHTML = '<div class="glass-panel p-8 text-center text-neutral-500 font-mono text-xs rounded-2xl">Open the Works List tab to load the catalogue.</div>';
+            renderWorks();
         }
 
         function filterWorks() {
@@ -1401,7 +1400,7 @@
         function initialiseCombinedMedia() {
             const watchSource = document.querySelector('#tab-watch > .grid');
             const listenSource = document.querySelector('#tab-listen > .glass-panel');
-            const availabilitySource = document.querySelector('#tab-listen > .p-4.bg-amber-100');
+            const availabilitySource = document.querySelector('[data-recording-availability-note]');
             const watchTarget = document.getElementById('combined-watch-content');
             const listenTarget = document.getElementById('combined-listen-content');
 

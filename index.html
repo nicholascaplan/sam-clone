@@ -382,7 +382,10 @@
             header { position: sticky; top: 0; }
             #tab-bio .lg\:col-span-7 > .pt-4 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
             #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; min-height: 3.5rem; padding: 0.5rem 0.25rem; font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.35; }
+            #tab-bio .lg\:col-span-7 > .pt-4 { padding-top: 0; }
             #tab-bio .mobile-cta-break { display: inline; }
+            #tab-watch-listen > .border-b:first-child { padding-bottom: 0.75rem; }
+            #tab-watch-listen > .border-b:nth-child(2) { margin-top: 0 !important; padding-top: 0.75rem; padding-bottom: 0.5rem; }
             #mobileMenu:not(.hidden) {
                 display: block !important;
                 position: fixed;
@@ -480,11 +483,11 @@
 
         <!-- Mobile Navigation Drawer -->
         <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider uppercase">
-            <button data-mobile-nav="bio" onclick="switchTab('bio'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-amber-400 hover:text-amber-400">Biography</button>
-            <button data-mobile-nav="works" onclick="switchTab('works'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
-            <button data-mobile-nav="watch-listen" onclick="switchTab('watch-listen'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen & Watch</button>
-            <button data-mobile-nav="writing" onclick="switchTab('writing'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Writing</button>
-            <button data-mobile-nav="contact" onclick="switchTab('contact'); toggleMobileMenu()" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Contact</button>
+                <button data-mobile-nav="bio" onclick="switchTab('bio')" class="mobile-nav-btn block w-full text-left py-2 text-amber-400 hover:text-amber-400">Biography</button>
+                <button data-mobile-nav="works" onclick="switchTab('works')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
+                <button data-mobile-nav="watch-listen" onclick="switchTab('watch-listen')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen & Watch</button>
+                <button data-mobile-nav="writing" onclick="switchTab('writing')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Writing</button>
+                <button data-mobile-nav="contact" onclick="switchTab('contact')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Contact</button>
         </div>
     </header>
 
@@ -1036,14 +1039,14 @@
         </section>
 
         <!-- ================= EXPERIMENTAL TAB: WATCH & LISTEN ================= -->
-        <section id="tab-watch-listen" class="tab-content space-y-10">
+        <section id="tab-watch-listen" class="tab-content space-y-4">
             <div class="border-b border-neutral-800 pb-6">
                 <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Films & Audio</span>
                 <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Listen & Watch</h2>
                 <p class="text-neutral-400 text-sm mt-1">Listen to recordings and watch performances in one place.</p>
             </div>
 
-            <div class="flex gap-2 border-b border-neutral-800 pb-3" role="tablist" aria-label="Listen and watch content">
+            <div class="flex gap-2 pb-3" role="tablist" aria-label="Listen and watch content">
                 <button id="combined-tab-listen" onclick="switchCombinedTab('listen')" role="tab" aria-selected="true" class="combined-tab-btn px-4 py-2 rounded-xl bg-amber-700 text-white text-xs font-medium">Listen</button>
                 <button id="combined-tab-watch" onclick="switchCombinedTab('watch')" role="tab" aria-selected="false" class="combined-tab-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 border border-neutral-800 text-xs font-medium">Watch</button>
             </div>
@@ -1234,6 +1237,8 @@
             <div class="flex items-center space-x-6 text-neutral-400">
                 <a href="https://on.soundcloud.com/Ohbj2UPBnWa5Scw8AB" target="_blank" rel="noopener" aria-label="Samantha Fernando on SoundCloud" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-soundcloud text-base"></i></a>
                 <a href="https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM?si=-nnE1u-AQnypJGW2RpvPMg" target="_blank" rel="noopener" aria-label="Samantha Fernando on Spotify" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-spotify text-base"></i></a>
+                <a href="https://www.instagram.com/_samfernando_/" target="_blank" rel="noopener" aria-label="Samantha Fernando on Instagram" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-instagram text-base"></i></a>
+                <a href="https://linktr.ee/samanthafernando" target="_blank" rel="noopener" aria-label="Samantha Fernando on Linktree" class="hover:text-amber-400 transition-colors font-sans text-xs uppercase font-semibold">Linktree</a>
                 <a href="https://www.nmcrec.co.uk/composers/samantha-fernando" target="_blank" rel="noopener" class="hover:text-amber-400 transition-colors font-sans text-xs uppercase font-semibold">NMC Profile</a>
             </div>
         </div>
@@ -1284,8 +1289,20 @@
         let activeCategory = 'all';
 
         // Tab Switching Handler
+        const tabAnchors = {
+            bio: 'bio',
+            works: 'works',
+            'watch-listen': 'listen',
+            writing: 'writing',
+            contact: 'contact'
+        };
+
+        const anchorTabs = Object.fromEntries(Object.entries(tabAnchors).map(([tabId, anchor]) => [anchor, tabId]));
+
         function switchTab(tabId) {
-            history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+            const anchor = tabAnchors[tabId];
+            if (anchor) history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${anchor}`);
+            if (!document.getElementById('mobileMenu').classList.contains('hidden')) toggleMobileMenu();
             document.getElementById('soundbar').classList.add('hidden');
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1313,6 +1330,9 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        const initialTab = anchorTabs[window.location.hash.slice(1)] || 'bio';
+        switchTab(initialTab);
 
         // Works List Renderer
         function renderWorks() {

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samantha Fernando - Composer</title>
     <link rel="preload" as="image" href="assets/sam-1.webp" fetchpriority="high">
+    <link rel="icon" type="image/png" href="assets/new-favicon.png">
+    <link rel="apple-touch-icon" href="assets/new-favicon.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -359,7 +361,7 @@
         body.mobile-preview #soundbar { width: min(398px, calc(100vw - 2rem)); max-width: 398px; }
         body.mobile-preview #tab-bio .lg\:col-span-5 img { height: 16rem; }
         body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
-        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; padding-left: 0.5rem; padding-right: 0.5rem; font-size: 0.65rem; }
+        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; min-height: 4.75rem; padding: 0.6rem 0.25rem; font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.35; }
         body.mobile-preview #tab-bio .lg\:col-span-2 + div > div,
         body.mobile-preview #tab-bio .lg\:col-span-2 ~ div > div { width: 100%; }
         body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-2 > div { width: 100%; }
@@ -369,6 +371,7 @@
         body.mobile-preview #featured-projects button,
         body.mobile-preview #tab-contact form button { width: 100%; }
         #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 12.5rem; }
+        .mobile-cta-break { display: none; }
         @media (min-width: 641px) {
             #bioCredentials { gap: 0.75rem; }
             #bioCredentials > div { padding: 0.6rem 0.8rem; font-size: 0.7rem; }
@@ -377,6 +380,9 @@
         @media (max-width: 767px) {
             #mobilePreviewBtn { display: none; }
             header { position: sticky; top: 0; }
+            #tab-bio .lg\:col-span-7 > .pt-4 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+            #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; min-height: 4.75rem; padding: 0.6rem 0.25rem; font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.35; }
+            #tab-bio .mobile-cta-break { display: inline; }
             #mobileMenu:not(.hidden) {
                 display: block !important;
                 position: fixed;
@@ -494,7 +500,7 @@
             <i id="soundbarPauseIcon" class="fa-solid fa-pause text-xs" aria-hidden="true"></i>
         </button>
     </div>
-    <iframe id="soundcloudPlayer" title="SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A236811796&auto_play=false"></iframe>
+    <iframe id="soundcloudPlayer" title="SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media; fullscreen" playsinline src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A236811796&auto_play=false"></iframe>
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
@@ -535,10 +541,10 @@
 
                     <div class="pt-4 flex flex-wrap gap-4">
                         <button onclick="switchTab('works')" class="px-6 py-3 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-medium text-xs tracking-widest uppercase transition-all shadow-lg shadow-amber-900/20">
-                            Explore Works List
+                            Explore Works<span class="mobile-cta-break"><br></span> List
                         </button>
                         <button onclick="switchTab('watch-listen')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
-                            Watch Performances
+                            Listen and<span class="mobile-cta-break"><br></span> Watch
                         </button>
                         <button onclick="switchTab('contact')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
                             Get in Touch
@@ -1615,7 +1621,11 @@
             currentTrackId = id;
             document.getElementById('soundbarLabel').textContent = currentTrackName;
             notice.classList.add('hidden');
-            soundcloudPlayer.load(currentTrackUrl, { auto_play: true });
+            // Explicitly play after loading as well as requesting autoplay. Mobile
+            // browsers can ignore the widget's autoplay option during a reload.
+            soundcloudPlayer.load(currentTrackUrl, { auto_play: true }, () => {
+                soundcloudPlayer.play();
+            });
         }
 
         // Modal Controls

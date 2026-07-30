@@ -10,11 +10,13 @@
 
 ## Verification
 
+- Add automated tests for the complete site across desktop and mobile, including navigation, Listen & Watch tabs, SoundCloud and Spotify playback, soundbar controls, YouTube modal playback, contact interactions and responsive layout.
 - Test each recording through `http://localhost:8000`, not by opening `index.html` with a `file://` URL.
 - Confirm SoundCloud `PLAY`, `PAUSE`, and `FINISH` events update the row icon and soundbar correctly.
 - Confirm Spotify playback pauses SoundCloud and updates the shared soundbar correctly.
 - Confirm the soundbar remains visible while paused and hides when navigation or other non-track controls are used.
 - Confirm Watch thumbnails display and open the existing in-page YouTube modal without Error 153.
+- Check the favicon with Sam and confirm the `SF` asset is the preferred browser-tab icon.
 - Do not treat a generic soundbar message as proof that audio is playing; use widget events.
 
 ## Known Constraints

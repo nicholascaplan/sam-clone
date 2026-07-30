@@ -1641,6 +1641,9 @@
             currentTrackId = id;
             document.getElementById('soundbarLabel').textContent = currentTrackName;
             notice.classList.add('hidden');
+            // Mobile browsers can deny autoplay after a widget source change. Keep
+            // the selected, loaded recording available from the soundbar either way.
+            setPlaybackState(false);
             soundcloudPlayer.load(currentTrackUrl, { auto_play: true });
         }
 

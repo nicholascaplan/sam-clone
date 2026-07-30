@@ -1641,11 +1641,7 @@
             currentTrackId = id;
             document.getElementById('soundbarLabel').textContent = currentTrackName;
             notice.classList.add('hidden');
-            // Explicitly play after loading as well as requesting autoplay. Mobile
-            // browsers can ignore the widget's autoplay option during a reload.
-            soundcloudPlayer.load(currentTrackUrl, { auto_play: true }, () => {
-                soundcloudPlayer.play();
-            });
+            soundcloudPlayer.load(currentTrackUrl, { auto_play: true });
         }
 
         // Modal Controls

@@ -11,7 +11,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://w.soundcloud.com/player/api.js"></script>
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -231,6 +230,53 @@
             transform: translateY(0);
         }
 
+        .hero-actions {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+        .hero-actions button {
+            display: grid;
+            grid-template-columns: 2.5rem 1fr 1rem;
+            align-items: center;
+            gap: 0.75rem;
+            min-height: 4rem;
+            padding: 0.55rem 0.75rem;
+            border: 1px solid #3e3b36;
+            border-radius: 0.75rem;
+            color: #d8d4ca;
+            font-size: 0.9rem;
+            font-weight: 500;
+            line-height: 1.2;
+            text-align: left;
+            transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+        }
+        .hero-actions button:first-child { border-color: #c2a683; background: #ede3d4; color: #24211d; }
+        .hero-actions button:hover { border-color: #c2a683; background: #24221f; color: #fff; }
+        .hero-actions button:first-child:hover { background: #f7efe3; color: #24211d; }
+        .hero-actions button:focus-visible { outline: 2px solid #d97706; outline-offset: 3px; }
+        .hero-action-icon {
+            display: inline-flex;
+            width: 2.5rem;
+            height: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(194, 166, 131, 0.12);
+            color: #d6a55f;
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .hero-action-icon.fa-music { font-size: 0.95rem; }
+        .hero-action-icon.fa-envelope { font-size: 1rem; }
+        .hero-actions button:first-child .hero-action-icon { background: #a95700; color: #fff; }
+        .hero-actions .fa-arrow-right { justify-self: end; font-size: 0.75rem; }
+        .light-mode .hero-actions button { border-color: rgba(24, 33, 31, 0.2); color: #34403a; }
+        .light-mode .hero-actions button:first-child { border-color: #bd9b70; background: #eee4d5; color: #24211d; }
+        .light-mode .hero-actions button:hover { border-color: #a95700; background: #f4eee4; color: #18211f; }
+        .light-mode .hero-action-icon { background: #ede3d4; color: #944900; }
+        .light-mode .hero-actions button:first-child .hero-action-icon { background: #a95700; color: #fff; }
+
         /* Image containers retain their crop without motion on hover. */
         .img-hover-zoom {
             overflow: hidden;
@@ -364,29 +410,38 @@
         body.mobile-preview .sm\:text-3xl { font-size: 1.875rem; }
         body.mobile-preview #soundbar { width: min(398px, calc(100vw - 2rem)); max-width: 398px; }
         body.mobile-preview #tab-bio .lg\:col-span-5 img { height: 16rem; }
-        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
-        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; min-height: 3.5rem; padding: 0.5rem 0.25rem; font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.35; }
+        body.mobile-preview .hero-actions { grid-template-columns: minmax(0, 1fr); }
         body.mobile-preview #tab-bio .lg\:col-span-2 + div > div,
         body.mobile-preview #tab-bio .lg\:col-span-2 ~ div > div { width: 100%; }
         body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-2 > div { width: 100%; }
         body.mobile-preview #bioCredentials { display: none; }
-        body.mobile-preview .cat-btn,
         body.mobile-preview #worksContainer button,
         body.mobile-preview #featured-projects button,
         body.mobile-preview #tab-contact form button { width: 100%; }
-        #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 12.5rem; }
+        .works-mobile-filter { display: none; }
+        body.mobile-preview .works-desktop-filters { display: none; }
+        body.mobile-preview .works-mobile-filter { display: block; }
+        body.mobile-preview #tab-works { gap: 1.25rem; }
+        body.mobile-preview #tab-works > div:first-child { padding-bottom: 0.75rem; }
+        body.mobile-preview #tab-works > div:first-child { border-bottom: 0; }
+        body.mobile-preview #tab-works > * + * { margin-top: 1rem !important; }
+        body.mobile-preview #tab-works .works-description-full { display: none; }
+        body.mobile-preview #tab-works .works-description-mobile { display: inline; }
+        body.mobile-preview #tab-works .works-mobile-filter label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+        body.mobile-preview #tab-works #worksSearchInput { padding-top: 0.65rem; padding-bottom: 0.65rem; font-size: 0.8rem; }
+        body.mobile-preview #tab-works #mobileWorksCategory { padding-top: 0.65rem; padding-bottom: 0.65rem; font-size: 0.8rem; }
+        .works-description-mobile { display: none; }
         .mobile-cta-break { display: none; }
         @media (min-width: 641px) {
             #bioCredentials { gap: 0.75rem; }
             #bioCredentials > div { padding: 0.6rem 0.8rem; font-size: 0.7rem; }
             #bioCredentials > div span { font-size: 0.8rem; }
+            .hero-introduction { font-size: 1.625rem !important; }
         }
         @media (max-width: 767px) {
             #mobilePreviewBtn { display: none; }
             header { position: sticky; top: 0; }
-            #tab-bio .lg\:col-span-7 > .pt-4 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
-            #tab-bio .lg\:col-span-7 > .pt-4 > button { width: 100%; min-height: 3.5rem; padding: 0.5rem 0.25rem; font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.35; }
-            #tab-bio .lg\:col-span-7 > .pt-4 { padding-top: 0; }
+            .hero-actions { grid-template-columns: minmax(0, 1fr); padding-top: 0; }
             #tab-bio .mobile-cta-break { display: inline; }
             #tab-watch-listen > .border-b:first-child { padding-bottom: 0.75rem; }
             #tab-watch-listen > .border-b:nth-child(2) { margin-top: 0 !important; padding-top: 0.75rem; padding-bottom: 0.5rem; }
@@ -406,6 +461,16 @@
                 box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14);
             }
             #mobileMenu:not(.hidden) button { display: block; }
+            .works-desktop-filters { display: none; }
+            .works-mobile-filter { display: block; }
+            #tab-works > * + * { margin-top: 1rem !important; }
+            #tab-works > div:first-child { padding-bottom: 0.5rem; }
+            #tab-works > div:first-child { border-bottom: 0; }
+            #tab-works .works-description-full { display: none; }
+            #tab-works .works-description-mobile { display: inline; }
+            #tab-works #worksSearchInput { padding-top: 0.65rem; padding-bottom: 0.65rem; font-size: 0.8rem; }
+            #tab-works .works-mobile-filter label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+            #tab-works #mobileWorksCategory { padding-top: 0.65rem; padding-bottom: 0.65rem; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -513,9 +578,7 @@
             <i id="soundbarPauseIcon" class="fa-solid fa-pause text-xs" aria-hidden="true"></i>
         </button>
     </div>
-    <iframe id="soundcloudPlayerIlluminations" title="4 Illuminations SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media; fullscreen" playsinline src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/105152235&auto_play=false"></iframe>
-    <iframe id="soundcloudPlayerFaultline" title="Fault-Line SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media; fullscreen" playsinline src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/236811796&auto_play=false"></iframe>
-    <iframe id="soundcloudPlayerRecollections" title="Recollections SoundCloud player" class="soundcloud-player" allow="autoplay; encrypted-media; fullscreen" playsinline src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/125817887&auto_play=false"></iframe>
+    <div id="soundcloudPlayers" aria-hidden="true"></div>
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
@@ -526,44 +589,34 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <!-- Composer Portrait -->
                 <div class="lg:col-span-5 relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-amber-700/20 to-neutral-700/20 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition duration-1000"></div>
-                    <div class="relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl img-hover-zoom">
+                    <div class="relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 img-hover-zoom">
                         <img src="assets/sam-1-1200.webp"
                               alt="Samantha Fernando portrait"
                               width="1200"
                               height="800"
                               class="w-full h-[480px] object-cover object-center"
                               loading="eager"
-                              fetchpriority="high"
-                              decoding="sync">
+                               fetchpriority="high"
+                               decoding="sync">
                     </div>
                 </div>
 
                 <!-- Bio Hero Text -->
                 <div class="lg:col-span-7 space-y-6">
-                    <p class="text-xs font-sans font-medium tracking-[0.18em] uppercase text-neutral-500">
-                        British Composer
-                    </p>
-
                     <h1 class="text-3xl sm:text-5xl font-serif font-light text-neutral-100 leading-tight">
                         "Creating a space in sound that an audience can enter and inhabit."
                     </h1>
 
-                    <p class="text-lg text-neutral-300 font-serif-italic font-light leading-relaxed">
+                    <div class="hero-actions py-1">
+                        <button type="button" aria-label="Listen" onclick="switchTab('watch-listen')"><i class="hero-action-icon fa-solid fa-headphones" aria-hidden="true"></i><span>Listen</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                        <button type="button" aria-label="Explore works" onclick="switchTab('works')"><i class="hero-action-icon fa-solid fa-music" aria-hidden="true"></i><span>Explore works</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                        <button type="button" aria-label="Get in touch" onclick="switchTab('contact')"><i class="hero-action-icon fa-regular fa-envelope" aria-hidden="true"></i><span>Get in touch</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                    </div>
+
+                    <p class="hero-introduction text-lg text-neutral-300 font-serif-italic font-light leading-relaxed">
                         Samantha Fernando (b. 1984) is a British composer whose work is centred on an exploration of timbre, space, and the unfolding of sound. She is drawn to ideas of landscape, architecture, and place.
                     </p>
 
-                    <div class="pt-4 flex flex-wrap gap-4">
-                        <button onclick="switchTab('works')" class="px-6 py-3 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-medium text-xs tracking-widest uppercase transition-all shadow-lg shadow-amber-900/20">
-                            Explore Works
-                        </button>
-                        <button onclick="switchTab('watch-listen')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
-                            Listen
-                        </button>
-                        <button onclick="switchTab('contact')" class="px-6 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs tracking-widest uppercase transition-all">
-                            Get in Touch
-                        </button>
-                    </div>
                 </div>
             </div>
 
@@ -754,23 +807,38 @@
                 <div>
                     <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Catalogue of Compositions</span>
                     <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Works List</h2>
-                    <p class="text-neutral-400 text-sm mt-1">Full repertoire categorized by instrumentation and scale.</p>
+                    <p class="text-neutral-400 text-sm mt-1"><span class="works-description-full">Full repertoire categorised by instrumentation and scale.</span><span class="works-description-mobile">Browse works by title, instrumentation or category.</span></p>
                 </div>
 
                 <div class="relative w-full md:w-72">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-xs"></i>
-                    <input type="text" id="worksSearchInput" oninput="filterWorks()" placeholder="Search title or instrumentation..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-amber-600 transition-colors">
+                    <input type="text" id="worksSearchInput" oninput="filterWorks()" placeholder="Search works..." aria-label="Search works by title or instrumentation" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-amber-600 transition-colors">
                 </div>
             </div>
 
-            <!-- Category Filter Buttons -->
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <!-- Desktop category filters -->
+            <div class="works-desktop-filters flex flex-wrap gap-2 text-xs font-mono">
                 <button onclick="setWorkCategory('all')" id="cat-all" class="cat-btn px-4 py-2 rounded-xl bg-amber-700 text-white font-medium transition-all">All Works</button>
                 <button onclick="setWorkCategory('chamber')" id="cat-chamber" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Solo & Chamber (1-4)</button>
                 <button onclick="setWorkCategory('ensemble')" id="cat-ensemble" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Large Ensemble (5+)</button>
                 <button onclick="setWorkCategory('vocal')" id="cat-vocal" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Vocal & Choral</button>
                 <button onclick="setWorkCategory('opera')" id="cat-opera" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Opera & Stage</button>
                 <button onclick="setWorkCategory('orchestral')" id="cat-orchestral" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Orchestral</button>
+            </div>
+
+            <div class="works-mobile-filter">
+                <label for="mobileWorksCategory" class="block mb-1.5 text-[10px] font-sans font-semibold uppercase tracking-wider text-neutral-500">Category</label>
+                <div class="relative">
+                    <select id="mobileWorksCategory" onchange="setWorkCategory(this.value)" class="w-full appearance-none bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 pr-10 text-sm text-neutral-200 focus:outline-none focus:border-amber-600">
+                        <option value="all">All Works</option>
+                        <option value="chamber">Solo & Chamber (1-4)</option>
+                        <option value="ensemble">Large Ensemble (5+)</option>
+                        <option value="vocal">Vocal & Choral</option>
+                        <option value="opera">Opera & Stage</option>
+                        <option value="orchestral">Orchestral</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-neutral-500 text-xs pointer-events-none" aria-hidden="true"></i>
+                </div>
             </div>
 
             <!-- Works Container -->
@@ -1258,44 +1326,53 @@
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Complete Works List Data
+        // Complete Works List Data. The badge is always the controlled work category;
+        // commission, premiere and notes are rendered as separate metadata rows.
         const worksData = [
             // Solo / Chamber (1-4 players)
-            { id: 1, title: 'Balconies', year: 2023, category: 'chamber', instrumentation: 'Solo violin (multi-tracked or ensemble of 5 violins)', duration: '8 mins', details: 'Commissioned by Olivia de Prato for her album Panorama (2023, New Focus Recordings).', badge: 'Solo Violin' },
-            { id: 2, title: '4 Klee Miniatures', year: 2021, category: 'chamber', instrumentation: 'Solo horn', duration: '6 mins', details: 'Commissioned by Deepa Goonetilleke.', badge: 'Solo Horn' },
-            { id: 3, title: 'The Way Home', year: 2018, category: 'vocal', instrumentation: 'Soprano, cello & piano', duration: '9 mins', details: 'Commissioned by Kettle\'s Yard, premiered June 2018.', badge: 'Chamber Vocal' },
-            { id: 4, title: 'Fault-Line', year: 2015, category: 'chamber', instrumentation: 'Solo cello', duration: '6 mins', details: 'Commissioned by London Sinfonietta, premiered at Peckham Asylum (June 2015).', badge: 'Solo Cello' },
-            { id: 5, title: 'Kinesphere', year: 2013, category: 'chamber', instrumentation: 'Solo flute', duration: '6 mins', details: 'Commissioned by London Sinfonietta, premiered at Purcell Room. Released on NMC Recordings.', badge: 'NMC Recording' },
-             { id: 6, title: '4 Illuminations', year: 2012, category: 'chamber', instrumentation: 'Saxophone quartet', duration: '8 mins', details: 'Premiered at Royaumont Abbey, France, by the Xasax Quartet.', badge: 'Saxophone Quartet' },
-            { id: 7, title: 'Sissay Settings', year: 2016, category: 'vocal', instrumentation: 'Soprano and piano', duration: '7 mins', details: 'Settings of poetry by Lemn Sissay. Commissioned by York Late Music.', badge: 'Soprano & Piano' },
-            { id: 8, title: 'Look Up', year: 2014, category: 'vocal', instrumentation: '4 voices, bass viol & electronics', duration: '12 mins', details: 'Commissioned by LOD Music Theatre & Silbersee vocal ensemble (Ghent).', badge: 'Stage / Vocal' },
-            { id: 9, title: 'Ganymede', year: 2014, category: 'vocal', instrumentation: 'Tenor and piano', duration: '5 mins', details: 'Commissioned by Oxford Lieder Festival at Holywell Music Room.', badge: 'Oxford Lieder' },
-            { id: 10, title: '3 Songs for Soprano and Cello', year: 2014, category: 'vocal', instrumentation: 'Soprano and cello', duration: '11 mins', details: 'Recorded and released by Riot Ensemble (Sarah Dacey & Louise McMonagle, 2020).', badge: 'Riot Ensemble' },
-            { id: 11, title: 'Square of Light', year: 2013, category: 'vocal', instrumentation: 'Soprano and piano', duration: '4 mins', details: 'Chamber vocal settings.', badge: 'Vocal' },
-             { id: 12, title: 'War Without End', year: 2009, category: 'vocal', instrumentation: 'Baritone and piano', duration: '8 mins', details: 'Text by Euan Ferguson. Commissioned by London Sinfonietta & Opera Genesis.', badge: 'Kings Place' },
+            { id: 1, title: 'Balconies', year: 2023, category: 'chamber', instrumentation: 'Solo violin (multi-tracked or ensemble of 5 violins)', duration: '8 mins', commission: 'Olivia de Prato, for the Panorama album.', notes: 'New Focus Recordings (2023).' },
+            { id: 2, title: '4 Klee Miniatures', year: 2021, category: 'chamber', instrumentation: 'Solo horn', duration: '6 mins', commission: 'Deepa Goonetilleke.' },
+            { id: 3, title: 'The Way Home', year: 2018, category: 'vocal', instrumentation: 'Soprano, cello & piano', duration: '9 mins', commission: 'Kettle\'s Yard.', premiere: 'June 2018.' },
+            { id: 4, title: 'Fault-Line', year: 2015, category: 'chamber', instrumentation: 'Solo cello', duration: '6 mins', commission: 'London Sinfonietta.', premiere: 'Peckham Asylum (June 2015).' },
+            { id: 5, title: 'Kinesphere', year: 2013, category: 'chamber', instrumentation: 'Solo flute', duration: '6 mins', commission: 'London Sinfonietta.', premiere: 'Purcell Room.', notes: 'Released on NMC Recordings. Premiere year and venue require confirmation.' },
+            { id: 6, title: '4 Illuminations', year: 2012, category: 'chamber', instrumentation: 'Saxophone quartet', duration: '8 mins', premiere: 'Royaumont Abbey, France, by the Xasax Quartet.' },
+            { id: 7, title: 'Sissay Settings', year: 2016, category: 'vocal', instrumentation: 'Soprano and piano', duration: '7 mins', commission: 'York Late Music.', notes: 'Settings of poetry by Lemn Sissay.' },
+            { id: 8, title: 'Look Up', year: 2014, category: 'vocal', instrumentation: '4 voices, bass viol & electronics', duration: '12 mins', commission: 'LOD Music Theatre & Silbersee vocal ensemble (Ghent).' },
+            { id: 9, title: 'Ganymede', year: 2014, category: 'vocal', instrumentation: 'Tenor and piano', duration: '5 mins', commission: 'Oxford Lieder Festival.', notes: 'Associated venue: Holywell Music Room.' },
+            { id: 10, title: '3 Songs for Soprano and Cello', year: 2014, category: 'vocal', instrumentation: 'Soprano and cello', duration: '11 mins', notes: 'Recorded and released by Riot Ensemble (Sarah Dacey & Louise McMonagle, 2020).' },
+            { id: 11, title: 'Square of Light', year: 2013, category: 'vocal', instrumentation: 'Soprano and piano', duration: '4 mins', notes: 'Chamber vocal settings.' },
+            { id: 12, title: 'War Without End', year: 2009, category: 'vocal', instrumentation: 'Baritone and piano', duration: '8 mins', commission: 'London Sinfonietta & Opera Genesis.', notes: 'Text by Euan Ferguson.' },
 
             // Large Ensemble (5+ players)
-            { id: 13, title: 'Wintering', year: 2025, category: 'vocal', instrumentation: 'SATB + String Quartet', duration: '27 mins', details: 'Commissioned by Wigmore Hall. Premiered by Manchester Collective & The Marian Consort.', badge: 'Wigmore Hall Commission' },
-            { id: 14, title: 'Sound Inhabitants', year: 2023, category: 'ensemble', instrumentation: '15 players (fl, cl, ob, bsn, hn, tpt, trb, perc, hp, pno, 2vlns, vla, vc, db)', duration: '12 mins', details: 'Commissioned and premiered by London Sinfonietta at Purcell Room.', badge: 'London Sinfonietta' },
-            { id: 15, title: 'Breathing Forest', year: 2022, category: 'vocal', instrumentation: 'Solo soprano, strings and percussion', duration: '15 mins', details: 'Commissioned by Birmingham Contemporary Music Group (BCMG) & Anna Dennis.', badge: 'BCMG Commission' },
-            { id: 16, title: 'Formations', year: 2018, category: 'ensemble', instrumentation: '15 players', duration: '10 mins', details: 'Commissioned for London Sinfonietta 50th Anniversary at Royal Festival Hall (dir. Vladimir Jurowski).', badge: 'Royal Festival Hall' },
-            { id: 17, title: 'Positive/Negative Space', year: 2013, category: 'ensemble', instrumentation: 'Flute, clarinet, alto saxophone & cello', duration: '8 mins', details: 'RPS Composition Prize commission. Premiered by London Sinfonietta.', badge: 'RPS Award' },
-            { id: 18, title: 'Shadows on Shadows', year: 2010, category: 'ensemble', instrumentation: 'Solo double bass & string ensemble (2vlns, 2vlas, 2vcs)', duration: '9 mins', details: 'Premiered at Christ Church Cathedral, Oxford.', badge: 'String Ensemble' },
+            { id: 13, title: 'Wintering', year: 2025, category: 'ensemble', instrumentation: 'SATB + string quartet', duration: '27 mins', commission: 'Wigmore Hall.', premiere: 'Manchester Collective & The Marian Consort.' },
+            { id: 14, title: 'Sound Inhabitants', year: 2023, category: 'ensemble', instrumentation: '15 players (fl, cl, ob, bsn, hn, tpt, trb, perc, hp, pno, 2vlns, vla, vc, db)', duration: '12 mins', commission: 'London Sinfonietta.', premiere: 'Purcell Room, Southbank Centre.' },
+            { id: 15, title: 'Breathing Forest', year: 2022, category: 'ensemble', instrumentation: 'Solo soprano, strings and percussion', duration: '15 mins', commission: 'Birmingham Contemporary Music Group (BCMG) & Anna Dennis.' },
+            { id: 16, title: 'Formations', year: 2018, category: 'ensemble', instrumentation: '15 players', duration: '10 mins', commission: 'London Sinfonietta 50th anniversary.', premiere: 'Royal Festival Hall, conducted by Vladimir Jurowski.' },
+            { id: 17, title: 'Positive/Negative Space', year: 2013, category: 'ensemble', instrumentation: 'Flute, clarinet, alto saxophone & cello', duration: '8 mins', premiere: 'London Sinfonietta at Purcell Room, Southbank Centre.', notes: 'RPS Composition Prize commission.' },
+            { id: 18, title: 'Shadows on Shadows', year: 2010, category: 'ensemble', instrumentation: 'Solo double bass & string ensemble (2vlns, 2vlas, 2vcs)', duration: '9 mins', premiere: 'Christ Church Cathedral, Oxford.' },
 
             // Opera & Stage
-            { id: 19, title: 'glass human', year: 2022, category: 'opera', instrumentation: '3 singers, 5 players & electronics', duration: '50 mins', details: 'Chamber opera created with Melanie Wilson. Premiered at Glyndebourne.', badge: 'Glyndebourne Opera' },
-            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble CHROMA & electronics', duration: '15 mins', details: 'Hyper-reality opera experience produced by Royal Opera House & Figment Productions.', badge: 'Royal Opera House' },
+            { id: 19, title: 'glass human', year: 2022, category: 'opera', instrumentation: '3 singers, 5 players & electronics', duration: '50 mins', commission: 'Glyndebourne.', premiere: 'Glyndebourne.', notes: 'Chamber opera created with Melanie Wilson.' },
+            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble CHROMA & electronics', duration: '15 mins', commission: 'Royal Opera House & Figment Productions.', notes: 'Hyper-reality opera experience. Composition year requires confirmation.' },
 
             // Choral
-            { id: 21, title: 'Everything Passes, Everything is Connected', year: 2021, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '7 mins', details: 'Commissioned and premiered by The Crossing (USA).', badge: 'The Crossing' },
-            { id: 22, title: 'Have It All', year: 2020, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '6 mins', details: 'Commissioned by the BBC Singers, broadcast on BBC Radio 3.', badge: 'BBC Singers' },
-            { id: 23, title: 'Change', year: 2009, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '5 mins', details: 'Selected by John Armitage Memorial, performed by Chapel Choir of Selwyn College Cambridge.', badge: 'Choral' },
+            { id: 21, title: 'Everything Passes, Everything is Connected', year: 2021, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '7 mins', commission: 'The Crossing (USA).', premiere: 'The Crossing (USA).' },
+            { id: 22, title: 'Have It All', year: 2020, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '6 mins', commission: 'BBC Singers.', notes: 'Broadcast on BBC Radio 3.' },
+            { id: 23, title: 'Change', year: 2009, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '5 mins', notes: 'Selected by John Armitage Memorial; performed by Chapel Choir of Selwyn College Cambridge.' },
 
             // Orchestral
-            { id: 24, title: 'Breathing Space', year: 2019, category: 'orchestral', instrumentation: 'Symphony Orchestra', duration: '12 mins', details: 'Commissioned by the Philharmonia Orchestra, conducted by Martyn Brabbins.', badge: 'Philharmonia' },
-             { id: 25, title: 'Echo of a Woman', year: 2018, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '14 mins', details: 'Commissioned by Royal Holloway University Symphony Orchestra.', badge: 'Soprano & Orchestra' }
-            ,{ id: 26, title: 'Glimmer', year: 2011, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '10 mins', details: 'Premiered by Lux Orchestra.', badge: 'Orchestral' }
+            { id: 24, title: 'Breathing Space', year: 2019, category: 'orchestral', instrumentation: 'Symphony orchestra', duration: '12 mins', commission: 'Philharmonia Orchestra.', notes: 'Conducted by Martyn Brabbins.' },
+            { id: 25, title: 'Echo of a Woman', year: 2018, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '14 mins', commission: 'Royal Holloway University Symphony Orchestra.' },
+            { id: 26, title: 'Glimmer', year: 2011, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '10 mins', premiere: 'Lux Orchestra.' }
         ];
+
+        const workCategoryLabels = {
+            chamber: 'Solo & Chamber',
+            vocal: 'Vocal & Choral',
+            ensemble: 'Large Ensemble',
+            opera: 'Opera & Stage',
+            orchestral: 'Orchestral'
+        };
 
         let activeCategory = 'all';
         let isAudioPlaying = false;
@@ -1356,7 +1433,10 @@
                 const matchesCategory = activeCategory === 'all' || w.category === activeCategory;
                 const matchesSearch = w.title.toLowerCase().includes(searchVal) || 
                                       w.instrumentation.toLowerCase().includes(searchVal) ||
-                                      w.badge.toLowerCase().includes(searchVal);
+                                       workCategoryLabels[w.category].toLowerCase().includes(searchVal) ||
+                                       (w.commission || '').toLowerCase().includes(searchVal) ||
+                                       (w.premiere || '').toLowerCase().includes(searchVal) ||
+                                       (w.notes || '').toLowerCase().includes(searchVal);
                 return matchesCategory && matchesSearch;
             }).sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
 
@@ -1372,14 +1452,18 @@
             container.innerHTML = filtered.map(w => `
                 <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 group">
                     <div class="space-y-1">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-mono text-amber-400">${w.year}</span>
-                            <span class="px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-300 text-[10px] font-mono">${w.badge}</span>
-                            <span class="text-xs font-mono text-neutral-500">${w.duration}</span>
-                        </div>
-                        <h3 class="text-lg font-serif text-neutral-100 group-hover:text-amber-300 transition-colors">${w.title}</h3>
-                        <p class="text-xs text-neutral-400">${w.instrumentation}</p>
-                        <p class="text-xs text-neutral-500 font-serif-italic pt-1">${w.details}</p>
+                         <div class="flex items-center gap-3">
+                             <span class="text-xs font-mono text-amber-400">${w.year}</span>
+                             <span class="px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-300 text-[10px] font-mono">${workCategoryLabels[w.category]}</span>
+                             <span class="text-xs font-mono text-neutral-500">${w.duration}</span>
+                         </div>
+                         <h3 class="text-lg font-serif text-neutral-100 group-hover:text-amber-300 transition-colors">${w.title}</h3>
+                         <p class="text-xs text-neutral-400">${w.instrumentation}</p>
+                         <div class="space-y-0.5 pt-1 text-xs text-neutral-500 font-serif-italic">
+                             ${w.commission ? `<p><span class="not-italic font-sans text-[10px] uppercase tracking-wider text-neutral-600">Commission</span> ${w.commission}</p>` : ''}
+                             ${w.premiere ? `<p><span class="not-italic font-sans text-[10px] uppercase tracking-wider text-neutral-600">Premiere</span> ${w.premiere}</p>` : ''}
+                             ${w.notes ? `<p><span class="not-italic font-sans text-[10px] uppercase tracking-wider text-neutral-600">Notes</span> ${w.notes}</p>` : ''}
+                         </div>
                     </div>
 
                     <div class="flex items-center gap-2 pt-2 md:pt-0">
@@ -1402,6 +1486,7 @@
                 activeBtn.classList.remove('bg-neutral-900', 'text-neutral-400');
                 activeBtn.classList.add('bg-amber-700', 'text-white');
             }
+            document.getElementById('mobileWorksCategory').value = cat;
             renderWorks();
         }
 
@@ -1467,11 +1552,48 @@
         const readySoundCloudPlayers = new Set();
         let pendingSoundCloudPlaybackId = null;
         let pendingSoundCloudPlaybackStartsAtZero = false;
-        const soundcloudPlayers = {
-            illuminations: SC.Widget(document.getElementById('soundcloudPlayerIlluminations')),
-            faultline: SC.Widget(document.getElementById('soundcloudPlayerFaultline')),
-            recollections: SC.Widget(document.getElementById('soundcloudPlayerRecollections'))
-        };
+        let soundcloudPlayers = {};
+        let soundcloudInitialisation = null;
+
+        function initialiseSoundCloudPlayers() {
+            if (soundcloudInitialisation) return soundcloudInitialisation;
+
+            soundcloudInitialisation = new Promise((resolve, reject) => {
+                const playerContainer = document.getElementById('soundcloudPlayers');
+                const tracks = {
+                    illuminations: { id: 'soundcloudPlayerIlluminations', title: '4 Illuminations SoundCloud player', url: 'https://api.soundcloud.com/tracks/105152235' },
+                    faultline: { id: 'soundcloudPlayerFaultline', title: 'Fault-Line SoundCloud player', url: 'https://api.soundcloud.com/tracks/236811796' },
+                    recollections: { id: 'soundcloudPlayerRecollections', title: 'Recollections SoundCloud player', url: 'https://api.soundcloud.com/tracks/125817887' }
+                };
+
+                Object.values(tracks).forEach(track => {
+                    const iframe = document.createElement('iframe');
+                    iframe.id = track.id;
+                    iframe.title = track.title;
+                    iframe.className = 'soundcloud-player';
+                    iframe.allow = 'autoplay; encrypted-media; fullscreen';
+                    iframe.setAttribute('playsinline', '');
+                    iframe.src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(track.url)}&auto_play=false`;
+                    playerContainer.appendChild(iframe);
+                });
+
+                const script = document.createElement('script');
+                script.src = 'https://w.soundcloud.com/player/api.js';
+                script.onload = () => {
+                    soundcloudPlayers = Object.fromEntries(Object.entries(tracks).map(([key, track]) => [key, SC.Widget(document.getElementById(track.id))]));
+                    bindSoundCloudEvents();
+                    resolve();
+                };
+                script.onerror = () => {
+                    soundcloudInitialisation = null;
+                    playerContainer.replaceChildren();
+                    reject(new Error('SoundCloud player failed to load.'));
+                };
+                document.head.appendChild(script);
+            });
+
+            return soundcloudInitialisation;
+        }
 
         window.onSpotifyIframeApiReady = (IFrameAPI) => {
             spotifyReady = IFrameAPI;
@@ -1630,7 +1752,8 @@
             }
         }
 
-        Object.entries(soundcloudPlayers).forEach(([id, player]) => {
+        function bindSoundCloudEvents() {
+            Object.entries(soundcloudPlayers).forEach(([id, player]) => {
             player.bind(SC.Widget.Events.READY, () => {
                 readySoundCloudPlayers.add(id);
                 if (pendingSoundCloudPlaybackId === id) {
@@ -1655,7 +1778,8 @@
             player.bind(SC.Widget.Events.ERROR, () => {
                 if (currentTrackId === id) showTrackUnavailable();
             });
-        });
+            });
+        }
 
         function toggleActivePlayback() {
             if (activeAudioProvider === 'spotify' && spotifyController) {
@@ -1672,6 +1796,10 @@
             }
 
             const player = soundcloudPlayers[currentTrackId];
+            if (!player) {
+                initialiseSoundCloudPlayers().then(toggleActivePlayback).catch(showTrackUnavailable);
+                return;
+            }
             if (isAudioPlaying) {
                 player.pause();
                 return;
@@ -1723,6 +1851,11 @@
         function playTrack(title, artist, id) {
             const player = soundcloudPlayers[id];
             const notice = document.getElementById('audioAvailabilityMessage');
+
+            if (!player) {
+                initialiseSoundCloudPlayers().then(() => playTrack(title, artist, id)).catch(showTrackUnavailable);
+                return;
+            }
 
             if (activeAudioProvider === 'soundcloud' && id === currentTrackId && isAudioPlaying) {
                 player.pause();
@@ -1963,6 +2096,9 @@
                     openVideoModal(link.href, link.closest('.glass-panel')?.querySelector('h3')?.textContent);
                 });
             });
+            const initialiseWhenIdle = () => initialiseSoundCloudPlayers().catch(() => {});
+            if ('requestIdleCallback' in window) window.requestIdleCallback(initialiseWhenIdle, { timeout: 5000 });
+            else window.setTimeout(initialiseWhenIdle, 0);
         };
     </script>
 </body>

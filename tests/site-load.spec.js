@@ -23,6 +23,21 @@ test('switches to the works list and filters by category', async ({ page }) => {
   await expect(page.locator('#worksContainer')).not.toContainText('Wintering');
 });
 
+test('hero actions navigate to their destinations', async ({ page }) => {
+  await page.goto('/');
+
+  await page.locator('.hero-actions').getByRole('button', { name: 'Listen' }).click();
+  await expect(page.locator('#tab-watch-listen')).toBeVisible();
+
+  await page.goto('/');
+  await page.locator('.hero-actions').getByRole('button', { name: 'Explore works' }).click();
+  await expect(page.locator('#tab-works')).toBeVisible();
+
+  await page.goto('/');
+  await page.locator('.hero-actions').getByRole('button', { name: 'Get in touch' }).click();
+  await expect(page.locator('#tab-contact')).toBeVisible();
+});
+
 test('toggles the visual theme', async ({ page }) => {
   await page.goto('/');
 

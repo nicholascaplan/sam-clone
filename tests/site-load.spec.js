@@ -77,6 +77,30 @@ test('switches between Listen and Watch content', async ({ page }) => {
   await expect(page.locator('#combined-listen-content')).toBeVisible();
 });
 
+test('soundbar progress display is present and non-interactive', async ({ page }) => {
+  await page.goto('/');
+
+  const progress = page.locator('#soundbarProgress');
+  await expect(progress).toHaveAttribute('role', 'progressbar');
+  await expect(progress).toHaveAttribute('aria-valuenow', '0');
+  await expect(progress).toHaveAttribute('aria-valuemax', '0');
+  await expect(page.locator('#soundbarProgress button, #soundbarProgress input')).toHaveCount(0);
+});
+
+test('header Listen control uses the shared playback toggle', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('#ambientSoundBtn')).toHaveAttribute('onclick', 'toggleActivePlayback()');
+});
+
+test('initialises navigation before the audio players', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Works List' }).click();
+  await expect(page).toHaveURL(/#works$/);
+  await expect(page.locator('#tab-works')).toBeVisible();
+});
+
 test('opens and closes a work detail modal', async ({ page }) => {
   await page.goto('/');
 

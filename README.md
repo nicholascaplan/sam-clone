@@ -10,9 +10,17 @@ Static single-page portfolio for composer Samantha Fernando. It presents her bio
 - Spotify track playback through the Spotify IFrame API.
 - A combined `Listen & Watch` page with internal Listen and Watch tabs.
 - YouTube videos open in an in-page modal from thumbnail cards.
-- GitHub Pages deployment through `.github/workflows/pages.yml`.
+- GitHub Pages deployment from the `main` branch.
 
 ## Run Locally
+
+If the `sam-website` alias is configured in your zsh shell, start the site with:
+
+```bash
+sam-website
+```
+
+This changes to the project directory and runs the server on port 8000. To run it directly instead:
 
 ```bash
 python3 -m http.server 8000 --directory /Users/nicholascaplan/sam-website
@@ -26,7 +34,4 @@ Install the test dependency and browser once with `npm install` and `npx playwri
 
 ## Deployment
 
-- Repository: <https://github.com/nicholascaplan/sam-clone>
 - Live site: <https://nicholascaplan.github.io/sam-clone/>
-
-Project maintenance notes, settled decisions and future work are documented in [`AGENTS.md`](AGENTS.md), [`decisions.md`](decisions.md) and [`NextSteps.md`](NextSteps.md).

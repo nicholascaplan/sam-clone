@@ -1,6 +1,5 @@
 *.md
 !README.md
-!TestStrategy.md
 .DS_Store
 node_modules/
 test-results/

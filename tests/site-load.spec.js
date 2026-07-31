@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const AxeBuilder = require('@axe-core/playwright').default;
 
 test('loads the site and renders primary navigation', async ({ page }) => {
   await page.goto('/');
@@ -132,4 +133,31 @@ test('uses mobile navigation to switch sections', async ({ page }) => {
 
   await expect(page.locator('#tab-contact')).toBeVisible();
   await expect(page.locator('#mobileMenu')).toBeHidden();
+});
+
+[
+  ['works', '#tab-works'],
+  ['listen', '#tab-watch-listen'],
+  ['writing', '#tab-writing'],
+  ['contact', '#tab-contact'],
+].forEach(([anchor, sectionSelector]) => {
+  test(`opens the ${anchor} deep link`, async ({ page }) => {
+    await page.goto(`/#${anchor}`);
+
+    await expect(page).toHaveURL(new RegExp(`#${anchor}$`));
+    await expect(page.locator(sectionSelector)).toBeVisible();
+  });
+});
+
+test('has no serious or critical accessibility violations on the homepage', async ({ page }) => {
+  await page.goto('/');
+
+  const results = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa'])
+    .analyze();
+  const blockingViolations = results.violations.filter(
+    violation => ['serious', 'critical'].includes(violation.impact),
+  );
+
+  expect(blockingViolations).toEqual([]);
 });

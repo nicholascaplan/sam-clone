@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spotify Player Preview</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 3rem 1rem;
+            background:
+                radial-gradient(circle at 20% 0%, rgba(146, 64, 14, 0.18), transparent 34rem),
+                #0a0a0a;
+        }
+
+        main {
+            width: min(44rem, 100%);
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem;
+            font-family: Georgia, serif;
+            font-size: clamp(2rem, 7vw, 3.25rem);
+            font-weight: 400;
+        }
+
+        .intro {
+            margin: 0 0 2rem;
+            color: #a3a3a3;
+            line-height: 1.6;
+        }
+
+        .panel {
+            padding: 1rem;
+            border: 1px solid #292524;
+            border-radius: 1.25rem;
+            background: rgba(23, 23, 23, 0.88);
+            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.35);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 0 0 0.75rem;
+        }
+
+        .option-label h2 {
+            margin: 0;
+            font-family: Georgia, serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+        }
+
+        .option-label span {
+            color: #737373;
+            font-size: 0.72rem;
+            white-space: nowrap;
+        }
+
+        .option-description {
+            margin: 0 0 1rem;
+            color: #a3a3a3;
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        .track {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .play-marker {
+            display: grid;
+            flex: 0 0 2.25rem;
+            width: 2.25rem;
+            height: 2.25rem;
+            place-items: center;
+            border: 1px solid rgba(217, 119, 6, 0.45);
+            border-radius: 50%;
+            background: rgba(120, 53, 15, 0.35);
+            color: #fcd34d;
+        }
+
+        .track-copy { min-width: 0; }
+
+        .track-copy h2 {
+            margin: 0 0 0.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .track-copy p {
+            margin: 0;
+            color: #a3a3a3;
+            font-size: 0.78rem;
+            line-height: 1.4;
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            border: 0;
+            border-radius: 12px;
+        }
+
+        .note {
+            margin: 1rem 0 0;
+            color: #737373;
+            font-size: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .section-heading {
+            margin: 2rem 0 0.75rem;
+            color: #d4d4d4;
+            font-family: Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .soundcloud-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .mixed-track + .mixed-track {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #292524;
+        }
+
+        .mixed-track .track { margin-bottom: 0.75rem; }
+
+        .soundcloud-card {
+            padding: 1rem;
+            border: 1px solid #292524;
+            border-radius: 1.25rem;
+            background: rgba(23, 23, 23, 0.88);
+        }
+
+        .soundcloud-card h3 {
+            margin: 0 0 0.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .soundcloud-card p {
+            margin: 0 0 0.75rem;
+            color: #a3a3a3;
+            font-size: 0.78rem;
+        }
+
+        .preview-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-toolbar p {
+            margin: 0;
+            color: #737373;
+            font-size: 0.75rem;
+        }
+
+        .viewport-switcher {
+            display: inline-flex;
+            padding: 0.2rem;
+            border: 1px solid #44403c;
+            border-radius: 999px;
+            background: #171717;
+        }
+
+        .viewport-switcher button {
+            border: 0;
+            border-radius: 999px;
+            padding: 0.45rem 0.75rem;
+            background: transparent;
+            color: #a3a3a3;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.75rem;
+        }
+
+        .viewport-switcher button[aria-pressed="true"] {
+            background: #b45309;
+            color: white;
+        }
+
+        body.mobile-preview main {
+            width: min(24rem, 100%);
+        }
+
+        @media (max-width: 32rem) {
+            body { padding-top: 2rem; }
+            .panel { padding: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Spotify embed preview</h1>
+        <div class="preview-toolbar">
+            <p>Standalone preview only</p>
+            <div class="viewport-switcher" aria-label="Preview viewport">
+                <button type="button" id="desktopPreview" aria-pressed="true">Desktop</button>
+                <button type="button" id="mobilePreview" aria-pressed="false">Mobile</button>
+            </div>
+        </div>
+        <p class="intro">A standalone preview of the visible Spotify player. This file does not change the current website.</p>
+
+        <section aria-label="Spotify embed options">
+            <div class="panel">
+                <div class="option-label">
+                    <h2>Option 1: Compact</h2>
+                    <span>152px tall</span>
+                </div>
+                <p class="option-description">Smallest footprint. Keeps Spotify playback and controls, but shows less artwork and metadata.</p>
+                <iframe
+                    data-testid="spotify-compact"
+                    src="https://open.spotify.com/embed/track/3YV79qjiJLOgYjjEzTsVEy?utm_source=generator&amp;si=268e050304a8412a"
+                    height="152"
+                    allowfullscreen
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                    title="Compact Spotify player for Everything Passes, Everything is Connected"
+                ></iframe>
+            </div>
+
+            <p class="note">Spotify controls playback, sign-in, progress and availability inside each player.</p>
+        </section>
+
+        <h2 class="section-heading">SoundCloud compact embed</h2>
+        <div class="soundcloud-list">
+            <article class="soundcloud-card">
+                <div class="option-label">
+                    <h2>Compact player</h2>
+                    <span>166px tall</span>
+                </div>
+                <p>Native SoundCloud controls and waveform in a small footprint.</p>
+                <iframe
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/105152235&amp;auto_play=false"
+                    height="166"
+                    scrolling="no"
+                    allow="autoplay"
+                    title="4 Illuminations on SoundCloud"
+                ></iframe>
+            </article>
+
+        </div>
+
+        <h2 class="section-heading">Mixed track list</h2>
+        <div class="panel">
+            <p class="option-description">A possible page layout when Spotify and SoundCloud recordings appear together. Each provider keeps its native compact player while the track list remains one shared section.</p>
+
+            <div class="mixed-track">
+                <div class="track">
+                    <span class="play-marker" aria-hidden="true">▶</span>
+                    <div class="track-copy">
+                        <h3>Everything Passes, Everything is Connected</h3>
+                        <p>The Crossing · Spotify</p>
+                    </div>
+                </div>
+                <iframe
+                    src="https://open.spotify.com/embed/track/3YV79qjiJLOgYjjEzTsVEy?utm_source=generator&amp;si=268e050304a8412a"
+                    height="152"
+                    allowfullscreen
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                    title="Everything Passes, Everything is Connected on Spotify"
+                ></iframe>
+            </div>
+
+            <div class="mixed-track">
+                <div class="track">
+                    <span class="play-marker" aria-hidden="true">▶</span>
+                    <div class="track-copy">
+                        <h3>4 Illuminations</h3>
+                        <p>Xasax Saxophone Quartet · SoundCloud</p>
+                    </div>
+                </div>
+                <iframe
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/105152235&amp;auto_play=false"
+                    height="166"
+                    scrolling="no"
+                    allow="autoplay"
+                    title="4 Illuminations on SoundCloud"
+                ></iframe>
+            </div>
+
+            <div class="mixed-track">
+                <div class="track">
+                    <span class="play-marker" aria-hidden="true">▶</span>
+                    <div class="track-copy">
+                        <h3>Balconies</h3>
+                        <p>Olivia de Prato · Spotify</p>
+                    </div>
+                </div>
+                <iframe
+                    src="https://open.spotify.com/embed/track/2wNL47uCuwDpbOqCIpbSTS?utm_source=generator"
+                    height="152"
+                    allowfullscreen
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                    title="Balconies on Spotify"
+                ></iframe>
+            </div>
+        </div>
+    </main>
+    <script>
+        const desktopPreview = document.getElementById('desktopPreview');
+        const mobilePreview = document.getElementById('mobilePreview');
+
+        function setPreviewMode(mode) {
+            const isMobile = mode === 'mobile';
+            document.body.classList.toggle('mobile-preview', isMobile);
+            desktopPreview.setAttribute('aria-pressed', String(!isMobile));
+            mobilePreview.setAttribute('aria-pressed', String(isMobile));
+        }
+
+        desktopPreview.addEventListener('click', () => setPreviewMode('desktop'));
+        mobilePreview.addEventListener('click', () => setPreviewMode('mobile'));
+    </script>
+</body>
+</html>

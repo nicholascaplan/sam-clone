@@ -1078,7 +1078,7 @@
                                 <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Balconies</h4>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Balconies (preview)</h4>
                                 <p class="text-xs text-neutral-400">Multi-tracked Solo Violin, Olivia de Prato (Panorama Album, New Focus Recordings)</p>
                             </div>
                         </div>
@@ -1091,7 +1091,7 @@
                                 <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere</h4>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere (preview)</h4>
                                 <p class="text-xs text-neutral-400">Solo Flute, performed by Michael Cox (NMC Recordings)</p>
                             </div>
                         </div>
@@ -1104,7 +1104,7 @@
                                 <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Everything Passes, Everything is Connected</h4>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Everything Passes, Everything is Connected (preview)</h4>
                                 <p class="text-xs text-neutral-400">Unaccompanied Choir, commissioned and performed by The Crossing (USA)</p>
                             </div>
                         </div>
@@ -1716,6 +1716,12 @@
                     if (track) track.querySelector('.fa-pause').className = 'fa-solid fa-play text-xs';
                     return;
                 }
+                if (activeSpotifyTrack === trackId && !isPlaybackStopped) {
+                    spotifyController.play();
+                    isSpotifyPlaying = true;
+                    setSpotifyPlaybackState(true, trackId);
+                    return;
+                }
                 spotifyController.loadUri(`spotify:track:${trackId}`);
                 spotifyController.seek(0);
                 spotifyController.play();
@@ -1817,6 +1823,7 @@
                     isSpotifyPlaying = false;
                     setSpotifyPlaybackState(false, activeSpotifyTrack);
                 } else {
+                    isPlaybackStopped = false;
                     spotifyController.play();
                     isSpotifyPlaying = true;
                     setSpotifyPlaybackState(true, activeSpotifyTrack);
@@ -1834,6 +1841,7 @@
                 return;
             }
 
+            isPlaybackStopped = false;
             if (readySoundCloudPlayers.has(currentTrackId)) player.play();
             else {
                 pendingSoundCloudPlaybackId = currentTrackId;

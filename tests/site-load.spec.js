@@ -117,7 +117,7 @@ test('soundbar starts with the default track name', async ({ page }) => {
 
   await expect(page.locator('#soundbarLabel')).toHaveText('Everything Passes, Everything is Connected · The Crossing');
   await expect(page.locator('[data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]')).toHaveCount(2);
-  await expect(page.locator('[data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]').first()).toContainText('Everything Passes, Everything is Connected');
+  await expect(page.locator('[data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]').first()).toContainText('Everything Passes, Everything is Connected (preview)');
 });
 
 test('Spotify playback resets to the beginning when a track loads', async ({ page }) => {
@@ -125,6 +125,14 @@ test('Spotify playback resets to the beginning when a track loads', async ({ pag
 
   const source = (await page.locator('script').allTextContents()).join('\n');
   expect(source).toContain('spotifyController.seek(0)');
+});
+
+test('pausing does not clear the playback state', async ({ page }) => {
+  await page.goto('/');
+
+  const source = (await page.locator('script').allTextContents()).join('\n');
+  expect(source).toContain("if (activeSpotifyTrack === trackId && !isPlaybackStopped)");
+  expect(source).toContain('isPlaybackStopped = false;\n                    spotifyController.play();');
 });
 
 test('header Listen opens the soundbar for the default track', async ({ page }) => {

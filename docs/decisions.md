@@ -4,10 +4,30 @@ Short record of settled product, content and implementation decisions for the si
 
 ## 2026-08-01
 
+### Treat real mobile CSS as the responsive source of truth
+
+- Decision: Keep all narrow-screen layout constraints, including the compact header and 13rem hero portrait, in `@media (max-width: 767px)` rules. The desktop mobile-preview iframe must exercise those same rules rather than supply its own layout overrides.
+- Reason: The iframe correctly exposed that preview-only constraints had been deleted during the preview refactor, leaving real phones without their portrait, title and control sizing rules. Playwright now verifies the portrait height, visible menu control and mobile-only Works dropdown at a 390px viewport.
+
+### Keep the complete mobile hero introduction above the fold
+
+- Decision: At phone widths, use a 4rem header, 13rem portrait and reduced hero spacing so the italic biography introduction is fully visible in a 390 x 844 viewport.
+- Reason: The homepage should introduce Samantha and her artistic context without requiring a scroll past disproportionate whitespace or controls.
+
 ### Use a real viewport for desktop mobile preview
 
 - Decision: Render desktop mobile preview in a `430px` iframe of the actual page instead of applying a `.mobile-preview` class and duplicating responsive overrides.
-- Reason: CSS media queries evaluate the browser viewport, not a visually narrowed body. A real narrow iframe makes the preview use exactly the same responsive rules as a mobile browser and prevents future layout drift.
+- Reason: CSS media queries evaluate the browser viewport, not a visually narrowed body. A real narrow iframe makes the preview use exactly the same responsive rules as a mobile browser and prevents future layout drift. The preview query parameter only hides the scrolling document's scrollbar and never changes page layout; the close button remains outside the simulated device.
+
+### Keep component styling experiments in a local playground
+
+- Decision: Use `playground.html` as the local-only space for comparing style options for site components.
+- Reason: It supports visual iteration without adding experimental variants to the deployed website. The file is intentionally untracked and is not included in the GitHub Pages artifact.
+
+### Maintain a separate local design reference
+
+- Decision: Use the Git-excluded `design-reference.html` as the maintained inventory of accepted foundations, components and states. Keep `playground.html` for temporary option comparisons.
+- Reason: Separating the accepted reference from experiments gives Sam a stable review page without adding local tooling or exposing maintenance material in the published site.
 
 ### Use a desktop-only two-column audio catalogue
 

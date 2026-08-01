@@ -64,6 +64,41 @@ test('opens and closes the mobile navigation menu', async ({ page }) => {
   await expect(menu).toBeHidden();
 });
 
+test('keeps mobile header controls and portrait within the intended compact layout', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  const header = page.locator('header');
+  const menuButton = page.locator('#mobileMenuToggle');
+  const portrait = page.locator('#tab-bio .lg\\:col-span-5 img');
+  const introduction = page.locator('.hero-introduction');
+
+  await expect(menuButton).toBeVisible();
+  await expect(portrait).toHaveCSS('height', '208px');
+
+  const [headerBox, menuBox, introductionBox] = await Promise.all([header.boundingBox(), menuButton.boundingBox(), introduction.boundingBox()]);
+  expect(headerBox).not.toBeNull();
+  expect(menuBox).not.toBeNull();
+  expect(introductionBox).not.toBeNull();
+  // Include the header's border in the measured box.
+  expect(headerBox.height).toBeLessThanOrEqual(66);
+  expect(menuBox.x + menuBox.width).toBeLessThanOrEqual(headerBox.x + headerBox.width);
+  expect(introductionBox.y + introductionBox.height).toBeLessThanOrEqual(844);
+});
+
+test('uses only the category dropdown for mobile Works filtering', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/#works');
+
+  await expect(page.locator('.works-desktop-filters')).toBeHidden();
+  await expect(page.locator('#mobileWorksCategory')).toBeVisible();
+  await expect(page.locator('.works-desktop-filters .cat-btn')).toHaveCount(6);
+
+  await page.locator('#mobileWorksCategory').selectOption('opera');
+  await expect(page.locator('#worksContainer')).toContainText('glass human');
+  await expect(page.locator('#worksContainer')).not.toContainText('Wintering');
+});
+
 test('mobile preview uses the real mobile viewport', async ({ page }) => {
   await page.goto('/');
   await page.locator('#mobilePreviewBtn').click();
@@ -74,6 +109,8 @@ test('mobile preview uses the real mobile viewport', async ({ page }) => {
   await expect(page.locator('#mobilePreviewBtn')).toHaveAttribute('aria-pressed', 'true');
   await expect(preview.locator('#mobileMenuToggle')).toBeVisible();
   await expect(preview.locator('header nav')).toBeHidden();
+  await expect(page.locator('.mobile-preview-frame #closeMobilePreview')).toHaveCount(0);
+  await expect(preview.locator('html')).toHaveClass(/mobile-preview-session/);
 
   await page.locator('#closeMobilePreview').click();
   await expect(dialog).toBeHidden();

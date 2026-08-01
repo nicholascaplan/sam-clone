@@ -387,6 +387,8 @@
         }
         #sitePasswordError { min-height: 1.25rem; margin-top: 0.5rem; color: #a33b24; font-size: 0.8rem; }
         .works-mobile-filter { display: none; }
+        html.mobile-preview-session { scrollbar-width: none; }
+        html.mobile-preview-session::-webkit-scrollbar { display: none; }
         #mobilePreviewDialog {
             position: fixed;
             inset: 0;
@@ -397,10 +399,13 @@
             background: rgba(13, 13, 13, 0.82);
         }
         #mobilePreviewDialog.hidden { display: none; }
+        .mobile-preview-shell { position: relative; }
         .mobile-preview-frame {
             position: relative;
             width: min(430px, calc(100vw - 2rem));
             height: min(844px, calc(100vh - 3rem));
+            box-sizing: border-box;
+            overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.24);
             border-radius: 1.5rem;
             background: #f4f0e8;
@@ -410,14 +415,15 @@
             display: block;
             width: 100%;
             height: 100%;
+            box-sizing: border-box;
             border: 0;
             border-radius: inherit;
             background: #f4f0e8;
         }
         #closeMobilePreview {
             position: absolute;
-            top: -0.75rem;
-            right: -0.75rem;
+            top: 0;
+            right: -3.5rem;
             z-index: 1;
             display: grid;
             width: 2.5rem;
@@ -427,6 +433,12 @@
             border-radius: 50%;
             color: #fbfaf6;
             background: #18211f;
+        }
+        @media (max-width: 540px) {
+            #closeMobilePreview {
+                top: -3.5rem;
+                right: 0;
+            }
         }
         .works-description-mobile { display: none; }
         .mobile-cta-break { display: none; }
@@ -439,14 +451,59 @@
         @media (max-width: 767px) {
             #mobilePreviewBtn { display: none; }
             header { position: sticky; top: 0; }
+            header > div {
+                height: 4rem !important;
+                gap: 0.5rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            header > div > a {
+                min-width: 0;
+                flex: 1 1 auto;
+                overflow: hidden;
+            }
+            header > div > a span:first-child {
+                display: block;
+                overflow: hidden;
+                font-size: 0.78rem;
+                letter-spacing: 0.055em;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            header > div > a span:last-child { font-size: 0.625rem; }
+            header > div > div {
+                flex: 0 0 auto;
+                gap: 0.15rem;
+                margin-left: auto;
+            }
+            #themeToggleBtn,
+            #mobileMenuToggle {
+                flex: 0 0 2.25rem;
+                width: 2.25rem;
+                height: 2.25rem;
+                padding: 0.5rem;
+            }
+            #ambientSoundBtn {
+                flex: 0 0 auto;
+                padding-left: 0.55rem;
+                padding-right: 0.55rem;
+            }
+            main { padding-top: 1rem; padding-bottom: 1.5rem; }
+            #tab-bio { gap: 2rem; }
+            #tab-bio > .grid:first-child { gap: 1.5rem; }
+            #tab-bio .lg\:col-span-5 img { height: 13rem; }
+            #tab-bio .lg\:col-span-7 { gap: 1rem; }
+            #tab-bio h1 { font-size: 1.875rem; line-height: 1.2; }
             .hero-actions { grid-template-columns: minmax(0, 1fr); padding-top: 0; }
+            .hero-actions button { min-height: 3.25rem; }
+            .hero-introduction { font-size: 1rem !important; line-height: 1.5; }
             #tab-bio .mobile-cta-break { display: inline; }
             #tab-watch-listen > .border-b:first-child { padding-bottom: 0.75rem; }
             #tab-watch-listen > .border-b:nth-child(2) { margin-top: 0 !important; padding-top: 0.75rem; padding-bottom: 0.5rem; }
             #mobileMenu:not(.hidden) {
                 display: block !important;
                 position: fixed;
-                top: 5rem;
+                top: 4rem;
                 left: 50%;
                 right: auto;
                 width: min(100%, 430px);
@@ -459,8 +516,8 @@
                 box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14);
             }
             #mobileMenu:not(.hidden) button { display: block; }
-            .works-desktop-filters { display: none; }
-            .works-mobile-filter { display: block; }
+            .works-desktop-filters { display: none !important; }
+            .works-mobile-filter { display: block !important; }
             #tab-works > * + * { margin-top: 1rem !important; }
             #tab-works > div:first-child { padding-bottom: 0.5rem; }
             #tab-works > div:first-child { border-bottom: 0; }
@@ -476,6 +533,9 @@
     <script>
         // Keep local development friction-free; only gate the published GitHub Pages site.
         const isDeployedSite = window.location.hostname === 'nicholascaplan.github.io';
+        if (new URLSearchParams(window.location.search).has('mobilePreview')) {
+            document.documentElement.classList.add('mobile-preview-session');
+        }
         if (isDeployedSite) {
             document.body.classList.add('site-locked');
         } else {
@@ -499,11 +559,13 @@
     </div>
 
     <div id="mobilePreviewDialog" class="hidden" role="dialog" aria-modal="true" aria-label="Mobile site preview">
-        <div class="mobile-preview-frame">
+        <div class="mobile-preview-shell">
             <button id="closeMobilePreview" type="button" onclick="closeMobilePreview()" aria-label="Close mobile preview">
                 <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
-            <iframe id="mobilePreviewFrame" title="Mobile site preview"></iframe>
+            <div class="mobile-preview-frame">
+                <iframe id="mobilePreviewFrame" title="Mobile site preview"></iframe>
+            </div>
         </div>
     </div>
 
@@ -1131,8 +1193,6 @@
                          <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:06</span>
                     </div>
 
-                    <div data-track="reflection-1" onclick="playTrack('The Journey Between Us - Reflection 1', 'mixed ensemble', 'reflection-1')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">The Journey Between Us - Reflection 1 [2016]</h4><p class="text-xs text-neutral-400">Mixed ensemble</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">3:32</span></div>
-
                     <div data-track="look-up" onclick="playTrack('Look Up', '4 voices, viola da gamba and electronics', 'look-up')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Look Up</h4><p class="text-xs text-neutral-400">4 voices, viola da gamba and electronics</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:53</span></div>
 
                     <div data-track="positive-negative-space" onclick="playTrack('Positive/Negative Space', 'flute, clarinet, alto sax & cello', 'positive-negative-space')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Positive/Negative Space</h4><p class="text-xs text-neutral-400">Flute, clarinet, alto sax & cello</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:50</span></div>
@@ -1411,7 +1471,6 @@
                 'Balconies': 2023,
                 'Everything Passes, Everything is Connected': 2021,
                 'Fault-Line': 2015,
-                'The Journey Between Us - Reflection 1': 2016,
                 'Look Up': 2014,
                 'Kinesphere': 2014,
                 'Positive/Negative Space': 2013,
@@ -1643,7 +1702,6 @@
                     faultline: { id: 'soundcloudPlayerFaultline', title: 'Fault-Line SoundCloud player', url: 'https://api.soundcloud.com/tracks/236811796' },
                     recollections: { id: 'soundcloudPlayerRecollections', title: 'Recollections SoundCloud player', url: 'https://api.soundcloud.com/tracks/125817887' },
                     kinesphere: { id: 'soundcloudPlayerKinesphere', title: 'Kinesphere SoundCloud player', url: 'https://api.soundcloud.com/tracks/332996028' },
-                    'reflection-1': { id: 'soundcloudPlayerReflection1', title: 'The Journey Between Us - Reflection 1 SoundCloud player', url: 'https://api.soundcloud.com/tracks/292087616' },
                     'look-up': { id: 'soundcloudPlayerLookUp', title: 'Look Up SoundCloud player', url: 'https://api.soundcloud.com/tracks/204818278' },
                     'positive-negative-space': { id: 'soundcloudPlayerPositiveNegativeSpace', title: 'Positive/Negative Space SoundCloud player', url: 'https://api.soundcloud.com/tracks/132165483' },
                     'square-of-light': { id: 'soundcloudPlayerSquareOfLight', title: 'Square Of Light SoundCloud player', url: 'https://api.soundcloud.com/tracks/105347231' }

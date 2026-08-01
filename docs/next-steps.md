@@ -24,16 +24,21 @@ The Works cards now use a consistent structure: year, category, duration, title,
 - Are there any missing awards, texts, recordings or significant collaborators that should appear in the Notes field?
 
 - [ ] **Enable real contact-form delivery.** Sam needs to create a [Formspree](https://formspree.io/) account and provide the form endpoint. Replace the current confirmation-only form behaviour with a real submission, success and error flow.
-- [ ] **Confirm public access to Aaron album recordings.** If approved, add the supplied playable links and update `docs/content.md`.
-- [x] **Gather the remaining Spotify and SoundCloud songs.** Added the supplied Spotify and SoundCloud tracks to the Listen catalog and recorded their playable links in `docs/content.md`. Titles and supplied durations are displayed; missing composition and recording context remains flagged for confirmation.
-- [ ] **Decide the final Spotify embed treatment.** Compare a compact Spotify iframe's space, authentication and playback behaviour with the existing custom SoundCloud row before replacing the live Spotify controller. Keep comparison files local-only until a direction is accepted.
+- [ ] **Remove the bio from the page and add it to a new page.** Confirm the new page location and preserve the approved biography content when moving it.
+- [ ] **Remove Events and past performances.** Remove both sections from the page and update related navigation, source content and documentation as needed.
 - [ ] **Review and refresh dated content.** The listed upcoming events end in March 2026 and the featured writing is dated November 2025. Confirm current events, new works, recordings and writing with Sam before publishing updates.
+- [ ] **Add Exoplanets.** Confirm the title, catalogue placement and metadata with Sam, then add it to the appropriate site listings and `docs/content.md`.
+- [ ] **Remove full stops from listing copy.** Review repeated listings and catalogue metadata, removing terminal full stops where they are not part of the content itself.
 
 ## 2. Resolve Current Design Decisions
 
 - [ ] **Add play buttons to Works items.** Add a clear play control to Works entries that have playable audio or video, reusing the existing playback and modal behaviour.
 - [ ] **Consider filters on the Listen & Watch page.** Assess whether filters by recording type, ensemble, year or other catalogue metadata would help visitors browse the combined media collection as it grows.
 - [ ] **Confirm the favicon with Sam.** The site currently uses `assets/new-favicon.png`; confirm that this is the preferred browser-tab and home-screen icon.
+- [ ] **Move Listen & Watch to the second menu position.** Confirm the revised navigation order before changing the header and mobile menu.
+- [ ] **Review the mobile menu close control.** Assess whether the menu `X` should sit lower on mobile for better reach and visual balance.
+- [ ] **Review dark mode top to bottom.** Check the menu, mobile layout, controls, contrast, borders, active states and all content sections for incorrect or inconsistent styling.
+- [ ] **Assess a narrower mobile header.** Test whether reducing the header width or horizontal padding improves the mobile layout without compromising title, Composer text or controls.
 
 ## 3. Quality And Product Follow-ups
 
@@ -42,10 +47,31 @@ The Works cards now use a consistent structure: year, category, duration, title,
 - [ ] **Add mocked playback-state tests when media behaviour changes.** Cover SoundCloud `PLAY`, `PAUSE` and `FINISH` events plus Spotify/SoundCloud hand-off without calling live providers. Keep the existing Playwright suite focused on local smoke coverage.
 - [ ] **Decide whether recordings need an availability indicator.** Add one only if the final catalogue includes a mix of playable and unavailable recordings; otherwise the current playable rows and availability note are sufficient.
 - [ ] **Consider a subtle mobile scroll cue on the home page.** Validate that users miss below-the-fold content before adding it.
+- [ ] **Review the homepage content mix.** Decide with Sam whether Events and past performances should remain on the homepage or move to dedicated content areas.
+- [ ] **Create a temporary upcoming-concert highlight component.** Design an accessible alert or highlight that can be enabled for a concert and removed cleanly after the event.
+- [ ] **Resolve component-reference audit findings.** Prioritise keyboard-operable audio rows, complete modal and tab semantics, a shared focus treatment, role-based colour tokens and alignment between documented and implemented responsive breakpoints. Consolidate misleading or duplicated utilities when those areas are next changed.
+
+### Component Reference Consistency Registry
+
+Track these findings from the local design-reference audit. The reference page is the visual review surface; this registry is the implementation follow-up.
+
+- [ ] **High: Make audio rows keyboard-operable.** Replace clickable `<div>` rows with buttons or equivalent accessible controls, including clear labels and playing/paused state.
+- [ ] **High: Complete modal semantics.** Add labelled dialog semantics, focus transfer, focus containment, Escape handling and focus restoration to project and video modals.
+- [ ] **High: Complete tab semantics.** Add `aria-controls`, `role="tabpanel"`, `aria-labelledby`, keyboard arrow/Home/End navigation and consistent hidden state to Listen & Watch tabs.
+- [ ] **Medium: Establish a shared focus treatment.** Replace inconsistent border-only focus states and implicit browser defaults with one visible `:focus-visible` token for controls, fields, links and cards.
+- [ ] **Medium: Consolidate colour tokens.** Reconcile the configured brand palette, Tailwind amber utilities and hard-coded light-mode overrides into role-based page, panel, surface, ink, muted, accent, action, success and danger tokens.
+- [ ] **Medium: Align responsive documentation and implementation.** Resolve the documented `640px` mobile threshold versus the implemented `641px`, `767px` and `768px` breakpoints, then verify desktop, phone landscape, narrow mobile and iframe preview layouts.
+- [ ] **Medium: Clarify status semantics.** Standardise neutral availability notices, missing metadata and error states so informational gaps are not presented as failures without a clear reason.
+- [ ] **Low: Remove misleading or duplicated styling responsibilities.** Rename or replace the `.font-mono` utility that renders Inter, and consolidate repeated `.glass-panel` border utilities when those components are next refactored.
+- [ ] **Low: Add reduced-motion coverage.** Provide reduced-motion behaviour for tab transitions, arrow movement, playback wave animation and media hover scaling.
+- [ ] **Low: Reduce media duplication risk.** Continue treating the legacy Watch and Listen sections as source content, but review the clone/render path for duplicated IDs, handlers and future maintenance drift.
+- [ ] **Fix mobile back navigation.** Investigate why navigating backwards on mobile can return to a completely different site, and verify history, deep-link and browser-cache behaviour across supported mobile browsers.
 
 ## 4. Deferred Structural Work
 
 - [ ] **Decide whether to move beyond the single-page architecture.** Only pursue separate URLs such as `/works`, `/listen-watch`, `/writing` and `/contact` if sharing, search visibility or content growth justifies the added routing and maintenance complexity.
+- [ ] **Plan migration to the new site.** Document the future cutover approach, including URL and CNAME mappings, redirects, DNS ownership and rollback. Confirm whether GoDaddy currently manages the domain and DNS.
+- [ ] **Evaluate Cloudflare.** Determine whether Cloudflare would provide useful benefits for DNS, redirects, caching, security, analytics or traffic measurement, and compare those benefits with the current GoDaddy and GitHub Pages setup.
 
 ## Standing Constraints
 
@@ -68,3 +94,6 @@ The Works cards now use a consistent structure: year, category, duration, title,
 - Session note, 2026-08-01: The Listen catalogue now uses two columns at desktop widths and remains a single column below `768px`. Playback markup and the combined Listen & Watch clone are unchanged.
 - Session note, 2026-08-01: Bracketed recording years in Listen titles now stay attached to the preceding title text when cards wrap, including years added during catalogue initialisation.
 - Session note, 2026-08-01: Desktop mobile preview now loads the actual page in a `430px` iframe. The previous `.mobile-preview` class overrides were removed, so the preview and physical mobile devices share the same viewport media queries.
+- Session note, 2026-08-01: The local component and design reference passed inline JavaScript syntax, Git exclusion, whitespace and palette contrast checks. Browser interaction and responsive overflow checks remain blocked by the sandbox's macOS Chromium rendezvous permission error and should be completed in an unrestricted local browser before the Sam review.
+- Session note, 2026-08-01: Mobile regressions were addressed by restoring real narrow-screen header and portrait constraints, enforcing the dropdown-only Works filter against Tailwind's display utilities, and making the iframe preview scrollbar-free with an external close control. The mobile hero was compacted so its italic introduction fits within a 390 x 844 viewport. Run `npm test` and manually inspect the preview scrollbar, mobile filter and hero in an unrestricted browser before deployment.
+- Session note, 2026-08-01: The mobile preview shell now uses explicit border-box sizing and clips iframe overflow so the header aligns with the device frame. The mobile header-height assertion was corrected to account for its border. Deployment was requested, but the BoxedCode sandbox currently blocks shell/git commands because `rg` is unavailable; no commit or push was performed.

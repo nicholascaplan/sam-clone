@@ -451,18 +451,18 @@
         @media (max-width: 767px) {
             #mobilePreviewBtn { display: none; }
             header { position: sticky; top: 0; }
-            header > div {
+            header > div:first-child {
                 height: 4rem !important;
                 gap: 0.5rem;
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
-            header > div > a {
+            header > div:first-child > a {
                 min-width: 0;
                 flex: 1 1 auto;
                 overflow: hidden;
             }
-            header > div > a span:first-child {
+            header > div:first-child > a span:first-child {
                 display: block;
                 overflow: hidden;
                 font-size: 0.78rem;
@@ -470,8 +470,8 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
-            header > div > a span:last-child { font-size: 0.625rem; }
-            header > div > div {
+            header > div:first-child > a span:last-child { font-size: 0.625rem; }
+            header > div:first-child > div {
                 flex: 0 0 auto;
                 gap: 0.15rem;
                 margin-left: auto;
@@ -502,8 +502,8 @@
             #tab-watch-listen > .border-b:nth-child(2) { margin-top: 0 !important; padding-top: 0.75rem; padding-bottom: 0.5rem; }
             #mobileMenu:not(.hidden) {
                 display: block !important;
-                position: fixed;
-                top: 4rem;
+                position: absolute;
+                top: 100%;
                 left: 50%;
                 right: auto;
                 width: min(100%, 430px);
@@ -515,7 +515,11 @@
                 border-bottom: 1px solid rgba(24, 33, 31, 0.2);
                 box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14);
             }
-            #mobileMenu:not(.hidden) button { display: block; }
+            #mobileMenu:not(.hidden) button {
+                display: block;
+                position: relative;
+                z-index: 1;
+            }
             .works-desktop-filters { display: none !important; }
             .works-mobile-filter { display: block !important; }
             #tab-works > * + * { margin-top: 1rem !important; }

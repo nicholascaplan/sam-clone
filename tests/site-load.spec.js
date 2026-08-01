@@ -58,6 +58,9 @@ test('opens and closes the mobile navigation menu', async ({ page }) => {
   await menuButton.click();
   await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
   await expect(menu).toBeVisible();
+  await expect(menu.locator('button')).toHaveCount(await page.locator('header > div:first-child nav button').count());
+  await expect(menu.locator('button').last()).toBeVisible();
+  await expect(menu).toHaveCSS('overflow-y', 'visible');
 
   await menuButton.click();
   await expect(menuButton).toHaveAttribute('aria-expanded', 'false');

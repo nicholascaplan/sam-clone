@@ -4,6 +4,26 @@ Short record of settled product, content and implementation decisions for the si
 
 ## 2026-08-01
 
+### Use a real viewport for desktop mobile preview
+
+- Decision: Render desktop mobile preview in a `430px` iframe of the actual page instead of applying a `.mobile-preview` class and duplicating responsive overrides.
+- Reason: CSS media queries evaluate the browser viewport, not a visually narrowed body. A real narrow iframe makes the preview use exactly the same responsive rules as a mobile browser and prevents future layout drift.
+
+### Use a desktop-only two-column audio catalogue
+
+- Decision: Display the Listen catalogue as two equal columns from `768px` upward, while retaining the single-column list on mobile and in the iframe mobile preview.
+- Reason: This makes better use of wide screens without separating title and supporting metadata into artificial columns or changing the existing playback rows.
+
+### Keep recording years attached to titles
+
+- Decision: Use a non-breaking space before bracketed recording years so a year such as `[2021]` stays with the preceding title text when the title wraps.
+- Reason: This keeps title metadata readable on narrow audio cards without preventing normal wrapping earlier in the title.
+
+### Mark extract recordings in the lower metadata position
+
+- Decision: Display `Extract` as a quiet lower-right metadata label in place of the duration in Spotify Listen rows.
+- Reason: This keeps the work title clean and gives the recording status a clear location without competing with the playback control.
+
 ### Keep provider-native embeds out of the compact mixed media rows
 
 - Finding: Spotify's compact iframe is substantially taller than the custom track row. SoundCloud's native iframe also injects provider-owned UI, including a Privacy Policy control, and can clip or obscure long titles on narrow mobile widths. Cross-origin iframe content cannot be restyled by the site.
@@ -24,13 +44,13 @@ Short record of settled product, content and implementation decisions for the si
 
 ### Keep the mobile Works toolbar compact
 
-- Decision: Use a shorter mobile description and search placeholder, hide the visible category label while retaining its accessible label, remove the divider and reduce control height and vertical spacing. Desktop mobile-preview mode must match the real narrow-screen treatment.
+- Decision: Use a shorter mobile description and search placeholder, hide the visible category label while retaining its accessible label, remove the divider and reduce control height and vertical spacing.
 - Reason: Recover vertical space for the Works catalogue without removing either filter.
 
-### Use gallery-style home page actions
+### Use compact editorial home page links
 
-- Decision: Use warm, tactile hero actions with compact, optically balanced circular icons, readable labels, directional arrows and a softly highlighted Listen action first. Keep them in one row on desktop and stack them on mobile.
-- Reason: The additional detail creates a more polished, distinctive treatment while preserving clear hierarchy and comfortable tap targets.
+- Decision: Use quiet stacked hero links with fine dividers, compact circular icons, readable labels and fine directional arrows. Keep the rows full width on desktop and mobile, with Listen first.
+- Reason: The lower visual weight better supports the editorial character of the homepage while preserving clear destinations and comfortable tap targets.
 
 ### Place home page actions after the quote
 

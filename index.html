@@ -131,7 +131,32 @@
         .audio-track-play { flex: 0 0 2.5rem; width: 2.5rem; height: 2.5rem; aspect-ratio: 1; }
         .audio-provider { position: absolute; top: 1rem; right: 1rem; width: 1.25rem; height: 1.25rem; display: inline-flex; align-items: center; justify-content: center; color: #8b8175; font-size: 0.78rem; }
         .audio-duration { position: absolute; right: 1rem; bottom: 1rem; }
+        .audio-extract-status { position: absolute; right: 1rem; bottom: 1rem; color: #8b8175; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.06em; line-height: 1.15; text-transform: uppercase; }
+        .audio-catalog-list > div > div:first-child { min-width: 0; flex: 1 1 auto; }
+        .audio-catalog-list > div > div:first-child > div:last-child { min-width: 0; flex: 1 1 auto; }
+        .audio-catalog-list > [data-spotify-track] { padding-right: 3.5rem !important; }
+        @media (max-width: 767px) {
+            .audio-catalog-list > [data-spotify-track] { padding-bottom: 2rem !important; }
+        }
         .audio-card-heading { display: block; }
+        @media (min-width: 768px) {
+            /* Use desktop width for compact cards while keeping the mobile list linear. */
+            .audio-catalog-list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem;
+            }
+            .audio-catalog-list > div {
+                min-width: 0;
+                min-height: 5.25rem;
+                margin-top: 0 !important;
+            }
+            .audio-catalog-list .text-xs.text-neutral-400 {
+                display: block;
+                inline-size: min(24rem, 100%);
+                overflow-wrap: anywhere;
+            }
+        }
         #waveContainer { display: none; }
         [data-tooltip] { position: relative; }
         [data-tooltip]::after {
@@ -236,60 +261,75 @@
         }
 
         .hero-actions {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.75rem;
+            border-top: 1px solid rgba(216, 212, 202, 0.2);
         }
         .hero-actions button {
-            display: grid;
-            grid-template-columns: 2.5rem 1fr 1rem;
+            display: flex;
             align-items: center;
-            gap: 0.75rem;
-            min-height: 4rem;
-            padding: 0.55rem 0.75rem;
-            border: 1px solid #3e3b36;
-            border-radius: 0.75rem;
+            gap: 0.85rem;
+            width: 100%;
+            min-height: 3.5rem;
+            padding: 0.55rem 0;
+            border-bottom: 1px solid rgba(216, 212, 202, 0.2);
             color: #d8d4ca;
             font-size: 0.9rem;
             font-weight: 500;
             line-height: 1.2;
             text-align: left;
-            transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+            transition: color 0.2s ease;
         }
-        .hero-actions button:first-child { border-color: #c2a683; background: #ede3d4; color: #24211d; }
-        .hero-actions button:hover { border-color: #c2a683; background: #24221f; color: #fff; }
-        .hero-actions button:first-child:hover { background: #f7efe3; color: #24211d; }
+        .hero-actions button:hover { color: #d6a55f; }
         .hero-actions button:focus-visible { outline: 2px solid #d97706; outline-offset: 3px; }
         .hero-action-icon {
             display: inline-flex;
-            width: 2.5rem;
-            height: 2.5rem;
+            flex: 0 0 1.8rem;
+            width: 1.8rem;
+            height: 1.8rem;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: rgba(194, 166, 131, 0.12);
+            background: transparent;
             color: #d6a55f;
             font-size: 1rem;
             line-height: 1;
         }
         .hero-action-icon.fa-music { font-size: 0.95rem; }
         .hero-action-icon.fa-envelope { font-size: 1rem; }
-        .hero-actions button:first-child .hero-action-icon { background: #a95700; color: #fff; }
-        .hero-actions .fa-arrow-right { justify-self: end; font-size: 0.75rem; }
+        .hero-actions .hero-action-arrow {
+            display: grid;
+            flex: 0 0 2.15rem;
+            width: 2.15rem;
+            height: 1.5rem;
+            place-items: center;
+            margin-left: auto;
+            color: currentColor;
+        }
+        .hero-actions .hero-action-arrow svg {
+            width: 2rem;
+            height: 1rem;
+            overflow: visible;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+            stroke-width: 1.4;
+            transition: width 180ms ease, transform 180ms ease;
+        }
+        .hero-actions button:hover .hero-action-arrow svg,
+        .hero-actions button:focus-visible .hero-action-arrow svg {
+            width: 2.35rem;
+            transform: translateX(0.1rem);
+        }
+        .light-mode .hero-actions { border-color: rgba(24, 33, 31, 0.2); }
         .light-mode .hero-actions button { border-color: rgba(24, 33, 31, 0.2); color: #34403a; }
-        .light-mode .hero-actions button:first-child { border-color: #bd9b70; background: #eee4d5; color: #24211d; }
-        .light-mode .hero-actions button:hover { border-color: #a95700; background: #f4eee4; color: #18211f; }
-        .light-mode .hero-action-icon { background: #ede3d4; color: #944900; }
-        .light-mode .hero-actions button:first-child .hero-action-icon { background: #a95700; color: #fff; }
+        .light-mode .hero-actions button:hover { color: #944900; }
+        .light-mode .hero-action-icon { color: #944900; }
 
         /* Image containers retain their crop without motion on hover. */
         .img-hover-zoom {
             overflow: hidden;
         }
 
-        /* Force the narrow-screen layout for desktop browser testing. */
-        body.mobile-preview { background: #242522; }
-        body.light-mode.mobile-preview { background: #d8d3ca; }
         body.site-locked > *:not(#sitePasswordGate) { display: none !important; }
         body:not(.site-locked) #sitePasswordGate { display: none; }
         #sitePasswordGate {
@@ -346,95 +386,48 @@
             font-weight: 600;
         }
         #sitePasswordError { min-height: 1.25rem; margin-top: 0.5rem; color: #a33b24; font-size: 0.8rem; }
-        body.mobile-preview > header,
-        body.mobile-preview > main,
-        body.mobile-preview > footer {
-            width: 430px;
-            max-width: 100%;
-            box-sizing: border-box;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 0 0 1px rgba(24, 33, 31, 0.12), 0 0 2rem rgba(0, 0, 0, 0.18);
-        }
-        body.light-mode.mobile-preview > main,
-        body.light-mode.mobile-preview > header,
-        body.light-mode.mobile-preview > footer { background-color: #f4f0e8 !important; }
-        body.mobile-preview > header { position: sticky; }
-        body.mobile-preview .max-w-7xl { max-width: 100%; }
-        body.mobile-preview header > div,
-        body.mobile-preview main,
-        body.mobile-preview footer > div { padding-left: 1rem; padding-right: 1rem; }
-        body.mobile-preview header > div { height: 5rem; }
-        body.mobile-preview #tab-bio { gap: 2.5rem; }
-        body.mobile-preview main { padding-top: 1.5rem; padding-bottom: 2rem; }
-        body.mobile-preview #tab-bio > .grid:first-child { gap: 1rem; }
-        body.mobile-preview #tab-bio > .grid:first-child > .lg\:col-span-7 { gap: 1rem; }
-        body.mobile-preview header > div { gap: 0.5rem; }
-        body.mobile-preview header > div > a { min-width: 0; flex: 1 1 auto; overflow: hidden; }
-        body.mobile-preview header > div > a span:first-child { display: block; white-space: nowrap; font-size: 0.78rem; letter-spacing: 0.055em; }
-        body.mobile-preview header > div > a span:last-child { font-size: 0.625rem; }
-        body.mobile-preview header > div > div { min-width: 0; flex: 0 0 auto; margin-left: auto; gap: 0.15rem; }
-        body.mobile-preview header > div > div > * { margin-left: 0 !important; margin-right: 0 !important; }
-        body.mobile-preview #themeToggleBtn,
-        body.mobile-preview #mobilePreviewBtn,
-        body.mobile-preview #mobileMenuToggle { flex: 0 0 2.25rem; width: 2.25rem; height: 2.25rem; padding: 0.5rem; }
-        body.mobile-preview #ambientSoundBtn { flex: 0 0 auto; padding-left: 0.55rem; padding-right: 0.55rem; }
-        body.mobile-preview #ambientSoundBtn .text-sm { font-size: 0.75rem; }
-        body.mobile-preview header nav.hidden { display: none; }
-        body.mobile-preview #mobileMenuToggle { display: inline-flex !important; }
-        body.mobile-preview #mobileMenu:not(.hidden) {
-            display: block !important;
-            position: fixed;
-            top: 5rem;
-            left: 50%;
-            right: auto;
-            width: min(100%, 430px);
-            transform: translateX(-50%);
-            height: auto;
-            box-sizing: border-box;
-            z-index: 55;
-            background: #f4f0e8;
-            border-bottom: 1px solid rgba(24, 33, 31, 0.2);
-            box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14);
-        }
-        body.mobile-preview #mobileMenu:not(.hidden) button { display: block; }
-        body.mobile-preview .grid-cols-1.lg\:grid-cols-12,
-        body.mobile-preview .grid-cols-1.lg\:grid-cols-3,
-        body.mobile-preview .grid-cols-1.lg\:grid-cols-2,
-        body.mobile-preview .grid-cols-1.md\:grid-cols-3,
-        body.mobile-preview .grid-cols-1.md\:grid-cols-2 { grid-template-columns: minmax(0, 1fr); }
-        body.mobile-preview .lg\:col-span-2,
-        body.mobile-preview .lg\:col-span-5,
-        body.mobile-preview .lg\:col-span-7 { grid-column: span 1 / span 1; }
-        body.mobile-preview .md\:flex-row,
-        body.mobile-preview .sm\:flex-row { flex-direction: column; align-items: stretch; }
-        body.mobile-preview .md\:w-72 { width: 100%; }
-        body.mobile-preview .sm\:p-10,
-        body.mobile-preview .sm\:p-8 { padding: 1.5rem; }
-        body.mobile-preview .sm\:text-5xl { font-size: 2.25rem; }
-        body.mobile-preview .sm\:text-3xl { font-size: 1.875rem; }
-        body.mobile-preview #soundbar { width: min(398px, calc(100vw - 2rem)); max-width: 398px; }
-        body.mobile-preview #tab-bio .lg\:col-span-5 img { height: 16rem; }
-        body.mobile-preview .hero-actions { grid-template-columns: minmax(0, 1fr); }
-        body.mobile-preview #tab-bio .lg\:col-span-2 + div > div,
-        body.mobile-preview #tab-bio .lg\:col-span-2 ~ div > div { width: 100%; }
-        body.mobile-preview #tab-bio .lg\:col-span-7 > .pt-2 > div { width: 100%; }
-        body.mobile-preview #bioCredentials { display: none; }
-        body.mobile-preview #worksContainer button,
-        body.mobile-preview #featured-projects button,
-        body.mobile-preview #tab-contact form button { width: 100%; }
         .works-mobile-filter { display: none; }
-        body.mobile-preview .works-desktop-filters { display: none; }
-        body.mobile-preview .works-mobile-filter { display: block; }
-        body.mobile-preview #tab-works { gap: 1.25rem; }
-        body.mobile-preview #tab-works > div:first-child { padding-bottom: 0.75rem; }
-        body.mobile-preview #tab-works > div:first-child { border-bottom: 0; }
-        body.mobile-preview #tab-works > * + * { margin-top: 1rem !important; }
-        body.mobile-preview #tab-works .works-description-full { display: none; }
-        body.mobile-preview #tab-works .works-description-mobile { display: inline; }
-        body.mobile-preview #tab-works .works-mobile-filter label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-        body.mobile-preview #tab-works #worksSearchInput { padding-top: 0.65rem; padding-bottom: 0.65rem; font-size: 0.8rem; }
-        body.mobile-preview #tab-works #mobileWorksCategory { padding-top: 0.65rem; padding-bottom: 0.65rem; font-size: 0.8rem; }
+        #mobilePreviewDialog {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            display: grid;
+            place-items: center;
+            padding: 1.5rem;
+            background: rgba(13, 13, 13, 0.82);
+        }
+        #mobilePreviewDialog.hidden { display: none; }
+        .mobile-preview-frame {
+            position: relative;
+            width: min(430px, calc(100vw - 2rem));
+            height: min(844px, calc(100vh - 3rem));
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            border-radius: 1.5rem;
+            background: #f4f0e8;
+            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.45);
+        }
+        #mobilePreviewFrame {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: inherit;
+            background: #f4f0e8;
+        }
+        #closeMobilePreview {
+            position: absolute;
+            top: -0.75rem;
+            right: -0.75rem;
+            z-index: 1;
+            display: grid;
+            width: 2.5rem;
+            height: 2.5rem;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: #fbfaf6;
+            background: #18211f;
+        }
         .works-description-mobile { display: none; }
         .mobile-cta-break { display: none; }
         @media (min-width: 641px) {
@@ -505,6 +498,15 @@
         </form>
     </div>
 
+    <div id="mobilePreviewDialog" class="hidden" role="dialog" aria-modal="true" aria-label="Mobile site preview">
+        <div class="mobile-preview-frame">
+            <button id="closeMobilePreview" type="button" onclick="closeMobilePreview()" aria-label="Close mobile preview">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+            <iframe id="mobilePreviewFrame" title="Mobile site preview"></iframe>
+        </div>
+    </div>
+
     <header class="sticky top-0 z-50 glass-panel border-b border-neutral-800/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
             
@@ -532,7 +534,7 @@
                 <button id="themeToggleBtn" onclick="toggleTheme()" title="Switch to dark mode" class="p-2 rounded-full text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800/60 transition-colors">
                     <i class="fa-solid fa-moon text-sm"></i>
                 </button>
-                <button id="mobilePreviewBtn" onclick="toggleMobilePreview()" title="Switch to mobile preview" aria-label="Switch to mobile preview" class="p-2 rounded-full text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800/60 transition-colors">
+                <button id="mobilePreviewBtn" onclick="toggleMobilePreview()" title="Switch to mobile preview" aria-label="Switch to mobile preview" aria-pressed="false" class="p-2 rounded-full text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800/60 transition-colors">
                     <i class="fa-solid fa-mobile-screen-button text-sm"></i>
                 </button>
 
@@ -573,7 +575,7 @@
             </div>
             <div id="soundbarTimes" class="text-[10px]">
                 <span id="soundbarElapsedTime">0:00</span>
-                <span id="soundbarDurationTime">0:00</span>
+                <span id="soundbarDurationTime" class="hidden"></span>
             </div>
         </div>
         <div id="soundbarControls">
@@ -618,9 +620,9 @@
                     </h1>
 
                     <div class="hero-actions py-1">
-                        <button type="button" aria-label="Listen" onclick="switchTab('watch-listen')"><i class="hero-action-icon fa-solid fa-headphones" aria-hidden="true"></i><span>Listen</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
-                        <button type="button" aria-label="Explore works" onclick="switchTab('works')"><i class="hero-action-icon fa-solid fa-music" aria-hidden="true"></i><span>Explore works</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
-                        <button type="button" aria-label="Get in touch" onclick="switchTab('contact')"><i class="hero-action-icon fa-regular fa-envelope" aria-hidden="true"></i><span>Get in touch</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                        <button type="button" aria-label="Listen" onclick="switchTab('watch-listen')"><i class="hero-action-icon fa-solid fa-headphones" aria-hidden="true"></i><span>Listen</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
+                        <button type="button" aria-label="Explore works" onclick="switchTab('works')"><i class="hero-action-icon fa-solid fa-music" aria-hidden="true"></i><span>Explore works</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
+                        <button type="button" aria-label="Get in touch" onclick="switchTab('contact')"><i class="hero-action-icon fa-regular fa-envelope" aria-hidden="true"></i><span>Get in touch</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
                     </div>
 
                     <p class="hero-introduction text-lg text-neutral-300 font-serif-italic font-light leading-relaxed">
@@ -1032,14 +1034,14 @@
                 <h3 class="text-lg font-serif text-neutral-100 border-b border-neutral-800 pb-3">Featured Audio Catalog</h3>
                 <p id="audioAvailabilityMessage" class="hidden text-sm text-amber-900 bg-amber-100 border border-amber-700/40 rounded-xl px-4 py-3" role="status"></p>
 
-                <div class="space-y-3">
+                <div class="audio-catalog-list space-y-3">
                     <div data-track="illuminations" onclick="playTrack('4 Illuminations', 'Xasax Saxophone Quartet', 'illuminations')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
                             <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
                                 <i class="fa-solid fa-play text-xs"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">4 Illuminations</h4>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">4 Illuminations [2012]</h4>
                                 <p class="text-xs text-neutral-400">Saxophone Quartet, performed by Xasax Saxophone Quartet at Royaumont Abbey</p>
                             </div>
                         </div>
@@ -1052,7 +1054,7 @@
                                 <i class="fa-solid fa-play text-xs"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Fault-Line</h4>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Fault-Line [2015]</h4>
                                 <p class="text-xs text-neutral-400">Solo Cello, performed by Oliver Coates (London Sinfonietta Commission)</p>
                             </div>
                         </div>
@@ -1065,7 +1067,7 @@
                                 <i class="fa-solid fa-play text-xs"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Recollections</h4>
+                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Recollections <span class="text-red-400">[Missing year]</span></h4>
                                 <p class="text-xs text-neutral-400">Mezzo-soprano & Paetzold Contrabass Recorder, Elsbeth Gerritsen & Eva Reiter</p>
                             </div>
                         </div>
@@ -1078,25 +1080,25 @@
                                 <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Balconies (preview)</h4>
+                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Balconies [2023]</h4>
                                 <p class="text-xs text-neutral-400">Multi-tracked Solo Violin, Olivia de Prato (Panorama Album, New Focus Recordings)</p>
                             </div>
                         </div>
-                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:53</span>
+                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-extract-status">Extract</span>
                     </div>
 
-                    <div data-spotify-track="7lmUNPa9oAkmYwdo88guI4" onclick="playSpotifyTrack('7lmUNPa9oAkmYwdo88guI4')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                    <div data-track="kinesphere" onclick="playTrack('Kinesphere', 'Michael Cox', 'kinesphere')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
                             <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
                                 <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere (preview)</h4>
-                                <p class="text-xs text-neutral-400">Solo Flute, performed by Michael Cox (NMC Recordings)</p>
-                            </div>
-                        </div>
-                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">4:49</span>
-                    </div>
+                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere [2014]</h4>
+                                 <p class="text-xs text-neutral-400">Solo Flute, performed by Michael Cox (NMC Recordings)</p>
+                             </div>
+                         </div>
+                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:06</span>
+                     </div>
 
                     <div data-spotify-track="3YV79qjiJLOgYjjEzTsVEy" onclick="playSpotifyTrack('3YV79qjiJLOgYjjEzTsVEy')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
                         <div class="flex items-center gap-4">
@@ -1104,12 +1106,38 @@
                                 <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
                             </div>
                             <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Everything Passes, Everything is Connected (preview)</h4>
+                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Everything Passes, Everything is Connected [2021]</h4>
                                 <p class="text-xs text-neutral-400">Unaccompanied Choir, commissioned and performed by The Crossing (USA)</p>
                             </div>
                         </div>
-                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">3:30</span>
+                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-extract-status">Extract</span>
                     </div>
+
+                    <div data-spotify-track="3yRPnEWI5IHASxiNNgvyuh" onclick="playSpotifyTrack('3yRPnEWI5IHASxiNNgvyuh')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs" aria-hidden="true"></i></div>
+                                <div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">How Many Moments Must <span class="text-red-400">[Missing year]</span></h4><p class="text-xs text-red-400">More Info Needed</p></div>
+                        </div>
+                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-extract-status">Extract</span>
+                    </div>
+
+                    <div data-spotify-track="5k4j31qldbj9wqg9VBKo01" onclick="playSpotifyTrack('5k4j31qldbj9wqg9VBKo01')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs" aria-hidden="true"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Utterance <span class="text-red-400">[Missing year]</span></h4><p class="text-xs text-red-400">More Info Needed</p></div></div>
+                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:06</span>
+                    </div>
+
+                    <div data-spotify-track="1o0qiFnwPPgBA3k6QWVPM8" onclick="playSpotifyTrack('1o0qiFnwPPgBA3k6QWVPM8')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
+                        <div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs" aria-hidden="true"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">The Half Moon <span class="text-red-400">[Missing year]</span></h4><p class="text-xs text-red-400">More Info Needed</p></div></div>
+                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:06</span>
+                    </div>
+
+                    <div data-track="reflection-1" onclick="playTrack('The Journey Between Us - Reflection 1', 'mixed ensemble', 'reflection-1')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">The Journey Between Us - Reflection 1 [2016]</h4><p class="text-xs text-neutral-400">Mixed ensemble</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">3:32</span></div>
+
+                    <div data-track="look-up" onclick="playTrack('Look Up', '4 voices, viola da gamba and electronics', 'look-up')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Look Up</h4><p class="text-xs text-neutral-400">4 voices, viola da gamba and electronics</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:53</span></div>
+
+                    <div data-track="positive-negative-space" onclick="playTrack('Positive/Negative Space', 'flute, clarinet, alto sax & cello', 'positive-negative-space')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Positive/Negative Space</h4><p class="text-xs text-neutral-400">Flute, clarinet, alto sax & cello</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:50</span></div>
+
+                    <div data-track="square-of-light" onclick="playTrack('Square Of Light', '', 'square-of-light')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Square Of Light</h4><p class="text-xs text-neutral-400">2013 · Soprano and piano</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">3:15</span></div>
 
                 </div>
             </div>
@@ -1376,6 +1404,43 @@
             { id: 26, title: 'Glimmer', year: 2011, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '10 mins', premiere: 'Lux Orchestra.' }
         ];
 
+        // Keep featured recordings ordered newest first; unknown years remain at the end.
+        const audioCatalog = document.querySelector('#tab-listen .space-y-3');
+        if (audioCatalog) {
+            const yearByTitle = {
+                'Balconies': 2023,
+                'Everything Passes, Everything is Connected': 2021,
+                'Fault-Line': 2015,
+                'The Journey Between Us - Reflection 1': 2016,
+                'Look Up': 2014,
+                'Kinesphere': 2014,
+                'Positive/Negative Space': 2013,
+                'Square Of Light': 2013,
+                '4 Illuminations': 2012,
+                'How Many Moments Must': 0,
+                'Utterance': 0,
+                'The Half Moon': 0,
+                'Recollections': 0
+            };
+                [...audioCatalog.children].forEach(track => {
+                    const title = track.querySelector('h4');
+                    const key = title?.textContent.replace(/ \[[^\]]+\]$/, '');
+                    const year = yearByTitle[key];
+                    title?.childNodes.forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            node.nodeValue = node.nodeValue.replace(/ \[(\d{4})\]/g, '\u00a0[$1]');
+                        }
+                    });
+                    if (title && year && !title.textContent.includes('[')) {
+                        title.append(document.createTextNode(`\u00a0[${year}]`));
+                    }
+                track.dataset.year = year || 0;
+            });
+            [...audioCatalog.children]
+                .sort((a, b) => Number(b.dataset.year) - Number(a.dataset.year))
+                .forEach(track => audioCatalog.appendChild(track));
+        }
+
         const workCategoryLabels = {
             chamber: 'Solo & Chamber',
             vocal: 'Vocal & Choral',
@@ -1576,7 +1641,12 @@
                 const tracks = {
                     illuminations: { id: 'soundcloudPlayerIlluminations', title: '4 Illuminations SoundCloud player', url: 'https://api.soundcloud.com/tracks/105152235' },
                     faultline: { id: 'soundcloudPlayerFaultline', title: 'Fault-Line SoundCloud player', url: 'https://api.soundcloud.com/tracks/236811796' },
-                    recollections: { id: 'soundcloudPlayerRecollections', title: 'Recollections SoundCloud player', url: 'https://api.soundcloud.com/tracks/125817887' }
+                    recollections: { id: 'soundcloudPlayerRecollections', title: 'Recollections SoundCloud player', url: 'https://api.soundcloud.com/tracks/125817887' },
+                    kinesphere: { id: 'soundcloudPlayerKinesphere', title: 'Kinesphere SoundCloud player', url: 'https://api.soundcloud.com/tracks/332996028' },
+                    'reflection-1': { id: 'soundcloudPlayerReflection1', title: 'The Journey Between Us - Reflection 1 SoundCloud player', url: 'https://api.soundcloud.com/tracks/292087616' },
+                    'look-up': { id: 'soundcloudPlayerLookUp', title: 'Look Up SoundCloud player', url: 'https://api.soundcloud.com/tracks/204818278' },
+                    'positive-negative-space': { id: 'soundcloudPlayerPositiveNegativeSpace', title: 'Positive/Negative Space SoundCloud player', url: 'https://api.soundcloud.com/tracks/132165483' },
+                    'square-of-light': { id: 'soundcloudPlayerSquareOfLight', title: 'Square Of Light SoundCloud player', url: 'https://api.soundcloud.com/tracks/105347231' }
                 };
 
                 Object.values(tracks).forEach(track => {
@@ -1630,7 +1700,9 @@
 
             document.getElementById('soundbarProgressFill').style.width = `${progress}%`;
             document.getElementById('soundbarElapsedTime').textContent = formatPlaybackTime(safePosition);
-            document.getElementById('soundbarDurationTime').textContent = formatPlaybackTime(safeDuration);
+            const durationTime = document.getElementById('soundbarDurationTime');
+            durationTime.textContent = safeDuration ? formatPlaybackTime(safeDuration) : '';
+            durationTime.classList.toggle('hidden', !safeDuration);
             progressBar.setAttribute('aria-valuemax', String(safeDuration));
             progressBar.setAttribute('aria-valuenow', String(Math.min(safePosition, safeDuration)));
             progressBar.setAttribute('aria-valuetext', safeDuration
@@ -1686,13 +1758,17 @@
             const track = document.querySelector(`[data-spotify-track="${trackId}"]`);
             const spotifyTrackNames = {
                 '2wNL47uCuwDpbOqCIpbSTS': 'Balconies · Olivia de Prato',
-                '7lmUNPa9oAkmYwdo88guI4': 'Kinesphere · Michael Cox',
                 '3YV79qjiJLOgYjjEzTsVEy': 'Everything Passes, Everything is Connected · The Crossing'
+                ,'3yRPnEWI5IHASxiNNgvyuh': 'How Many Moments Must'
+                ,'5k4j31qldbj9wqg9VBKo01': 'Utterance'
+                ,'1o0qiFnwPPgBA3k6QWVPM8': 'The Half Moon'
             };
             const spotifyTrackDurations = {
                 '2wNL47uCuwDpbOqCIpbSTS': 413000,
-                '7lmUNPa9oAkmYwdo88guI4': 289000,
-                '3YV79qjiJLOgYjjEzTsVEy': 210000
+                '3YV79qjiJLOgYjjEzTsVEy': 210000,
+                '3yRPnEWI5IHASxiNNgvyuh': 60000,
+                '5k4j31qldbj9wqg9VBKo01': 166000,
+                '1o0qiFnwPPgBA3k6QWVPM8': 251000
             };
             currentTrackName = spotifyTrackNames[trackId] || 'Spotify recording';
             activeAudioProvider = 'spotify';
@@ -1978,7 +2054,7 @@
             }
             isAudioPlaying = false;
 
-            currentTrackName = `${title} · ${artist}`;
+            currentTrackName = artist ? `${title} · ${artist}` : title;
             activeAudioProvider = 'soundcloud';
             isPlaybackStopped = false;
             currentTrackId = id;
@@ -2138,12 +2214,38 @@
         }
 
         function toggleMobilePreview() {
-            const isPreview = document.body.classList.toggle('mobile-preview');
+            const dialog = document.getElementById('mobilePreviewDialog');
+            if (!dialog.classList.contains('hidden')) {
+                closeMobilePreview();
+                return;
+            }
+
+            const previewUrl = new URL(window.location.href);
+            previewUrl.searchParams.set('mobilePreview', 'true');
+            document.getElementById('mobilePreviewFrame').src = previewUrl.href;
+            dialog.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
             const previewBtn = document.getElementById('mobilePreviewBtn');
-            previewBtn.title = isPreview ? 'Switch to desktop layout' : 'Switch to mobile preview';
+            previewBtn.title = 'Close mobile preview';
             previewBtn.setAttribute('aria-label', previewBtn.title);
-            previewBtn.classList.toggle('text-amber-400', isPreview);
-            previewBtn.classList.toggle('text-neutral-400', !isPreview);
+            previewBtn.setAttribute('aria-pressed', 'true');
+            previewBtn.classList.add('text-amber-400');
+            previewBtn.classList.remove('text-neutral-400');
+            document.getElementById('closeMobilePreview').focus();
+        }
+
+        function closeMobilePreview() {
+            const dialog = document.getElementById('mobilePreviewDialog');
+            dialog.classList.add('hidden');
+            document.getElementById('mobilePreviewFrame').src = 'about:blank';
+            document.body.style.overflow = '';
+            const previewBtn = document.getElementById('mobilePreviewBtn');
+            previewBtn.title = 'Switch to mobile preview';
+            previewBtn.setAttribute('aria-label', previewBtn.title);
+            previewBtn.setAttribute('aria-pressed', 'false');
+            previewBtn.classList.remove('text-amber-400');
+            previewBtn.classList.add('text-neutral-400');
+            previewBtn.focus();
         }
 
         function unlockSite(event) {
@@ -2175,15 +2277,20 @@
         }
 
         document.addEventListener('DOMContentLoaded', initialiseCombinedMedia);
+        document.getElementById('mobilePreviewDialog').addEventListener('click', event => {
+            if (event.target.id === 'mobilePreviewDialog') closeMobilePreview();
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && !document.getElementById('mobilePreviewDialog').classList.contains('hidden')) {
+                closeMobilePreview();
+            }
+        });
 
         window.onload = function() {
             document.getElementById('togglePasswordVisibility').addEventListener('click', event => {
                 event.preventDefault();
                 togglePasswordVisibility();
             });
-            if (window.matchMedia('(max-width: 767px)').matches) {
-                document.body.classList.add('mobile-preview');
-            }
             if (isDeployedSite && sessionStorage.getItem('siteUnlocked') === 'true') {
                 document.body.classList.remove('site-locked');
                 document.getElementById('sitePasswordGate').classList.add('hidden');

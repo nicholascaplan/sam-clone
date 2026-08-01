@@ -64,6 +64,22 @@ test('opens and closes the mobile navigation menu', async ({ page }) => {
   await expect(menu).toBeHidden();
 });
 
+test('mobile preview uses the real mobile viewport', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#mobilePreviewBtn').click();
+
+  const dialog = page.locator('#mobilePreviewDialog');
+  const preview = page.frameLocator('#mobilePreviewFrame');
+  await expect(dialog).toBeVisible();
+  await expect(page.locator('#mobilePreviewBtn')).toHaveAttribute('aria-pressed', 'true');
+  await expect(preview.locator('#mobileMenuToggle')).toBeVisible();
+  await expect(preview.locator('header nav')).toBeHidden();
+
+  await page.locator('#closeMobilePreview').click();
+  await expect(dialog).toBeHidden();
+  await expect(page.locator('#mobilePreviewBtn')).toHaveAttribute('aria-pressed', 'false');
+});
+
 test('shows contact confirmation without submitting externally', async ({ page }) => {
   await page.goto('/');
 
@@ -101,7 +117,7 @@ test('soundbar progress display is present and non-interactive', async ({ page }
   await expect(progress).toHaveAttribute('aria-valuemax', '0');
   await expect(page.locator('#soundbarProgress button, #soundbarProgress input')).toHaveCount(0);
   await expect(page.locator('#soundbarElapsedTime')).toHaveText('0:00');
-  await expect(page.locator('#soundbarDurationTime')).toHaveText('0:00');
+  await expect(page.locator('#soundbarDurationTime')).toBeHidden();
   await expect(page.locator('#soundbarControls button')).toHaveCount(3);
   await expect(page.locator('#soundbarVisualizer')).toHaveCount(0);
 });
@@ -117,7 +133,21 @@ test('soundbar starts with the default track name', async ({ page }) => {
 
   await expect(page.locator('#soundbarLabel')).toHaveText('Everything Passes, Everything is Connected · The Crossing');
   await expect(page.locator('[data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]')).toHaveCount(2);
-  await expect(page.locator('[data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]').first()).toContainText('Everything Passes, Everything is Connected (preview)');
+  const defaultTrack = page.locator('#tab-listen [data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]');
+  await expect(defaultTrack.locator('h4')).toContainText('Everything Passes, Everything is Connected');
+  await expect(defaultTrack.locator('.audio-extract-status')).toHaveText('Extract');
+});
+
+test('lists confirmed Listen metadata without placeholder details', async ({ page }) => {
+  await page.goto('/#listen');
+
+  const listenTab = page.locator('#tab-listen');
+  await expect(listenTab.locator('[data-track="look-up"]')).toContainText('6:53');
+  await expect(listenTab.locator('[data-track="positive-negative-space"]')).toContainText('6:50');
+  await expect(listenTab.locator('[data-track="square-of-light"]')).toContainText('3:15');
+  await expect(listenTab.locator('[data-spotify-track="3yRPnEWI5IHASxiNNgvyuh"]')).toContainText('How Many Moments Must');
+  await expect(page.locator('#tab-listen')).not.toContainText('[Missing Spotify title]');
+  await expect(page.locator('#tab-listen')).not.toContainText('[Missing duration]');
 });
 
 test('Spotify playback resets to the beginning when a track loads', async ({ page }) => {

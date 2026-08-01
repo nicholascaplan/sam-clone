@@ -100,12 +100,64 @@ test('soundbar progress display is present and non-interactive', async ({ page }
   await expect(progress).toHaveAttribute('aria-valuenow', '0');
   await expect(progress).toHaveAttribute('aria-valuemax', '0');
   await expect(page.locator('#soundbarProgress button, #soundbarProgress input')).toHaveCount(0);
+  await expect(page.locator('#soundbarElapsedTime')).toHaveText('0:00');
+  await expect(page.locator('#soundbarDurationTime')).toHaveText('0:00');
+  await expect(page.locator('#soundbarControls button')).toHaveCount(3);
+  await expect(page.locator('#soundbarVisualizer')).toHaveCount(0);
 });
 
 test('header Listen control uses the shared playback toggle', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('#ambientSoundBtn')).toHaveAttribute('onclick', 'toggleActivePlayback()');
+});
+
+test('soundbar starts with the default track name', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('#soundbarLabel')).toHaveText('Everything Passes, Everything is Connected · The Crossing');
+  await expect(page.locator('[data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]')).toHaveCount(2);
+  await expect(page.locator('[data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]').first()).toContainText('Everything Passes, Everything is Connected');
+});
+
+test('Spotify playback resets to the beginning when a track loads', async ({ page }) => {
+  await page.goto('/');
+
+  const source = (await page.locator('script').allTextContents()).join('\n');
+  expect(source).toContain('spotifyController.seek(0)');
+});
+
+test('header Listen opens the soundbar for the default track', async ({ page }) => {
+  await page.goto('/');
+
+  await page.locator('#ambientSoundBtn').click();
+
+  await expect(page.locator('#soundbar')).toBeVisible();
+  await expect(page.locator('#soundbarLabel')).toHaveText('Everything Passes, Everything is Connected · The Crossing');
+});
+
+test('soundbar stays visible while navigating between pages', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#ambientSoundBtn').click();
+  await expect(page.locator('#soundbar')).toBeVisible();
+
+  await page.getByRole('button', { name: 'Works List' }).click();
+
+  await expect(page.locator('#tab-works')).toBeVisible();
+  await expect(page.locator('#soundbar')).toBeVisible();
+});
+
+test('stopped playback is cleared when navigating away', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#ambientSoundBtn').click();
+  await expect(page.locator('#soundbar')).toBeVisible();
+
+  await expect(page.locator('#soundbarRestartBtn')).toHaveAttribute('aria-label', 'Restart track');
+  await page.locator('#soundbarStopBtn').click();
+  await expect(page.locator('#soundbarStopBtn')).toHaveAttribute('aria-label', 'Stop playback');
+
+  await page.getByRole('button', { name: 'Works List' }).click();
+  await expect(page.locator('#soundbar')).toBeHidden();
 });
 
 test('initialises navigation before the audio players', async ({ page }) => {

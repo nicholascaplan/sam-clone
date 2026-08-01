@@ -161,12 +161,17 @@
         @media (hover: none) {
             [data-tooltip]::after { display: none; }
         }
-        #soundbar { width: min(34rem, calc(100vw - 2rem)); box-sizing: border-box; display: grid; grid-template-columns: 2rem minmax(0, 1fr) 2rem; align-items: center; justify-items: center; transition: opacity 0.3s ease, transform 0.3s ease; }
-        #soundbarTrackInfo { min-width: 0; width: 100%; display: grid; gap: 0.3rem; }
-        #soundbarLabel { min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; text-align: center; }
+        #soundbar { width: min(34rem, calc(100vw - 2rem)); box-sizing: border-box; display: block; padding: 0.5rem 7rem 0.625rem 1.5rem; transition: opacity 0.3s ease, transform 0.3s ease; }
+        #soundbarTrackInfo { min-width: 0; width: 100%; display: grid; gap: 0.2rem; }
+        #soundbarLabel { min-width: 0; overflow: hidden; text-overflow: ellipsis; text-align: center; }
         #soundbarProgress { width: 100%; height: 0.35rem; overflow: hidden; border: 1px solid rgba(180, 83, 9, 0.3); border-radius: 9999px; background: rgba(139, 129, 117, 0.35); }
         #soundbarProgressFill { width: 0; height: 100%; border-radius: inherit; background: #b45309; box-shadow: 0 0 0.4rem rgba(180, 83, 9, 0.65); transition: width 0.2s linear; }
-        #soundbarTime { font-variant-numeric: tabular-nums; color: #8b8175; }
+        #soundbarTimes { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; color: #8b8175; }
+        #soundbarControls { position: absolute; right: 1.25rem; top: 50%; display: flex; gap: 0.2rem; transform: translateY(-50%); }
+        @media (max-width: 420px) {
+            #soundbar { padding: 0.5rem 6.5rem 0.625rem 1rem; }
+            #soundbarControls { right: 0.75rem; }
+        }
         #soundbar.hidden { display: none; }
         .soundcloud-player { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
         .spotify-player { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
@@ -560,23 +565,28 @@
         </div>
     </header>
 
-    <div id="soundbar" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 px-5 py-2.5 rounded-full glass-panel shadow-lg flex items-center gap-3 text-xs text-neutral-700 whitespace-nowrap">
-        <span class="flex items-end justify-center gap-0.5 h-4" aria-hidden="true">
-            <span class="w-0.5 h-2 bg-amber-700 rounded-full animate-pulse"></span>
-            <span class="w-0.5 h-4 bg-amber-700 rounded-full animate-pulse [animation-delay:150ms]"></span>
-            <span class="w-0.5 h-3 bg-amber-700 rounded-full animate-pulse [animation-delay:300ms]"></span>
-            <span class="w-0.5 h-1.5 bg-amber-700 rounded-full animate-pulse [animation-delay:450ms]"></span>
-        </span>
+    <div id="soundbar" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 rounded-full glass-panel shadow-lg text-xs text-neutral-700 whitespace-nowrap">
         <div id="soundbarTrackInfo">
-            <span id="soundbarLabel" class="font-medium">Samantha Fernando · Soundscape</span>
+            <span id="soundbarLabel" class="text-[13px] font-semibold">Everything Passes, Everything is Connected · The Crossing</span>
             <div id="soundbarProgress" role="progressbar" aria-label="Track progress" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
                 <div id="soundbarProgressFill"></div>
             </div>
-            <span id="soundbarTime" class="text-[10px] text-center">0:00</span>
+            <div id="soundbarTimes" class="text-[10px]">
+                <span id="soundbarElapsedTime">0:00</span>
+                <span id="soundbarDurationTime">0:00</span>
+            </div>
         </div>
-        <button id="soundbarPauseBtn" onclick="toggleActivePlayback()" aria-label="Pause playback" title="Pause playback" class="w-7 h-7 rounded-full flex items-center justify-center text-amber-700 hover:bg-amber-100 transition-colors">
-            <i id="soundbarPauseIcon" class="fa-solid fa-pause text-xs" aria-hidden="true"></i>
-        </button>
+        <div id="soundbarControls">
+            <button id="soundbarPauseBtn" onclick="toggleActivePlayback()" aria-label="Pause playback" title="Pause playback" class="w-7 h-7 rounded-full flex items-center justify-center text-amber-700 hover:bg-amber-100 transition-colors">
+                <i id="soundbarPauseIcon" class="fa-solid fa-pause text-xs" aria-hidden="true"></i>
+            </button>
+            <button id="soundbarRestartBtn" onclick="restartActivePlayback()" aria-label="Restart track" title="Restart track" class="w-7 h-7 rounded-full flex items-center justify-center text-amber-700 hover:bg-amber-100 transition-colors">
+                <i class="fa-solid fa-rotate-right text-xs" aria-hidden="true"></i>
+            </button>
+            <button id="soundbarStopBtn" onclick="stopPlayback()" aria-label="Stop playback" title="Stop playback" class="w-7 h-7 rounded-full flex items-center justify-center text-amber-700 hover:bg-amber-100 transition-colors">
+                <i class="fa-solid fa-stop text-xs" aria-hidden="true"></i>
+            </button>
+        </div>
     </div>
     <div id="soundcloudPlayers" aria-hidden="true"></div>
 
@@ -1106,7 +1116,7 @@
 
             <!-- Recording availability note follows the listening options. -->
             <div data-recording-availability-note class="glass-panel p-4 rounded-2xl text-xs font-sans flex items-start gap-3">
-                <i class="fa-regular fa-note-sticky text-neutral-500 text-base mt-0.5" aria-hidden="true"></i>
+                <i class="fa-solid fa-headphones text-neutral-500 text-base mt-0.5" aria-hidden="true"></i>
                 <div class="space-y-1">
                     <p class="font-semibold text-neutral-300">Recording availability</p>
                     <p class="text-neutral-400 leading-relaxed">
@@ -1376,6 +1386,7 @@
 
         let activeCategory = 'all';
         let isAudioPlaying = false;
+        let isPlaybackStopped = false;
 
         // Tab Switching Handler
         const tabAnchors = {
@@ -1388,12 +1399,12 @@
         const anchorTabs = Object.fromEntries(Object.entries(tabAnchors).map(([tabId, anchor]) => [anchor, tabId]));
 
         function switchTab(tabId) {
+            if (isPlaybackStopped) clearStoppedPlayback();
             const anchor = tabAnchors[tabId];
             history.replaceState(null, '', anchor
                 ? `${window.location.pathname}${window.location.search}#${anchor}`
                 : `${window.location.pathname}${window.location.search}`);
             if (!document.getElementById('mobileMenu').classList.contains('hidden')) toggleMobileMenu();
-            if (!isAudioPlaying) document.getElementById('soundbar').classList.add('hidden');
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-amber-400', 'border-amber-400');
@@ -1537,14 +1548,16 @@
         }
 
         // SoundCloud playback for Samantha Fernando's published recordings.
-        let currentTrackName = 'Fault Line · Oliver Coates (cello)';
-        let currentTrackId = 'faultline';
+        const defaultSpotifyTrackId = '3YV79qjiJLOgYjjEzTsVEy';
+        const defaultSpotifyTrackName = 'Everything Passes, Everything is Connected · The Crossing';
+        let currentTrackName = defaultSpotifyTrackName;
+        let currentTrackId = defaultSpotifyTrackId;
         let spotifyController = null;
         let spotifyReady = null;
         let pendingSpotifyTrack = null;
         let activeSpotifyTrack = null;
         let isSpotifyPlaying = false;
-        let activeAudioProvider = 'soundcloud';
+        let activeAudioProvider = 'spotify';
         let trackDurationMs = 0;
         let spotifyElapsedMs = 0;
         let spotifyPlaybackStartedAt = null;
@@ -1616,9 +1629,8 @@
             const progressBar = document.getElementById('soundbarProgress');
 
             document.getElementById('soundbarProgressFill').style.width = `${progress}%`;
-            document.getElementById('soundbarTime').textContent = safeDuration
-                ? `${formatPlaybackTime(safePosition)} / ${formatPlaybackTime(safeDuration)}`
-                : formatPlaybackTime(safePosition);
+            document.getElementById('soundbarElapsedTime').textContent = formatPlaybackTime(safePosition);
+            document.getElementById('soundbarDurationTime').textContent = formatPlaybackTime(safeDuration);
             progressBar.setAttribute('aria-valuemax', String(safeDuration));
             progressBar.setAttribute('aria-valuenow', String(Math.min(safePosition, safeDuration)));
             progressBar.setAttribute('aria-valuetext', safeDuration
@@ -1660,7 +1672,11 @@
                 spotifyElapsedMs = Date.now() - spotifyPlaybackStartedAt;
                 if (trackDurationMs && spotifyElapsedMs >= trackDurationMs) {
                     spotifyElapsedMs = trackDurationMs;
-                    stopSoundbarProgressTimer();
+                    isPlaybackStopped = true;
+                    spotifyController?.pause();
+                    isSpotifyPlaying = false;
+                    setSpotifyPlaybackState(false, activeSpotifyTrack);
+                    return;
                 }
                 updateSoundbarProgress(spotifyElapsedMs);
             }, 500);
@@ -1680,9 +1696,12 @@
             };
             currentTrackName = spotifyTrackNames[trackId] || 'Spotify recording';
             activeAudioProvider = 'spotify';
+            isPlaybackStopped = false;
             if (activeSpotifyTrack !== trackId) spotifyElapsedMs = 0;
             trackDurationMs = spotifyTrackDurations[trackId] || 0;
             updateSoundbarProgress(spotifyElapsedMs);
+            document.getElementById('soundbarLabel').textContent = currentTrackName;
+            document.getElementById('soundbar').classList.remove('hidden');
             pauseSoundCloudPlayers();
             if (!spotifyReady) {
                 pendingSpotifyTrack = trackId;
@@ -1698,6 +1717,7 @@
                     return;
                 }
                 spotifyController.loadUri(`spotify:track:${trackId}`);
+                spotifyController.seek(0);
                 spotifyController.play();
                 activeSpotifyTrack = trackId;
                 isSpotifyPlaying = true;
@@ -1711,16 +1731,18 @@
             spotifyReady.createController(container, { width: 1, height: 1 }, controller => {
                 spotifyController = controller;
                 if (activeAudioProvider !== 'spotify') return;
-                controller.loadUri(`spotify:track:${trackId}`);
+                controller.loadUri(`spotify:track:${currentTrackId}`);
+                controller.seek(0);
                 controller.play();
-                activeSpotifyTrack = trackId;
+                activeSpotifyTrack = currentTrackId;
                 isSpotifyPlaying = true;
-                setSpotifyPlaybackState(true, trackId);
+                setSpotifyPlaybackState(true, currentTrackId);
             });
         }
 
         function setSpotifyPlaybackState(playing, trackId) {
             isAudioPlaying = playing;
+            if (playing) isPlaybackStopped = false;
             if (playing) startSpotifyProgressTimer();
             else {
                 if (spotifyPlaybackStartedAt) spotifyElapsedMs = Date.now() - spotifyPlaybackStartedAt;
@@ -1773,7 +1795,10 @@
                 if (activeAudioProvider === 'soundcloud' && currentTrackId === id) setPlaybackState(false);
             });
             player.bind(SC.Widget.Events.FINISH, () => {
-                if (activeAudioProvider === 'soundcloud' && currentTrackId === id) setPlaybackState(false);
+                if (activeAudioProvider === 'soundcloud' && currentTrackId === id) {
+                    isPlaybackStopped = true;
+                    setPlaybackState(false);
+                }
             });
             player.bind(SC.Widget.Events.ERROR, () => {
                 if (currentTrackId === id) showTrackUnavailable();
@@ -1782,7 +1807,11 @@
         }
 
         function toggleActivePlayback() {
-            if (activeAudioProvider === 'spotify' && spotifyController) {
+            if (activeAudioProvider === 'spotify') {
+                if (!spotifyController) {
+                    playSpotifyTrack(currentTrackId);
+                    return;
+                }
                 if (isSpotifyPlaying) {
                     spotifyController.pause();
                     isSpotifyPlaying = false;
@@ -1812,8 +1841,74 @@
             }
         }
 
+        function stopPlayback() {
+            isPlaybackStopped = true;
+            if (activeAudioProvider === 'spotify') {
+                pendingSpotifyTrack = null;
+                spotifyController?.pause();
+                isSpotifyPlaying = false;
+                spotifyElapsedMs = 0;
+                spotifyPlaybackStartedAt = null;
+                setSpotifyPlaybackState(false, activeSpotifyTrack);
+                return;
+            }
+
+            pendingSoundCloudPlaybackId = null;
+            const player = soundcloudPlayers[currentTrackId];
+            if (player) player.pause();
+            else setPlaybackState(false);
+        }
+
+        function restartActivePlayback() {
+            isPlaybackStopped = false;
+            if (activeAudioProvider === 'spotify') {
+                spotifyElapsedMs = 0;
+                if (!spotifyController) {
+                    playSpotifyTrack(currentTrackId);
+                    return;
+                }
+                spotifyController.loadUri(`spotify:track:${currentTrackId}`);
+                spotifyController.seek(0);
+                spotifyController.play();
+                activeSpotifyTrack = currentTrackId;
+                isSpotifyPlaying = true;
+                setSpotifyPlaybackState(true, currentTrackId);
+                return;
+            }
+
+            const player = soundcloudPlayers[currentTrackId];
+            if (!player) {
+                initialiseSoundCloudPlayers().then(restartActivePlayback).catch(showTrackUnavailable);
+                return;
+            }
+            if (readySoundCloudPlayers.has(currentTrackId)) {
+                player.seekTo(0);
+                player.play();
+            } else {
+                pendingSoundCloudPlaybackId = currentTrackId;
+                pendingSoundCloudPlaybackStartsAtZero = true;
+            }
+        }
+
+        function clearStoppedPlayback() {
+            stopSoundbarProgressTimer();
+            pendingSpotifyTrack = null;
+            pendingSoundCloudPlaybackId = null;
+            activeSpotifyTrack = null;
+            isSpotifyPlaying = false;
+            isAudioPlaying = false;
+            isPlaybackStopped = false;
+            spotifyElapsedMs = 0;
+            trackDurationMs = 0;
+            currentTrackName = defaultSpotifyTrackName;
+            currentTrackId = defaultSpotifyTrackId;
+            activeAudioProvider = 'spotify';
+            document.getElementById('soundbar').classList.add('hidden');
+        }
+
         function setPlaybackState(playing) {
             isAudioPlaying = playing;
+            if (playing) isPlaybackStopped = false;
             const activeTrack = document.querySelector(`[data-track="${currentTrackId}"]`);
             document.querySelectorAll('[data-track] .fa-play, [data-track] .fa-pause').forEach(icon => {
                 icon.className = 'fa-solid fa-play text-xs';
@@ -1877,6 +1972,7 @@
 
             currentTrackName = `${title} · ${artist}`;
             activeAudioProvider = 'soundcloud';
+            isPlaybackStopped = false;
             currentTrackId = id;
             trackDurationMs = 0;
             updateSoundbarProgress();
@@ -2071,11 +2167,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', initialiseCombinedMedia);
-        document.addEventListener('click', event => {
-            const button = event.target.closest('button');
-            if (!button || button.id === 'soundbarPauseBtn' || button.closest('[data-track], [data-spotify-track]')) return;
-            document.getElementById('soundbar').classList.add('hidden');
-        });
 
         window.onload = function() {
             document.getElementById('togglePasswordVisibility').addEventListener('click', event => {

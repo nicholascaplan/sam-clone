@@ -27,7 +27,7 @@ Short record of settled product, content and implementation decisions for the si
 ### Keep provider-native embeds out of the compact mixed media rows
 
 - Finding: Spotify's compact iframe is substantially taller than the custom track row. SoundCloud's native iframe also injects provider-owned UI, including a Privacy Policy control, and can clip or obscure long titles on narrow mobile widths. Cross-origin iframe content cannot be restyled by the site.
-- Decision: Keep the existing custom SoundCloud row and hidden Widget API player for the live compact catalogue. Treat the visible Spotify iframe as a separate preview/integration option until its space and playback behaviour are accepted. The standalone `spotify-embed-preview.html` documents the compact Spotify/SoundCloud comparison and mixed-provider layout without changing the published artifact.
+- Decision: Keep the existing custom SoundCloud row and hidden Widget API player for the live compact catalogue. Treat a visible Spotify iframe as a separate preview/integration option until its space and playback behaviour are accepted. Any comparison files remain local-only and are not part of the repository or published artifact.
 - Reason: This preserves readable titles, consistent controls and predictable mobile density. Native embeds remain useful for evaluation, but their internal layout and provider UI are not controllable by the site.
 
 ## 2026-07-31

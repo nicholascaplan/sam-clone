@@ -76,6 +76,11 @@ Short record of settled product, content and implementation decisions for the si
 - Decision: Keep Works and Listen at two columns, and add a third Watch column from `1280px` upward. Use a shared grid gap for the catalogue so cards in the same row align without child-specific top margins.
 - Reason: Watch cards are image-led and remain readable at the wider breakpoint, while three columns at ordinary laptop widths would make the editorial thumbnails and descriptions too narrow. Removing the inherited vertical spacing utility fixes the visible stagger between cards.
 
+### Avoid redundant Watch metadata
+
+- Decision: Show only the year in Watch card metadata; do not repeat `Film` because every item in the Watch view is already a film.
+- Reason: The view context already communicates the media type, so the repeated label adds visual noise without useful information.
+
 ### Keep recording years attached to titles
 
 - Decision: Use a non-breaking space before bracketed recording years so a year such as `[2021]` stays with the preceding title text when the title wraps.

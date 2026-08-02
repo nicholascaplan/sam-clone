@@ -4,5 +4,4 @@
 node_modules/
 test-results/
 playwright-report/
-/playground.html
-/spotify-embed-preview.html
+/design/

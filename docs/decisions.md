@@ -9,6 +9,11 @@ Short record of settled product, content and implementation decisions for the si
 
 ## 2026-08-02
 
+### Compact the mobile Biography portrait
+
+- Decision: Show a compact circular portrait beside the opening Biography text on phone widths and hide the larger supporting portrait there. Keep the larger portrait in the desktop sidebar.
+- Reason: The thumbnail provides a visual pause in the profile copy without making visitors scroll through a portrait that occupies most of the mobile screen.
+
 ### Reset Works & Media filters between views
 
 - Decision: Clear the shared search and Instrumentation filters whenever a visitor moves between the Works, Listen and Watch views. Keep the filters unchanged when the current view is re-rendered without changing views.
@@ -33,6 +38,11 @@ Short record of settled product, content and implementation decisions for the si
 
 - Decision: Use one shared button width sized for the longest action label. Stack multiple media actions vertically on desktop, but place two actions in an equal-width row on mobile when they fit. Use the play icon for both audio and video, with specific text labels such as `Listen`, `Trailer`, `Performance` and `Insights` identifying the media.
 - Reason: Consistent button footprints make single- and multi-action cards easier to scan, while the mobile row reduces card height and keeps parallel actions visible together. The play icon communicates the action more directly than a film strip, while the visible label provides the necessary media context.
+
+### Align single mobile catalogue actions to the reading edge
+
+- Decision: Left-align single Listen and Watch actions in compact catalogue cards on mobile, while retaining the desktop right alignment.
+- Reason: The action continues the metadata, title and descriptive text's reading edge, making the next step easier to find and preventing a short, right-aligned control from appearing detached from its card content.
 
 ## 2026-08-01
 
@@ -73,12 +83,12 @@ Short record of settled product, content and implementation decisions for the si
 
 ### Keep component styling experiments in a local playground
 
-- Decision: Use `playground.html` as the local-only space for comparing style options for site components.
+- Decision: Use `design/playground.html` as the local-only space for comparing style options for site components.
 - Reason: It supports visual iteration without adding experimental variants to the deployed website. The file is intentionally untracked and is not included in the GitHub Pages artifact.
 
 ### Maintain a separate local design reference
 
-- Decision: Use the Git-excluded `design-reference.html` as the maintained inventory of accepted foundations, components and states. Keep `playground.html` for temporary option comparisons.
+- Decision: Use the Git-excluded `design/design-reference.html` as the maintained inventory of accepted foundations, components and states. Keep `design/playground.html` for temporary option comparisons.
 - Reason: Separating the accepted reference from experiments gives Sam a stable review page without adding local tooling or exposing maintenance material in the published site.
 
 ### Add a component index to the local playground
@@ -106,10 +116,10 @@ Short record of settled product, content and implementation decisions for the si
 - Decision: Use a non-breaking space before bracketed recording years so a year such as `[2021]` stays with the preceding title text when the title wraps.
 - Reason: This keeps title metadata readable on narrow audio cards without preventing normal wrapping earlier in the title.
 
-### Mark Spotify previews in the top metadata line
+### Streamline Listen metadata
 
-- Decision: Display `30 sec preview` as a quiet top metadata label after `Recording` in Spotify Listen cards. Do not display the provider name in the card.
-- Reason: This matches the live catalogue card hierarchy, accurately sets expectations before playback and keeps the work title and Listen action unchanged.
+- Decision: Display the related Work's category pill and the track time when known in Listen cards. Label Spotify actions `Preview` and SoundCloud actions `Listen`; omit provider names and redundant recording labels.
+- Reason: The shared Work category connects a recording to its repertoire context, while the time sets a clear listening expectation. Using `Preview` at the action point makes the Spotify limitation clear without competing with track time, while the Listen view already establishes that every card is a recording.
 
 ### Keep provider-native embeds out of the compact mixed media rows
 

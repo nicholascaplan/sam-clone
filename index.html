@@ -100,6 +100,10 @@
             background-color: #e8e1d5 !important;
             color: #18211f !important;
         }
+        body.light-mode button.works-view-btn[aria-pressed="false"]:hover {
+            background-color: #dcd3c7 !important;
+            color: #18211f !important;
+        }
         .light-mode .bg-neutral-950\/95,
         .light-mode .bg-neutral-950\/80 { background-color: #e8e1d5 !important; }
         .light-mode .bg-neutral-900,
@@ -500,6 +504,7 @@
         }
         .works-description-mobile { display: none; }
         .mobile-cta-break { display: none; }
+        .bio-mobile-portrait { display: none; }
         @media (min-width: 641px) {
             .hero-introduction { font-size: 1.625rem !important; }
         }
@@ -553,6 +558,22 @@
             .hero-actions button { min-height: 3.25rem; }
             .hero-introduction { font-size: 1rem !important; line-height: 1.5; }
             #tab-home .mobile-cta-break { display: inline; }
+            #tab-bio { gap: 2rem; }
+            #tab-bio > .grid { gap: 2rem; }
+            #tab-bio article { gap: 1.5rem; }
+            #tab-bio aside > figure { display: none; }
+            .bio-mobile-portrait {
+                display: block;
+                float: right;
+                width: 6.5rem;
+                height: 6.5rem;
+                margin: 0 0 0.5rem 1rem;
+                overflow: hidden;
+                border: 1px solid rgba(24, 33, 31, 0.24);
+                border-radius: 50%;
+                transform: translateY(-0.5rem);
+            }
+            .bio-mobile-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
             #mobileMenu:not(.hidden) {
                 display: block !important;
                 position: absolute;
@@ -578,6 +599,7 @@
             #tab-works > div:first-child { border-bottom: 0; }
             #tab-works .works-description-full { display: none; }
             #tab-works .works-description-mobile { display: inline; }
+            .work-media-actions { align-items: flex-start; }
             .work-media-actions--multiple { width: 100%; flex-direction: row; align-items: stretch; justify-content: space-between; gap: 0.45rem; }
             .work-media-actions--multiple .work-media-action { width: min(10.5rem, calc((100% - 0.45rem) / 2)); }
             .works-filter-groups { gap: 1.25rem; }
@@ -812,7 +834,9 @@
                     <div>
                         <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Biography</span>
                         <h1 class="text-3xl sm:text-5xl font-serif font-light text-neutral-100 mt-2 leading-tight">Samantha Fernando</h1>
-                        <p class="text-xl sm:text-2xl text-neutral-300 font-serif-italic font-light leading-relaxed mt-5">Samantha Fernando (b. 1984) is a British composer whose work is centred on an exploration of timbre, space, and the unfolding of sound. She is drawn to ideas of landscape, architecture, and place.</p>
+                    </div>
+                    <div class="bio-mobile-portrait" aria-hidden="true">
+                        <img src="assets/sam-1-1200.webp" alt="" width="1200" height="800" loading="lazy">
                     </div>
                     <p>In recent years, her music has moved towards a language that values clarity, directness, and openness: working with deliberately limited material, allowing music time to breathe, and attending with precision to gesture, texture, and form.</p>
                     <p>Collaboration with performers is central to her practice, particularly in shaping sound worlds that respond to the physicality of instruments and the acoustic space in which music is heard.</p>
@@ -1544,24 +1568,24 @@
         }
 
         const mediaCatalog = [
-            { type: 'listen', title: '4 Illuminations', year: 2012, detail: 'Xasax Saxophone Quartet at Royaumont Abbey', provider: 'soundcloud', id: 'illuminations' },
-            { type: 'listen', title: 'Fault-Line', year: 2015, detail: 'Oliver Coates, solo cello', provider: 'soundcloud', id: 'faultline' },
-            { type: 'listen', title: 'Recollections', detail: 'Elsbeth Gerritsen & Eva Reiter', provider: 'soundcloud', id: 'recollections' },
-            { type: 'listen', title: 'Balconies', year: 2023, detail: 'Olivia de Prato, Panorama Album, New Focus Recordings', provider: 'spotify', id: '2wNL47uCuwDpbOqCIpbSTS' },
-            { type: 'listen', title: 'Kinesphere', year: 2014, detail: 'Michael Cox, solo flute, NMC Recordings', provider: 'soundcloud', id: 'kinesphere' },
-            { type: 'listen', title: 'Everything Passes, Everything is Connected', year: 2021, detail: 'The Crossing, unaccompanied choir', provider: 'spotify', id: '3YV79qjiJLOgYjjEzTsVEy' },
+            { type: 'listen', title: '4 Illuminations', year: 2012, duration: '8:08', detail: 'Xasax Saxophone Quartet at Royaumont Abbey', provider: 'soundcloud', id: 'illuminations' },
+            { type: 'listen', title: 'Fault-Line', year: 2015, duration: '6:03', detail: 'Oliver Coates, solo cello', provider: 'soundcloud', id: 'faultline' },
+            { type: 'listen', title: 'Recollections', duration: '1:25', detail: 'Elsbeth Gerritsen & Eva Reiter', provider: 'soundcloud', id: 'recollections' },
+            { type: 'listen', title: 'Balconies', year: 2023, duration: '6:53', detail: 'Olivia de Prato, Panorama Album, New Focus Recordings', provider: 'spotify', id: '2wNL47uCuwDpbOqCIpbSTS' },
+            { type: 'listen', title: 'Kinesphere', year: 2014, duration: '4:49', detail: 'Michael Cox, solo flute, NMC Recordings', provider: 'soundcloud', id: 'kinesphere' },
+            { type: 'listen', title: 'Everything Passes, Everything is Connected', year: 2021, duration: '3:30', detail: 'The Crossing, unaccompanied choir', provider: 'spotify', id: '3YV79qjiJLOgYjjEzTsVEy' },
             { type: 'listen', title: 'How Many Moments Must', detail: 'Spotify extract', provider: 'spotify', id: '3yRPnEWI5IHASxiNNgvyuh' },
             { type: 'listen', title: 'Utterance', detail: 'Spotify extract', provider: 'spotify', id: '5k4j31qldbj9wqg9VBKo01' },
             { type: 'listen', title: 'The Half Moon', detail: 'Spotify extract', provider: 'spotify', id: '1o0qiFnwPPgBA3k6QWVPM8' },
-            { type: 'listen', title: 'Look Up', year: 2014, detail: '4 voices, viola da gamba and electronics', provider: 'soundcloud', id: 'look-up' },
-            { type: 'listen', title: 'Positive/Negative Space', year: 2013, detail: 'Flute, clarinet, alto sax and cello', provider: 'soundcloud', id: 'positive-negative-space' },
-            { type: 'listen', title: 'Square of Light', year: 2013, detail: 'Soprano and piano', provider: 'soundcloud', id: 'square-of-light' },
-            { type: 'listen', title: 'The Journey Between Us - Reflection 1', year: 2016, detail: 'Mixed ensemble', provider: 'soundcloud', id: 'journey-between-us' },
+            { type: 'listen', title: 'Look Up', year: 2014, duration: '6:53', detail: '4 voices, viola da gamba and electronics', provider: 'soundcloud', id: 'look-up' },
+            { type: 'listen', title: 'Positive/Negative Space', year: 2013, duration: '6:50', detail: 'Flute, clarinet, alto sax and cello', provider: 'soundcloud', id: 'positive-negative-space' },
+            { type: 'listen', title: 'Square of Light', year: 2013, duration: '3:15', detail: 'Soprano and piano', provider: 'soundcloud', id: 'square-of-light' },
+            { type: 'listen', title: 'The Journey Between Us - Reflection 1', year: 2016, duration: '3:32', detail: 'Mixed ensemble', provider: 'soundcloud', id: 'journey-between-us' },
             { type: 'watch', title: 'glass human - Official Trailer', actionLabel: 'Trailer', workTitle: 'glass human', year: 2022, category: 'opera', detail: 'Glyndebourne. Official trailer for the chamber opera created with sound artist and writer Melanie Wilson, exploring isolation and connection across three lives.', url: 'https://www.youtube.com/watch?v=-bGBfGd_2aM' },
             { type: 'watch', title: "'Today the Letter Must Come' - glass human", actionLabel: 'Performance', workTitle: 'glass human', year: 2024, category: 'opera', detail: 'Camille Maalawy. Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain.', url: 'https://www.youtube.com/watch?v=15R1ci2MHF0' },
             { type: 'watch', title: "Current, Rising: The World's First Hyper-Reality Opera", actionLabel: 'Trailer', workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Trailer for a 15-minute hyper-reality opera combining virtual reality with a multisensory set.', url: 'https://www.youtube.com/watch?v=KXrYuIWLv60' },
             { type: 'watch', title: "How Was the World's First Hyper-Reality Opera Created?", actionLabel: 'Insights', workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Insights panel on the development and technology behind Current, Rising with Samantha Fernando and the creative team.', url: 'https://www.youtube.com/watch?v=AVXYPqdAYdY' },
-            { type: 'watch', title: 'Wintering (Trailer)', workTitle: 'Wintering', year: 2025, category: 'ensemble', detail: 'Manchester Collective. Preview of Wintering for four vocalists and string quartet, presented by Manchester Collective and The Marian Consort.', url: 'https://www.youtube.com/watch?v=5BApW0VSCes' },
+            { type: 'watch', title: 'Wintering (Trailer)', actionLabel: 'Trailer', workTitle: 'Wintering', year: 2025, category: 'ensemble', detail: 'Manchester Collective. Preview of Wintering for four vocalists and string quartet, presented by Manchester Collective and The Marian Consort.', url: 'https://www.youtube.com/watch?v=5BApW0VSCes' },
             { type: 'watch', title: 'Sound Inhabitants', year: 2024, category: 'ensemble', detail: 'London Sinfonietta. Full performance recording of Sound Inhabitants for large ensemble, commissioned and premiered by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=hirZmf8DoA4' },
             { type: 'watch', title: 'Fault Line for Solo Cello', workTitle: 'Fault-Line', year: 2022, category: 'chamber', detail: 'Louise McMonagle. Performance of Fault Line, a solo cello piece originally commissioned by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=k3jRJHzIu4Q' },
             { type: 'watch', title: 'Composition for Voice & Electronics (enoa Workshop)', year: 2015, category: 'vocal', detail: 'enoa community. Final concert recording from the European Network of Opera Academies workshop exploring vocal textures and electronic processing.', url: 'https://www.youtube.com/watch?v=b_w_uYmFwZ4' },
@@ -1577,7 +1601,8 @@
                 const dataAttribute = media.provider === 'spotify'
                     ? `data-spotify-track="${media.id}"`
                     : `data-track="${media.id}"`;
-                return `<button type="button" ${dataAttribute} onclick="${handler}" class="work-media-action"><i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i> Listen</button>`;
+                const actionLabel = media.provider === 'spotify' ? 'Preview' : 'Listen';
+                return `<button type="button" ${dataAttribute} onclick="${handler}" class="work-media-action"><i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i> ${actionLabel}</button>`;
             }
             const actionLabel = media.actionLabel || 'Watch';
             return `<button type="button" aria-label="Watch ${media.title}" onclick="openVideoModal('${media.url}', '${media.title.replace(/'/g, "\\'")}')" class="work-media-action"><i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i> ${actionLabel}</button>`;
@@ -1611,16 +1636,19 @@
                 }).join('');
             }
 
-            return filtered.map(media => `
+            return filtered.map(media => {
+                const relatedWork = worksData.find(work => work.title === (media.workTitle || media.title));
+                return `
                 <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-start justify-between gap-4 group">
                     <div class="space-y-1">
-                        <div class="flex items-center gap-3"><span class="text-xs font-mono text-amber-400">${media.year || 'Undated'}</span><span class="text-xs font-mono text-neutral-500 uppercase">${media.type === 'listen' ? 'Recording' : 'Film'}</span>${media.provider === 'spotify' ? '<span class="text-xs font-mono text-neutral-500 uppercase">30 sec preview</span>' : ''}</div>
+                        <div class="flex flex-wrap items-center gap-3"><span class="text-xs font-mono text-amber-400">${media.year || 'Undated'}</span>${relatedWork ? `<span class="px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-300 text-[10px] font-mono">${workCategoryLabels[relatedWork.category]}</span>` : ''}${media.duration ? `<span class="text-xs font-mono text-neutral-500">${media.duration}</span>` : ''}</div>
                         <h3 class="text-lg font-serif text-neutral-100 group-hover:text-amber-300 transition-colors">${media.title}</h3>
                         <p class="text-xs text-neutral-400">${media.detail}</p>
                     </div>
                     <div class="media-catalog-actions flex items-center gap-2 pt-2 md:pt-0 md:mt-auto">${mediaActionMarkup(media)}</div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         // The complete catalogue and media-only views share one renderer and search field.
@@ -1711,6 +1739,7 @@
                 button.classList.toggle('text-white', active);
                 button.classList.toggle('bg-neutral-900', !active);
                 button.classList.toggle('text-neutral-400', !active);
+                button.classList.toggle('hover:text-neutral-100', !active);
                 button.setAttribute('aria-pressed', String(active));
             });
             renderWorks();

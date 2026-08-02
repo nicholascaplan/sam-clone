@@ -108,7 +108,7 @@ test('Biography opens as the shared in-page route', async ({ page }) => {
   await expect(page).toHaveURL(/#bio$/);
   await expect(page.locator('#tab-bio')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Samantha Fernando' })).toBeVisible();
-  await expect(page.locator('#tab-bio')).toContainText('British composer');
+  await expect(page.locator('#tab-bio')).toContainText('In recent years, her music');
   await page.getByRole('button', { name: /Commissions, score hire/ }).click();
   await expect(page).toHaveURL(/#contact$/);
   await expect(page.locator('#tab-contact')).toBeVisible();
@@ -200,6 +200,31 @@ test('uses the shared Instrumentation menu on mobile @mobile', async ({ page }) 
   await page.getByRole('option', { name: 'Opera & Stage' }).click();
   await expect(page.locator('#worksContainer')).toContainText('glass human');
   await expect(page.locator('#worksContainer')).not.toContainText('Wintering');
+});
+
+test('uses a compact portrait on mobile Biography @mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/#bio');
+
+  await expect(page.locator('.bio-mobile-portrait')).toBeVisible();
+  await expect(page.locator('#tab-bio aside > figure')).toBeHidden();
+});
+
+test('aligns Works and Listen CTAs with card content on mobile @mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/#works');
+
+  const wintering = page.locator('#worksContainer > div', { has: page.getByRole('heading', { name: 'Wintering' }) });
+  const worksAction = wintering.getByRole('button', { name: 'Watch Wintering (Trailer)' });
+  await expect(worksAction).toHaveText('Trailer');
+  const worksContent = wintering.locator('div').first();
+  expect((await worksAction.boundingBox()).x).toBe((await worksContent.boundingBox()).x);
+
+  await page.locator('#works-view-listen').click();
+  const listenAction = page.locator('#worksContainer .work-media-action').first();
+  const listenCard = page.locator('#worksContainer > div').first();
+  const listenContent = listenCard.locator('div').first();
+  expect((await listenAction.boundingBox()).x).toBe((await listenContent.boundingBox()).x);
 });
 
 test('mobile preview uses the real mobile viewport', async ({ page }) => {
@@ -323,10 +348,22 @@ test('lists confirmed Listen metadata without placeholder details', async ({ pag
   await expect(works).toContainText('The Journey Between Us - Reflection 1');
   await expect(works).toContainText('How Many Moments Must');
   const spotifyCard = works.locator('[data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]').locator('../..');
-  await expect(spotifyCard).toContainText('30 sec preview');
+  await expect(spotifyCard).toContainText('Solo & Chamber');
+  await expect(spotifyCard).toContainText('6:53');
+  await expect(spotifyCard.getByRole('button', { name: 'Preview' })).toBeVisible();
+  await expect(spotifyCard).not.toContainText('30 sec preview');
   await expect(spotifyCard).not.toContainText('Spotify');
   await expect(works).not.toContainText('[Missing Spotify title]');
   await expect(works).not.toContainText('[Missing duration]');
+});
+
+test('keeps Works view controls legible in light mode', async ({ page }) => {
+  await page.goto('/#listen');
+
+  await expect(page.locator('#works-view-listen')).toHaveCSS('background-color', 'rgb(111, 53, 8)');
+  await expect(page.locator('#works-view-listen')).toHaveCSS('color', 'rgb(255, 255, 255)');
+  await expect(page.locator('#works-view-all')).toHaveCSS('background-color', 'rgb(232, 225, 213)');
+  await expect(page.locator('#works-view-all')).toHaveCSS('color', 'rgb(24, 33, 31)');
 });
 
 test('Spotify loads the selected first track from the beginning', async ({ page }) => {

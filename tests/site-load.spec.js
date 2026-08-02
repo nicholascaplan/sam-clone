@@ -58,6 +58,7 @@ test('loads the site and renders primary navigation', async ({ page }) => {
 
   await expect(page).toHaveTitle('Samantha Fernando - Composer');
   await expect(page.getByRole('navigation')).toContainText('Biography');
+  await expect(page.getByRole('button', { name: 'Home' }).first()).toHaveClass(/text-amber-400/);
   await expect(page.getByRole('button', { name: 'Works List' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Listen & Watch' })).toBeVisible();
 });
@@ -166,6 +167,7 @@ test('opens and closes the mobile navigation menu @mobile', async ({ page }) => 
   await menuButton.click();
   await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
   await expect(menu).toBeVisible();
+  await expect(menu.getByRole('button', { name: 'Home' })).toBeVisible();
   await expect(menu.getByRole('button', { name: 'Biography' })).toBeVisible();
   await expect(menu.getByRole('button', { name: 'Contact' })).toBeVisible();
 

@@ -95,10 +95,12 @@
         body.light-mode button.works-view-btn[aria-pressed="true"] {
             background-color: #6f3508 !important;
             color: #ffffff !important;
+            transition: none !important;
         }
         body.light-mode button.works-view-btn[aria-pressed="false"] {
             background-color: #e8e1d5 !important;
             color: #18211f !important;
+            transition: none !important;
         }
         body.light-mode button.works-view-btn[aria-pressed="false"]:hover {
             background-color: #dcd3c7 !important;
@@ -1468,9 +1470,9 @@
                 'Positive/Negative Space': 2013,
                 'Square Of Light': 2013,
                 '4 Illuminations': 2012,
-                'How Many Moments Must': 0,
-                'Utterance': 0,
-                'The Half Moon': 0,
+                'How Many Moments Must': 2014,
+                'Utterance': 2014,
+                'The Half Moon': 2014,
                 'Recollections': 0
             };
                 [...audioCatalog.children].forEach(track => {
@@ -1574,9 +1576,9 @@
             { type: 'listen', title: 'Balconies', year: 2023, duration: '6:53', detail: 'Olivia de Prato, Panorama Album, New Focus Recordings', provider: 'spotify', id: '2wNL47uCuwDpbOqCIpbSTS' },
             { type: 'listen', title: 'Kinesphere', year: 2014, duration: '4:49', detail: 'Michael Cox, solo flute, NMC Recordings', provider: 'soundcloud', id: 'kinesphere' },
             { type: 'listen', title: 'Everything Passes, Everything is Connected', year: 2021, duration: '3:30', detail: 'The Crossing, unaccompanied choir', provider: 'spotify', id: '3YV79qjiJLOgYjjEzTsVEy' },
-            { type: 'listen', title: 'How Many Moments Must', detail: 'Spotify extract', provider: 'spotify', id: '3yRPnEWI5IHASxiNNgvyuh' },
-            { type: 'listen', title: 'Utterance', detail: 'Spotify extract', provider: 'spotify', id: '5k4j31qldbj9wqg9VBKo01' },
-            { type: 'listen', title: 'The Half Moon', detail: 'Spotify extract', provider: 'spotify', id: '1o0qiFnwPPgBA3k6QWVPM8' },
+            { type: 'listen', title: 'How Many Moments Must', year: 2014, duration: '1:10', detail: 'Spotify extract', workTitle: '3 Songs for Soprano and Cello', provider: 'spotify', id: '3yRPnEWI5IHASxiNNgvyuh' },
+            { type: 'listen', title: 'Utterance', year: 2014, duration: '2:46', detail: 'Spotify extract', workTitle: '3 Songs for Soprano and Cello', provider: 'spotify', id: '5k4j31qldbj9wqg9VBKo01' },
+            { type: 'listen', title: 'The Half Moon', year: 2014, duration: '4:11', detail: 'Spotify extract', workTitle: '3 Songs for Soprano and Cello', provider: 'spotify', id: '1o0qiFnwPPgBA3k6QWVPM8' },
             { type: 'listen', title: 'Look Up', year: 2014, duration: '6:53', detail: '4 voices, viola da gamba and electronics', provider: 'soundcloud', id: 'look-up' },
             { type: 'listen', title: 'Positive/Negative Space', year: 2013, duration: '6:50', detail: 'Flute, clarinet, alto sax and cello', provider: 'soundcloud', id: 'positive-negative-space' },
             { type: 'listen', title: 'Square of Light', year: 2013, duration: '3:15', detail: 'Soprano and piano', provider: 'soundcloud', id: 'square-of-light' },
@@ -1686,7 +1688,7 @@
                  <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-start justify-between gap-4 group">
                     <div class="space-y-1">
                          <div class="flex items-center gap-3">
-                             <span class="text-xs font-mono text-amber-400">${w.year}</span>
+                             <span class="text-xs font-mono text-amber-400">${w.year || 'Undated'}</span>
                              <span class="px-2.5 py-0.5 rounded-full bg-neutral-800 text-neutral-300 text-[10px] font-mono">${workCategoryLabels[w.category]}</span>
                              <span class="text-xs font-mono text-neutral-500">${w.duration}</span>
                          </div>

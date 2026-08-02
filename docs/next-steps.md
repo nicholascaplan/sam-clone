@@ -13,7 +13,8 @@ The Works cards now use a consistent structure: year, category, duration, title,
 - What are the exact strings and percussion in **Breathing Forest**?
 - What are the complete scorings for **Breathing Space** and **Echo of a Woman**?
 - What are the premiere dates, performers, conductors and venues for works where only partial premiere information is currently recorded?
-- Please confirm when **How Many Moments Must**, **Utterance**, **Recollections** and **The Half Moon** were composed and recorded, and identify the performers, ensemble or other recording collaborators for each. For **The Journey Between Us - Reflection 1** (composed 2016), confirm its recording date and collaborators. Add them to the Works List if they are Samantha Fernando compositions.
+- Please confirm the recording details and collaborators for **Utterance**, **The Half Moon** and **How Many Moments Must**, which are tracks from **3 Songs for Soprano and Cello** (2014). Confirm when **Recollections** was composed and recorded, and identify the performers or ensemble. For **The Journey Between Us - Reflection 1** (composed 2016), confirm its recording date and collaborators. Add the latter two to the Works List if they are Samantha Fernando compositions.
+- Session note, 2026-08-02: **Utterance** (2:46), **The Half Moon** (4:11) and **How Many Moments Must** (1:10) are tracks from **3 Songs for Soprano and Cello**, rather than standalone works. **Recollections** and **The Journey Between Us - Reflection 1** remain Listen-only entries pending confirmation of their work details.
 - What are the original premiere details for **3 Songs for Soprano and Cello**? The 2020 recording details are not necessarily the premiere.
 - Is the title **4 Illuminations** or **Four Illuminations**?
 - What additional commission, premiere or context should be recorded for **Square of Light**?

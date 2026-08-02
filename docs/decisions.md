@@ -29,10 +29,10 @@ Short record of settled product, content and implementation decisions for the si
 - Decision: Push a browser-history entry for each deliberate section or Works & Media view change, then restore the matching view when the browser emits `popstate`.
 - Reason: Back and Forward should move through the visitor's previous places within the single-page site before leaving it. Fragments remain the shareable canonical URLs without requiring a multi-page migration.
 
-### Stack and clarify work media actions
+### Compact parallel work media actions
 
-- Decision: Always stack media actions vertically on Works cards. Use the play icon for both audio and video, with specific text labels such as `Listen`, `Trailer`, `Performance excerpt`, `Insights` and `Watch` identifying the media.
-- Reason: A consistent vertical group handles multiple recordings without awkward wrapping. The play icon communicates the action more directly than a film strip, while the visible label provides the necessary media context.
+- Decision: Use one shared button width sized for the longest action label. Stack multiple media actions vertically on desktop, but place two actions in an equal-width row on mobile when they fit. Use the play icon for both audio and video, with specific text labels such as `Listen`, `Trailer`, `Performance` and `Insights` identifying the media.
+- Reason: Consistent button footprints make single- and multi-action cards easier to scan, while the mobile row reduces card height and keeps parallel actions visible together. The play icon communicates the action more directly than a film strip, while the visible label provides the necessary media context.
 
 ## 2026-08-01
 

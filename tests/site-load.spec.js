@@ -268,8 +268,9 @@ test('lists confirmed Listen metadata without placeholder details', async ({ pag
   const works = page.locator('#worksContainer');
   await expect(works).toContainText('The Journey Between Us - Reflection 1');
   await expect(works).toContainText('How Many Moments Must');
-  await expect(works.locator('[data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]')).toContainText('30 sec preview');
-  await expect(works.locator('[data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]')).not.toContainText('Spotify');
+  const spotifyCard = works.locator('[data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]').locator('../..');
+  await expect(spotifyCard).toContainText('30 sec preview');
+  await expect(spotifyCard).not.toContainText('Spotify');
   await expect(works).not.toContainText('[Missing Spotify title]');
   await expect(works).not.toContainText('[Missing duration]');
 });

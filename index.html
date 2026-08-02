@@ -175,6 +175,7 @@
         .works-media-view-filters button { min-height: 2.75rem; padding-left: 1.1rem; padding-right: 1.1rem; }
         .works-filter-divider { height: 1px; background: rgba(139, 129, 117, 0.35); }
         .works-filter-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(12rem, 15rem); gap: 0.75rem; }
+        .works-catalogue { display: grid; gap: 1rem; }
         .instrumentation-menu { position: absolute; top: calc(100% + 0.4rem); right: 0; z-index: 20; width: 100%; min-width: 15rem; padding: 0.35rem; border: 1px solid rgba(24, 33, 31, 0.24); border-radius: 0.75rem; background: #fbfaf6; box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14); }
         .instrumentation-menu.hidden { display: none; }
         .instrumentation-option { display: flex; width: 100%; min-height: 2.25rem; align-items: center; gap: 0.55rem; padding: 0.45rem 0.6rem; border-radius: 0.5rem; color: #3f4b44; font-size: 0.75rem; text-align: left; }
@@ -188,21 +189,27 @@
         @media (min-width: 768px) {
             /* Keep catalogue cards compact on desktop while mobile remains linear. */
             .audio-catalog-list,
-            #worksContainer {
+            .works-catalogue {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 0.75rem;
             }
             .audio-catalog-list > div,
-            #worksContainer > div {
+            .works-catalogue > div,
+            .works-catalogue > article {
                 min-width: 0;
                 margin-top: 0 !important;
             }
             .audio-catalog-list .text-xs.text-neutral-400,
-            #worksContainer .text-xs.text-neutral-400,
-            #worksContainer .text-xs.text-neutral-500 {
+            .works-catalogue .text-xs.text-neutral-400,
+            .works-catalogue .text-xs.text-neutral-500 {
                 display: block;
                 overflow-wrap: anywhere;
+            }
+        }
+        @media (min-width: 1280px) {
+            .works-catalogue.watch-catalogue {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
         #waveContainer { display: none; }
@@ -943,7 +950,7 @@
             </div>
 
             <!-- Works Container -->
-            <div id="worksContainer" class="space-y-4"></div>
+            <div id="worksContainer" class="works-catalogue"></div>
         </section>
 
         <!-- ================= TAB 3: WATCH ================= -->
@@ -1659,7 +1666,7 @@
             return filtered.map(media => `
                 <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-end justify-between gap-4 group">
                     <div class="space-y-1">
-                        <div class="flex items-center gap-3"><span class="text-xs font-mono text-amber-400">${media.year || 'Undated'}</span><span class="text-xs font-mono text-neutral-500 uppercase">${media.type === 'listen' ? 'Recording' : 'Film'}</span></div>
+                        <div class="flex items-center gap-3"><span class="text-xs font-mono text-amber-400">${media.year || 'Undated'}</span><span class="text-xs font-mono text-neutral-500 uppercase">${media.type === 'listen' ? 'Recording' : 'Film'}</span>${media.provider === 'spotify' ? '<span class="text-xs font-mono text-neutral-500 uppercase">30 sec preview</span>' : ''}</div>
                         <h3 class="text-lg font-serif text-neutral-100 group-hover:text-amber-300 transition-colors">${media.title}</h3>
                         <p class="text-xs text-neutral-400">${media.detail}</p>
                     </div>
@@ -1672,6 +1679,7 @@
         function renderWorks() {
             const container = document.getElementById('worksContainer');
             const searchVal = document.getElementById('worksSearchInput').value.toLowerCase();
+            container.classList.toggle('watch-catalogue', activeWorksView === 'watch');
 
             if (activeWorksView !== 'all') {
                 container.innerHTML = renderMediaCatalog(searchVal);

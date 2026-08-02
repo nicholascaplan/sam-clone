@@ -71,15 +71,20 @@ Short record of settled product, content and implementation decisions for the si
 - Decision: Display the Listen catalogue as two equal columns from `768px` upward, while retaining the single-column list on mobile and in the iframe mobile preview.
 - Reason: This makes better use of wide screens without separating title and supporting metadata into artificial columns or changing the existing playback rows.
 
+### Use a wide-screen three-column Watch catalogue
+
+- Decision: Keep Works and Listen at two columns, and add a third Watch column from `1280px` upward. Use a shared grid gap for the catalogue so cards in the same row align without child-specific top margins.
+- Reason: Watch cards are image-led and remain readable at the wider breakpoint, while three columns at ordinary laptop widths would make the editorial thumbnails and descriptions too narrow. Removing the inherited vertical spacing utility fixes the visible stagger between cards.
+
 ### Keep recording years attached to titles
 
 - Decision: Use a non-breaking space before bracketed recording years so a year such as `[2021]` stays with the preceding title text when the title wraps.
 - Reason: This keeps title metadata readable on narrow audio cards without preventing normal wrapping earlier in the title.
 
-### Mark extract recordings in the lower metadata position
+### Mark Spotify previews in the top metadata line
 
-- Decision: Display `Extract` as a quiet lower-right metadata label in place of the duration in Spotify Listen rows.
-- Reason: This keeps the work title clean and gives the recording status a clear location without competing with the playback control.
+- Decision: Display `30 sec preview` as a quiet top metadata label after `Recording` in Spotify Listen cards. Do not display the provider name in the card.
+- Reason: This matches the live catalogue card hierarchy, accurately sets expectations before playback and keeps the work title and Listen action unchanged.
 
 ### Keep provider-native embeds out of the compact mixed media rows
 

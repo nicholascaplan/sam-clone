@@ -1657,7 +1657,7 @@
                     : `data-track="${media.id}"`;
                 return `<button type="button" ${dataAttribute} onclick="${handler}" class="work-media-action"><i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i> Listen</button>`;
             }
-            return `<button type="button" onclick="openVideoModal('${media.url}', '${media.title.replace(/'/g, "\\'")}')" class="work-media-action"><i class="fa-solid fa-film text-[10px]" aria-hidden="true"></i> Watch</button>`;
+            return `<button type="button" aria-label="Watch ${media.title}" onclick="openVideoModal('${media.url}', '${media.title.replace(/'/g, "\\'")}')" class="work-media-action"><i class="fa-solid fa-film text-[10px]" aria-hidden="true"></i> Watch</button>`;
         }
 
         function renderMediaCatalog(searchVal) {

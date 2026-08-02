@@ -636,8 +636,9 @@
                 </span>
             </a>
 
-            <!-- Streamlined Desktop Navigation (Exact 6 items on 1 line without scroll) -->
+            <!-- Streamlined Desktop Navigation -->
             <nav class="hidden md:flex items-center space-x-6 text-xs font-medium tracking-wider">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Home</button>
                 <button onclick="switchTab('works')" id="nav-works" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Works List</button>
                 <button onclick="switchTab('watch-listen')" id="nav-watch-listen" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Listen & Watch</button>
                 <button onclick="switchTab('bio')" id="nav-bio" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Biography</button>
@@ -675,6 +676,7 @@
 
         <!-- Mobile Navigation Drawer -->
         <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider">
+                <button data-mobile-nav="home" onclick="switchTab('home')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Home</button>
                 <button data-mobile-nav="works" onclick="switchTab('works')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
                 <button data-mobile-nav="watch-listen" onclick="switchTab('watch-listen')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen & Watch</button>
                 <button data-mobile-nav="bio" onclick="switchTab('bio')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Biography</button>
@@ -1704,10 +1706,6 @@
                 button.classList.toggle('bg-neutral-900', !active);
                 button.classList.toggle('text-neutral-400', !active);
                 button.setAttribute('aria-pressed', String(active));
-                if (document.body.classList.contains('light-mode')) {
-                    button.style.setProperty('background-color', active ? '#6f3508' : '#e8e1d5', 'important');
-                    button.style.setProperty('color', active ? '#ffffff' : '#18211f', 'important');
-                }
             });
             renderWorks();
         }

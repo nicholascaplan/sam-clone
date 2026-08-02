@@ -24,7 +24,7 @@ The current Playwright suite covers:
 - Listen & Watch tab switching.
 - Work-detail and YouTube modal open/close behavior without attempting provider playback.
 - Score-request journey from the works list to a prefilled contact message.
-- Contact form confirmation behavior without external submission.
+- Contact form Formspree success and failure behavior using mocked responses, without sending live enquiries.
 - Deep links for Works, Listen & Watch, Writing, and Contact.
 - Serious and critical WCAG 2 A/AA accessibility violations on the homepage.
 

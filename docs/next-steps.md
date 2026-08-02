@@ -23,7 +23,7 @@ The Works cards now use a consistent structure: year, category, duration, title,
 - Should **THE EXOPLANETS** be included in the Works List? It appears in the events and source specification but not in the current catalogue.
 - Are there any missing awards, texts, recordings or significant collaborators that should appear in the Notes field?
 
-- [ ] **Enable real contact-form delivery.** Sam needs to create a [Formspree](https://formspree.io/) account and provide the form endpoint. Replace the current confirmation-only form behaviour with a real submission, success and error flow.
+- [x] **Enable real contact-form delivery.** The contact form submits to Formspree with in-page loading, success and error states.
 - [x] **Move the bio to its in-page route.** Biography now opens `#bio` in `index.html`, with the full profile copy, supporting portrait, milestones and education. The root homepage retains its quote-led hero, destination links and Spotlight Works.
 - [x] **Remove Events and past performances.** Removed the homepage Events calendar and past-performance archive; event records remain in the content source and event specification.
 - [ ] **Review and refresh dated content.** The listed upcoming events end in March 2026 and the featured writing is dated November 2025. Confirm current events, new works, recordings and writing with Sam before publishing updates.
@@ -89,7 +89,7 @@ Track these findings from the local design-reference audit. The reference page i
 ## Current Verification Baseline
 
 - Run the site through HTTP, not a `file://` URL: `python3 -m http.server 8000 --directory /Users/nicholascaplan/sam-website`.
-- Run `npm test` before deployment. The current Playwright suite covers navigation, catalogue views, filters and search, themes, mobile menu behaviour, mocked Spotify/SoundCloud state transitions, modals, contact confirmation, deep links, deployed-host gate state, keyboard interactions and serious/critical Axe violations across interactive states.
+- Run `npm test` before deployment. The current Playwright suite covers navigation, catalogue views, filters and search, themes, mobile menu behaviour, mocked Spotify/SoundCloud/Formspree state transitions, modals, contact submission, deep links, deployed-host gate state, keyboard interactions and serious/critical Axe violations across interactive states.
 - `npm test` runs the Chromium smoke suite by default; use `npm run test:all` for the full Chromium, Firefox, WebKit and tagged mobile project matrix. The default keeps local verification usable without requiring every Playwright browser binary.
 - The latest local `npm test` attempt was blocked before assertions because the sandbox denied Chromium's macOS rendezvous service. Re-run in an unrestricted local or CI environment before deployment.
 - Session note, 2026-08-01: Updated the npm scripts so `npm test` targets the locally available Chromium project and `npm run test:all` retains the complete browser matrix. In BoxedCode, Chromium still cannot launch because the sandbox denies `MachPortRendezvousServer`; run `npm test` in an unrestricted terminal or CI environment to complete browser verification.

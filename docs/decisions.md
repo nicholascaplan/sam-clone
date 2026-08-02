@@ -9,6 +9,11 @@ Short record of settled product, content and implementation decisions for the si
 
 ## 2026-08-02
 
+### Submit contact enquiries in place through Formspree
+
+- Decision: Submit the static contact form to Formspree with native `fetch`, retaining the visitor on the contact route and showing accessible loading, success or error feedback.
+- Reason: The site has no JavaScript build system or framework dependency. A small native request preserves the existing single-page experience while ensuring Formspree receives structured contact fields.
+
 ### Compact the mobile Biography portrait
 
 - Decision: Show a compact circular portrait beside the opening Biography text on phone widths and hide the larger supporting portrait there. Keep the larger portrait in the desktop sidebar.

@@ -244,8 +244,11 @@ test('mobile preview uses the real mobile viewport', async ({ page }) => {
   await expect(page.locator('#mobilePreviewBtn')).toHaveAttribute('aria-pressed', 'false');
 });
 
-test('shows contact confirmation without submitting externally', async ({ page }) => {
+test('submits the contact form through Formspree', async ({ page }) => {
   await page.goto('/');
+  await page.route('https://formspree.io/f/mlgqqjen', async route => {
+    await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
+  });
 
   await page.getByRole('button', { name: 'Contact' }).click();
   await expect(page.locator('#tab-contact')).toBeVisible();
@@ -257,6 +260,21 @@ test('shows contact confirmation without submitting externally', async ({ page }
 
   await expect(page.locator('#contactToast')).toBeVisible();
   await expect(page.locator('#contactToast')).toContainText('Message sent successfully');
+});
+
+test('shows a contact error when Formspree rejects the submission', async ({ page }) => {
+  await page.goto('/#contact');
+  await page.route('https://formspree.io/f/mlgqqjen', async route => {
+    await route.fulfill({ status: 422, contentType: 'application/json', body: '{}' });
+  });
+
+  await page.getByPlaceholder('Name...').fill('Test Visitor');
+  await page.getByPlaceholder('Email...').fill('test@example.com');
+  await page.getByPlaceholder('Specify work title or details...').fill('Test inquiry');
+  await page.getByRole('button', { name: 'Send Inquiry Message' }).click();
+
+  await expect(page.locator('#contactError')).toBeVisible();
+  await expect(page.locator('#contactError')).toContainText('Unable to send your message');
 });
 
 test('filters the Listen view by instrumentation', async ({ page }) => {

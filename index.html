@@ -1339,23 +1339,23 @@
 
                 <!-- Contact Form -->
                 <div class="lg:col-span-7">
-                    <form onsubmit="handleContactSubmit(event)" class="glass-panel p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-6">
+                    <form id="contactForm" action="https://formspree.io/f/mlgqqjen" method="POST" onsubmit="handleContactSubmit(event)" class="glass-panel p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-6">
                         <h3 class="text-xl font-serif text-neutral-100">Send a Message</h3>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="contactName" class="block text-xs font-mono text-neutral-400 uppercase mb-2">Your Name *</label>
-                                <input id="contactName" type="text" required placeholder="Name..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
+                                <input id="contactName" name="name" type="text" required placeholder="Name..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
                             </div>
                             <div>
                                 <label for="contactEmail" class="block text-xs font-mono text-neutral-400 uppercase mb-2">Email Address *</label>
-                                <input id="contactEmail" type="email" required placeholder="Email..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
+                                <input id="contactEmail" name="email" type="email" required placeholder="Email..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
                             </div>
                         </div>
 
                         <div>
                             <label for="contactInquiryType" class="block text-xs font-mono text-neutral-400 uppercase mb-2">Inquiry Type</label>
-                            <select id="contactInquiryType" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 focus:outline-none focus:border-amber-600 transition-colors">
+                            <select id="contactInquiryType" name="inquiry_type" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 focus:outline-none focus:border-amber-600 transition-colors">
                                 <option value="score">Score Hire / Purchase Request</option>
                                 <option value="commission">Composition Commission</option>
                                 <option value="performance">Performance Notification</option>
@@ -1365,15 +1365,18 @@
 
                         <div>
                             <label for="contactMessage" class="block text-xs font-mono text-neutral-400 uppercase mb-2">Message *</label>
-                            <textarea id="contactMessage" required rows="5" placeholder="Specify work title or details..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors resize-none"></textarea>
+                            <textarea id="contactMessage" name="message" required rows="5" placeholder="Specify work title or details..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors resize-none"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-3.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-medium text-xs tracking-widest uppercase transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2">
+                        <button id="contactSubmit" type="submit" class="w-full py-3.5 rounded-xl bg-amber-700 hover:bg-amber-600 disabled:cursor-not-allowed disabled:opacity-60 text-white font-medium text-xs tracking-widest uppercase transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2">
                             <i class="fa-regular fa-paper-plane"></i> Send Inquiry Message
                         </button>
 
-                        <div id="contactToast" class="hidden p-4 rounded-xl bg-emerald-950/80 border border-emerald-600/40 text-emerald-300 text-xs font-mono text-center">
-                            <i class="fa-solid fa-circle-check mr-2"></i> Message sent successfully! We will respond shortly.
+                        <div id="contactToast" role="status" aria-live="polite" class="hidden p-4 rounded-xl bg-emerald-950/80 border border-emerald-600/40 text-emerald-300 text-xs font-mono text-center">
+                            <i class="fa-solid fa-circle-check mr-2"></i> Message sent successfully! I will respond shortly.
+                        </div>
+                        <div id="contactError" role="alert" class="hidden p-4 rounded-xl bg-red-950/80 border border-red-600/40 text-red-300 text-xs font-mono text-center">
+                            <i class="fa-solid fa-circle-exclamation mr-2"></i> Unable to send your message. Please try again or email Samantha directly.
                         </div>
                     </form>
                 </div>
@@ -2369,14 +2372,36 @@
             }
         }
 
-        function handleContactSubmit(e) {
+        async function handleContactSubmit(e) {
             e.preventDefault();
+            const form = e.target;
             const toast = document.getElementById('contactToast');
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-                e.target.reset();
-            }, 4000);
+            const error = document.getElementById('contactError');
+            const submit = document.getElementById('contactSubmit');
+            const originalLabel = submit.innerHTML;
+
+            toast.classList.add('hidden');
+            error.classList.add('hidden');
+            submit.disabled = true;
+            submit.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: { Accept: 'application/json' }
+                });
+
+                if (!response.ok) throw new Error('Form submission failed');
+
+                form.reset();
+                toast.classList.remove('hidden');
+            } catch (submissionError) {
+                error.classList.remove('hidden');
+            } finally {
+                submit.disabled = false;
+                submit.innerHTML = originalLabel;
+            }
         }
 
         function toggleMobileMenu() {

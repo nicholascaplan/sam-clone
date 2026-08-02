@@ -44,8 +44,15 @@ The Works cards now use a consistent structure: year, category, duration, title,
 - [ ] **Decide whether recordings need an availability indicator.** Add one only if the final catalogue includes a mix of playable and unavailable recordings; otherwise the current playable rows and availability note are sufficient.
 - [ ] **Consider a subtle mobile scroll cue on the home page.** Validate that users miss below-the-fold content before adding it.
 - [ ] **Review the homepage content mix.** Decide with Sam whether Events and past performances should remain on the homepage or move to dedicated content areas.
-- [ ] **Create a temporary upcoming-concert highlight component.** Design an accessible alert or highlight that can be enabled for a concert and removed cleanly after the event.
+- [ ] **Select an upcoming-concert highlight.** Review the three responsive Exoplanets options in `playground.html`, then apply the chosen temporary component to the homepage with confirmed current concert details and a clean post-event removal path.
 - [ ] **Resolve component-reference audit findings.** Prioritise keyboard-operable audio rows, complete modal and tab semantics, a shared focus treatment, role-based colour tokens and alignment between documented and implemented responsive breakpoints. Consolidate misleading or duplicated utilities when those areas are next changed.
+
+### Session Verification Notes
+
+- The local Playground now includes a grouped component index with desktop and mobile layouts.
+- Inline JavaScript parsing and `git diff --check` passed.
+- Playwright browser verification was blocked by the macOS sandbox denying Chromium's rendezvous service. No deployment or published artifact changes were made.
+- Event ordering was manually checked in `index.html`; the homepage calendar is descending by event date.
 
 ### Component Reference Consistency Registry
 

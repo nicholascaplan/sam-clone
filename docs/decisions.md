@@ -2,6 +2,11 @@
 
 Short record of settled product, content and implementation decisions for the site.
 
+### Keep event listings newest first
+
+- Decision: Display the homepage event calendar and event source listings in descending date order, with the most recent event first.
+- Reason: Visitors can see the latest event immediately, and the shared ordering convention keeps the homepage and content records aligned.
+
 ## 2026-08-02
 
 ### Stack and clarify work media actions
@@ -55,6 +60,11 @@ Short record of settled product, content and implementation decisions for the si
 
 - Decision: Use the Git-excluded `design-reference.html` as the maintained inventory of accepted foundations, components and states. Keep `playground.html` for temporary option comparisons.
 - Reason: Separating the accepted reference from experiments gives Sam a stable review page without adding local tooling or exposing maintenance material in the published site.
+
+### Add a component index to the local playground
+
+- Decision: Use a sticky left-hand component index on desktop, with a horizontally scrollable compact version on mobile. Group links by Highlights, Catalogue and Homepage, and anchor them to the relevant comparison sections.
+- Reason: The Playground contains several independent design explorations. A persistent index makes the scope of each option clear and lets reviewers move directly to a component without adding navigation to the published site.
 
 ### Use a desktop-only two-column audio catalogue
 

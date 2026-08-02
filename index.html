@@ -85,10 +85,21 @@
         .light-mode .text-neutral-300 { color: #3f4b44 !important; }
         .light-mode .text-neutral-400 { color: #5d655f !important; }
         .light-mode .text-neutral-500 { color: #5d655f !important; }
-        .light-mode .text-neutral-600 { color: #858b84 !important; }
+        .light-mode .text-neutral-600 { color: #5d655f !important; }
         .light-mode .text-amber-300,
         .light-mode .text-amber-400,
         .light-mode .text-amber-500 { color: #944900 !important; }
+        body.light-mode .text-red-400,
+        body.light-mode .audio-catalog-list .text-red-400 { color: #8d2f1d !important; }
+        body.light-mode .audio-extract-status { color: #5d655f; }
+        body.light-mode button.works-view-btn.bg-amber-700 {
+            background-color: #6f3508 !important;
+            color: #ffffff !important;
+        }
+        body.light-mode button.works-view-btn.bg-neutral-900 {
+            background-color: #c8ae91 !important;
+            color: #18211f !important;
+        }
         .light-mode .bg-neutral-950\/95,
         .light-mode .bg-neutral-950\/80 { background-color: #e8e1d5 !important; }
         .light-mode .bg-neutral-900,
@@ -139,21 +150,57 @@
             .audio-catalog-list > [data-spotify-track] { padding-bottom: 2rem !important; }
         }
         .audio-card-heading { display: block; }
+        .work-media-action {
+            display: inline-flex;
+            min-height: 2.25rem;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.7rem;
+            border: 1px solid rgba(180, 83, 9, 0.65);
+            border-radius: 0.5rem;
+            color: #d69e63;
+            background: transparent;
+            font-size: 0.72rem;
+            font-weight: 600;
+            transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+        }
+        .work-media-action:hover { border-color: #f59e0b; color: #fcd6a7; background: rgba(180, 83, 9, 0.12); }
+        .work-media-action:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+        .light-mode .work-media-action { border-color: rgba(169, 87, 0, 0.7); color: #944900; }
+        .light-mode .work-media-action:hover { color: #6e3500; background: #f0e7d6; }
+        .works-filter-groups { display: grid; gap: 1.5rem; }
+        .works-filter-group { display: grid; gap: 0.55rem; }
+        .works-media-view-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .works-media-view-filters button { min-height: 2.75rem; padding-left: 1.1rem; padding-right: 1.1rem; }
+        .works-filter-divider { height: 1px; background: rgba(139, 129, 117, 0.35); }
+        .works-filter-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(12rem, 15rem); gap: 0.75rem; }
+        .instrumentation-menu { position: absolute; top: calc(100% + 0.4rem); right: 0; z-index: 20; width: 100%; min-width: 15rem; padding: 0.35rem; border: 1px solid rgba(24, 33, 31, 0.24); border-radius: 0.75rem; background: #fbfaf6; box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14); }
+        .instrumentation-menu.hidden { display: none; }
+        .instrumentation-option { display: flex; width: 100%; min-height: 2.25rem; align-items: center; gap: 0.55rem; padding: 0.45rem 0.6rem; border-radius: 0.5rem; color: #3f4b44; font-size: 0.75rem; text-align: left; }
+        .instrumentation-option:hover { background: #f0e7d6; color: #6e3500; }
+        .instrumentation-option[aria-selected="true"] { color: #fff; background: #a95700; }
+        .instrumentation-option i { width: 0.75rem; opacity: 0; }
+        .instrumentation-option[aria-selected="true"] i { opacity: 1; }
+        .instrumentation-trigger[aria-expanded="true"] { border-color: #a95700; }
+        .light-mode .instrumentation-menu { background: #fbfaf6; }
+        .light-mode .works-filter-divider { background: rgba(24, 33, 31, 0.2); }
         @media (min-width: 768px) {
-            /* Use desktop width for compact cards while keeping the mobile list linear. */
-            .audio-catalog-list {
+            /* Keep catalogue cards compact on desktop while mobile remains linear. */
+            .audio-catalog-list,
+            #worksContainer {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 0.75rem;
             }
-            .audio-catalog-list > div {
+            .audio-catalog-list > div,
+            #worksContainer > div {
                 min-width: 0;
-                min-height: 5.25rem;
                 margin-top: 0 !important;
             }
-            .audio-catalog-list .text-xs.text-neutral-400 {
+            .audio-catalog-list .text-xs.text-neutral-400,
+            #worksContainer .text-xs.text-neutral-400,
+            #worksContainer .text-xs.text-neutral-500 {
                 display: block;
-                inline-size: min(24rem, 100%);
                 overflow-wrap: anywhere;
             }
         }
@@ -386,7 +433,6 @@
             font-weight: 600;
         }
         #sitePasswordError { min-height: 1.25rem; margin-top: 0.5rem; color: #a33b24; font-size: 0.8rem; }
-        .works-mobile-filter { display: none; }
         html.mobile-preview-session { scrollbar-width: none; }
         html.mobile-preview-session::-webkit-scrollbar { display: none; }
         #mobilePreviewDialog {
@@ -498,8 +544,6 @@
             .hero-actions button { min-height: 3.25rem; }
             .hero-introduction { font-size: 1rem !important; line-height: 1.5; }
             #tab-bio .mobile-cta-break { display: inline; }
-            #tab-watch-listen > .border-b:first-child { padding-bottom: 0.75rem; }
-            #tab-watch-listen > .border-b:nth-child(2) { margin-top: 0 !important; padding-top: 0.75rem; padding-bottom: 0.5rem; }
             #mobileMenu:not(.hidden) {
                 display: block !important;
                 position: absolute;
@@ -520,16 +564,17 @@
                 position: relative;
                 z-index: 1;
             }
-            .works-desktop-filters { display: none !important; }
-            .works-mobile-filter { display: block !important; }
             #tab-works > * + * { margin-top: 1rem !important; }
             #tab-works > div:first-child { padding-bottom: 0.5rem; }
             #tab-works > div:first-child { border-bottom: 0; }
             #tab-works .works-description-full { display: none; }
             #tab-works .works-description-mobile { display: inline; }
+            .works-filter-groups { gap: 1.25rem; }
+            .works-filter-divider { margin: 0 -0.25rem; }
+        }
+        @media (max-width: 540px) {
+            .works-filter-toolbar { grid-template-columns: 1fr; gap: 0.55rem; }
             #tab-works #worksSearchInput { padding-top: 0.65rem; padding-bottom: 0.65rem; font-size: 0.8rem; }
-            #tab-works .works-mobile-filter label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-            #tab-works #mobileWorksCategory { padding-top: 0.65rem; padding-bottom: 0.65rem; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -617,7 +662,7 @@
                 </button>
 
                 <!-- Mobile Navigation Toggle Button -->
-                <button id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden p-2 text-neutral-300 hover:text-white text-lg">
+                <button id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-label="Open navigation menu" title="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden p-2 text-neutral-300 hover:text-white text-lg">
                     <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -823,7 +868,7 @@
                                 <p>I. Vista • II. Cloud Canvas 1 • III. Cloud Canvas 2 • IV. To Do: Do Less • V. Snow on Snow • VI. Cocoon</p>
                             </div>
                         </div>
-                         <button onclick="openModal('wintering')" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
+                         <button onclick="openModal('wintering', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
                             View Full Project Details
                         </button>
                     </div>
@@ -847,7 +892,7 @@
                                 <p>Libretto: Melanie Wilson | Director: Lucy Bailey | Cast: Anna Cavaliero, Camille Maalawy, Denver Martin Smith</p>
                             </div>
                         </div>
-                         <button onclick="openModal('glasshuman')" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
+                         <button onclick="openModal('glasshuman', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
                             View Full Project Details
                         </button>
                     </div>
@@ -871,7 +916,7 @@
                                 <p>Director: Netia Jones | Soprano: Anna Dennis | Ensemble: CHROMA | CGI: Figment Productions</p>
                             </div>
                         </div>
-                         <button onclick="openModal('currentrising')" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
+                         <button onclick="openModal('currentrising', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
                             View Full Project Details
                         </button>
                     </div>
@@ -883,39 +928,43 @@
         <section id="tab-works" class="tab-content space-y-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-800 pb-6">
                 <div>
-                    <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Catalogue of Compositions</span>
-                    <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Works List</h2>
-                    <p class="text-neutral-400 text-sm mt-1"><span class="works-description-full">Full repertoire categorised by instrumentation and scale.</span><span class="works-description-mobile">Browse works by title, instrumentation or category.</span></p>
+                    <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Compositions &amp; Recordings</span>
+                    <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Works &amp; Media</h2>
+                    <p id="worksViewDescription" class="text-neutral-400 text-sm mt-1">Full repertoire categorised by instrumentation and scale.</p>
                 </div>
 
-                <div class="relative w-full md:w-72">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-xs"></i>
-                    <input type="text" id="worksSearchInput" oninput="filterWorks()" placeholder="Search works..." aria-label="Search works by title or instrumentation" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-amber-600 transition-colors">
+            </div>
+
+            <div class="works-filter-groups">
+                <div class="works-filter-group">
+                    <div class="works-media-view-filters text-xs font-mono" role="group" aria-label="Works and media view">
+                        <button onclick="setWorksView('all')" id="works-view-all" class="works-view-btn px-4 py-2 rounded-xl bg-amber-700 text-white font-medium transition-all" aria-pressed="true">Works</button>
+                        <button onclick="setWorksView('listen')" id="works-view-listen" class="works-view-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all" aria-pressed="false">Listen</button>
+                        <button onclick="setWorksView('watch')" id="works-view-watch" class="works-view-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all" aria-pressed="false">Watch</button>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Desktop category filters -->
-            <div class="works-desktop-filters flex flex-wrap gap-2 text-xs font-mono">
-                <button onclick="setWorkCategory('all')" id="cat-all" class="cat-btn px-4 py-2 rounded-xl bg-amber-700 text-white font-medium transition-all">All Works</button>
-                <button onclick="setWorkCategory('chamber')" id="cat-chamber" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Solo & Chamber (1-4)</button>
-                <button onclick="setWorkCategory('ensemble')" id="cat-ensemble" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Large Ensemble (5+)</button>
-                <button onclick="setWorkCategory('vocal')" id="cat-vocal" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Vocal & Choral</button>
-                <button onclick="setWorkCategory('opera')" id="cat-opera" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Opera & Stage</button>
-                <button onclick="setWorkCategory('orchestral')" id="cat-orchestral" class="cat-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 hover:text-neutral-100 border border-neutral-800 transition-all">Orchestral</button>
-            </div>
-
-            <div class="works-mobile-filter">
-                <label for="mobileWorksCategory" class="block mb-1.5 text-[10px] font-sans font-semibold uppercase tracking-wider text-neutral-500">Category</label>
-                <div class="relative">
-                    <select id="mobileWorksCategory" onchange="setWorkCategory(this.value)" class="w-full appearance-none bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 pr-10 text-sm text-neutral-200 focus:outline-none focus:border-amber-600">
-                        <option value="all">All Works</option>
-                        <option value="chamber">Solo & Chamber (1-4)</option>
-                        <option value="ensemble">Large Ensemble (5+)</option>
-                        <option value="vocal">Vocal & Choral</option>
-                        <option value="opera">Opera & Stage</option>
-                        <option value="orchestral">Orchestral</option>
-                    </select>
-                    <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-neutral-500 text-xs pointer-events-none" aria-hidden="true"></i>
+                <!-- Search and Instrumentation filters apply to the shared catalogue. -->
+                <div id="worksCategoryControls" class="works-filter-group">
+                    <div class="works-filter-divider" aria-hidden="true"></div>
+                    <div id="worksFilterToolbar" class="works-filter-toolbar">
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-xs" aria-hidden="true"></i>
+                            <input type="text" id="worksSearchInput" oninput="filterWorks()" placeholder="Search title or instrumentation" aria-label="Search works by title or instrumentation" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-amber-600 transition-colors">
+                        </div>
+                        <div id="instrumentationControl" class="relative">
+                            <button type="button" id="worksInstrumentationToggle" onclick="toggleInstrumentationMenu()" aria-expanded="false" aria-controls="worksInstrumentationMenu" class="instrumentation-trigger w-full flex items-center justify-between bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-neutral-200 focus:outline-none focus:border-amber-600">
+                                <span id="worksInstrumentationLabel">Instrumentation: All</span><i class="fa-solid fa-chevron-down text-neutral-500" aria-hidden="true"></i>
+                            </button>
+                            <div id="worksInstrumentationMenu" class="instrumentation-menu hidden" role="listbox" aria-label="Instrumentation">
+                                <button type="button" class="instrumentation-option" role="option" aria-selected="true" data-category="all" onclick="setWorkCategory('all')"><i class="fa-solid fa-check" aria-hidden="true"></i>Instrumentation: All</button>
+                                <button type="button" class="instrumentation-option" role="option" aria-selected="false" data-category="chamber" onclick="setWorkCategory('chamber')"><i class="fa-solid fa-check" aria-hidden="true"></i>Solo &amp; Chamber (1-4)</button>
+                                <button type="button" class="instrumentation-option" role="option" aria-selected="false" data-category="ensemble" onclick="setWorkCategory('ensemble')"><i class="fa-solid fa-check" aria-hidden="true"></i>Large Ensemble (5+)</button>
+                                <button type="button" class="instrumentation-option" role="option" aria-selected="false" data-category="vocal" onclick="setWorkCategory('vocal')"><i class="fa-solid fa-check" aria-hidden="true"></i>Vocal &amp; Choral</button>
+                                <button type="button" class="instrumentation-option" role="option" aria-selected="false" data-category="opera" onclick="setWorkCategory('opera')"><i class="fa-solid fa-check" aria-hidden="true"></i>Opera &amp; Stage</button>
+                                <button type="button" class="instrumentation-option" role="option" aria-selected="false" data-category="orchestral" onclick="setWorkCategory('orchestral')"><i class="fa-solid fa-check" aria-hidden="true"></i>Orchestral</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -951,12 +1000,31 @@
                     </div>
                 </div>
 
-                <!-- Video 2: Wintering Trailer -->
+                <!-- Video 2: Current, Rising trailer -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="assets/sam-6.webp" alt="Current, Rising trailer artwork" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                             <a href="https://www.youtube.com/watch?v=KXrYuIWLv60" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">Royal Opera House (2021)</span>
+                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising - Official Trailer</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">
+                            A trailer for the world-first hyper-reality opera experience produced at the Royal Opera House, London.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video 3: Wintering trailer -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
                         <img src="assets/wintering.webp" alt="Wintering film trailer artwork" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                             <a href="https://www.youtube.com/watch?v=KXrYuIWLv60" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
+                            <a href="https://www.youtube.com/watch?v=5BApW0VSCes" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-play ml-1"></i>
                             </a>
                         </div>
@@ -965,12 +1033,12 @@
                         <span class="text-xs font-mono text-amber-400">Wigmore Hall Commission (2025)</span>
                         <h3 class="text-xl font-serif text-neutral-100">Wintering - Film Trailer</h3>
                         <p class="text-neutral-400 text-xs leading-relaxed">
-                            Manchester Collective & The Marian Consort. Exploring Katherine May's concept of wintering, embracing life's fallow periods rather than resisting them.
+                            Manchester Collective & The Marian Consort. A film trailer for Samantha Fernando's work for SATB voices and string quartet.
                         </p>
                     </div>
                 </div>
 
-                <!-- Video 3: glass human -->
+                <!-- Video 4: glass human -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
                         <img src="assets/glass-huma.webp" alt="glass human trailer artwork" class="w-full h-full object-cover">
@@ -1219,23 +1287,6 @@
 
         </section>
 
-        <!-- ================= EXPERIMENTAL TAB: WATCH & LISTEN ================= -->
-        <section id="tab-watch-listen" class="tab-content space-y-4">
-            <div class="border-b border-neutral-800 pb-6">
-                <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Films & Audio</span>
-                <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Listen & Watch</h2>
-                <p class="text-neutral-400 text-sm mt-1">Listen to recordings and watch performances in one place.</p>
-            </div>
-
-            <div class="flex gap-2 pb-3" role="tablist" aria-label="Listen and watch content">
-                <button id="combined-tab-listen" onclick="switchCombinedTab('listen')" role="tab" aria-selected="true" class="combined-tab-btn px-4 py-2 rounded-xl bg-amber-700 text-white text-xs font-medium">Listen</button>
-                <button id="combined-tab-watch" onclick="switchCombinedTab('watch')" role="tab" aria-selected="false" class="combined-tab-btn px-4 py-2 rounded-xl bg-neutral-900 text-neutral-400 border border-neutral-800 text-xs font-medium">Watch</button>
-            </div>
-
-            <div id="combined-listen-content" class="space-y-4"></div>
-            <div id="combined-watch-content" class="hidden"></div>
-        </section>
-
         <!-- ================= TAB 5: WRITING ================= -->
         <section id="tab-writing" class="tab-content space-y-12">
             <div class="border-b border-neutral-800 pb-6">
@@ -1347,18 +1398,18 @@
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Your Name *</label>
-                                <input type="text" required placeholder="Name..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
+                                <label for="contactName" class="block text-xs font-mono text-neutral-400 uppercase mb-2">Your Name *</label>
+                                <input id="contactName" type="text" required placeholder="Name..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
                             </div>
                             <div>
-                                <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Email Address *</label>
-                                <input type="email" required placeholder="Email..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
+                                <label for="contactEmail" class="block text-xs font-mono text-neutral-400 uppercase mb-2">Email Address *</label>
+                                <input id="contactEmail" type="email" required placeholder="Email..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Inquiry Type</label>
-                            <select class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 focus:outline-none focus:border-amber-600 transition-colors">
+                            <label for="contactInquiryType" class="block text-xs font-mono text-neutral-400 uppercase mb-2">Inquiry Type</label>
+                            <select id="contactInquiryType" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 focus:outline-none focus:border-amber-600 transition-colors">
                                 <option value="score">Score Hire / Purchase Request</option>
                                 <option value="commission">Composition Commission</option>
                                 <option value="performance">Performance Notification</option>
@@ -1367,8 +1418,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Message *</label>
-                            <textarea required rows="5" placeholder="Specify work title or details..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors resize-none"></textarea>
+                            <label for="contactMessage" class="block text-xs font-mono text-neutral-400 uppercase mb-2">Message *</label>
+                            <textarea id="contactMessage" required rows="5" placeholder="Specify work title or details..." class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-600 transition-colors resize-none"></textarea>
                         </div>
 
                         <button type="submit" class="w-full py-3.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-white font-medium text-xs tracking-widest uppercase transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2">
@@ -1386,16 +1437,16 @@
     </main>
 
     <!-- Project Details Modal Overlay -->
-    <div id="modalOverlay" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 transition-opacity">
+    <div id="modalOverlay" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 transition-opacity" role="dialog" aria-modal="true" aria-label="Project details">
         <div class="glass-panel w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl p-6 sm:p-8 border border-neutral-700 shadow-2xl relative space-y-6">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-neutral-400 hover:text-white text-lg">
-                <i class="fa-solid fa-xmark"></i>
+            <button id="closeProjectModal" onclick="closeModal()" aria-label="Close project details" class="absolute top-6 right-6 text-neutral-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
             <div id="modalContent"></div>
         </div>
     </div>
 
-    <div id="videoModalOverlay" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+    <div id="videoModalOverlay" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
         <div class="w-full max-w-4xl relative">
             <button onclick="closeVideoModal()" class="absolute -top-10 right-0 text-neutral-300 hover:text-white text-xl" aria-label="Close video">
                 <i class="fa-solid fa-xmark"></i>
@@ -1513,8 +1564,10 @@
         };
 
         let activeCategory = 'all';
+        let activeWorksView = 'all';
         let isAudioPlaying = false;
         let isPlaybackStopped = false;
+        let modalTriggerSelector = null;
 
         // Tab Switching Handler
         const tabAnchors = {
@@ -1524,11 +1577,18 @@
             contact: 'contact'
         };
 
-        const anchorTabs = Object.fromEntries(Object.entries(tabAnchors).map(([tabId, anchor]) => [anchor, tabId]));
+        const anchorTabs = {
+            works: 'works',
+            listen: 'watch-listen',
+            watch: 'watch-listen',
+            writing: 'writing',
+            contact: 'contact'
+        };
 
-        function switchTab(tabId) {
+        function switchTab(tabId, requestedWorksView) {
             if (isPlaybackStopped) clearStoppedPlayback();
-            const anchor = tabAnchors[tabId];
+            const worksView = requestedWorksView || (tabId === 'watch-listen' ? 'listen' : 'all');
+            const anchor = tabId === 'watch-listen' ? worksView : tabAnchors[tabId];
             history.replaceState(null, '', anchor
                 ? `${window.location.pathname}${window.location.search}#${anchor}`
                 : `${window.location.pathname}${window.location.search}`);
@@ -1539,11 +1599,12 @@
                 btn.classList.add('text-neutral-400', 'border-transparent');
             });
 
-            const targetTab = document.getElementById(`tab-${tabId}`);
+            const targetTabId = tabId === 'watch-listen' ? 'works' : tabId;
+            const targetTab = document.getElementById(`tab-${targetTabId}`);
             if (targetTab) {
                 targetTab.classList.add('active');
             }
-            if (tabId === 'works') renderWorks();
+            if (targetTabId === 'works') setWorksView(worksView, false);
 
             const activeNavBtn = document.getElementById(`nav-${tabId}`);
             if (activeNavBtn) {
@@ -1560,13 +1621,94 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        const initialTab = anchorTabs[window.location.hash.slice(1)] || 'bio';
-        switchTab(initialTab);
+        const mediaCatalog = [
+            { type: 'listen', title: '4 Illuminations', year: 2012, detail: 'Xasax Saxophone Quartet at Royaumont Abbey', provider: 'soundcloud', id: 'illuminations' },
+            { type: 'listen', title: 'Fault-Line', year: 2015, detail: 'Oliver Coates, solo cello', provider: 'soundcloud', id: 'faultline' },
+            { type: 'listen', title: 'Recollections', detail: 'Elsbeth Gerritsen & Eva Reiter', provider: 'soundcloud', id: 'recollections' },
+            { type: 'listen', title: 'Balconies', year: 2023, detail: 'Olivia de Prato, Panorama Album, New Focus Recordings', provider: 'spotify', id: '2wNL47uCuwDpbOqCIpbSTS' },
+            { type: 'listen', title: 'Kinesphere', year: 2014, detail: 'Michael Cox, solo flute, NMC Recordings', provider: 'soundcloud', id: 'kinesphere' },
+            { type: 'listen', title: 'Everything Passes, Everything is Connected', year: 2021, detail: 'The Crossing, unaccompanied choir', provider: 'spotify', id: '3YV79qjiJLOgYjjEzTsVEy' },
+            { type: 'listen', title: 'How Many Moments Must', detail: 'Spotify extract', provider: 'spotify', id: '3yRPnEWI5IHASxiNNgvyuh' },
+            { type: 'listen', title: 'Utterance', detail: 'Spotify extract', provider: 'spotify', id: '5k4j31qldbj9wqg9VBKo01' },
+            { type: 'listen', title: 'The Half Moon', detail: 'Spotify extract', provider: 'spotify', id: '1o0qiFnwPPgBA3k6QWVPM8' },
+            { type: 'listen', title: 'Look Up', year: 2014, detail: '4 voices, viola da gamba and electronics', provider: 'soundcloud', id: 'look-up' },
+            { type: 'listen', title: 'Positive/Negative Space', year: 2013, detail: 'Flute, clarinet, alto sax and cello', provider: 'soundcloud', id: 'positive-negative-space' },
+            { type: 'listen', title: 'Square of Light', year: 2013, detail: 'Soprano and piano', provider: 'soundcloud', id: 'square-of-light' },
+            { type: 'listen', title: 'The Journey Between Us - Reflection 1', year: 2016, detail: 'Mixed ensemble', provider: 'soundcloud', id: 'journey-between-us' },
+            { type: 'watch', title: 'glass human - Official Trailer', year: 2022, category: 'opera', detail: 'Glyndebourne. Official trailer for the chamber opera created with sound artist and writer Melanie Wilson, exploring isolation and connection across three lives.', url: 'https://www.youtube.com/watch?v=-bGBfGd_2aM' },
+            { type: 'watch', title: "'Today the Letter Must Come' - glass human", year: 2024, category: 'opera', detail: 'Camille Maalawy. Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain.', url: 'https://www.youtube.com/watch?v=15R1ci2MHF0' },
+            { type: 'watch', title: "Current, Rising: The World's First Hyper-Reality Opera", year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Teaser for a 15-minute hyper-reality opera combining virtual reality with a multisensory set.', url: 'https://www.youtube.com/watch?v=KXrYuIWLv60' },
+            { type: 'watch', title: "How Was the World's First Hyper-Reality Opera Created?", year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Insights panel on the development and technology behind Current, Rising with Samantha Fernando and the creative team.', url: 'https://www.youtube.com/watch?v=AVXYPqdAYdY' },
+            { type: 'watch', title: 'Wintering (Trailer)', year: 2025, category: 'ensemble', detail: 'Manchester Collective. Preview of Wintering for four vocalists and string quartet, presented by Manchester Collective and The Marian Consort.', url: 'https://www.youtube.com/watch?v=5BApW0VSCes' },
+            { type: 'watch', title: 'Sound Inhabitants', year: 2024, category: 'ensemble', detail: 'London Sinfonietta. Full performance recording of Sound Inhabitants for large ensemble, commissioned and premiered by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=hirZmf8DoA4' },
+            { type: 'watch', title: 'Fault Line for Solo Cello', year: 2022, category: 'chamber', detail: 'Louise McMonagle. Performance of Fault Line, a solo cello piece originally commissioned by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=k3jRJHzIu4Q' },
+            { type: 'watch', title: 'Composition for Voice & Electronics (enoa Workshop)', year: 2015, category: 'vocal', detail: 'enoa community. Final concert recording from the European Network of Opera Academies workshop exploring vocal textures and electronic processing.', url: 'https://www.youtube.com/watch?v=b_w_uYmFwZ4' },
+            { type: 'watch', title: 'Samantha Fernando: Pathways', year: 2018, detail: 'Sound and Music. Documentary profile on Samantha Fernando\'s musical philosophy, tableaux-like textures, openness in composition and motherhood as a creative catalyst.', url: 'https://www.youtube.com/watch?v=XcRdZftNuYA' },
+            { type: 'watch', title: "Samantha Fernando: The Composer's Mind", year: 2016, detail: 'London Sinfonietta. Short documentary detailing Samantha Fernando\'s creative process, structural thinking and writing techniques.', url: 'https://www.youtube.com/watch?v=94EkZLEuKBA' }
+        ];
 
-        // Works List Renderer
+        function mediaActionMarkup(media) {
+            if (media.type === 'listen') {
+                const handler = media.provider === 'spotify'
+                    ? `playSpotifyTrack('${media.id}')`
+                    : `playTrack('${media.title.replace(/'/g, "\\'")}', '${media.detail.replace(/'/g, "\\'")}', '${media.id}')`;
+                const dataAttribute = media.provider === 'spotify'
+                    ? `data-spotify-track="${media.id}"`
+                    : `data-track="${media.id}"`;
+                return `<button type="button" ${dataAttribute} onclick="${handler}" class="work-media-action"><i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i> Listen</button>`;
+            }
+            return `<button type="button" onclick="openVideoModal('${media.url}', '${media.title.replace(/'/g, "\\'")}')" class="work-media-action"><i class="fa-solid fa-film text-[10px]" aria-hidden="true"></i> Watch</button>`;
+        }
+
+        function renderMediaCatalog(searchVal) {
+            const filtered = mediaCatalog.filter(media => `${media.title} ${media.detail}`.toLowerCase().includes(searchVal))
+                .filter(media => media.type === activeWorksView)
+                .filter(media => activeCategory === 'all' || media.category === activeCategory || worksData.find(work => work.title === media.title)?.category === activeCategory)
+                .sort((a, b) => (b.year || 0) - (a.year || 0) || a.title.localeCompare(b.title));
+
+            if (!filtered.length) {
+                return `<div class="glass-panel p-8 text-center text-neutral-500 font-mono text-xs rounded-2xl">No ${activeWorksView === 'listen' ? 'recordings' : 'films'} found matching your search query.</div>`;
+            }
+
+            if (activeWorksView === 'watch') {
+                return filtered.map(media => {
+                    const videoId = new URL(media.url).searchParams.get('v');
+                    return `
+                        <article class="glass-panel p-4 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col gap-4 group">
+                            <button type="button" onclick="openVideoModal('${media.url}', '${media.title.replace(/'/g, "\\'")}')" aria-label="Watch ${media.title}" class="relative aspect-video overflow-hidden rounded-xl bg-neutral-900 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                                <img src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg" alt="" class="w-full h-full object-cover" loading="lazy">
+                                <span class="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/40 transition-colors"><span class="w-14 h-14 rounded-full bg-amber-600/90 text-white flex items-center justify-center text-xl shadow-xl transition-transform group-hover:scale-110"><i class="fa-solid fa-play ml-1" aria-hidden="true"></i></span></span>
+                            </button>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-3"><span class="text-xs font-mono text-amber-400">${media.year || 'Undated'}</span><span class="text-xs font-mono text-neutral-500 uppercase">Film</span></div>
+                                <h3 class="text-xl font-serif text-neutral-100 group-hover:text-amber-300 transition-colors">${media.title}</h3>
+                                <p class="text-xs text-neutral-400 leading-relaxed">${media.detail}</p>
+                            </div>
+                        </article>`;
+                }).join('');
+            }
+
+            return filtered.map(media => `
+                <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-end justify-between gap-4 group">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-3"><span class="text-xs font-mono text-amber-400">${media.year || 'Undated'}</span><span class="text-xs font-mono text-neutral-500 uppercase">${media.type === 'listen' ? 'Recording' : 'Film'}</span></div>
+                        <h3 class="text-lg font-serif text-neutral-100 group-hover:text-amber-300 transition-colors">${media.title}</h3>
+                        <p class="text-xs text-neutral-400">${media.detail}</p>
+                    </div>
+                    <div class="flex items-center gap-2 pt-2 md:pt-0">${mediaActionMarkup(media)}</div>
+                </div>
+            `).join('');
+        }
+
+        // The complete catalogue and media-only views share one renderer and search field.
         function renderWorks() {
             const container = document.getElementById('worksContainer');
             const searchVal = document.getElementById('worksSearchInput').value.toLowerCase();
+
+            if (activeWorksView !== 'all') {
+                container.innerHTML = renderMediaCatalog(searchVal);
+                return;
+            }
 
             const filtered = worksData.filter(w => {
                 const matchesCategory = activeCategory === 'all' || w.category === activeCategory;
@@ -1589,7 +1731,7 @@
             }
 
             container.innerHTML = filtered.map(w => `
-                <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 group">
+                <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-end justify-between gap-4 group">
                     <div class="space-y-1">
                          <div class="flex items-center gap-3">
                              <span class="text-xs font-mono text-amber-400">${w.year}</span>
@@ -1605,75 +1747,83 @@
                          </div>
                     </div>
 
-                    <div class="flex items-center gap-2 pt-2 md:pt-0">
-                        <button onclick="requestScore('${w.title}')" class="px-3.5 py-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors">
-                            Score Request
-                        </button>
-                    </div>
+                     <div class="flex flex-wrap items-center justify-end gap-2 pt-2 md:pt-0">
+                         ${mediaCatalog.filter(media => media.title === w.title).map(mediaActionMarkup).join('')}
+                     </div>
                 </div>
             `).join('');
         }
 
+        function setWorksView(view, updateUrl = true) {
+            activeWorksView = view;
+            const isAllWorks = view === 'all';
+            if (updateUrl) {
+                const tabId = isAllWorks ? 'works' : 'watch-listen';
+                const anchor = isAllWorks ? 'works' : view;
+                history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${anchor}`);
+                document.querySelectorAll('.nav-btn').forEach(button => {
+                    const active = button.id === `nav-${tabId}`;
+                    button.classList.toggle('text-amber-400', active);
+                    button.classList.toggle('border-amber-400', active);
+                    button.classList.toggle('text-neutral-400', !active);
+                    button.classList.toggle('border-transparent', !active);
+                });
+                document.querySelectorAll('.mobile-nav-btn').forEach(button => {
+                    const active = button.dataset.mobileNav === tabId;
+                    button.classList.toggle('text-amber-400', active);
+                    button.classList.toggle('text-neutral-300', !active);
+                });
+            }
+            document.getElementById('worksViewDescription').textContent = isAllWorks
+                ? 'Full repertoire categorised by instrumentation and scale.'
+                : view === 'listen'
+                    ? '13 published recordings across SoundCloud and Spotify.'
+                    : '10 performance films and composer features.';
+            document.querySelectorAll('.works-view-btn').forEach(button => {
+                const active = button.id === `works-view-${view}`;
+                button.classList.toggle('bg-amber-700', active);
+                button.classList.toggle('text-white', active);
+                button.classList.toggle('bg-neutral-900', !active);
+                button.classList.toggle('text-neutral-400', !active);
+                button.setAttribute('aria-pressed', String(active));
+                if (document.body.classList.contains('light-mode')) {
+                    button.style.setProperty('background-color', active ? '#6f3508' : '#c8ae91', 'important');
+                    button.style.setProperty('color', active ? '#ffffff' : '#18211f', 'important');
+                }
+            });
+            renderWorks();
+        }
+
         function setWorkCategory(cat) {
             activeCategory = cat;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-700', 'text-white');
-                btn.classList.add('bg-neutral-900', 'text-neutral-400');
+            const option = document.querySelector(`#worksInstrumentationMenu [data-category="${cat}"]`);
+            document.getElementById('worksInstrumentationLabel').textContent = option.textContent.trim();
+            document.querySelectorAll('.instrumentation-option').forEach(button => {
+                button.setAttribute('aria-selected', String(button === option));
             });
-            const activeBtn = document.getElementById(`cat-${cat}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-neutral-900', 'text-neutral-400');
-                activeBtn.classList.add('bg-amber-700', 'text-white');
-            }
-            document.getElementById('mobileWorksCategory').value = cat;
+            closeInstrumentationMenu();
             renderWorks();
+        }
+
+        function toggleInstrumentationMenu() {
+            const menu = document.getElementById('worksInstrumentationMenu');
+            const isOpen = !menu.classList.contains('hidden');
+            menu.classList.toggle('hidden', isOpen);
+            document.getElementById('worksInstrumentationToggle').setAttribute('aria-expanded', String(!isOpen));
+        }
+
+        function closeInstrumentationMenu() {
+            document.getElementById('worksInstrumentationMenu').classList.add('hidden');
+            document.getElementById('worksInstrumentationToggle').setAttribute('aria-expanded', 'false');
         }
 
         function filterWorks() {
             renderWorks();
         }
 
-        function initialiseCombinedMedia() {
-            const watchSource = document.querySelector('#tab-watch > .grid');
-            const listenSource = document.querySelector('#tab-listen > .glass-panel');
-            const availabilitySource = document.querySelector('[data-recording-availability-note]');
-            const watchTarget = document.getElementById('combined-watch-content');
-            const listenTarget = document.getElementById('combined-listen-content');
-
-            if (watchSource && watchTarget) {
-                const watchClone = watchSource.cloneNode(true);
-                watchClone.querySelectorAll('.glass-panel').forEach(card => {
-                    if (!card.querySelector('a[href*="youtube.com/watch"]')) card.remove();
-                });
-                watchClone.querySelectorAll('a[href*="youtube.com/watch"]').forEach(link => {
-                    const media = link.closest('.relative.aspect-video');
-                    if (!media) return;
-                    const cardTitle = link.closest('.glass-panel')?.querySelector('h3')?.textContent || 'Watch video';
-                    const videoId = new URL(link.href).searchParams.get('v');
-                    if (!videoId) return;
-                    media.innerHTML = `<button type="button" class="combined-video-placeholder relative w-full h-full bg-neutral-900 flex items-center justify-center" onclick="openVideoModal('${link.href}', '${cardTitle.replace(/'/g, "\\'")}')" aria-label="Watch ${cardTitle.replace(/"/g, '&quot;')}"><img src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg" alt="" class="absolute inset-0 w-full h-full object-cover"><span class="relative z-10 w-14 h-14 rounded-full bg-amber-600/90 text-white flex items-center justify-center text-xl"><i class="fa-solid fa-play ml-1" aria-hidden="true"></i></span></button>`;
-                });
-                watchClone.querySelectorAll('a[href*="youtube.com/watch"]').forEach(link => link.remove());
-                watchTarget.appendChild(watchClone);
-            }
-            if (listenSource && listenTarget) listenTarget.appendChild(listenSource.cloneNode(true));
-            if (availabilitySource && listenTarget) listenTarget.appendChild(availabilitySource.cloneNode(true));
-            switchCombinedTab('listen');
-        }
-
-        function switchCombinedTab(tabId) {
-            const isWatch = tabId === 'watch';
-            document.getElementById('combined-watch-content').classList.toggle('hidden', !isWatch);
-            document.getElementById('combined-listen-content').classList.toggle('hidden', isWatch);
-            document.querySelectorAll('.combined-tab-btn').forEach(button => {
-                const active = button.id === `combined-tab-${tabId}`;
-                button.classList.toggle('bg-amber-700', active);
-                button.classList.toggle('text-white', active);
-                button.classList.toggle('bg-neutral-900', !active);
-                button.classList.toggle('text-neutral-400', !active);
-                button.setAttribute('aria-selected', active ? 'true' : 'false');
-            });
-        }
+        const initialAnchor = window.location.hash.slice(1);
+        const initialTab = anchorTabs[initialAnchor] || 'bio';
+        switchTab(initialTab, initialAnchor === 'watch' ? 'watch' : undefined);
 
         // SoundCloud playback for Samantha Fernando's published recordings.
         const defaultSpotifyTrackId = '3YV79qjiJLOgYjjEzTsVEy';
@@ -1708,7 +1858,8 @@
                     kinesphere: { id: 'soundcloudPlayerKinesphere', title: 'Kinesphere SoundCloud player', url: 'https://api.soundcloud.com/tracks/332996028' },
                     'look-up': { id: 'soundcloudPlayerLookUp', title: 'Look Up SoundCloud player', url: 'https://api.soundcloud.com/tracks/204818278' },
                     'positive-negative-space': { id: 'soundcloudPlayerPositiveNegativeSpace', title: 'Positive/Negative Space SoundCloud player', url: 'https://api.soundcloud.com/tracks/132165483' },
-                    'square-of-light': { id: 'soundcloudPlayerSquareOfLight', title: 'Square Of Light SoundCloud player', url: 'https://api.soundcloud.com/tracks/105347231' }
+                    'square-of-light': { id: 'soundcloudPlayerSquareOfLight', title: 'Square Of Light SoundCloud player', url: 'https://api.soundcloud.com/tracks/105347231' },
+                    'journey-between-us': { id: 'soundcloudPlayerJourneyBetweenUs', title: 'The Journey Between Us SoundCloud player', url: 'https://api.soundcloud.com/tracks/292087616' }
                 };
 
                 Object.values(tracks).forEach(track => {
@@ -1833,6 +1984,7 @@
                 '1o0qiFnwPPgBA3k6QWVPM8': 251000
             };
             currentTrackName = spotifyTrackNames[trackId] || 'Spotify recording';
+            currentTrackId = trackId;
             activeAudioProvider = 'spotify';
             isPlaybackStopped = false;
             if (activeSpotifyTrack !== trackId) spotifyElapsedMs = 0;
@@ -2071,6 +2223,8 @@
                 document.getElementById('waveContainer').classList.remove('paused');
                 document.getElementById('soundStatusIcon').className = 'fa-solid fa-pause text-sm';
                 document.getElementById('soundbarPauseIcon').className = 'fa-solid fa-pause text-xs';
+                document.getElementById('soundbarPauseBtn').setAttribute('aria-label', 'Pause playback');
+                document.getElementById('soundbarPauseBtn').title = 'Pause playback';
                 document.getElementById('soundbar').classList.remove('hidden');
                 return;
             }
@@ -2079,6 +2233,8 @@
             document.getElementById('waveContainer').classList.add('paused');
             document.getElementById('soundStatusIcon').className = 'fa-solid fa-play text-sm';
             document.getElementById('soundbarPauseIcon').className = 'fa-solid fa-play text-xs';
+            document.getElementById('soundbarPauseBtn').setAttribute('aria-label', 'Resume playback');
+            document.getElementById('soundbarPauseBtn').title = 'Resume playback';
             document.getElementById('soundbar').classList.remove('hidden');
         }
 
@@ -2144,7 +2300,10 @@
         }
 
         // Modal Controls
-        function openModal(type) {
+        function openModal(type, triggerElement = document.activeElement) {
+            const trigger = triggerElement;
+            if (trigger && !trigger.id) trigger.id = 'project-modal-trigger';
+            modalTriggerSelector = trigger?.id ? `#${trigger.id}` : null;
             const overlay = document.getElementById('modalOverlay');
             const content = document.getElementById('modalContent');
 
@@ -2205,10 +2364,14 @@
             }
 
             overlay.classList.remove('hidden');
+            document.getElementById('closeProjectModal').focus();
         }
 
         function closeModal() {
             document.getElementById('modalOverlay').classList.add('hidden');
+            const triggerSelector = modalTriggerSelector;
+            modalTriggerSelector = null;
+            window.setTimeout(() => document.querySelector(triggerSelector)?.focus(), 0);
         }
 
         function openVideoModal(url, title) {
@@ -2217,8 +2380,12 @@
             document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
             document.getElementById('videoModalTitle').textContent = title || 'YouTube video';
             const overlay = document.getElementById('videoModalOverlay');
+            const trigger = document.activeElement;
+            if (trigger && !trigger.id) trigger.id = 'video-modal-trigger';
+            modalTriggerSelector = trigger?.id ? `#${trigger.id}` : null;
             overlay.classList.remove('hidden');
             overlay.classList.add('flex');
+            overlay.querySelector('button').focus();
         }
 
         function closeVideoModal() {
@@ -2226,6 +2393,9 @@
             document.getElementById('videoFrame').src = '';
             overlay.classList.add('hidden');
             overlay.classList.remove('flex');
+            const triggerSelector = modalTriggerSelector;
+            modalTriggerSelector = null;
+            window.setTimeout(() => document.querySelector(triggerSelector)?.focus(), 0);
         }
 
         function requestScore(title) {
@@ -2261,10 +2431,14 @@
                 icon.classList.add('fa-bars');
             }
             document.getElementById('mobileMenuToggle').setAttribute('aria-expanded', String(isClosed));
+            const menuLabel = isClosed ? 'Close navigation menu' : 'Open navigation menu';
+            document.getElementById('mobileMenuToggle').setAttribute('aria-label', menuLabel);
+            document.getElementById('mobileMenuToggle').title = menuLabel;
         }
 
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
+            setWorksView(activeWorksView, false);
             const themeBtn = document.getElementById('themeToggleBtn');
             if (document.body.classList.contains('light-mode')) {
                 themeBtn.innerHTML = '<i class="fa-solid fa-moon text-sm"></i>';
@@ -2338,12 +2512,37 @@
             icon.classList.toggle('fa-eye-slash', !isVisible);
         }
 
-        document.addEventListener('DOMContentLoaded', initialiseCombinedMedia);
         document.getElementById('mobilePreviewDialog').addEventListener('click', event => {
             if (event.target.id === 'mobilePreviewDialog') closeMobilePreview();
         });
+        document.addEventListener('click', event => {
+            if (!document.getElementById('instrumentationControl').contains(event.target)) closeInstrumentationMenu();
+        });
         document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && !document.getElementById('mobilePreviewDialog').classList.contains('hidden')) {
+            const openDialog = document.querySelector('[role="dialog"]:not(.hidden)');
+            if (event.key === 'Tab' && openDialog) {
+                const focusable = [...openDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')]
+                    .filter(element => !element.disabled && element.offsetParent !== null);
+                if (focusable.length) {
+                    const first = focusable[0];
+                    const last = focusable[focusable.length - 1];
+                    if (event.shiftKey && document.activeElement === first) {
+                        event.preventDefault();
+                        last.focus();
+                    } else if (!event.shiftKey && document.activeElement === last) {
+                        event.preventDefault();
+                        first.focus();
+                    }
+                }
+            }
+            if (event.key === 'Escape' && !document.getElementById('worksInstrumentationMenu').classList.contains('hidden')) {
+                closeInstrumentationMenu();
+                document.getElementById('worksInstrumentationToggle').focus();
+            } else if (event.key === 'Escape' && !document.getElementById('modalOverlay').classList.contains('hidden')) {
+                closeModal();
+            } else if (event.key === 'Escape' && !document.getElementById('videoModalOverlay').classList.contains('hidden')) {
+                closeVideoModal();
+            } else if (event.key === 'Escape' && !document.getElementById('mobilePreviewDialog').classList.contains('hidden')) {
                 closeMobilePreview();
             }
         });

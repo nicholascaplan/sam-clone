@@ -4,6 +4,26 @@ Short record of settled product, content and implementation decisions for the si
 
 ## 2026-08-01
 
+### Unify Works and media in one catalogue
+
+- Decision: Use one Works & Media catalogue. Keep `Works List` and `Listen & Watch` as separate navigation labels: Works List opens All Works, Listen & Watch opens the Listen filter, and Watch is a sibling filter. Render fine-outline rectangular Listen and Watch actions only for works with hosted media.
+- Reason: The single catalogue removes duplicated listing and filtering logic while retaining familiar, purposeful entry points. It makes recordings and films discoverable from their related work without implying that every work has an online recording. The selected action style stays consistent for parallel media actions and matches other labelled rectangular controls on the site.
+
+### Use editorial cards for Watch
+
+- Decision: Keep the shared Works and Listen compact catalogue cards, but render Watch as two-column YouTube thumbnail cards that open the existing in-page modal.
+- Reason: Video imagery and descriptive context give films a materially stronger presentation than a compact media row, while the shared search, Instrumentation filter, deep links and modal playback preserve the unified catalogue behaviour.
+
+### Test provider integrations through controlled browser doubles
+
+- Decision: Exercise Spotify and SoundCloud playback with browser-level doubles for their APIs, while retaining local smoke coverage for the rest of the page.
+- Reason: Provider availability and timing should not make CI non-deterministic. The doubles verify selected-track loading, provider hand-off, queued SoundCloud readiness, pause and finish behaviour without live network dependencies.
+
+### Test the deployed password-gate condition without spreading its credential
+
+- Decision: Map the published hostname to the local Playwright server in Chromium, test the locked state, rejection, password visibility and persisted session unlock, and do not submit the checked-in credential from the test suite.
+- Reason: This exercises the hostname-specific gate while avoiding an additional copy of a deliberately insecure credential in test code or logs.
+
 ### Treat real mobile CSS as the responsive source of truth
 
 - Decision: Keep all narrow-screen layout constraints, including the compact header and 13rem hero portrait, in `@media (max-width: 767px)` rules. The desktop mobile-preview iframe must exercise those same rules rather than supply its own layout overrides.
@@ -79,10 +99,9 @@ Short record of settled product, content and implementation decisions for the si
 
 ## 2026-07-30
 
-### Use a combined Listen & Watch media page
+### Superseded: use a combined Listen & Watch media page
 
-- Decision: Expose `Listen & Watch` as the public media page, with Listen before Watch in internal tabs.
-- Reason: Keep recordings and performance films together without adding separate top-level navigation items.
+- Superseded by the 2026-08-01 unified Works & Media catalogue decision. The navigation label remains, but it opens the Listen filter rather than a separate tabbed page.
 
 ### Keep the homepage URL free of `#bio`
 

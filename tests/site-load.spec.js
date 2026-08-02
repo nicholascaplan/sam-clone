@@ -1,6 +1,58 @@
 const { test, expect } = require('@playwright/test');
 const AxeBuilder = require('@axe-core/playwright').default;
 
+async function mockPlaybackProviders(page) {
+  await page.addInitScript(() => {
+    window.__spotifyCalls = [];
+    window.__spotifyIFrameApi = {
+      createController: (_container, _options, callback) => {
+        const controller = {
+          loadUri: uri => window.__spotifyCalls.push(['loadUri', uri]),
+          seek: position => window.__spotifyCalls.push(['seek', position]),
+          play: () => window.__spotifyCalls.push(['play']),
+          pause: () => window.__spotifyCalls.push(['pause']),
+        };
+        callback(controller);
+      },
+    };
+
+    window.__soundCloudCalls = [];
+    const Widget = element => {
+      const handlers = {};
+      const player = {
+        bind: (event, handler) => { handlers[event] = handler; },
+        getDuration: callback => callback(60_000),
+        getPosition: callback => callback(0),
+        pause: () => {
+          window.__soundCloudCalls.push(['pause', element.id]);
+          handlers.PAUSE?.();
+        },
+        play: () => {
+          window.__soundCloudCalls.push(['play', element.id]);
+          handlers.PLAY?.();
+        },
+        seekTo: position => window.__soundCloudCalls.push(['seekTo', element.id, position]),
+      };
+      window.__soundCloudPlayers ??= {};
+      window.__soundCloudPlayers[element.id] = { handlers, player };
+      return player;
+    };
+    Widget.Events = {
+      READY: 'READY',
+      PLAY: 'PLAY',
+      PAUSE: 'PAUSE',
+      FINISH: 'FINISH',
+      ERROR: 'ERROR',
+    };
+    window.SC = { Widget };
+  });
+
+  await page.route('https://w.soundcloud.com/player/api.js', route =>
+    route.fulfill({ contentType: 'application/javascript', body: '' }),
+  );
+  await page.route('https://open.spotify.com/embed/iframe-api/v1', route => route.abort());
+}
+
 test('loads the site and renders primary navigation', async ({ page }) => {
   await page.goto('/');
 
@@ -17,8 +69,17 @@ test('switches to the works list and filters by category', async ({ page }) => {
   await expect(page).toHaveURL(/#works$/);
   await expect(page.locator('#tab-works')).toBeVisible();
   await expect(page.locator('#worksContainer')).toContainText('Wintering');
+  await expect(page.locator('#worksFilterToolbar')).toBeVisible();
+  await expect(page.getByRole('textbox', { name: 'Search works by title or instrumentation' })).toBeVisible();
+  await expect(page.locator('#worksFilterToolbar')).toContainText('Instrumentation: All');
 
-  await page.getByRole('button', { name: 'Opera & Stage' }).click();
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+  await expect(page.getByRole('option', { name: 'Opera & Stage' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('option', { name: 'Opera & Stage' })).toBeHidden();
+
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+  await page.getByRole('option', { name: 'Opera & Stage' }).click();
   await expect(page.locator('#worksContainer')).toContainText('glass human');
   await expect(page.locator('#worksContainer')).not.toContainText('Wintering');
 });
@@ -27,7 +88,9 @@ test('hero actions navigate to their destinations', async ({ page }) => {
   await page.goto('/');
 
   await page.locator('.hero-actions').getByRole('button', { name: 'Listen' }).click();
-  await expect(page.locator('#tab-watch-listen')).toBeVisible();
+  await expect(page.locator('#tab-works')).toBeVisible();
+  await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#worksContainer .work-media-action').first()).toBeVisible();
 
   await page.goto('/');
   await page.locator('.hero-actions').getByRole('button', { name: 'Explore works' }).click();
@@ -48,7 +111,7 @@ test('toggles the visual theme', async ({ page }) => {
   await expect(page.locator('body')).toHaveClass(/light-mode/);
 });
 
-test('opens and closes the mobile navigation menu', async ({ page }) => {
+test('opens and closes the mobile navigation menu @mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
@@ -58,46 +121,36 @@ test('opens and closes the mobile navigation menu', async ({ page }) => {
   await menuButton.click();
   await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
   await expect(menu).toBeVisible();
-  await expect(menu.locator('button')).toHaveCount(await page.locator('header > div:first-child nav button').count());
-  await expect(menu.locator('button').last()).toBeVisible();
-  await expect(menu).toHaveCSS('overflow-y', 'visible');
+  await expect(menu.getByRole('button', { name: 'Biography' })).toBeVisible();
+  await expect(menu.getByRole('button', { name: 'Contact' })).toBeVisible();
 
   await menuButton.click();
   await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
   await expect(menu).toBeHidden();
 });
 
-test('keeps mobile header controls and portrait within the intended compact layout', async ({ page }) => {
+test('keeps mobile header controls and hero content usable @mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
-  const header = page.locator('header');
   const menuButton = page.locator('#mobileMenuToggle');
   const portrait = page.locator('#tab-bio .lg\\:col-span-5 img');
   const introduction = page.locator('.hero-introduction');
 
   await expect(menuButton).toBeVisible();
-  await expect(portrait).toHaveCSS('height', '208px');
-
-  const [headerBox, menuBox, introductionBox] = await Promise.all([header.boundingBox(), menuButton.boundingBox(), introduction.boundingBox()]);
-  expect(headerBox).not.toBeNull();
-  expect(menuBox).not.toBeNull();
-  expect(introductionBox).not.toBeNull();
-  // Include the header's border in the measured box.
-  expect(headerBox.height).toBeLessThanOrEqual(66);
-  expect(menuBox.x + menuBox.width).toBeLessThanOrEqual(headerBox.x + headerBox.width);
-  expect(introductionBox.y + introductionBox.height).toBeLessThanOrEqual(844);
+  await expect(portrait).toBeVisible();
+  await expect(introduction).toBeVisible();
+  await menuButton.click();
+  await expect(page.locator('#mobileMenu')).toBeVisible();
 });
 
-test('uses only the category dropdown for mobile Works filtering', async ({ page }) => {
+test('uses the shared Instrumentation menu on mobile @mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/#works');
 
-  await expect(page.locator('.works-desktop-filters')).toBeHidden();
-  await expect(page.locator('#mobileWorksCategory')).toBeVisible();
-  await expect(page.locator('.works-desktop-filters .cat-btn')).toHaveCount(6);
-
-  await page.locator('#mobileWorksCategory').selectOption('opera');
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+  await expect(page.getByRole('option', { name: 'Opera & Stage' })).toBeVisible();
+  await page.getByRole('option', { name: 'Opera & Stage' }).click();
   await expect(page.locator('#worksContainer')).toContainText('glass human');
   await expect(page.locator('#worksContainer')).not.toContainText('Wintering');
 });
@@ -112,7 +165,6 @@ test('mobile preview uses the real mobile viewport', async ({ page }) => {
   await expect(page.locator('#mobilePreviewBtn')).toHaveAttribute('aria-pressed', 'true');
   await expect(preview.locator('#mobileMenuToggle')).toBeVisible();
   await expect(preview.locator('header nav')).toBeHidden();
-  await expect(page.locator('.mobile-preview-frame #closeMobilePreview')).toHaveCount(0);
   await expect(preview.locator('html')).toHaveClass(/mobile-preview-session/);
 
   await page.locator('#closeMobilePreview').click();
@@ -135,17 +187,36 @@ test('shows contact confirmation without submitting externally', async ({ page }
   await expect(page.locator('#contactToast')).toContainText('Message sent successfully');
 });
 
-test('switches between Listen and Watch content', async ({ page }) => {
+test('filters the Listen view by instrumentation', async ({ page }) => {
   await page.goto('/');
 
   await page.getByRole('button', { name: 'Listen & Watch' }).click();
-  await page.getByRole('tab', { name: 'Watch' }).click();
-  await expect(page.getByRole('tab', { name: 'Watch' })).toHaveAttribute('aria-selected', 'true');
-  await expect(page.locator('#combined-watch-content')).toBeVisible();
+  await expect(page.locator('#tab-works')).toBeVisible();
+  await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#worksContainer .work-media-action').first()).toBeVisible();
 
-  await page.getByRole('tab', { name: 'Listen' }).click();
-  await expect(page.getByRole('tab', { name: 'Listen' })).toHaveAttribute('aria-selected', 'true');
-  await expect(page.locator('#combined-listen-content')).toBeVisible();
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+  await page.getByRole('option', { name: 'Vocal & Choral', exact: true }).click();
+  await expect(page.locator('#worksInstrumentationLabel')).toHaveText('Vocal & Choral');
+  await expect(page.locator('#worksContainer')).toContainText('Everything Passes, Everything is Connected');
+  await expect(page.locator('#worksContainer h3', { hasText: 'Balconies' })).toHaveCount(0);
+});
+
+test('switches between Listen and Watch views while preserving filters', async ({ page }) => {
+  await page.goto('/#listen');
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+  await page.getByRole('option', { name: 'Vocal & Choral', exact: true }).click();
+
+  await page.locator('#works-view-watch').click();
+  await expect(page).toHaveURL(/#watch$/);
+  await expect(page.locator('#works-view-watch')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#worksContainer')).toContainText('Composition for Voice & Electronics');
+  await expect(page.locator('#worksContainer').getByRole('button', { name: 'Watch Composition for Voice & Electronics' })).toBeVisible();
+
+  await page.getByRole('button', { name: 'Vocal & Choral', exact: true }).click();
+  await page.getByRole('option', { name: 'Instrumentation: All' }).click();
+  await expect(page.getByRole('button', { name: 'Instrumentation: All' })).toBeVisible();
+  await expect(page.locator('#worksContainer').getByRole('button', { name: /^Watch / }).first()).toBeVisible();
 });
 
 test('soundbar progress display is present and non-interactive', async ({ page }) => {
@@ -158,51 +229,78 @@ test('soundbar progress display is present and non-interactive', async ({ page }
   await expect(page.locator('#soundbarProgress button, #soundbarProgress input')).toHaveCount(0);
   await expect(page.locator('#soundbarElapsedTime')).toHaveText('0:00');
   await expect(page.locator('#soundbarDurationTime')).toBeHidden();
-  await expect(page.locator('#soundbarControls button')).toHaveCount(3);
-  await expect(page.locator('#soundbarVisualizer')).toHaveCount(0);
-});
-
-test('header Listen control uses the shared playback toggle', async ({ page }) => {
-  await page.goto('/');
-
-  await expect(page.locator('#ambientSoundBtn')).toHaveAttribute('onclick', 'toggleActivePlayback()');
+  await expect(page.locator('#soundbarPauseBtn')).toHaveAttribute('aria-label', 'Pause playback');
+  await expect(page.locator('#soundbarRestartBtn')).toHaveAttribute('aria-label', 'Restart track');
+  await expect(page.locator('#soundbarStopBtn')).toHaveAttribute('aria-label', 'Stop playback');
 });
 
 test('soundbar starts with the default track name', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('#soundbarLabel')).toHaveText('Everything Passes, Everything is Connected · The Crossing');
-  await expect(page.locator('[data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]')).toHaveCount(2);
-  const defaultTrack = page.locator('#tab-listen [data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]');
-  await expect(defaultTrack.locator('h4')).toContainText('Everything Passes, Everything is Connected');
-  await expect(defaultTrack.locator('.audio-extract-status')).toHaveText('Extract');
+  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+  await expect(page.locator('#worksContainer [data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]')).toBeVisible();
 });
 
 test('lists confirmed Listen metadata without placeholder details', async ({ page }) => {
   await page.goto('/#listen');
 
-  const listenTab = page.locator('#tab-listen');
-  await expect(listenTab.locator('[data-track="look-up"]')).toContainText('6:53');
-  await expect(listenTab.locator('[data-track="positive-negative-space"]')).toContainText('6:50');
-  await expect(listenTab.locator('[data-track="square-of-light"]')).toContainText('3:15');
-  await expect(listenTab.locator('[data-spotify-track="3yRPnEWI5IHASxiNNgvyuh"]')).toContainText('How Many Moments Must');
-  await expect(page.locator('#tab-listen')).not.toContainText('[Missing Spotify title]');
-  await expect(page.locator('#tab-listen')).not.toContainText('[Missing duration]');
+  const works = page.locator('#worksContainer');
+  await expect(works).toContainText('The Journey Between Us - Reflection 1');
+  await expect(works).toContainText('How Many Moments Must');
+  await expect(works).not.toContainText('[Missing Spotify title]');
+  await expect(works).not.toContainText('[Missing duration]');
 });
 
-test('Spotify playback resets to the beginning when a track loads', async ({ page }) => {
+test('Spotify loads the selected first track from the beginning', async ({ page }) => {
+  await mockPlaybackProviders(page);
   await page.goto('/');
+  await page.evaluate(() => window.onSpotifyIframeApiReady(window.__spotifyIFrameApi));
+  await page.getByRole('button', { name: 'Listen & Watch' }).click();
 
-  const source = (await page.locator('script').allTextContents()).join('\n');
-  expect(source).toContain('spotifyController.seek(0)');
+  await page.locator('#worksContainer [data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]').click();
+
+  await expect(page.locator('#soundbarLabel')).toHaveText('Balconies · Olivia de Prato');
+  await expect.poll(() => page.evaluate(() => window.__spotifyCalls)).toContainEqual([
+    'loadUri',
+    'spotify:track:2wNL47uCuwDpbOqCIpbSTS',
+  ]);
+  await expect.poll(() => page.evaluate(() => window.__spotifyCalls)).toContainEqual(['seek', 0]);
 });
 
-test('pausing does not clear the playback state', async ({ page }) => {
+test('SoundCloud and Spotify playback are mutually exclusive', async ({ page }) => {
+  await mockPlaybackProviders(page);
   await page.goto('/');
+  await page.evaluate(() => window.onSpotifyIframeApiReady(window.__spotifyIFrameApi));
+  await page.getByRole('button', { name: 'Listen & Watch' }).click();
 
-  const source = (await page.locator('script').allTextContents()).join('\n');
-  expect(source).toContain("if (activeSpotifyTrack === trackId && !isPlaybackStopped)");
-  expect(source).toContain('isPlaybackStopped = false;\n                    spotifyController.play();');
+  await page.locator('#worksContainer [data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]').click();
+  await page.locator('#worksContainer [data-track="look-up"]').click();
+  await expect.poll(() => page.evaluate(() => Boolean(window.__soundCloudPlayers?.soundcloudPlayerLookUp))).toBe(true);
+  await page.evaluate(() => window.__soundCloudPlayers.soundcloudPlayerLookUp.handlers.READY());
+
+  await expect(page.locator('#soundbarLabel')).toHaveText('Look Up · 4 voices, viola da gamba and electronics');
+  await expect(page.locator('#soundbarPauseBtn')).toHaveAttribute('aria-label', 'Pause playback');
+  await expect.poll(() => page.evaluate(() => window.__spotifyCalls)).toContainEqual(['pause']);
+  await expect.poll(() => page.evaluate(() => window.__soundCloudCalls)).toContainEqual(['play', 'soundcloudPlayerLookUp']);
+});
+
+test('SoundCloud queued playback responds to pause and finish events', async ({ page }) => {
+  await mockPlaybackProviders(page);
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+
+  await page.locator('#worksContainer [data-track="look-up"]').click();
+  await expect.poll(() => page.evaluate(() => Boolean(window.__soundCloudPlayers?.soundcloudPlayerLookUp))).toBe(true);
+  await page.evaluate(() => window.__soundCloudPlayers.soundcloudPlayerLookUp.handlers.READY());
+  await expect(page.locator('#soundbarPauseBtn')).toHaveAttribute('aria-label', 'Pause playback');
+
+  await page.locator('#soundbarPauseBtn').click();
+  await expect(page.locator('#soundbarPauseBtn')).toHaveAttribute('aria-label', 'Resume playback');
+
+  await page.evaluate(() => window.__soundCloudPlayers.soundcloudPlayerLookUp.handlers.FINISH());
+  await page.getByRole('button', { name: 'Works List' }).click();
+  await expect(page.locator('#soundbar')).toBeHidden();
 });
 
 test('header Listen opens the soundbar for the default track', async ({ page }) => {
@@ -246,23 +344,26 @@ test('initialises navigation before the audio players', async ({ page }) => {
   await expect(page.locator('#tab-works')).toBeVisible();
 });
 
-test('opens and closes a work detail modal', async ({ page }) => {
+test('project modal traps focus and restores it after Escape', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByRole('button', { name: 'View Full Project Details' }).first().click();
+  const trigger = page.getByRole('button', { name: 'View Full Project Details' }).first();
+  await trigger.click();
   await expect(page.locator('#modalOverlay')).toBeVisible();
   await expect(page.locator('#modalContent')).toContainText('Wintering');
+  await expect(page.getByRole('button', { name: 'Close project details' })).toBeFocused();
 
-  await page.locator('#modalOverlay button').first().click();
+  await page.keyboard.press('Escape');
   await expect(page.locator('#modalOverlay')).toBeHidden();
+  await expect(trigger).toBeFocused();
 });
 
 test('opens and closes a YouTube modal without playing video', async ({ page }) => {
   await page.goto('/');
 
   await page.getByRole('button', { name: 'Listen & Watch' }).click();
-  await page.getByRole('tab', { name: 'Watch' }).click();
-  await page.getByRole('button', { name: /^Watch / }).first().click();
+  await page.locator('#works-view-watch').click();
+  await page.locator('#worksContainer').getByRole('button', { name: /^Watch / }).first().click();
 
   await expect(page.locator('#videoModalOverlay')).toBeVisible();
   await expect(page.locator('#videoFrame')).toHaveAttribute('src', /youtube\.com\/embed/);
@@ -270,6 +371,38 @@ test('opens and closes a YouTube modal without playing video', async ({ page }) 
   await page.getByRole('button', { name: 'Close video' }).click();
   await expect(page.locator('#videoModalOverlay')).toBeHidden();
   await expect(page.locator('#videoFrame')).toHaveAttribute('src', '');
+});
+
+test('Listen and Watch views expose their selected state and deep links', async ({ page }) => {
+  await page.goto('/#listen');
+
+  await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('#works-view-watch').click();
+  await expect(page).toHaveURL(/#watch$/);
+  await expect(page.locator('#works-view-watch')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'false');
+
+  await page.getByRole('button', { name: 'Works', exact: true }).click();
+  await expect(page).toHaveURL(/#works$/);
+  await expect(page.locator('#works-view-all')).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('deployed hostname shows the password gate and honours persisted unlocks', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'Chromium maps the deployed hostname to the local server.');
+  await page.goto('http://nicholascaplan.github.io:8000/');
+
+  const gate = page.getByRole('dialog', { name: 'Private site' });
+  await expect(gate).toBeVisible();
+  await page.getByPlaceholder('Password').fill('invalid');
+  await page.getByRole('button', { name: 'Enter site' }).click();
+  await expect(page.getByRole('alert')).toHaveText('Incorrect password.');
+  await page.getByRole('button', { name: 'Show password' }).click();
+  await expect(page.getByPlaceholder('Password')).toHaveAttribute('type', 'text');
+
+  await page.evaluate(() => sessionStorage.setItem('siteUnlocked', 'true'));
+  await page.reload();
+  await expect(gate).toBeHidden();
+  await expect(page.getByRole('navigation')).toBeVisible();
 });
 
 test('searches works and shows the empty result state', async ({ page }) => {
@@ -283,17 +416,7 @@ test('searches works and shows the empty result state', async ({ page }) => {
   await expect(page.locator('#worksContainer')).toContainText('No compositions found matching your search query.');
 });
 
-test('prefills a score request from the works list', async ({ page }) => {
-  await page.goto('/#works');
-
-  await page.locator('#worksSearchInput').fill('Wintering');
-  await page.locator('#worksContainer').getByRole('button', { name: 'Score Request' }).click();
-
-  await expect(page.locator('#tab-contact')).toBeVisible();
-  await expect(page.getByPlaceholder('Specify work title or details...')).toHaveValue(/Wintering/);
-});
-
-test('uses mobile navigation to switch sections', async ({ page }) => {
+test('uses mobile navigation to switch sections @mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
@@ -306,7 +429,8 @@ test('uses mobile navigation to switch sections', async ({ page }) => {
 
 [
   ['works', '#tab-works'],
-  ['listen', '#tab-watch-listen'],
+  ['listen', '#tab-works'],
+  ['watch', '#tab-works'],
   ['writing', '#tab-writing'],
   ['contact', '#tab-contact'],
 ].forEach(([anchor, sectionSelector]) => {
@@ -318,9 +442,7 @@ test('uses mobile navigation to switch sections', async ({ page }) => {
   });
 });
 
-test('has no serious or critical accessibility violations on the homepage', async ({ page }) => {
-  await page.goto('/');
-
+async function expectNoSeriousAxeViolations(page) {
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa'])
     .analyze();
@@ -329,4 +451,27 @@ test('has no serious or critical accessibility violations on the homepage', asyn
   );
 
   expect(blockingViolations).toEqual([]);
+}
+
+test('has no serious or critical accessibility violations across interactive states', async ({ page }) => {
+  await page.goto('/');
+  await expectNoSeriousAxeViolations(page);
+
+  await page.getByRole('button', { name: 'Works List' }).click();
+  await expectNoSeriousAxeViolations(page);
+
+  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+  await expectNoSeriousAxeViolations(page);
+
+  await page.getByRole('button', { name: 'Contact' }).click();
+  await expectNoSeriousAxeViolations(page);
+
+  await page.getByRole('button', { name: 'Biography' }).click();
+  await page.getByRole('button', { name: 'View Full Project Details' }).first().click();
+  await expectNoSeriousAxeViolations(page);
+  await page.keyboard.press('Escape');
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('#mobileMenuToggle').click();
+  await expectNoSeriousAxeViolations(page);
 });

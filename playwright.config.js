@@ -15,7 +15,33 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      grepInvert: /@mobile/,
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--host-resolver-rules=MAP nicholascaplan.github.io 127.0.0.1'],
+        },
+      },
+    },
+    {
+      name: 'firefox',
+      grepInvert: /@mobile/,
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      grepInvert: /@mobile/,
+      use: { ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'mobile-chromium',
+      grep: /@mobile/,
+      use: {
+        ...devices['Pixel 5'],
+        launchOptions: {
+          args: ['--host-resolver-rules=MAP nicholascaplan.github.io 127.0.0.1'],
+        },
+      },
     },
   ],
 });

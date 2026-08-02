@@ -9,6 +9,26 @@ Short record of settled product, content and implementation decisions for the si
 
 ## 2026-08-02
 
+### Reset Works & Media filters between views
+
+- Decision: Clear the shared search and Instrumentation filters whenever a visitor moves between the Works, Listen and Watch views. Keep the filters unchanged when the current view is re-rendered without changing views.
+- Reason: Each view is a distinct entry point into the catalogue, so stale criteria should not silently hide its content. Resetting on view changes gives every tab a predictable default while preserving normal filtering within that tab.
+
+### Keep Biography in the single-page shell
+
+- Decision: Keep Biography in `index.html` as the `#bio` route. The root route retains the quote-led homepage and Spotlight Works. The `#bio` route presents the full profile copy with supporting portrait, milestones, education and fellowship.
+- Reason: The shared document preserves one header, theme, playback state, mobile preview and navigation implementation across all current site destinations.
+
+### Do not add standalone pages before a planned architecture split
+
+- Decision: New destinations must use `index.html` in-page routes until a documented site-architecture split is approved. Do not create additional public HTML pages as an incremental navigation change.
+- Reason: A standalone page duplicates header, theme, playback, mobile-preview and routing behaviour, creating avoidable inconsistencies and regressions.
+
+### Preserve browser history between site sections
+
+- Decision: Push a browser-history entry for each deliberate section or Works & Media view change, then restore the matching view when the browser emits `popstate`.
+- Reason: Back and Forward should move through the visitor's previous places within the single-page site before leaving it. Fragments remain the shareable canonical URLs without requiring a multi-page migration.
+
 ### Stack and clarify work media actions
 
 - Decision: Always stack media actions vertically on Works cards. Use the play icon for both audio and video, with specific text labels such as `Listen`, `Trailer`, `Performance excerpt`, `Insights` and `Watch` identifying the media.

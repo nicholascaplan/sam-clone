@@ -16,7 +16,7 @@ Catch regressions before GitHub Pages deployment without turning this static por
 The current Playwright suite covers:
 
 - Page load, title, and critical assets.
-- Primary navigation between Biography, Works, Listen & Watch, Writing, and Contact.
+- Primary navigation between Works, Listen & Watch, Biography, Writing, and Contact.
 - Works category filtering and search, including the empty result state.
 - Light/dark theme switching.
 - Desktop and mobile menu behavior, including mobile navigation to another section.

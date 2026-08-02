@@ -497,9 +497,6 @@
         .works-description-mobile { display: none; }
         .mobile-cta-break { display: none; }
         @media (min-width: 641px) {
-            #bioCredentials { gap: 0.75rem; }
-            #bioCredentials > div { padding: 0.6rem 0.8rem; font-size: 0.7rem; }
-            #bioCredentials > div span { font-size: 0.8rem; }
             .hero-introduction { font-size: 1.625rem !important; }
         }
         @media (max-width: 767px) {
@@ -543,15 +540,15 @@
                 padding-right: 0.55rem;
             }
             main { padding-top: 1rem; padding-bottom: 1.5rem; }
-            #tab-bio { gap: 2rem; }
-            #tab-bio > .grid:first-child { gap: 1.5rem; }
-            #tab-bio .lg\:col-span-5 img { height: 13rem; }
-            #tab-bio .lg\:col-span-7 { gap: 1rem; }
-            #tab-bio h1 { font-size: 1.875rem; line-height: 1.2; }
+            #tab-home { gap: 2rem; }
+            #tab-home > .grid:first-child { gap: 1.5rem; }
+            #tab-home .lg\:col-span-5 img { height: 13rem; }
+            #tab-home .lg\:col-span-7 { gap: 1rem; }
+            #tab-home h1 { font-size: 1.875rem; line-height: 1.2; }
             .hero-actions { grid-template-columns: minmax(0, 1fr); padding-top: 0; }
             .hero-actions button { min-height: 3.25rem; }
             .hero-introduction { font-size: 1rem !important; line-height: 1.5; }
-            #tab-bio .mobile-cta-break { display: inline; }
+            #tab-home .mobile-cta-break { display: inline; }
             #mobileMenu:not(.hidden) {
                 display: block !important;
                 position: absolute;
@@ -630,7 +627,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
             
             <!-- Site Title / Logo -->
-                <a href="./" onclick="switchTab('bio')" class="flex flex-col group cursor-pointer flex-shrink-0">
+                <a href="./" onclick="switchTab('home')" class="flex flex-col group cursor-pointer flex-shrink-0">
                 <span class="font-display text-lg sm:text-2xl font-medium tracking-wider text-neutral-100 group-hover:text-amber-400 transition-colors uppercase">
                     Samantha Fernando
                 </span>
@@ -640,10 +637,10 @@
             </a>
 
             <!-- Streamlined Desktop Navigation (Exact 6 items on 1 line without scroll) -->
-            <nav class="hidden md:flex items-center space-x-6 text-xs font-medium tracking-wider uppercase">
-                <button onclick="switchTab('bio')" id="nav-bio" class="nav-btn py-1.5 text-amber-400 border-b-2 border-amber-400 transition-all">Biography</button>
+            <nav class="hidden md:flex items-center space-x-6 text-xs font-medium tracking-wider">
                 <button onclick="switchTab('works')" id="nav-works" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Works List</button>
                 <button onclick="switchTab('watch-listen')" id="nav-watch-listen" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Listen & Watch</button>
+                <button onclick="switchTab('bio')" id="nav-bio" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Biography</button>
                 <button onclick="switchTab('writing')" id="nav-writing" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Writing</button>
                 <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Contact</button>
             </nav>
@@ -677,10 +674,10 @@
         </div>
 
         <!-- Mobile Navigation Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider uppercase">
-                <button data-mobile-nav="bio" onclick="switchTab('bio')" class="mobile-nav-btn block w-full text-left py-2 text-amber-400 hover:text-amber-400">Biography</button>
+        <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider">
                 <button data-mobile-nav="works" onclick="switchTab('works')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
                 <button data-mobile-nav="watch-listen" onclick="switchTab('watch-listen')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen & Watch</button>
+                <button data-mobile-nav="bio" onclick="switchTab('bio')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Biography</button>
                 <button data-mobile-nav="writing" onclick="switchTab('writing')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Writing</button>
                 <button data-mobile-nav="contact" onclick="switchTab('contact')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Contact</button>
         </div>
@@ -713,195 +710,129 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
-        <!-- ================= TAB 1: BIOGRAPHY ================= -->
-        <section id="tab-bio" class="tab-content active space-y-16">
-            
-            <!-- Hero Section -->
+        <!-- ================= HOME ================= -->
+        <section id="tab-home" class="tab-content active space-y-16">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Composer Portrait -->
                 <div class="lg:col-span-5 relative group">
                     <div class="relative rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900 img-hover-zoom">
-                        <img src="assets/sam-1-1200.webp"
-                              alt="Samantha Fernando portrait"
-                              width="1200"
-                              height="800"
-                              class="w-full h-[480px] object-cover object-center"
-                              loading="eager"
-                               fetchpriority="high"
-                               decoding="sync">
+                        <img src="assets/sam-1-1200.webp" alt="Samantha Fernando portrait" width="1200" height="800" class="w-full h-[480px] object-cover object-center" loading="eager" fetchpriority="high" decoding="sync">
                     </div>
                 </div>
-
-                <!-- Bio Hero Text -->
                 <div class="lg:col-span-7 space-y-6">
-                    <h1 class="text-3xl sm:text-5xl font-serif font-light text-neutral-100 leading-tight">
-                        "Creating a space in sound that an audience can enter and inhabit."
-                    </h1>
-
+                    <h1 class="text-3xl sm:text-5xl font-serif font-light text-neutral-100 leading-tight">"Creating a space in sound that an audience can enter and inhabit."</h1>
                     <div class="hero-actions py-1">
                         <button type="button" aria-label="Listen" onclick="switchTab('watch-listen')"><i class="hero-action-icon fa-solid fa-headphones" aria-hidden="true"></i><span>Listen</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
                         <button type="button" aria-label="Explore works" onclick="switchTab('works')"><i class="hero-action-icon fa-solid fa-music" aria-hidden="true"></i><span>Explore works</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
                         <button type="button" aria-label="Get in touch" onclick="switchTab('contact')"><i class="hero-action-icon fa-regular fa-envelope" aria-hidden="true"></i><span>Get in touch</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
                     </div>
-
-                    <p class="hero-introduction text-lg text-neutral-300 font-serif-italic font-light leading-relaxed">
-                        Samantha Fernando (b. 1984) is a British composer whose work is centred on an exploration of timbre, space, and the unfolding of sound. She is drawn to ideas of landscape, architecture, and place.
-                    </p>
-
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-12 border-t border-neutral-800/80">
-                <div class="lg:col-span-2 space-y-6 text-neutral-300 leading-relaxed font-light text-base">
-                    <h2 class="text-2xl font-display uppercase tracking-wider text-neutral-100 mb-6 flex items-center gap-3">
-                         Artistic Philosophy & Biography
-                    </h2>
-
-                    <p>
-                        In recent years, her music has moved towards a language that values clarity, directness, and openness: working with deliberately limited material, allowing music time to breathe, and attending with precision to gesture, texture, and form.
-                    </p>
-                    <p>
-                        Collaboration with performers is central to her practice, particularly in shaping sound worlds that respond to the physicality of instruments and the acoustic space in which music is heard.
-                    </p>
-                    <p>
-                        Samantha has worked with numerous world-leading ensembles including the <strong class="text-neutral-100">Philharmonia Orchestra</strong>, <strong class="text-neutral-100">London Sinfonietta</strong>, <strong class="text-neutral-100">BCMG</strong>, <strong class="text-neutral-100">Riot Ensemble</strong>, <strong class="text-neutral-100">The BBC Singers</strong>, <strong class="text-neutral-100">LOD Muziektheater (Ghent)</strong>, <strong class="text-neutral-100">Silbersee Vocal Ensemble (Amsterdam)</strong> and <strong class="text-neutral-100">The Crossing (USA)</strong>. Her music has been performed at major international festivals including Aldeburgh Music, Huddersfield Contemporary Music Festival, Sounds New, Gaudeamus Muziekweek, York Late Music and the Oxford Lieder Festival.
-                    </p>
-                    <p>
-                        Samantha studied Composition at the Royal Academy of Music and the University of Oxford. She is an Honorary Research Fellow in Composition at Royal Holloway, University of London.
-                    </p>
-                    <p>
-                        In 2021, Samantha saw the opening of <em class="text-amber-300">Current, Rising</em>, a world-first hyper-reality opera experience produced by the Royal Opera House and Figment Productions. Her chamber opera <em class="text-amber-300">glass human</em>, created in collaboration with Melanie Wilson, premiered at Glyndebourne in Autumn 2022. Recent commissions include <em class="text-amber-300">Sound Inhabitants</em> for the London Sinfonietta and <em class="text-amber-300">Wintering</em>, commissioned by Wigmore Hall and performed by Manchester Collective and The Marian Consort.
-                    </p>
-                </div>
-
-                <!-- Highlights Sidebar -->
-                <div class="space-y-6">
-                    <div class="glass-panel p-6 rounded-2xl border border-neutral-800 space-y-6">
-                        <h3 class="text-sm font-mono uppercase tracking-widest text-amber-400 border-b border-neutral-800 pb-3">Key Highlights</h3>
-                        
-                        <div class="space-y-4 text-xs">
-                            <div>
-                                <span class="text-neutral-500 font-mono block">2026</span>
-                                <p class="text-neutral-200 font-medium">THE EXOPLANETS</p>
-                                <p class="text-neutral-400">Commissioned by City of London Sinfonia and premiered at Hackney Empire.</p>
-                            </div>
-                            <div>
-                                <span class="text-neutral-500 font-mono block">2025</span>
-                                <p class="text-neutral-200 font-medium">Wintering</p>
-                                <p class="text-neutral-400">Commissioned by Wigmore Hall with Manchester Collective & The Marian Consort.</p>
-                            </div>
-                            <div>
-                                <span class="text-neutral-500 font-mono block">2023</span>
-                                <p class="text-neutral-200 font-medium">Sound Inhabitants</p>
-                                <p class="text-neutral-400">15 players commission premiered by London Sinfonietta at Southbank Centre.</p>
-                            </div>
-                            <div>
-                                <span class="text-neutral-500 font-mono block">2022</span>
-                                <p class="text-neutral-200 font-medium">glass human</p>
-                                <p class="text-neutral-400">Chamber opera premiered at Glyndebourne & UK national tour.</p>
-                            </div>
-                            <div>
-                                <span class="text-neutral-500 font-mono block">2021</span>
-                                <p class="text-neutral-200 font-medium">Current, Rising</p>
-                                <p class="text-neutral-400">Hyper-reality opera experience at the Royal Opera House, London.</p>
-                            </div>
-                            <div>
-                                <span class="text-neutral-500 font-mono block">2013</span>
-                                <p class="text-neutral-200 font-medium">RPS Composition Prize</p>
-                                <p class="text-neutral-400">Royal Philharmonic Society award & Philharmonia commission.</p>
-                            </div>
-                        </div>
-
-                        <div class="pt-4 border-t border-neutral-800">
-                            <span class="text-xs font-mono uppercase text-neutral-400 block mb-2">Education & Fellowship</span>
-                            <p class="text-xs text-neutral-300">
-                                Royal Academy of Music & University of Oxford. Honorary Research Fellow at Royal Holloway, University of London.
-                            </p>
-                        </div>
-                    </div>
+                    <p class="hero-introduction text-lg text-neutral-300 font-serif-italic font-light leading-relaxed">Samantha Fernando (b. 1984) is a British composer whose work is centred on an exploration of timbre, space, and the unfolding of sound. She is drawn to ideas of landscape, architecture, and place.</p>
                 </div>
             </div>
 
             <div id="featured-projects" class="pt-12 border-t border-neutral-800/80 space-y-12">
                 <div>
                     <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Spotlight Works</span>
-                    <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Featured Operas & Major Projects</h2>
+                    <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Featured Operas &amp; Major Projects</h2>
                     <p class="text-neutral-400 text-sm mt-1">Detailed overviews, creative credits and movement structures for landmark stage and ensemble works.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Project 1: Wintering -->
-                    <div class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
+                    <article class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
                         <div class="space-y-4 flex-1">
                             <div class="aspect-video bg-neutral-900 rounded-2xl overflow-hidden img-hover-zoom border border-neutral-800">
-                                <img src="assets/wintering.webp" alt="Wintering tour artwork" class="w-full h-full object-cover">
+                                <img src="assets/wintering.webp" alt="Wintering tour artwork" class="w-full h-full object-cover" loading="lazy">
                             </div>
                             <div>
                                 <span class="text-[11px] font-mono text-amber-400 uppercase tracking-wider block">Wigmore Hall Commission (2025)</span>
                                 <h3 class="text-2xl font-serif text-neutral-100 mt-1">Wintering</h3>
                                 <p class="text-xs text-neutral-400 font-mono mt-0.5">SATB Chorus + String Quartet | 27 mins</p>
                             </div>
-                             <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">
-                                Inspired by Katherine May's book. Performed by Manchester Collective and The Marian Consort, exploring human retreat, quiet introspection, and seasonal cycles.
-                            </p>
-                             <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
+                            <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">Inspired by Katherine May's book. Performed by Manchester Collective and The Marian Consort, exploring human retreat, quiet introspection, and seasonal cycles.</p>
+                            <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
                                 <span class="text-amber-300 font-semibold block uppercase">Movements:</span>
                                 <p>I. Vista • II. Cloud Canvas 1 • III. Cloud Canvas 2 • IV. To Do: Do Less • V. Snow on Snow • VI. Cocoon</p>
                             </div>
                         </div>
-                         <button onclick="openModal('wintering', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
-                            View Full Project Details
-                        </button>
-                    </div>
+                        <button onclick="openModal('wintering', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">View Full Project Details</button>
+                    </article>
 
-                    <!-- Project 2: glass human -->
-                    <div class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
+                    <article class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
                         <div class="space-y-4 flex-1">
                             <div class="aspect-video bg-neutral-900 rounded-2xl overflow-hidden img-hover-zoom border border-neutral-800">
-                                <img src="assets/glass-huma.webp" alt="glass human artwork" class="w-full h-full object-cover">
+                                <img src="assets/glass-huma.webp" alt="glass human artwork" class="w-full h-full object-cover" loading="lazy">
                             </div>
                             <div>
                                 <span class="text-[11px] font-mono text-amber-400 uppercase tracking-wider block">Glyndebourne Opera (2022)</span>
                                 <h3 class="text-2xl font-serif text-neutral-100 mt-1">glass human</h3>
-                                <p class="text-xs text-neutral-400 font-mono mt-0.5">3 Singers, 5 Players & Electronics | 50 mins</p>
+                                <p class="text-xs text-neutral-400 font-mono mt-0.5">3 Singers, 5 Players &amp; Electronics | 50 mins</p>
                             </div>
-                             <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">
-                                Chamber opera created with librettist Melanie Wilson for Glyndebourne. Three isolated voices find their way towards each other, charting a journey from loneliness to connection.
-                            </p>
-                             <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
+                            <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">Chamber opera created with librettist Melanie Wilson for Glyndebourne. Three isolated voices find their way towards each other, charting a journey from loneliness to connection.</p>
+                            <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
                                 <span class="text-amber-300 font-semibold block uppercase">Creative Team:</span>
                                 <p>Libretto: Melanie Wilson | Director: Lucy Bailey | Cast: Anna Cavaliero, Camille Maalawy, Denver Martin Smith</p>
                             </div>
                         </div>
-                         <button onclick="openModal('glasshuman', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
-                            View Full Project Details
-                        </button>
-                    </div>
+                        <button onclick="openModal('glasshuman', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">View Full Project Details</button>
+                    </article>
 
-                    <!-- Project 3: Current, Rising -->
-                    <div class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
+                    <article class="glass-panel rounded-3xl p-6 border border-neutral-800 flex flex-col h-full hover:border-amber-700/50 transition-all">
                         <div class="space-y-4 flex-1">
                             <div class="aspect-video bg-neutral-900 rounded-2xl overflow-hidden img-hover-zoom border border-neutral-800">
-                                <img src="assets/sam-3.webp" alt="Samantha Fernando" class="w-full h-full object-cover object-center">
+                                <img src="assets/sam-3.webp" alt="Samantha Fernando" class="w-full h-full object-cover object-center" loading="lazy">
                             </div>
                             <div>
                                 <span class="text-[11px] font-mono text-amber-400 uppercase tracking-wider block">Royal Opera House (2021)</span>
                                 <h3 class="text-2xl font-serif text-neutral-100 mt-1">Current, Rising</h3>
-                                <p class="text-xs text-neutral-400 font-mono mt-0.5">Soprano, CHROMA & VR Electronics | 15 mins</p>
+                                <p class="text-xs text-neutral-400 font-mono mt-0.5">Soprano, CHROMA &amp; VR Electronics | 15 mins</p>
                             </div>
-                             <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">
-                                World-first hyper-reality opera produced by ROH & Figment Productions. Blending stagecraft with CG technology, placing the audience at the center of the performance.
-                            </p>
-                             <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
+                            <p class="text-xs text-neutral-300 leading-relaxed min-h-[96px]">World-first hyper-reality opera produced by ROH &amp; Figment Productions. Blending stagecraft with CG technology, placing the audience at the center of the performance.</p>
+                            <div class="p-3.5 h-[126px] rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono space-y-1 text-neutral-400 overflow-hidden">
                                 <span class="text-amber-300 font-semibold block uppercase">Creative Team:</span>
                                 <p>Director: Netia Jones | Soprano: Anna Dennis | Ensemble: CHROMA | CGI: Figment Productions</p>
                             </div>
                         </div>
-                         <button onclick="openModal('currentrising', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">
-                            View Full Project Details
-                        </button>
-                    </div>
+                        <button onclick="openModal('currentrising', this)" class="w-full mt-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs font-mono transition-colors text-center">View Full Project Details</button>
+                    </article>
                 </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB: BIOGRAPHY ================= -->
+        <section id="tab-bio" class="tab-content space-y-12">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <article class="lg:col-span-2 space-y-6 text-neutral-300 leading-relaxed font-light text-base">
+                    <div>
+                        <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Biography</span>
+                        <h1 class="text-3xl sm:text-5xl font-serif font-light text-neutral-100 mt-2 leading-tight">Samantha Fernando</h1>
+                        <p class="text-xl sm:text-2xl text-neutral-300 font-serif-italic font-light leading-relaxed mt-5">Samantha Fernando (b. 1984) is a British composer whose work is centred on an exploration of timbre, space, and the unfolding of sound. She is drawn to ideas of landscape, architecture, and place.</p>
+                    </div>
+                    <p>In recent years, her music has moved towards a language that values clarity, directness, and openness: working with deliberately limited material, allowing music time to breathe, and attending with precision to gesture, texture, and form.</p>
+                    <p>Collaboration with performers is central to her practice, particularly in shaping sound worlds that respond to the physicality of instruments and the acoustic space in which music is heard.</p>
+                    <p>Samantha has worked with numerous world-leading ensembles including the <strong class="text-neutral-100">Philharmonia Orchestra</strong>, <strong class="text-neutral-100">London Sinfonietta</strong>, <strong class="text-neutral-100">BCMG</strong>, <strong class="text-neutral-100">Riot Ensemble</strong>, <strong class="text-neutral-100">The BBC Singers</strong>, <strong class="text-neutral-100">LOD Muziektheater (Ghent)</strong>, <strong class="text-neutral-100">Silbersee Vocal Ensemble (Amsterdam)</strong> and <strong class="text-neutral-100">The Crossing (USA)</strong>. Her music has been performed at major international festivals including Aldeburgh Music, Huddersfield Contemporary Music Festival, Sounds New, Gaudeamus Muziekweek, York Late Music and the Oxford Lieder Festival.</p>
+                    <p>Samantha studied Composition at the Royal Academy of Music and the University of Oxford. She is an Honorary Research Fellow in Composition at Royal Holloway, University of London.</p>
+                    <p>In 2021, Samantha saw the opening of <em class="text-amber-300">Current, Rising</em>, a world-first hyper-reality opera experience produced by the Royal Opera House and Figment Productions. Her chamber opera <em class="text-amber-300">glass human</em>, created in collaboration with Melanie Wilson, premiered at Glyndebourne in Autumn 2022. Recent commissions include <em class="text-amber-300">Sound Inhabitants</em> for the London Sinfonietta and <em class="text-amber-300">Wintering</em>, commissioned by Wigmore Hall and performed by Manchester Collective and The Marian Consort.</p>
+                    <button type="button" onclick="switchTab('contact')" class="inline-flex items-center gap-2 text-sm text-amber-300 hover:text-amber-200 transition-colors">Commissions, score hire and performance materials <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+
+                <aside class="space-y-6">
+                    <figure class="rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900">
+                        <img src="assets/sam-1-1200.webp" alt="Samantha Fernando standing among green foliage" width="1200" height="800" class="w-full aspect-[4/5] object-cover object-center" loading="lazy">
+                    </figure>
+                    <div class="glass-panel p-6 rounded-2xl border border-neutral-800 space-y-6">
+                        <h2 class="text-sm font-mono uppercase tracking-widest text-amber-400 border-b border-neutral-800 pb-3">Selected Milestones</h2>
+                        <div class="space-y-4 text-xs">
+                            <div><span class="text-neutral-500 font-mono block">2026</span><p class="text-neutral-200 font-medium">THE EXOPLANETS</p><p class="text-neutral-400">City of London Sinfonia</p></div>
+                            <div><span class="text-neutral-500 font-mono block">2025</span><p class="text-neutral-200 font-medium">Wintering</p><p class="text-neutral-400">Wigmore Hall commission</p></div>
+                            <div><span class="text-neutral-500 font-mono block">2023</span><p class="text-neutral-200 font-medium">Sound Inhabitants</p><p class="text-neutral-400">London Sinfonietta</p></div>
+                            <div><span class="text-neutral-500 font-mono block">2022</span><p class="text-neutral-200 font-medium">glass human</p><p class="text-neutral-400">Glyndebourne premiere</p></div>
+                            <div><span class="text-neutral-500 font-mono block">2021</span><p class="text-neutral-200 font-medium">Current, Rising</p><p class="text-neutral-400">Royal Opera House</p></div>
+                        </div>
+                        <div class="pt-4 border-t border-neutral-800">
+                            <span class="text-xs font-mono uppercase text-neutral-400 block mb-2">Education &amp; Fellowship</span>
+                            <p class="text-xs text-neutral-300">Royal Academy of Music and University of Oxford. Honorary Research Fellow at Royal Holloway, University of London.</p>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </section>
 
@@ -1545,6 +1476,7 @@
 
         // Tab Switching Handler
         const tabAnchors = {
+            bio: 'bio',
             works: 'works',
             'watch-listen': 'listen',
             writing: 'writing',
@@ -1552,6 +1484,7 @@
         };
 
         const anchorTabs = {
+            bio: 'bio',
             works: 'works',
             listen: 'watch-listen',
             watch: 'watch-listen',
@@ -1559,13 +1492,20 @@
             contact: 'contact'
         };
 
-        function switchTab(tabId, requestedWorksView) {
+        function updateNavigationHistory(anchor) {
+            const url = anchor
+                ? `${window.location.pathname}${window.location.search}#${anchor}`
+                : `${window.location.pathname}${window.location.search}`;
+            if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== url) {
+                history.pushState(null, '', url);
+            }
+        }
+
+        function switchTab(tabId, requestedWorksView, updateHistory = true) {
             if (isPlaybackStopped) clearStoppedPlayback();
             const worksView = requestedWorksView || (tabId === 'watch-listen' ? 'listen' : 'all');
             const anchor = tabId === 'watch-listen' ? worksView : tabAnchors[tabId];
-            history.replaceState(null, '', anchor
-                ? `${window.location.pathname}${window.location.search}#${anchor}`
-                : `${window.location.pathname}${window.location.search}`);
+            if (updateHistory) updateNavigationHistory(anchor);
             if (!document.getElementById('mobileMenu').classList.contains('hidden')) toggleMobileMenu();
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1592,7 +1532,7 @@
                 btn.classList.toggle('text-neutral-300', !isActive);
             });
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (updateHistory) window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         const mediaCatalog = [
@@ -1664,13 +1604,13 @@
             }
 
             return filtered.map(media => `
-                <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-end justify-between gap-4 group">
+                <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-start justify-between gap-4 group">
                     <div class="space-y-1">
                         <div class="flex items-center gap-3"><span class="text-xs font-mono text-amber-400">${media.year || 'Undated'}</span><span class="text-xs font-mono text-neutral-500 uppercase">${media.type === 'listen' ? 'Recording' : 'Film'}</span>${media.provider === 'spotify' ? '<span class="text-xs font-mono text-neutral-500 uppercase">30 sec preview</span>' : ''}</div>
                         <h3 class="text-lg font-serif text-neutral-100 group-hover:text-amber-300 transition-colors">${media.title}</h3>
                         <p class="text-xs text-neutral-400">${media.detail}</p>
                     </div>
-                    <div class="flex items-center gap-2 pt-2 md:pt-0">${mediaActionMarkup(media)}</div>
+                    <div class="flex items-center gap-2 pt-2 md:pt-0 md:mt-auto">${mediaActionMarkup(media)}</div>
                 </div>
             `).join('');
         }
@@ -1707,7 +1647,7 @@
             }
 
             container.innerHTML = filtered.map(w => `
-                <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-end justify-between gap-4 group">
+                 <div class="glass-panel p-5 rounded-2xl border border-neutral-800 hover:border-amber-700/50 transition-all flex flex-col md:flex-row md:items-start justify-between gap-4 group">
                     <div class="space-y-1">
                          <div class="flex items-center gap-3">
                              <span class="text-xs font-mono text-amber-400">${w.year}</span>
@@ -1723,7 +1663,7 @@
                          </div>
                     </div>
 
-                     <div class="work-media-actions pt-2 md:pt-0">
+                      <div class="work-media-actions pt-2 md:pt-0 md:mt-auto">
                          ${mediaCatalog.filter(media => (media.workTitle || media.title) === w.title).map(mediaActionMarkup).join('')}
                      </div>
                 </div>
@@ -1731,12 +1671,14 @@
         }
 
         function setWorksView(view, updateUrl = true) {
+            const viewChanged = activeWorksView !== view;
             activeWorksView = view;
+            if (viewChanged) resetWorksFilters();
             const isAllWorks = view === 'all';
             if (updateUrl) {
                 const tabId = isAllWorks ? 'works' : 'watch-listen';
                 const anchor = isAllWorks ? 'works' : view;
-                history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${anchor}`);
+                updateNavigationHistory(anchor);
                 document.querySelectorAll('.nav-btn').forEach(button => {
                     const active = button.id === `nav-${tabId}`;
                     button.classList.toggle('text-amber-400', active);
@@ -1770,6 +1712,16 @@
             renderWorks();
         }
 
+        function resetWorksFilters() {
+            activeCategory = 'all';
+            document.getElementById('worksSearchInput').value = '';
+            document.getElementById('worksInstrumentationLabel').textContent = 'Instrumentation: All';
+            document.querySelectorAll('.instrumentation-option').forEach(button => {
+                button.setAttribute('aria-selected', String(button.dataset.category === 'all'));
+            });
+            closeInstrumentationMenu();
+        }
+
         function setWorkCategory(cat) {
             activeCategory = cat;
             const option = document.querySelector(`#worksInstrumentationMenu [data-category="${cat}"]`);
@@ -1798,8 +1750,14 @@
         }
 
         const initialAnchor = window.location.hash.slice(1);
-        const initialTab = anchorTabs[initialAnchor] || 'bio';
-        switchTab(initialTab, initialAnchor === 'watch' ? 'watch' : undefined);
+        const initialTab = anchorTabs[initialAnchor] || 'home';
+        switchTab(initialTab, initialAnchor === 'watch' ? 'watch' : undefined, false);
+
+        window.addEventListener('popstate', () => {
+            const anchor = window.location.hash.slice(1);
+            const tab = anchorTabs[anchor] || 'home';
+            switchTab(tab, anchor === 'watch' ? 'watch' : undefined, false);
+        });
 
         // SoundCloud playback for Samantha Fernando's published recordings.
         const defaultSpotifyTrackId = '3YV79qjiJLOgYjjEzTsVEy';

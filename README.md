@@ -1,6 +1,6 @@
 # Samantha Fernando Website
 
-Static single-page portfolio for composer Samantha Fernando. It presents her biography, works, performances, writing, recordings, and contact information.
+Static single-page portfolio for composer Samantha Fernando. Biography, works, recordings, writing and contact information use in-page routes in `index.html`.
 
 ## Technical Overview
 

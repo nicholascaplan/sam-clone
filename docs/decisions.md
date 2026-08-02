@@ -19,6 +19,11 @@ Short record of settled product, content and implementation decisions for the si
 - Decision: Show a compact circular portrait beside the opening Biography text on phone widths and hide the larger supporting portrait there. Keep the larger portrait in the desktop sidebar.
 - Reason: The thumbnail provides a visual pause in the profile copy without making visitors scroll through a portrait that occupies most of the mobile screen.
 
+### Tighten mobile homepage section spacing
+
+- Decision: Reduce the mobile gap between the homepage introduction and Spotlight Works, and reduce the featured section's top padding while leaving desktop spacing unchanged.
+- Reason: The mobile layout had excess vertical whitespace after the introduction. A narrow-screen-only adjustment exposes the featured content sooner without changing the editorial hierarchy or desktop composition.
+
 ### Reset Works & Media filters between views
 
 - Decision: Clear the shared search and Instrumentation filters whenever a visitor moves between the Works, Listen and Watch views. Keep the filters unchanged when the current view is re-rendered without changing views.

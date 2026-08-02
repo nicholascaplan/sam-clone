@@ -50,6 +50,8 @@ The Works cards now use a consistent structure: year, category, duration, title,
 
 ### Session Verification Notes
 
+- Session note, 2026-08-02: Tightened the mobile homepage gap before Spotlight Works and reduced the featured section top padding. `git diff --check` passes; Playwright was attempted but could not start because port `8000` was already in use. Deployment was requested for this session.
+
 - The local Playground now includes a grouped component index with desktop and mobile layouts.
 - Inline JavaScript parsing and `git diff --check` passed.
 - Playwright browser verification was blocked by the macOS sandbox denying Chromium's rendezvous service. No deployment or published artifact changes were made.

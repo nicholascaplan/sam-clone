@@ -202,6 +202,26 @@ test('filters the Listen view by instrumentation', async ({ page }) => {
   await expect(page.locator('#worksContainer h3', { hasText: 'Balconies' })).toHaveCount(0);
 });
 
+test('shows Wintering watch CTA in All Works', async ({ page }) => {
+  await page.goto('/#works');
+
+  const wintering = page.locator('#worksContainer > div', { has: page.getByRole('heading', { name: 'Wintering' }) });
+  await expect(wintering.getByRole('button', { name: 'Watch Wintering (Trailer)' })).toBeVisible();
+});
+
+test('shows CTAs for title variants linked to works', async ({ page }) => {
+  await page.goto('/#works');
+
+  for (const [workTitle, mediaTitle] of [
+    ['glass human', 'glass human - Official Trailer'],
+    ['Current, Rising', "Current, Rising: The World's First Hyper-Reality Opera"],
+    ['Fault-Line', 'Fault Line for Solo Cello']
+  ]) {
+    const work = page.locator('#worksContainer > div', { has: page.getByRole('heading', { name: workTitle, exact: true }) });
+    await expect(work.getByRole('button', { name: `Watch ${mediaTitle}` })).toBeVisible();
+  }
+});
+
 test('switches between Listen and Watch views while preserving filters', async ({ page }) => {
   await page.goto('/#listen');
   await page.getByRole('button', { name: 'Instrumentation: All' }).click();

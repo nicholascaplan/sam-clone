@@ -1635,13 +1635,13 @@
             { type: 'listen', title: 'Positive/Negative Space', year: 2013, detail: 'Flute, clarinet, alto sax and cello', provider: 'soundcloud', id: 'positive-negative-space' },
             { type: 'listen', title: 'Square of Light', year: 2013, detail: 'Soprano and piano', provider: 'soundcloud', id: 'square-of-light' },
             { type: 'listen', title: 'The Journey Between Us - Reflection 1', year: 2016, detail: 'Mixed ensemble', provider: 'soundcloud', id: 'journey-between-us' },
-            { type: 'watch', title: 'glass human - Official Trailer', year: 2022, category: 'opera', detail: 'Glyndebourne. Official trailer for the chamber opera created with sound artist and writer Melanie Wilson, exploring isolation and connection across three lives.', url: 'https://www.youtube.com/watch?v=-bGBfGd_2aM' },
-            { type: 'watch', title: "'Today the Letter Must Come' - glass human", year: 2024, category: 'opera', detail: 'Camille Maalawy. Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain.', url: 'https://www.youtube.com/watch?v=15R1ci2MHF0' },
-            { type: 'watch', title: "Current, Rising: The World's First Hyper-Reality Opera", year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Teaser for a 15-minute hyper-reality opera combining virtual reality with a multisensory set.', url: 'https://www.youtube.com/watch?v=KXrYuIWLv60' },
-            { type: 'watch', title: "How Was the World's First Hyper-Reality Opera Created?", year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Insights panel on the development and technology behind Current, Rising with Samantha Fernando and the creative team.', url: 'https://www.youtube.com/watch?v=AVXYPqdAYdY' },
-            { type: 'watch', title: 'Wintering (Trailer)', year: 2025, category: 'ensemble', detail: 'Manchester Collective. Preview of Wintering for four vocalists and string quartet, presented by Manchester Collective and The Marian Consort.', url: 'https://www.youtube.com/watch?v=5BApW0VSCes' },
+            { type: 'watch', title: 'glass human - Official Trailer', workTitle: 'glass human', year: 2022, category: 'opera', detail: 'Glyndebourne. Official trailer for the chamber opera created with sound artist and writer Melanie Wilson, exploring isolation and connection across three lives.', url: 'https://www.youtube.com/watch?v=-bGBfGd_2aM' },
+            { type: 'watch', title: "'Today the Letter Must Come' - glass human", workTitle: 'glass human', year: 2024, category: 'opera', detail: 'Camille Maalawy. Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain.', url: 'https://www.youtube.com/watch?v=15R1ci2MHF0' },
+            { type: 'watch', title: "Current, Rising: The World's First Hyper-Reality Opera", workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Teaser for a 15-minute hyper-reality opera combining virtual reality with a multisensory set.', url: 'https://www.youtube.com/watch?v=KXrYuIWLv60' },
+            { type: 'watch', title: "How Was the World's First Hyper-Reality Opera Created?", workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Insights panel on the development and technology behind Current, Rising with Samantha Fernando and the creative team.', url: 'https://www.youtube.com/watch?v=AVXYPqdAYdY' },
+            { type: 'watch', title: 'Wintering (Trailer)', workTitle: 'Wintering', year: 2025, category: 'ensemble', detail: 'Manchester Collective. Preview of Wintering for four vocalists and string quartet, presented by Manchester Collective and The Marian Consort.', url: 'https://www.youtube.com/watch?v=5BApW0VSCes' },
             { type: 'watch', title: 'Sound Inhabitants', year: 2024, category: 'ensemble', detail: 'London Sinfonietta. Full performance recording of Sound Inhabitants for large ensemble, commissioned and premiered by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=hirZmf8DoA4' },
-            { type: 'watch', title: 'Fault Line for Solo Cello', year: 2022, category: 'chamber', detail: 'Louise McMonagle. Performance of Fault Line, a solo cello piece originally commissioned by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=k3jRJHzIu4Q' },
+            { type: 'watch', title: 'Fault Line for Solo Cello', workTitle: 'Fault-Line', year: 2022, category: 'chamber', detail: 'Louise McMonagle. Performance of Fault Line, a solo cello piece originally commissioned by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=k3jRJHzIu4Q' },
             { type: 'watch', title: 'Composition for Voice & Electronics (enoa Workshop)', year: 2015, category: 'vocal', detail: 'enoa community. Final concert recording from the European Network of Opera Academies workshop exploring vocal textures and electronic processing.', url: 'https://www.youtube.com/watch?v=b_w_uYmFwZ4' },
             { type: 'watch', title: 'Samantha Fernando: Pathways', year: 2018, detail: 'Sound and Music. Documentary profile on Samantha Fernando\'s musical philosophy, tableaux-like textures, openness in composition and motherhood as a creative catalyst.', url: 'https://www.youtube.com/watch?v=XcRdZftNuYA' },
             { type: 'watch', title: "Samantha Fernando: The Composer's Mind", year: 2016, detail: 'London Sinfonietta. Short documentary detailing Samantha Fernando\'s creative process, structural thinking and writing techniques.', url: 'https://www.youtube.com/watch?v=94EkZLEuKBA' }
@@ -1663,7 +1663,7 @@
         function renderMediaCatalog(searchVal) {
             const filtered = mediaCatalog.filter(media => `${media.title} ${media.detail}`.toLowerCase().includes(searchVal))
                 .filter(media => media.type === activeWorksView)
-                .filter(media => activeCategory === 'all' || media.category === activeCategory || worksData.find(work => work.title === media.title)?.category === activeCategory)
+                .filter(media => activeCategory === 'all' || media.category === activeCategory || worksData.find(work => (media.workTitle || media.title) === work.title)?.category === activeCategory)
                 .sort((a, b) => (b.year || 0) - (a.year || 0) || a.title.localeCompare(b.title));
 
             if (!filtered.length) {
@@ -1748,7 +1748,7 @@
                     </div>
 
                      <div class="flex flex-wrap items-center justify-end gap-2 pt-2 md:pt-0">
-                         ${mediaCatalog.filter(media => media.title === w.title).map(mediaActionMarkup).join('')}
+                         ${mediaCatalog.filter(media => (media.workTitle || media.title) === w.title).map(mediaActionMarkup).join('')}
                      </div>
                 </div>
             `).join('');

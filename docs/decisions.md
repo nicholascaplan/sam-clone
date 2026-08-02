@@ -2,6 +2,13 @@
 
 Short record of settled product, content and implementation decisions for the site.
 
+## 2026-08-02
+
+### Stack and clarify work media actions
+
+- Decision: Always stack media actions vertically on Works cards. Use the play icon for both audio and video, with specific text labels such as `Listen`, `Trailer`, `Performance excerpt`, `Insights` and `Watch` identifying the media.
+- Reason: A consistent vertical group handles multiple recordings without awkward wrapping. The play icon communicates the action more directly than a film strip, while the visible label provides the necessary media context.
+
 ## 2026-08-01
 
 ### Unify Works and media in one catalogue

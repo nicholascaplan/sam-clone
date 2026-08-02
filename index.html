@@ -164,6 +164,7 @@
             font-weight: 600;
             transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
         }
+        .work-media-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
         .work-media-action:hover { border-color: #f59e0b; color: #fcd6a7; background: rgba(180, 83, 9, 0.12); }
         .work-media-action:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
         .light-mode .work-media-action { border-color: rgba(169, 87, 0, 0.7); color: #944900; }
@@ -1616,10 +1617,10 @@
             { type: 'listen', title: 'Positive/Negative Space', year: 2013, detail: 'Flute, clarinet, alto sax and cello', provider: 'soundcloud', id: 'positive-negative-space' },
             { type: 'listen', title: 'Square of Light', year: 2013, detail: 'Soprano and piano', provider: 'soundcloud', id: 'square-of-light' },
             { type: 'listen', title: 'The Journey Between Us - Reflection 1', year: 2016, detail: 'Mixed ensemble', provider: 'soundcloud', id: 'journey-between-us' },
-            { type: 'watch', title: 'glass human - Official Trailer', workTitle: 'glass human', year: 2022, category: 'opera', detail: 'Glyndebourne. Official trailer for the chamber opera created with sound artist and writer Melanie Wilson, exploring isolation and connection across three lives.', url: 'https://www.youtube.com/watch?v=-bGBfGd_2aM' },
-            { type: 'watch', title: "'Today the Letter Must Come' - glass human", workTitle: 'glass human', year: 2024, category: 'opera', detail: 'Camille Maalawy. Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain.', url: 'https://www.youtube.com/watch?v=15R1ci2MHF0' },
-            { type: 'watch', title: "Current, Rising: The World's First Hyper-Reality Opera", workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Teaser for a 15-minute hyper-reality opera combining virtual reality with a multisensory set.', url: 'https://www.youtube.com/watch?v=KXrYuIWLv60' },
-            { type: 'watch', title: "How Was the World's First Hyper-Reality Opera Created?", workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Insights panel on the development and technology behind Current, Rising with Samantha Fernando and the creative team.', url: 'https://www.youtube.com/watch?v=AVXYPqdAYdY' },
+            { type: 'watch', title: 'glass human - Official Trailer', actionLabel: 'Trailer', workTitle: 'glass human', year: 2022, category: 'opera', detail: 'Glyndebourne. Official trailer for the chamber opera created with sound artist and writer Melanie Wilson, exploring isolation and connection across three lives.', url: 'https://www.youtube.com/watch?v=-bGBfGd_2aM' },
+            { type: 'watch', title: "'Today the Letter Must Come' - glass human", actionLabel: 'Performance excerpt', workTitle: 'glass human', year: 2024, category: 'opera', detail: 'Camille Maalawy. Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain.', url: 'https://www.youtube.com/watch?v=15R1ci2MHF0' },
+            { type: 'watch', title: "Current, Rising: The World's First Hyper-Reality Opera", actionLabel: 'Trailer', workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Trailer for a 15-minute hyper-reality opera combining virtual reality with a multisensory set.', url: 'https://www.youtube.com/watch?v=KXrYuIWLv60' },
+            { type: 'watch', title: "How Was the World's First Hyper-Reality Opera Created?", actionLabel: 'Insights', workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Insights panel on the development and technology behind Current, Rising with Samantha Fernando and the creative team.', url: 'https://www.youtube.com/watch?v=AVXYPqdAYdY' },
             { type: 'watch', title: 'Wintering (Trailer)', workTitle: 'Wintering', year: 2025, category: 'ensemble', detail: 'Manchester Collective. Preview of Wintering for four vocalists and string quartet, presented by Manchester Collective and The Marian Consort.', url: 'https://www.youtube.com/watch?v=5BApW0VSCes' },
             { type: 'watch', title: 'Sound Inhabitants', year: 2024, category: 'ensemble', detail: 'London Sinfonietta. Full performance recording of Sound Inhabitants for large ensemble, commissioned and premiered by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=hirZmf8DoA4' },
             { type: 'watch', title: 'Fault Line for Solo Cello', workTitle: 'Fault-Line', year: 2022, category: 'chamber', detail: 'Louise McMonagle. Performance of Fault Line, a solo cello piece originally commissioned by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=k3jRJHzIu4Q' },
@@ -1638,7 +1639,8 @@
                     : `data-track="${media.id}"`;
                 return `<button type="button" ${dataAttribute} onclick="${handler}" class="work-media-action"><i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i> Listen</button>`;
             }
-            return `<button type="button" aria-label="Watch ${media.title}" onclick="openVideoModal('${media.url}', '${media.title.replace(/'/g, "\\'")}')" class="work-media-action"><i class="fa-solid fa-film text-[10px]" aria-hidden="true"></i> Watch</button>`;
+            const actionLabel = media.actionLabel || 'Watch';
+            return `<button type="button" aria-label="Watch ${media.title}" onclick="openVideoModal('${media.url}', '${media.title.replace(/'/g, "\\'")}')" class="work-media-action"><i class="fa-solid fa-play text-[10px]" aria-hidden="true"></i> ${actionLabel}</button>`;
         }
 
         function renderMediaCatalog(searchVal) {
@@ -1728,7 +1730,7 @@
                          </div>
                     </div>
 
-                     <div class="flex flex-wrap items-center justify-end gap-2 pt-2 md:pt-0">
+                     <div class="work-media-actions pt-2 md:pt-0">
                          ${mediaCatalog.filter(media => (media.workTitle || media.title) === w.title).map(mediaActionMarkup).join('')}
                      </div>
                 </div>

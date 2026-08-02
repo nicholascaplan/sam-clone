@@ -286,6 +286,8 @@ test('Spotify loads the selected first track from the beginning', async ({ page 
     'spotify:track:2wNL47uCuwDpbOqCIpbSTS',
   ]);
   await expect.poll(() => page.evaluate(() => window.__spotifyCalls)).toContainEqual(['seek', 0]);
+  await expect(page.locator('#soundbarDurationTime')).toHaveText('0:30');
+  await expect(page.locator('#soundbarProgress')).toHaveAttribute('aria-valuemax', '30000');
 });
 
 test('SoundCloud and Spotify playback are mutually exclusive', async ({ page }) => {
@@ -379,7 +381,7 @@ test('project modal traps focus and restores it after Escape', async ({ page }) 
 });
 
 test('opens and closes a YouTube modal without playing video', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
 
   await page.getByRole('button', { name: 'Listen & Watch' }).click();
   await page.locator('#works-view-watch').click();
@@ -455,7 +457,7 @@ test('uses mobile navigation to switch sections @mobile', async ({ page }) => {
   ['contact', '#tab-contact'],
 ].forEach(([anchor, sectionSelector]) => {
   test(`opens the ${anchor} deep link`, async ({ page }) => {
-    await page.goto(`/#${anchor}`);
+    await page.goto(`/#${anchor}`, { waitUntil: 'domcontentloaded' });
 
     await expect(page).toHaveURL(new RegExp(`#${anchor}$`));
     await expect(page.locator(sectionSelector)).toBeVisible();

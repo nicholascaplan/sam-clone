@@ -815,26 +815,6 @@
                 </div>
             </div>
 
-            <div class="pt-12 border-t border-neutral-800/80">
-                <div class="glass-panel rounded-3xl p-6 border border-neutral-800 space-y-5">
-                    <div>
-                        <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Calendar</span>
-                        <h2 class="text-2xl font-display uppercase tracking-wider text-neutral-100 mt-1">Events</h2>
-                    </div>
-                    <div class="space-y-3 text-xs">
-                        <p><strong class="text-amber-300">12 Mar 2026</strong> · <em>THE EXOPLANETS</em> · City of London Sinfonia · Hackney Empire, London</p>
-                        <p><strong class="text-amber-300">5 Dec 2025</strong> · <em>Wintering</em> · Manchester Collective · Bristol Beacon, Bristol</p>
-                        <p><strong class="text-amber-300">3 Dec 2025</strong> · <em>Wintering</em> · Manchester Collective · Sir Jack Lyons, York</p>
-                        <p><strong class="text-amber-300">29 Nov 2025</strong> · <em>Wintering</em> · Manchester Collective · Tung Auditorium, Liverpool</p>
-                        <p><strong class="text-amber-300">28 Nov 2025</strong> · <em>Wintering</em> · Manchester Collective · Howard Assembly Room, Leeds</p>
-                        <p><strong class="text-amber-300">27 Nov 2025</strong> · <em>Wintering</em> · Manchester Collective · Stoller Hall, Manchester</p>
-                        <p><strong class="text-amber-300">22 Nov 2025</strong> · <em>Wintering</em> (World Premiere) · Manchester Collective & The Marian Consort · Wigmore Hall, London</p>
-                        <p><strong class="text-amber-300">6 Sep 2025</strong> · <em>THE EXOPLANETS</em> · City of London Sinfonia · Norwich Theatre</p>
-                        <p><strong class="text-amber-300">2 Feb 2025</strong> · <em>Fault Line</em> · Tim Gill, London Sinfonietta · Turner Sims, Southampton</p>
-                    </div>
-                </div>
-            </div>
-
             <div id="featured-projects" class="pt-12 border-t border-neutral-800/80 space-y-12">
                 <div>
                     <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Spotlight Works</span>
@@ -1964,19 +1944,12 @@
                 ,'5k4j31qldbj9wqg9VBKo01': 'Utterance'
                 ,'1o0qiFnwPPgBA3k6QWVPM8': 'The Half Moon'
             };
-            const spotifyTrackDurations = {
-                '2wNL47uCuwDpbOqCIpbSTS': 413000,
-                '3YV79qjiJLOgYjjEzTsVEy': 210000,
-                '3yRPnEWI5IHASxiNNgvyuh': 60000,
-                '5k4j31qldbj9wqg9VBKo01': 166000,
-                '1o0qiFnwPPgBA3k6QWVPM8': 251000
-            };
             currentTrackName = spotifyTrackNames[trackId] || 'Spotify recording';
             currentTrackId = trackId;
             activeAudioProvider = 'spotify';
             isPlaybackStopped = false;
             if (activeSpotifyTrack !== trackId) spotifyElapsedMs = 0;
-            trackDurationMs = spotifyTrackDurations[trackId] || 0;
+            trackDurationMs = 30000;
             updateSoundbarProgress(spotifyElapsedMs);
             document.getElementById('soundbarLabel').textContent = currentTrackName;
             document.getElementById('soundbar').classList.remove('hidden');

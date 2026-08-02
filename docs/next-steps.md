@@ -11,8 +11,7 @@ The Works cards now use a consistent structure: year, category, duration, title,
 - What is the exact instrumentation for **Formations**?
 - Is **Wintering** scored for four solo SATB voices or SATB chorus, alongside string quartet?
 - What are the exact strings and percussion in **Breathing Forest**?
-- What are the complete scorings for **Breathing Space**, **Echo of a Woman** and **Glimmer**?
-- Could you re-upload **Glimmer** so it can be embedded on the site?
+- What are the complete scorings for **Breathing Space** and **Echo of a Woman**?
 - What are the premiere dates, performers, conductors and venues for works where only partial premiere information is currently recorded?
 - Please confirm when **How Many Moments Must**, **Utterance**, **Recollections** and **The Half Moon** were composed and recorded, and identify the performers, ensemble or other recording collaborators for each. For **The Journey Between Us - Reflection 1** (composed 2016), confirm its recording date and collaborators. Add them to the Works List if they are Samantha Fernando compositions.
 - What are the original premiere details for **3 Songs for Soprano and Cello**? The 2020 recording details are not necessarily the premiere.
@@ -25,7 +24,7 @@ The Works cards now use a consistent structure: year, category, duration, title,
 
 - [ ] **Enable real contact-form delivery.** Sam needs to create a [Formspree](https://formspree.io/) account and provide the form endpoint. Replace the current confirmation-only form behaviour with a real submission, success and error flow.
 - [ ] **Remove the bio from the page and add it to a new page.** Confirm the new page location and preserve the approved biography content when moving it.
-- [ ] **Remove Events and past performances.** Remove both sections from the page and update related navigation, source content and documentation as needed.
+- [x] **Remove Events and past performances.** Removed the homepage past-performance archive; the Events calendar remains as the current homepage schedule.
 - [ ] **Review and refresh dated content.** The listed upcoming events end in March 2026 and the featured writing is dated November 2025. Confirm current events, new works, recordings and writing with Sam before publishing updates.
 - [ ] **Add Exoplanets.** Confirm the title, catalogue placement and metadata with Sam, then add it to the appropriate site listings and `docs/content.md`.
 - [ ] **Remove full stops from listing copy.** Review repeated listings and catalogue metadata, removing terminal full stops where they are not part of the content itself.
@@ -110,3 +109,4 @@ Track these findings from the local design-reference audit. The reference page i
 - Session note, 2026-08-02: Replaced the Watch catalogue with the supplied ten-video YouTube catalogue, adding both `glass human` videos and `Samantha Fernando: Pathways` and removing `4 Klee Miniatures` from the Watch view. Updated the source content record and README count. `git diff --check` and inline JavaScript syntax pass. `npm test` remains blocked before assertions because the BoxedCode sandbox denies Chromium's macOS rendezvous service; rerun it in an unrestricted terminal or CI before deployment.
 - Session note, 2026-08-02: Refined Playwright assertions after browser feedback so they target current UI semantics rather than stale names, hidden controls or assumed card-level media actions. Desktop test projects exclude `@mobile` cases. `git diff --check` and test/config syntax checks pass; run `npm test` in an unrestricted terminal or CI before deployment.
 - Session note, 2026-08-02: Diagnosed the GitHub Actions Axe failure as light-theme contrast on the dynamically selected Works view buttons. Updated their colors to follow `aria-pressed`, recorded the fix in the component registry, and passed `git diff --check`. The final browser run remains to be confirmed in an unrestricted environment.
+- Session note, 2026-08-02: Removed the homepage Past Performances archive and removed the four outdated works requested by Sam: Glimmer, Shadows on Shadows, Change and War Without End. Static reference and whitespace checks pass. Browser verification remains blocked by the BoxedCode sandbox's Chromium macOS rendezvous permission error.

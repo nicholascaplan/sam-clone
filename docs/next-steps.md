@@ -32,15 +32,14 @@ The Works cards now use a consistent structure: year, category, duration, title,
 
 ## 2. Resolve Current Design Decisions
 
-- [x] **Optimise the favicon.** The `SF` monogram now uses compact browser-tab and home-screen assets; `assets/new-favicon.png` remains the source artwork.
-- [x] **Split Listen and Watch navigation.** Desktop and mobile menus now open the `#listen` and `#watch` catalogue views directly.
+- [ ] **Confirm the favicon with Sam.** The site currently uses `assets/new-favicon.png`; confirm that this is the preferred browser-tab and home-screen icon.
+- [ ] **Move Listen & Watch to the second menu position.** Confirm the revised navigation order before changing the header and mobile menu.
 - [ ] **Review the mobile menu close control.** Assess whether the menu `X` should sit lower on mobile for better reach and visual balance.
 - [ ] **Review dark mode top to bottom.** Check the menu, mobile layout, controls, contrast, borders, active states and all content sections for incorrect or inconsistent styling.
 - [ ] **Assess a narrower mobile header.** Test whether reducing the header width or horizontal padding improves the mobile layout without compromising title, Composer text or controls.
 
 ## 3. Quality And Product Follow-ups
 
-- [ ] **Re-measure homepage LCP after deployment.** The hero image remains the LCP element. The initial render no longer runs Tailwind's CDN compiler or requests playback providers, so record 3 to 5 uncached production traces and compare median LCP against the previous 3.04 s local result.
 - [ ] **Profile portrait and homepage performance investigation.** Record 3 to 5 uncached Chrome DevTools Performance traces with Screenshots and Web Vitals enabled. Compare median LCP, LCP element and main-thread/network activity before the marker. Use Network request blocking for `w.soundcloud.com`, then `fonts.googleapis.com` and `fonts.gstatic.com`, to isolate third-party media and font impact on the perceived homepage and portrait load delay.
 - [ ] **Manually verify third-party media on the deployed site.** Check SoundCloud playback events, Spotify and SoundCloud mutual exclusion, soundbar restart and stop controls, soundbar visibility during navigation, and YouTube thumbnail/modal behaviour. Use widget events, not the soundbar alone, to establish that audio is playing.
 - [ ] **Decide whether recordings need an availability indicator.** Add one only if the final catalogue includes a mix of playable and unavailable recordings; otherwise the current playable rows and availability note are sufficient.

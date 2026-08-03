@@ -16,16 +16,16 @@ Catch regressions before GitHub Pages deployment without turning this static por
 The current Playwright suite covers:
 
 - Page load, title, and critical assets.
-- Primary navigation between Home, Works, Listen & Watch, Biography, Writing, and Contact, including the active Home state on initial load.
+- Primary navigation between Home, Works, Listen, Watch, Biography, Writing, and Contact, including the active Home state on initial load.
 - Works category filtering and search, including the empty result state.
 - Light/dark theme switching.
 - Desktop and mobile menu behavior, including mobile navigation to another section.
 - Mobile menu parity with the primary navigation, so adding a navigation item without its mobile equivalent fails the smoke test.
-- Listen & Watch tab switching.
+- Listen and Watch catalogue view switching.
 - Work-detail and YouTube modal open/close behavior without attempting provider playback.
 - Score-request journey from the works list to a prefilled contact message.
 - Contact form Formspree success and failure behavior using mocked responses, without sending live enquiries.
-- Deep links for Works, Listen & Watch, Writing, and Contact.
+- Deep links for Works, Listen, Watch, Writing, and Contact.
 - Serious and critical WCAG 2 A/AA accessibility violations on the homepage.
 
 The accessibility scan covers the default light theme, which is the initial page state.

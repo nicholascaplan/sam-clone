@@ -5,43 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samantha Fernando - Composer</title>
     <link rel="preload" as="image" href="assets/sam-1-1200.webp" type="image/webp" fetchpriority="high">
-    <link rel="icon" type="image/png" href="assets/new-favicon.png">
-    <link rel="apple-touch-icon" href="assets/new-favicon.png">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="assets/tailwind.min.css">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f7f7f6',
-                            100: '#efefec',
-                            200: '#dedede',
-                            800: '#232321',
-                            900: '#141413',
-                            accent: '#9a7b56',
-                            accentLight: '#c2a683'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Newsreader', 'Georgia', 'serif'],
-                        display: ['Cinzel', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
     
     <style>
         body {
@@ -672,7 +644,8 @@
             <nav class="hidden md:flex items-center space-x-6 text-xs font-medium tracking-wider">
                 <button onclick="switchTab('home')" id="nav-home" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Home</button>
                 <button onclick="switchTab('works')" id="nav-works" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Works List</button>
-                <button onclick="switchTab('watch-listen')" id="nav-watch-listen" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Listen & Watch</button>
+                <button onclick="switchTab('listen')" id="nav-listen" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Listen</button>
+                <button onclick="switchTab('watch')" id="nav-watch" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Watch</button>
                 <button onclick="switchTab('bio')" id="nav-bio" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Biography</button>
                 <button onclick="switchTab('writing')" id="nav-writing" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Writing</button>
                 <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Contact</button>
@@ -710,7 +683,8 @@
         <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider">
                 <button data-mobile-nav="home" onclick="switchTab('home')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Home</button>
                 <button data-mobile-nav="works" onclick="switchTab('works')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
-                <button data-mobile-nav="watch-listen" onclick="switchTab('watch-listen')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen & Watch</button>
+                <button data-mobile-nav="listen" onclick="switchTab('listen')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen</button>
+                <button data-mobile-nav="watch" onclick="switchTab('watch')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Watch</button>
                 <button data-mobile-nav="bio" onclick="switchTab('bio')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Biography</button>
                 <button data-mobile-nav="writing" onclick="switchTab('writing')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Writing</button>
                 <button data-mobile-nav="contact" onclick="switchTab('contact')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Contact</button>
@@ -755,7 +729,7 @@
                 <div class="lg:col-span-7 space-y-6">
                     <h1 class="text-2xl sm:text-5xl font-serif font-light text-neutral-100 leading-tight">"Creating a space in sound that an audience can enter and inhabit."</h1>
                     <div class="hero-actions py-1">
-                        <button type="button" aria-label="Listen" onclick="switchTab('watch-listen')"><i class="hero-action-icon fa-solid fa-headphones" aria-hidden="true"></i><span>Listen</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
+                        <button type="button" aria-label="Listen" onclick="switchTab('listen')"><i class="hero-action-icon fa-solid fa-headphones" aria-hidden="true"></i><span>Listen</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
                         <button type="button" aria-label="Explore works" onclick="switchTab('works')"><i class="hero-action-icon fa-solid fa-music" aria-hidden="true"></i><span>Explore works</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
                         <button type="button" aria-label="Get in touch" onclick="switchTab('contact')"><i class="hero-action-icon fa-regular fa-envelope" aria-hidden="true"></i><span>Get in touch</span><span class="hero-action-arrow" aria-hidden="true"><svg viewBox="0 0 32 16"><path d="M1 8h25M20 2l6 6-6 6"></path></svg></span></button>
                     </div>
@@ -932,7 +906,7 @@
                 <!-- Video 1: Sound Inhabitants -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-2.webp" alt="Samantha Fernando at work in her studio" class="w-full h-full object-cover">
+                        <img src="assets/sam-2.webp" alt="Samantha Fernando at work in her studio" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <a href="https://www.youtube.com/watch?v=hirZmf8DoA4" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-play ml-1"></i>
@@ -951,7 +925,7 @@
                 <!-- Video 2: Current, Rising trailer -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-6.webp" alt="Current, Rising trailer artwork" class="w-full h-full object-cover">
+                        <img src="assets/sam-6.webp" alt="Current, Rising trailer artwork" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                              <a href="https://www.youtube.com/watch?v=KXrYuIWLv60" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-play ml-1"></i>
@@ -970,7 +944,7 @@
                 <!-- Video 3: Wintering trailer -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/wintering.webp" alt="Wintering film trailer artwork" class="w-full h-full object-cover">
+                        <img src="assets/wintering.webp" alt="Wintering film trailer artwork" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <a href="https://www.youtube.com/watch?v=5BApW0VSCes" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-play ml-1"></i>
@@ -989,7 +963,7 @@
                 <!-- Video 4: glass human -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/glass-huma.webp" alt="glass human trailer artwork" class="w-full h-full object-cover">
+                        <img src="assets/glass-huma.webp" alt="glass human trailer artwork" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <button onclick="openModal('glasshuman')" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-circle-info"></i>
@@ -1008,7 +982,7 @@
                 <!-- Video 4: Current, Rising -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-6.webp" alt="Samantha Fernando working with a score" class="w-full h-full object-cover">
+                        <img src="assets/sam-6.webp" alt="Samantha Fernando working with a score" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <button onclick="openModal('currentrising')" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-circle-info"></i>
@@ -1027,7 +1001,7 @@
                 <!-- Video 5: Current, Rising creation -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-3.webp" alt="Portrait of Samantha Fernando" class="w-full h-full object-cover">
+                        <img src="assets/sam-3.webp" alt="Portrait of Samantha Fernando" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <a href="https://www.youtube.com/watch?v=AVXYPqdAYdY" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-play ml-1"></i>
@@ -1046,7 +1020,7 @@
                 <!-- Video 6: Composer interview -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-1.webp" alt="Portrait of Samantha Fernando" class="w-full h-full object-cover">
+                        <img src="assets/sam-1.webp" alt="Portrait of Samantha Fernando" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <a href="https://www.youtube.com/watch?v=94EkZLEuKBA" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-play ml-1"></i>
@@ -1065,7 +1039,7 @@
                 <!-- Video 7: enoa community -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-6.webp" alt="Samantha Fernando working with a score" class="w-full h-full object-cover">
+                        <img src="assets/sam-6.webp" alt="Samantha Fernando working with a score" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <a href="https://www.youtube.com/watch?v=b_w_uYmFwZ4" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
                                 <i class="fa-solid fa-play ml-1"></i>
@@ -1082,7 +1056,7 @@
                 <!-- Video 8: 4 Klee Miniatures -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-1.webp" alt="Samantha Fernando portrait" class="w-full h-full object-cover">
+                        <img src="assets/sam-1.webp" alt="Samantha Fernando portrait" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <a href="https://www.youtube.com/watch?v=x2q25aBh48Y" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110"><i class="fa-solid fa-play ml-1"></i></a>
                         </div>
@@ -1093,7 +1067,7 @@
                 <!-- Video 9: Fault Line -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-2.webp" alt="Samantha Fernando at work" class="w-full h-full object-cover">
+                        <img src="assets/sam-2.webp" alt="Samantha Fernando at work" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <a href="https://www.youtube.com/watch?v=k3jRJHzIu4Q" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110"><i class="fa-solid fa-play ml-1"></i></a>
                         </div>
@@ -1302,7 +1276,7 @@
                 <!-- Direct Information Card -->
                 <div class="lg:col-span-5 space-y-6">
                     <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-6">
-                        <img src="assets/sam-6.webp" alt="Samantha Fernando" class="w-full h-48 object-cover rounded-2xl border border-neutral-800">
+                        <img src="assets/sam-6.webp" alt="Samantha Fernando" class="w-full h-48 object-cover rounded-2xl border border-neutral-800" loading="lazy">
                         <h3 class="text-xl font-serif text-neutral-100">Direct Contact</h3>
                         <p class="text-neutral-300 text-xs leading-relaxed">
                             If you would like to contact Samantha about her compositions, score hire, performance materials or academic research, please send a message or email directly:
@@ -1517,7 +1491,8 @@
         const tabAnchors = {
             bio: 'bio',
             works: 'works',
-            'watch-listen': 'listen',
+            listen: 'listen',
+            watch: 'watch',
             writing: 'writing',
             contact: 'contact'
         };
@@ -1525,8 +1500,8 @@
         const anchorTabs = {
             bio: 'bio',
             works: 'works',
-            listen: 'watch-listen',
-            watch: 'watch-listen',
+            listen: 'listen',
+            watch: 'watch',
             writing: 'writing',
             contact: 'contact'
         };
@@ -1542,8 +1517,9 @@
 
         function switchTab(tabId, requestedWorksView, updateHistory = true) {
             if (isPlaybackStopped) clearStoppedPlayback();
-            const worksView = requestedWorksView || (tabId === 'watch-listen' ? 'listen' : 'all');
-            const anchor = tabId === 'watch-listen' ? worksView : tabAnchors[tabId];
+            const isMediaView = tabId === 'listen' || tabId === 'watch';
+            const worksView = requestedWorksView || (isMediaView ? tabId : 'all');
+            const anchor = isMediaView ? worksView : tabAnchors[tabId];
             if (updateHistory) updateNavigationHistory(anchor);
             if (!document.getElementById('mobileMenu').classList.contains('hidden')) toggleMobileMenu();
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -1552,7 +1528,7 @@
                 btn.classList.add('text-neutral-400', 'border-transparent');
             });
 
-            const targetTabId = tabId === 'watch-listen' ? 'works' : tabId;
+            const targetTabId = isMediaView ? 'works' : tabId;
             const targetTab = document.getElementById(`tab-${targetTabId}`);
             if (targetTab) {
                 targetTab.classList.add('active');
@@ -1719,7 +1695,7 @@
             if (viewChanged) resetWorksFilters();
             const isAllWorks = view === 'all';
             if (updateUrl) {
-                const tabId = isAllWorks ? 'works' : 'watch-listen';
+                const tabId = isAllWorks ? 'works' : view;
                 const anchor = isAllWorks ? 'works' : view;
                 updateNavigationHistory(anchor);
                 document.querySelectorAll('.nav-btn').forEach(button => {
@@ -1806,6 +1782,7 @@
         let currentTrackId = defaultSpotifyTrackId;
         let spotifyController = null;
         let spotifyReady = null;
+        let spotifyApiLoading = false;
         let pendingSpotifyTrack = null;
         let activeSpotifyTrack = null;
         let isSpotifyPlaying = false;
@@ -1865,8 +1842,20 @@
             return soundcloudInitialisation;
         }
 
+        function loadSpotifyApi() {
+            if (spotifyReady || spotifyApiLoading) return;
+
+            spotifyApiLoading = true;
+            const script = document.createElement('script');
+            script.src = 'https://open.spotify.com/embed/iframe-api/v1';
+            script.async = true;
+            script.onerror = () => { spotifyApiLoading = false; };
+            document.head.appendChild(script);
+        }
+
         window.onSpotifyIframeApiReady = (IFrameAPI) => {
             spotifyReady = IFrameAPI;
+            spotifyApiLoading = false;
             if (pendingSpotifyTrack) {
                 const trackId = pendingSpotifyTrack;
                 pendingSpotifyTrack = null;
@@ -1962,6 +1951,7 @@
             pauseSoundCloudPlayers();
             if (!spotifyReady) {
                 pendingSpotifyTrack = trackId;
+                loadSpotifyApi();
                 return;
             }
 

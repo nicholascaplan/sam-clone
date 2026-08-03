@@ -31,6 +31,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build stylesheet
+        run: npm run build:css
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
@@ -46,6 +49,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build stylesheet
+        run: npm run build:css
 
       - name: Setup Pages
         uses: actions/configure-pages@v6

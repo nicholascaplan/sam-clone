@@ -60,7 +60,56 @@ test('loads the site and renders primary navigation', async ({ page }) => {
   await expect(page.getByRole('navigation')).toContainText('Biography');
   await expect(page.getByRole('button', { name: 'Home' }).first()).toHaveClass(/text-amber-400/);
   await expect(page.getByRole('button', { name: 'Works List' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Listen & Watch' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Listen', exact: true }).first()).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Watch', exact: true }).first()).toBeVisible();
+});
+
+test('navigation opens the Listen and Watch catalogue views', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
+  await expect(page).toHaveURL(/#listen$/);
+  await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'true');
+
+  await page.getByRole('button', { name: 'Watch', exact: true }).first().click();
+  await expect(page).toHaveURL(/#watch$/);
+  await expect(page.locator('#works-view-watch')).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('uses compact browser and home-screen icons', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', 'assets/favicon.png');
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute('href', 'assets/apple-touch-icon.png');
+  await expect(page.locator('link[rel="icon"]')).not.toHaveAttribute('href', /new-favicon/);
+});
+
+test('defers the Spotify API until playback is requested', async ({ page }) => {
+  const spotifyRequests = [];
+  await page.route('https://open.spotify.com/embed/iframe-api/v1', route => {
+    spotifyRequests.push(route.request().url());
+    return route.fulfill({ contentType: 'application/javascript', body: '' });
+  });
+
+  await page.goto('/');
+  expect(spotifyRequests).toEqual([]);
+
+  await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
+  await page.locator('#worksContainer [data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]').click();
+  await expect.poll(() => spotifyRequests).toHaveLength(1);
+});
+
+test('uses the precompiled local stylesheet', async ({ page }) => {
+  const tailwindCompilerRequests = [];
+  await page.route('https://cdn.tailwindcss.com/**', route => {
+    tailwindCompilerRequests.push(route.request().url());
+    return route.abort();
+  });
+
+  await page.goto('/');
+
+  await expect(page.locator('link[href="assets/tailwind.min.css"]')).toHaveCount(1);
+  expect(tailwindCompilerRequests).toEqual([]);
 });
 
 test('switches to the works list and filters by category', async ({ page }) => {
@@ -168,6 +217,8 @@ test('opens and closes the mobile navigation menu @mobile', async ({ page }) => 
   await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
   await expect(menu).toBeVisible();
   await expect(menu.getByRole('button', { name: 'Home' })).toBeVisible();
+  await expect(menu.getByRole('button', { name: 'Listen', exact: true })).toBeVisible();
+  await expect(menu.getByRole('button', { name: 'Watch', exact: true })).toBeVisible();
   await expect(menu.getByRole('button', { name: 'Biography' })).toBeVisible();
   await expect(menu.getByRole('button', { name: 'Contact' })).toBeVisible();
 
@@ -280,7 +331,7 @@ test('shows a contact error when Formspree rejects the submission', async ({ pag
 test('filters the Listen view by instrumentation', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+  await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
   await expect(page.locator('#tab-works')).toBeVisible();
   await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('#worksContainer .work-media-action').first()).toBeVisible();
@@ -355,7 +406,7 @@ test('soundbar starts with the default track name', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('#soundbarLabel')).toHaveText('Everything Passes, Everything is Connected · The Crossing');
-  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+  await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
   await expect(page.locator('#worksContainer [data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]')).toBeVisible();
 });
 
@@ -388,7 +439,7 @@ test('Spotify loads the selected first track from the beginning', async ({ page 
   await mockPlaybackProviders(page);
   await page.goto('/');
   await page.evaluate(() => window.onSpotifyIframeApiReady(window.__spotifyIFrameApi));
-  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+  await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
 
   await page.locator('#worksContainer [data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]').click();
 
@@ -406,7 +457,7 @@ test('SoundCloud and Spotify playback are mutually exclusive', async ({ page }) 
   await mockPlaybackProviders(page);
   await page.goto('/');
   await page.evaluate(() => window.onSpotifyIframeApiReady(window.__spotifyIFrameApi));
-  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+  await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
 
   await page.locator('#worksContainer [data-spotify-track="2wNL47uCuwDpbOqCIpbSTS"]').click();
   await page.locator('#worksContainer [data-track="look-up"]').click();
@@ -422,7 +473,7 @@ test('SoundCloud and Spotify playback are mutually exclusive', async ({ page }) 
 test('SoundCloud queued playback responds to pause and finish events', async ({ page }) => {
   await mockPlaybackProviders(page);
   await page.goto('/');
-  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+  await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
 
   await page.locator('#worksContainer [data-track="look-up"]').click();
   await expect.poll(() => page.evaluate(() => Boolean(window.__soundCloudPlayers?.soundcloudPlayerLookUp))).toBe(true);
@@ -495,8 +546,7 @@ test('opens and closes a featured project modal', async ({ page }) => {
 test('opens and closes a YouTube modal without playing video', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-  await page.getByRole('button', { name: 'Listen & Watch' }).click();
-  await page.locator('#works-view-watch').click();
+  await page.getByRole('button', { name: 'Watch', exact: true }).first().click();
   await page.locator('#worksContainer').getByRole('button', { name: /^Watch / }).first().click();
 
   await expect(page.locator('#videoModalOverlay')).toBeVisible();
@@ -561,6 +611,21 @@ test('uses mobile navigation to switch sections @mobile', async ({ page }) => {
   await expect(page.locator('#mobileMenu')).toBeHidden();
 });
 
+test('mobile navigation opens Listen and Watch directly @mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  await page.locator('#mobileMenuToggle').click();
+  await page.locator('#mobileMenu').getByRole('button', { name: 'Listen', exact: true }).click();
+  await expect(page).toHaveURL(/#listen$/);
+  await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'true');
+
+  await page.locator('#mobileMenuToggle').click();
+  await page.locator('#mobileMenu').getByRole('button', { name: 'Watch', exact: true }).click();
+  await expect(page).toHaveURL(/#watch$/);
+  await expect(page.locator('#works-view-watch')).toHaveAttribute('aria-pressed', 'true');
+});
+
 [
   ['bio', '#tab-bio'],
   ['works', '#tab-works'],
@@ -595,7 +660,7 @@ test('has no serious or critical accessibility violations across interactive sta
   await page.getByRole('button', { name: 'Works List' }).click();
   await expectNoSeriousAxeViolations(page);
 
-  await page.getByRole('button', { name: 'Listen & Watch' }).click();
+  await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
   await expectNoSeriousAxeViolations(page);
 
   await page.getByRole('button', { name: 'Contact' }).click();

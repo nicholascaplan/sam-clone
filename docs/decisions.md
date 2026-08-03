@@ -2,12 +2,34 @@
 
 Short record of settled product, content and implementation decisions for the site.
 
+## 2026-08-03
+
+### Separate Listen and Watch navigation
+
+- Decision: Replace the combined `Listen & Watch` navigation item with separate `Listen` and `Watch` items in the desktop and mobile menus. Each opens its corresponding `#listen` or `#watch` catalogue view.
+- Reason: Direct labels make the recording and film destinations immediately clear while retaining the shared Works & Media catalogue and its existing deep links.
+
 ### Keep event listings newest first
 
 - Decision: Display the homepage event calendar and event source listings in descending date order, with the most recent event first.
 - Reason: Visitors can see the latest event immediately, and the shared ordering convention keeps the homepage and content records aligned.
 
 ## 2026-08-02
+
+### Serve compact monogram icon variants
+
+- Decision: Keep the `SF` monogram as the browser and home-screen icon, but serve dedicated `96px` favicon and `180px` Apple touch-icon PNGs. Retain `assets/new-favicon.png` only as the high-resolution source artwork.
+- Reason: The source PNG is `2048 x 2048` and 4.4 MB, which consumes disproportionate bandwidth for an icon. The dedicated assets are 12 KB and 32 KB respectively while remaining more than sharp enough at their displayed sizes. This is separate from the browser's page-load indicator.
+
+### Keep third-party media out of the initial page load
+
+- Decision: Load the Spotify IFrame API only after a visitor requests a Spotify preview, and lazy-load images belonging to the hidden Watch route.
+- Reason: An immediate third-party API request and multiple hidden-route image downloads could keep the browser's loading indicator active after the homepage had already rendered. Playback remains available on demand without competing with the initial page load.
+
+### Precompile utility CSS for the initial render
+
+- Decision: Build Tailwind utility CSS during development and GitHub Pages deployment, then link the generated local stylesheet instead of loading Tailwind's browser-side CDN compiler.
+- Reason: The hero portrait is the LCP element and is already a small 88 KB WebP. The CDN compiler must download, parse the full document and generate styles on the main thread before the hero can finish rendering. Precompilation removes that work and third-party request from the LCP path while preserving the existing class-based design system.
 
 ### Submit contact enquiries in place through Formspree
 

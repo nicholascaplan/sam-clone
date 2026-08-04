@@ -5,7 +5,6 @@ Use this file to track unresolved implementation, product and maintenance work. 
 ## Verification And Accessibility
 
 - [ ] **HIGH PRIORITY: Manually verify third-party media on the deployed site.** Check SoundCloud playback events, Spotify and SoundCloud mutual exclusion, soundbar restart and stop controls, soundbar visibility during navigation, and YouTube thumbnail/modal behaviour. Use widget events, not the soundbar alone, to establish that audio is playing.
-- [ ] **HIGH PRIORITY: Resolve the component-reference audit.** Prioritise keyboard-operable audio rows, complete modal semantics, catalogue-view semantics, shared focus treatment and role-based colour tokens.
 - [ ] **Align responsive breakpoints.** Reconcile the documented and implemented mobile thresholds, then test desktop, phone landscape, narrow mobile and iframe preview layouts.
 - [ ] **Standardise notice and reduced-motion behaviour.** Distinguish informational availability or metadata gaps from errors, and provide reduced-motion alternatives for transitions, playback animation and media hover scaling.
 - [ ] **Reduce catalogue maintenance drift.** Keep legacy Listen and Watch source content only while required, and review the rendering path for duplicated metadata, IDs and handlers when that area next changes.

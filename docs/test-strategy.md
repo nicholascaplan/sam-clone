@@ -15,7 +15,8 @@ npm test
 - Page load, core assets and navigation.
 - Hash routes, browser history, Works/Listen/Watch filters and search.
 - Persisted theme switching, the Instrumentation menu's selected state in both themes, and mobile-navigation menus. Theme-dependent interactive states are exercised in both light and dark modes.
-- Works and YouTube modals, score-request flow and contact-form success/failure states.
+- Works and YouTube modal semantics, focus restoration, score-request flow and contact-form success/failure states.
+- Keyboard-operable audio rows, catalogue view state, result announcements and Instrumentation-menu keyboard navigation.
 - Mocked Spotify and SoundCloud playback state, including provider hand-off.
 - Password-gate behaviour on the deployed hostname mapped to the local server.
 - Serious and critical Axe violations across interactive states.

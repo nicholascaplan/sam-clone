@@ -134,6 +134,19 @@ test('switches to the works list and filters by category', async ({ page }) => {
   await expect(page.locator('#worksContainer')).not.toContainText('Wintering');
 });
 
+test('supports keyboard navigation in the instrumentation menu', async ({ page }) => {
+  await page.goto('/#works');
+
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+  await expect(page.getByRole('option', { name: 'Instrumentation: All' })).toBeFocused();
+  await page.keyboard.press('ArrowDown');
+  await expect(page.getByRole('option', { name: 'Solo & Chamber (1-4)' })).toBeFocused();
+  await page.keyboard.press('End');
+  await expect(page.getByRole('option', { name: 'Orchestral' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Instrumentation: All' })).toBeFocused();
+});
+
 test('hero actions navigate to their destinations', async ({ page }) => {
   await page.goto('/');
 
@@ -503,6 +516,18 @@ test('soundbar starts with the default track name', async ({ page }) => {
   await expect(page.locator('#worksContainer [data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]')).toBeVisible();
 });
 
+test('exposes legacy audio rows as keyboard-operable buttons', async ({ page }) => {
+  await mockPlaybackProviders(page);
+  await page.goto('/');
+
+  const row = page.locator('#tab-listen [data-track="illuminations"]');
+  await expect(row).toHaveAttribute('role', 'button');
+  await expect(row).toHaveAttribute('tabindex', '0');
+  await expect(row).toHaveAttribute('aria-label', /Play 4 Illuminations/);
+  await row.press('Enter');
+  await expect.poll(() => page.evaluate(() => Boolean(window.__soundCloudPlayers?.soundcloudPlayerIlluminations))).toBe(true);
+});
+
 test('lists confirmed Listen metadata without placeholder details', async ({ page }) => {
   await page.goto('/#listen');
 
@@ -629,6 +654,8 @@ test('opens and closes a featured project modal', async ({ page }) => {
   await trigger.click();
   await expect(page.locator('#modalOverlay')).toBeVisible();
   await expect(page.locator('#modalContent')).toContainText('Wintering');
+  await expect(page.locator('#modalOverlay')).toHaveAttribute('aria-labelledby', 'modalTitle');
+  await expect(page.locator('#modalOverlay').getByRole('heading', { name: 'Wintering' })).toHaveAttribute('id', 'modalTitle');
   await expect(page.getByRole('button', { name: 'Close project details' })).toBeFocused();
 
   await page.keyboard.press('Escape');
@@ -644,10 +671,22 @@ test('opens and closes a YouTube modal without playing video', async ({ page }) 
 
   await expect(page.locator('#videoModalOverlay')).toBeVisible();
   await expect(page.locator('#videoFrame')).toHaveAttribute('src', /youtube\.com\/embed/);
+  await expect(page.getByRole('button', { name: 'Close video' })).toBeFocused();
 
   await page.getByRole('button', { name: 'Close video' }).click();
   await expect(page.locator('#videoModalOverlay')).toBeHidden();
   await expect(page.locator('#videoFrame')).toHaveAttribute('src', '');
+});
+
+test('announces catalogue result changes and exposes mutually exclusive views', async ({ page }) => {
+  await page.goto('/#works');
+
+  await expect(page.locator('#worksContainer')).toHaveAttribute('role', 'region');
+  await expect(page.locator('#worksContainer')).toHaveAttribute('aria-live', 'polite');
+  await expect(page.locator('#works-view-all')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'false');
+  await page.locator('#works-view-listen').click();
+  await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'true');
 });
 
 test('Listen and Watch views expose their selected state and deep links', async ({ page }) => {

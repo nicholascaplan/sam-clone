@@ -28,6 +28,7 @@ Record only decisions that constrain future work. Implementation history and com
 - Use the custom playback rows rather than provider-native embeds. Native embeds add uncontrollable UI and inconsistent mobile sizing.
 - Use a shared media-action width on desktop; stack multiple actions there and use equal-width paired actions on mobile. Left-align single mobile media actions.
 - Use a neutral treatment for availability and missing-metadata notices unless an actual error occurred.
+- Use role-based colour tokens and a shared visible focus treatment for interactive controls. Preserve the current amber focus colour in dark mode and the darker amber focus colour in light mode.
 
 ## Responsive And Performance
 

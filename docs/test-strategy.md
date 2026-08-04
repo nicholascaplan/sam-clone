@@ -29,6 +29,4 @@ npm test
 
 ## Deployment
 
-The Pages workflow must run tests and publish an allowlisted artifact containing only `index.html` and `assets/`.
-
-BoxedCode cannot check the public Pages URL because sandbox network policy blocks it. Verify the GitHub Actions deployment instead; live propagation remains unverified until checked outside BoxedCode.
+The Pages workflow must run tests and publish an allowlisted artifact containing only `index.html` and `assets/`. Verify the GitHub Actions deployment after each push; live-site propagation should be checked separately.

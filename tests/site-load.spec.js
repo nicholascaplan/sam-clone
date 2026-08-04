@@ -396,7 +396,7 @@ test('lists TRAPPIST-1e as an orchestral work with both premieres', async ({ pag
   await page.goto('/#works');
 
   const exoplanets = page.locator('#worksContainer > div', {
-    has: page.getByRole('heading', { name: 'Movement 5: TRAPPIST-1e' })
+    has: page.getByRole('heading', { name: 'Exoplanets: TRAPPIST-1e' })
   });
   await expect(exoplanets).toContainText('Orchestral');
   await expect(exoplanets).toContainText('Norwich Theatre Royal, 2025 (Naomi Woo)');

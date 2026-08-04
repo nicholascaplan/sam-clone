@@ -40,7 +40,7 @@ In 2021, Samantha saw the opening of Current, Rising, a world-first hyper-realit
 
 ### Key Highlights
 
-- 2025 - Movement 5: TRAPPIST-1e (from The Exoplanets): City of London Sinfonia and curious directive co-commission, premiered at Norwich Theatre Royal.
+- 2025 - Exoplanets: TRAPPIST-1e (from The Exoplanets): City of London Sinfonia and curious directive co-commission, premiered at Norwich Theatre Royal.
 - 2025 - Wintering: Commissioned by Wigmore Hall with Manchester Collective & The Marian Consort.
 - 2023 - Sound Inhabitants: 15 players commission premiered by London Sinfonietta at Southbank Centre.
 - 2022 - glass human: Chamber opera premiered at Glyndebourne & UK national tour.
@@ -124,7 +124,7 @@ This Spotlight Works section appears beneath the homepage hero. The full biograp
 
 ### Orchestral
 
-- Movement 5: TRAPPIST-1e (from The Exoplanets) (2025) - 5 mins. Orchestra. Part of a 95-minute continuous suite. Co-commissioned by City of London Sinfonia and curious directive, in association with Norwich Theatre and Norfolk and Suffolk Music Hub. World premiere: City of London Sinfonia, cond. Naomi Woo, Norwich Theatre Royal, 6-7 September 2025. London premiere: City of London Sinfonia, cond. Micah Gleason, Hackney Empire, 13 March 2026. Inspired by the rocky exoplanet TRAPPIST-1e and its habitable zone. One of seven movements in an orchestral and theatrical suite with planetarium visuals and science commentary.
+- Exoplanets: TRAPPIST-1e (from The Exoplanets) (2025) - 5 mins. Orchestra. Part of a 95-minute continuous suite. Co-commissioned by City of London Sinfonia and curious directive, in association with Norwich Theatre and Norfolk and Suffolk Music Hub. World premiere: City of London Sinfonia, cond. Naomi Woo, Norwich Theatre Royal, 6-7 September 2025. London premiere: City of London Sinfonia, cond. Micah Gleason, Hackney Empire, 13 March 2026. Inspired by the rocky exoplanet TRAPPIST-1e and its habitable zone. One of seven movements in an orchestral and theatrical suite with planetarium visuals and science commentary.
 - Breathing Space (2019) - Symphony orchestra. Commissioned by Philharmonia Orchestra.
 - Echo of a Woman (2018) - Soprano and orchestra. Commissioned by Royal Holloway University Symphony Orchestra.
 
@@ -144,7 +144,7 @@ The current card data in `index.html` includes durations and additional details 
 ## Watch
 
 - Catalogue filter: Watch, inside Works & Media. The catalogue contains sixteen films.
-- The Exoplanets: Samantha Fernando introduces TRAPPIST-1e. Related work: Movement 5: TRAPPIST-1e. Label: The Exoplanets (2025). Description: Samantha Fernando introduces her movement inspired by the rocky exoplanet TRAPPIST-1e. Link: https://www.youtube.com/watch?v=PtuinjIcJD0
+- The Exoplanets: Samantha Fernando introduces TRAPPIST-1e. Related work: Exoplanets: TRAPPIST-1e. Label: The Exoplanets (2025). Description: Samantha Fernando introduces her movement inspired by the rocky exoplanet TRAPPIST-1e. Link: https://www.youtube.com/watch?v=PtuinjIcJD0
 - glass human - Official Trailer. Related work: glass human. Label: Glyndebourne (2022). Duration: 0:55. Description: Official trailer for the chamber opera created by Samantha Fernando and sound artist and writer Melanie Wilson, exploring isolation and connection across three lives. Link: https://www.youtube.com/watch?v=-bGBfGd_2aM
 - 'Today the Letter Must Come' - glass human. Related work: glass human. Label: Camille Maalawy (2024). Duration: 3:20. Description: Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain. Link: https://www.youtube.com/watch?v=15R1ci2MHF0
 - Current, Rising: The World's First Hyper-Reality Opera. Action label: Trailer. Label: Royal Ballet and Opera (2020). Duration: 0:50. Description: Trailer for a 15-minute hyper-reality opera combining virtual reality with a multisensory set. Music is composed by Samantha Fernando, directed by Netia Jones, with libretto by Melanie Wilson and vocals by Anna Dennis. Link: https://www.youtube.com/watch?v=KXrYuIWLv60

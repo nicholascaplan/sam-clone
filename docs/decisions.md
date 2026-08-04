@@ -9,6 +9,11 @@ Short record of settled product, content and implementation decisions for the si
 
 ## 2026-08-02
 
+### Load the contact portrait promptly at display size
+
+- Decision: Use an 800px WebP derivative for the contact portrait and request it eagerly with low priority. Include intrinsic dimensions and asynchronous decoding to avoid layout shifts while keeping it behind the above-the-fold homepage portrait in the priority order.
+- Reason: The contact card displays a small image, but the previous lazy-loaded 2,500px source was about 522 KB and could remain blank briefly after direct `#contact` navigation. The derivative is about 39 KB and eager loading makes the in-page destination feel complete sooner without competing with the high-priority homepage hero.
+
 ### Submit contact enquiries in place through Formspree
 
 - Decision: Submit the static contact form to Formspree with native `fetch`, retaining the visitor on the contact route and showing accessible loading, success or error feedback.

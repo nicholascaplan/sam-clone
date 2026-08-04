@@ -41,6 +41,7 @@ The Works cards now use a consistent structure: year, category, duration, title,
 ## 3. Quality And Product Follow-ups
 
 - [ ] **Profile portrait and homepage performance investigation.** Record 3 to 5 uncached Chrome DevTools Performance traces with Screenshots and Web Vitals enabled. Compare median LCP, LCP element and main-thread/network activity before the marker. Use Network request blocking for `w.soundcloud.com`, then `fonts.googleapis.com` and `fonts.gstatic.com`, to isolate third-party media and font impact on the perceived homepage and portrait load delay.
+- Session note, 2026-08-04: The contact portrait now uses an eager, low-priority 800px WebP derivative (`assets/sam-6-800.webp`, about 39 KB) instead of lazy-loading the 2,500px source (about 522 KB). A focused Playwright assertion covers the loading mode and asset.
 - [ ] **Manually verify third-party media on the deployed site.** Check SoundCloud playback events, Spotify and SoundCloud mutual exclusion, soundbar restart and stop controls, soundbar visibility during navigation, and YouTube thumbnail/modal behaviour. Use widget events, not the soundbar alone, to establish that audio is playing.
 - [ ] **Decide whether recordings need an availability indicator.** Add one only if the final catalogue includes a mix of playable and unavailable recordings; otherwise the current playable rows and availability note are sufficient.
 - [ ] **Consider a subtle mobile scroll cue on the home page.** Validate that users miss below-the-fold content before adding it.

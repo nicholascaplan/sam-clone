@@ -148,6 +148,8 @@ test('hero actions navigate to their destinations', async ({ page }) => {
   await page.goto('/');
   await page.locator('.hero-actions').getByRole('button', { name: 'Get in touch' }).click();
   await expect(page.locator('#tab-contact')).toBeVisible();
+  await expect(page.locator('#tab-contact img[alt="Samantha Fernando"]')).toHaveAttribute('loading', 'eager');
+  await expect(page.locator('#tab-contact img[alt="Samantha Fernando"]')).toHaveAttribute('src', /sam-6-800\.webp$/);
 });
 
 test('Biography opens as the shared in-page route', async ({ page }) => {

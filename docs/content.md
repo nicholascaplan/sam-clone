@@ -8,7 +8,7 @@ Copy conventions: use British English, do not use em dashes and do not use Oxfor
 
 - Site title: Samantha Fernando - Composer
 - Site type: Composer portfolio
-- Primary navigation: Home, Works List, Listen, Watch, Biography, Writing, Contact
+- Primary navigation: Home, Works, Listen, Watch, Biography, Writing, Contact
 - Header label: Samantha Fernando
 - Header descriptor: Composer
 - Hero quote: "Creating a space in sound that an audience can enter and inhabit."
@@ -51,7 +51,7 @@ In 2021, Samantha saw the opening of Current, Rising, a world-first hyper-realit
 
 ### Home Page Calls To Action
 
-- Explore Works: Works List
+- Explore Works: Works
 - Listen: Listen
 - Get in Touch: Contact & Score Hire
 
@@ -201,8 +201,8 @@ More tracks are available on Samantha's SoundCloud page and Spotify page. Record
 
 ## Works & Media Catalogue
 
-- Navigation labels: Works List, Listen and Watch.
-- Entry model: Works List opens All Works. Listen opens the Listen filter. Watch opens the Watch filter.
+- Navigation labels: Works, Listen and Watch.
+- Entry model: Works opens All Works. Listen opens the Listen filter. Watch opens the Watch filter.
 - Watch content: Actual YouTube videos only. Project-information cards such as glass human and Current, Rising remain in project or biography content.
 - Video behaviour: Watch renders editorial YouTube thumbnail cards from `768px` in two columns and from `1280px` in three columns, showing the year without a redundant `Film` label, then opens the existing in-page modal after a user clicks.
 

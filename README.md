@@ -8,7 +8,7 @@ Static single-page portfolio for composer Samantha Fernando. Biography, works, r
 - Compiled Tailwind CSS in `assets/tailwind.min.css`; Font Awesome and Google Fonts loaded from CDNs.
 - SoundCloud Widget API for verified SoundCloud recordings.
 - Spotify track playback through the Spotify IFrame API.
-- A unified Works & Media catalogue. `Works List` opens all works, `Listen` opens thirteen recordings and `Watch` opens sixteen films.
+- A unified Works & Media catalogue. `Works` opens all works, `Listen` opens thirteen recordings and `Watch` opens sixteen films.
 - YouTube videos open in an in-page modal from thumbnail cards.
 - GitHub Pages deployment from the `main` branch.
 

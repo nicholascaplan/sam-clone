@@ -11,7 +11,7 @@ This document records the redesign direction. It is not an active delivery plan;
 
 ## Implemented Direction
 
-- Reduced public navigation to Home, Works List, Listen, Watch, Biography, Writing and Contact.
+- Reduced public navigation to Home, Works, Listen, Watch, Biography, Writing and Contact.
 - Consolidated works, recordings and films into the searchable Works & Media catalogue.
 - Kept Biography, Writing and Contact as in-page routes to preserve playback and a consistent shell.
 - Added media actions to relevant works, a score-request route into Contact and an in-page contact form.

@@ -13,7 +13,7 @@
 - The site includes an intentionally insecure client-side password gate for testing.
 - The password gate applies only on `nicholascaplan.github.io`; local development does not require a password.
 - SoundCloud playback uses the SoundCloud Widget API. Spotify recordings use custom rows backed by the Spotify IFrame API.
-- `Works List`, `Listen` and `Watch` are separate entry points into the exposed Works & Media catalogue. They open All Works, Listen and Watch respectively. The former separate Watch and Listen sections remain in `index.html` as source content for playback and media metadata.
+- `Works`, `Listen` and `Watch` are separate entry points into the exposed Works & Media catalogue. They open All Works, Listen and Watch respectively. The former separate Watch and Listen sections remain in `index.html` as source content for playback and media metadata.
 - YouTube cards use thumbnails and the existing in-page modal rather than loading multiple embedded players on page load.
 
 ## Documentation
@@ -42,6 +42,7 @@
 
 - This repository is public. Before committing or pushing, inspect changed files for passwords, API keys, tokens, private URLs, personal data and other secrets. Never commit secrets, even in Markdown, tests, logs or documentation examples; use placeholders and ask the user for any required runtime values instead.
 - Follow the applicable decisions in `docs/decisions.md` when changing layout, interaction, accessibility or responsive behaviour.
+- **IMPORTANT: `assets/tailwind.min.css` is generated and must be rebuilt after every change to Tailwind utility classes in `index.html` or `tailwind.css`. Run `npm run build:css` before testing or reporting the change complete.** The browser loads `assets/tailwind.min.css`, not the source Tailwind directives, so utility changes will not take effect until this build runs.
 - After making code changes, run the relevant automated tests when possible. For this site, use `npx playwright test` for the full suite or `npx playwright test tests/site-load.spec.js --project=chromium -g "<test name>"` for a focused check. Report whether the test passed, failed, or was blocked; do not describe browser tests as unavailable if they actually started. If the configured web-server port is already in use, report the process ID and the command needed to kill it to the user, then stop the stale server/process or use the project's configured test workflow before retrying.
 - When refining UX or reusable components, offer multiple functional, clearly labelled on-page options for the user to compare when practical. Keep each option responsive and accessible, then apply the chosen direction and remove the temporary alternatives.
 - Review `docs/decisions.md` before revisiting an established product or implementation choice, and update it when a significant decision changes.

@@ -59,7 +59,7 @@ test('loads the site and renders primary navigation', async ({ page }) => {
   await expect(page).toHaveTitle('Samantha Fernando - Composer');
   await expect(page.getByRole('navigation')).toContainText('Biography');
   await expect(page.getByRole('button', { name: 'Home' }).first()).toHaveClass(/text-amber-400/);
-  await expect(page.getByRole('button', { name: 'Works List' })).toBeVisible();
+  await expect(page.locator('#nav-works')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Listen', exact: true }).first()).toBeVisible();
   await expect(page.getByRole('button', { name: 'Watch', exact: true }).first()).toBeVisible();
 });
@@ -115,7 +115,7 @@ test('uses the precompiled local stylesheet', async ({ page }) => {
 test('switches to the works list and filters by category', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByRole('button', { name: 'Works List' }).click();
+  await page.locator('#nav-works').click();
   await expect(page).toHaveURL(/#works$/);
   await expect(page.locator('#tab-works')).toBeVisible();
   await expect(page.locator('#worksContainer')).toContainText('Wintering');
@@ -195,7 +195,7 @@ test('Writing shows the Wintering essay, portrait and video', async ({ page }) =
 test('restores site sections with browser Back and Forward', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByRole('button', { name: 'Works List' }).click();
+  await page.locator('#nav-works').click();
   await page.getByRole('button', { name: 'Writing' }).click();
   await expect(page).toHaveURL(/#writing$/);
 
@@ -380,6 +380,16 @@ test('mobile preview uses the real mobile viewport', async ({ page }) => {
   await expect(page.locator('#mobilePreviewBtn')).toHaveAttribute('aria-pressed', 'false');
 });
 
+test('restores mobile preview after refresh', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#mobilePreviewBtn').click();
+  await page.reload();
+
+  await expect(page.locator('#mobilePreviewDialog')).toBeVisible();
+  await expect(page.locator('#mobilePreviewBtn')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.frameLocator('#mobilePreviewFrame').locator('#mobileMenuToggle')).toBeVisible();
+});
+
 test('submits the contact form through Formspree', async ({ page }) => {
   await page.goto('/');
   await page.route('https://formspree.io/f/mlgqqjen', async route => {
@@ -463,7 +473,7 @@ test('includes all newly catalogued films', async ({ page }) => {
   await expect(works.getByRole('button', { name: 'Watch How Many Moments Must - Samantha Fernando' })).toBeVisible();
   await expect(works.getByRole('button', { name: "Watch Charlotte Ashton Performs Samantha Fernando 'Kinesphere'" })).toBeVisible();
   await expect(works.getByRole('button', { name: 'Watch Samantha Fernando: Four Klee Miniatures, Horn Solo' })).toBeVisible();
-  await expect(page.locator('#worksViewDescription')).toHaveText('16 performance films and composer features.');
+  await expect(page.locator('#worksViewDescription')).toHaveText('Performance films and composer features.');
 });
 
 test('shows CTAs for title variants linked to works', async ({ page }) => {
@@ -614,7 +624,7 @@ test('SoundCloud queued playback responds to pause and finish events', async ({ 
   await expect(page.locator('#soundbarPauseBtn')).toHaveAttribute('aria-label', 'Resume playback');
 
   await page.evaluate(() => window.__soundCloudPlayers.soundcloudPlayerLookUp.handlers.FINISH());
-  await page.getByRole('button', { name: 'Works List' }).click();
+  await page.locator('#nav-works').click();
   await expect(page.locator('#soundbar')).toBeHidden();
 });
 
@@ -656,7 +666,7 @@ test('soundbar stays visible while navigating between pages', async ({ page }) =
   await page.locator('#ambientSoundBtn').click();
   await expect(page.locator('#soundbar')).toBeVisible();
 
-  await page.getByRole('button', { name: 'Works List' }).click();
+  await page.locator('#nav-works').click();
 
   await expect(page.locator('#tab-works')).toBeVisible();
   await expect(page.locator('#soundbar')).toBeVisible();
@@ -671,7 +681,7 @@ test('stopped playback is cleared when navigating away', async ({ page }) => {
   await page.locator('#soundbarStopBtn').click();
   await expect(page.locator('#soundbarStopBtn')).toHaveAttribute('aria-label', 'Stop playback');
 
-  await page.getByRole('button', { name: 'Works List' }).click();
+  await page.locator('#nav-works').click();
   await expect(page.locator('#soundbar')).toBeHidden();
 });
 
@@ -690,7 +700,7 @@ test('stop playback removes and hides the soundbar immediately', async ({ page }
 test('initialises navigation before the audio players', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByRole('button', { name: 'Works List' }).click();
+  await page.locator('#nav-works').click();
   await expect(page).toHaveURL(/#works$/);
   await expect(page.locator('#tab-works')).toBeVisible();
 });
@@ -759,7 +769,7 @@ test('Listen and Watch views expose their selected state and deep links', async 
   await expect(page.locator('#works-view-watch')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('#works-view-listen')).toHaveAttribute('aria-pressed', 'false');
 
-  await page.getByRole('button', { name: 'Works', exact: true }).click();
+  await page.getByLabel('Works and media view').getByRole('button', { name: 'Works', exact: true }).click();
   await expect(page).toHaveURL(/#works$/);
   await expect(page.locator('#works-view-all')).toHaveAttribute('aria-pressed', 'true');
 });
@@ -850,7 +860,7 @@ test('has no serious or critical accessibility violations across interactive sta
   await page.goto('/');
   await expectNoSeriousAxeViolations(page);
 
-  await page.getByRole('button', { name: 'Works List' }).click();
+  await page.locator('#nav-works').click();
   await expectNoSeriousAxeViolations(page);
 
   await page.getByRole('button', { name: 'Listen', exact: true }).first().click();

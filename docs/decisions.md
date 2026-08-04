@@ -12,11 +12,12 @@ Record only decisions that constrain future work. Implementation history and com
 ## Content And Navigation
 
 - Keep Biography at `#bio`. The root route remains the quote-led homepage with Spotlight Works.
-- Use one Works & Media catalogue. Works List opens All Works, Listen opens recordings and Watch opens films.
+- Use one Works & Media catalogue. Works opens All Works, Listen opens recordings and Watch opens films.
 - Treat Listen and Watch as filters, not standalone public pages.
 - Keep event records newest first in the content source. Events are not currently rendered on the public homepage.
 - Use a consistent Works card order: year, category, duration, title, instrumentation, commission, premiere and optional notes.
 - Use a category pill only for the controlled work category. Keep venues, ensembles, awards and recording details in the appropriate metadata field.
+- Do not use horizontal separators beneath primary page-intro copy; title, description and section spacing provide the transition. Retain dividers only where they structure content within a component.
 
 ## Media And Interaction
 

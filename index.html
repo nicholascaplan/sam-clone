@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samantha Fernando - Composer</title>
-    <link rel="preload" as="image" href="assets/sam-1-1200.webp" type="image/webp" fetchpriority="high">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="stylesheet" href="assets/tailwind.min.css">
@@ -630,8 +629,6 @@
                 z-index: 1;
             }
             #tab-works > * + * { margin-top: 1rem !important; }
-            #tab-works > div:first-child { padding-bottom: 0.5rem; }
-            #tab-works > div:first-child { border-bottom: 0; }
             #tab-works .works-description-full { display: none; }
             #tab-works .works-description-mobile { display: inline; }
             .work-media-actions { align-items: flex-start; }
@@ -657,6 +654,17 @@
         // Keep local development friction-free; only gate the published GitHub Pages site.
         const isDeployedSite = window.location.hostname === 'nicholascaplan.github.io';
         const themeStorageKey = 'theme';
+        const mobilePreviewStorageKey = 'mobilePreviewOpen';
+        const isMobilePreview = new URLSearchParams(window.location.search).has('mobilePreview');
+        if (!isMobilePreview) {
+            const heroPreload = document.createElement('link');
+            heroPreload.rel = 'preload';
+            heroPreload.as = 'image';
+            heroPreload.href = 'assets/sam-1-1200.webp';
+            heroPreload.type = 'image/webp';
+            heroPreload.fetchPriority = 'high';
+            document.head.appendChild(heroPreload);
+        }
         try {
             if (localStorage.getItem(themeStorageKey) === 'dark') {
                 document.body.classList.remove('light-mode');
@@ -664,7 +672,7 @@
         } catch {
             // Use the light default when storage is unavailable.
         }
-        if (new URLSearchParams(window.location.search).has('mobilePreview')) {
+        if (isMobilePreview) {
             document.documentElement.classList.add('mobile-preview-session');
         }
         if (isDeployedSite) {
@@ -695,7 +703,7 @@
                 <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
             <div class="mobile-preview-frame">
-                <iframe id="mobilePreviewFrame" title="Mobile site preview"></iframe>
+                <iframe id="mobilePreviewFrame" title="Mobile site preview" loading="eager" fetchpriority="high"></iframe>
             </div>
         </div>
     </div>
@@ -716,7 +724,7 @@
             <!-- Streamlined Desktop Navigation -->
             <nav class="hidden md:flex items-center space-x-6 text-xs font-medium tracking-wider">
                 <button onclick="switchTab('home')" id="nav-home" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Home</button>
-                <button onclick="switchTab('works')" id="nav-works" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Works List</button>
+                <button onclick="switchTab('works')" id="nav-works" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Works</button>
                 <button onclick="switchTab('listen')" id="nav-listen" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Listen</button>
                 <button onclick="switchTab('watch')" id="nav-watch" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Watch</button>
                 <button onclick="switchTab('bio')" id="nav-bio" class="nav-btn py-1.5 text-neutral-400 hover:text-neutral-100 border-b-2 border-transparent transition-all">Biography</button>
@@ -755,7 +763,7 @@
         <!-- Mobile Navigation Drawer -->
         <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-neutral-950/95 px-6 py-5 space-y-3 font-mono text-xs tracking-wider">
                 <button data-mobile-nav="home" onclick="switchTab('home')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Home</button>
-                <button data-mobile-nav="works" onclick="switchTab('works')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works List</button>
+                <button data-mobile-nav="works" onclick="switchTab('works')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Works</button>
                 <button data-mobile-nav="listen" onclick="switchTab('listen')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Listen</button>
                 <button data-mobile-nav="watch" onclick="switchTab('watch')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Watch</button>
                 <button data-mobile-nav="bio" onclick="switchTab('bio')" class="mobile-nav-btn block w-full text-left py-2 text-neutral-300 hover:text-amber-400">Biography</button>
@@ -921,7 +929,7 @@
 
         <!-- ================= TAB 2: WORKS LIST ================= -->
         <section id="tab-works" class="tab-content space-y-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-800 pb-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
                     <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Compositions &amp; Recordings</span>
                     <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Works &amp; Media</h2>
@@ -969,16 +977,16 @@
         </section>
 
         <!-- ================= TAB 5: WRITING ================= -->
-        <section id="tab-writing" class="tab-content space-y-12">
-            <div class="border-b border-neutral-800 pb-6">
+        <section id="tab-writing" class="tab-content space-y-4 sm:space-y-6">
+            <div>
                 <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Essays, Reflections & Research</span>
                 <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Writing</h2>
                 <p class="text-neutral-400 text-sm mt-1">Personal essays on creative process, composition, and artistic philosophy.</p>
             </div>
 
             <!-- Featured Article: On My Creative Process: 1. Wintering -->
-            <article class="glass-panel p-6 sm:p-10 rounded-3xl border border-neutral-800 space-y-8">
-                <div class="border-b border-neutral-800 pb-6">
+            <article class="glass-panel p-6 sm:p-10 rounded-3xl border border-neutral-800 space-y-6 sm:space-y-8">
+                <div class="border-b border-neutral-800 pb-5 sm:pb-6">
                     <span class="text-xs font-mono text-amber-400 uppercase tracking-wider">Featured Essay</span>
                     <h3 class="text-2xl sm:text-3xl font-serif text-neutral-100 mt-1">On My Creative Process: 1. Wintering</h3>
                     <span class="text-xs font-mono text-neutral-500 block mt-4">November 2025</span>
@@ -1058,8 +1066,8 @@
         </section>
 
         <!-- ================= TAB 6: CONTACT ================= -->
-        <section id="tab-contact" class="tab-content space-y-12">
-            <div class="border-b border-neutral-800 pb-6">
+        <section id="tab-contact" class="tab-content space-y-4">
+            <div>
                 <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Get in Touch</span>
                 <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Contact & Score Hire</h2>
                 <p class="text-neutral-400 text-sm mt-1">For commissions, score hire inquiries or performance notifications.</p>
@@ -1478,8 +1486,8 @@
             document.getElementById('worksViewDescription').textContent = isAllWorks
                 ? 'Full repertoire categorised by instrumentation and scale.'
                 : view === 'listen'
-                    ? '13 published recordings across SoundCloud and Spotify.'
-                    : '16 performance films and composer features.';
+                    ? 'Published recordings across SoundCloud and Spotify.'
+                    : 'Performance films and composer features.';
             document.querySelectorAll('.works-view-btn').forEach(button => {
                 const active = button.id === `works-view-${view}`;
                 button.classList.toggle('bg-amber-700', active);
@@ -2206,6 +2214,17 @@
             updateThemeToggle();
         }
 
+        function prepareMobilePreview() {
+            const previewFrame = document.getElementById('mobilePreviewFrame');
+            const previewSource = previewFrame.getAttribute('src');
+            if (!previewSource || previewSource === 'about:blank') {
+                const previewUrl = new URL(window.location.href);
+                previewUrl.searchParams.set('mobilePreview', 'true');
+                previewFrame.src = previewUrl.href;
+            }
+            return previewFrame;
+        }
+
         function toggleMobilePreview() {
             const dialog = document.getElementById('mobilePreviewDialog');
             if (!dialog.classList.contains('hidden')) {
@@ -2213,9 +2232,11 @@
                 return;
             }
 
-            const previewUrl = new URL(window.location.href);
-            previewUrl.searchParams.set('mobilePreview', 'true');
-            document.getElementById('mobilePreviewFrame').src = previewUrl.href;
+            const previewFrame = prepareMobilePreview();
+            if (previewFrame.contentWindow) {
+                // Reuse the loaded document, but mirror the parent's current route.
+                previewFrame.contentWindow.location.hash = window.location.hash;
+            }
             dialog.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             const previewBtn = document.getElementById('mobilePreviewBtn');
@@ -2224,13 +2245,17 @@
             previewBtn.setAttribute('aria-pressed', 'true');
             previewBtn.classList.add('text-amber-400');
             previewBtn.classList.remove('text-neutral-400');
+            try {
+                localStorage.setItem(mobilePreviewStorageKey, 'true');
+            } catch {
+                // Preview state should remain functional when storage is unavailable.
+            }
             document.getElementById('closeMobilePreview').focus();
         }
 
         function closeMobilePreview() {
             const dialog = document.getElementById('mobilePreviewDialog');
             dialog.classList.add('hidden');
-            document.getElementById('mobilePreviewFrame').src = 'about:blank';
             document.body.style.overflow = '';
             const previewBtn = document.getElementById('mobilePreviewBtn');
             previewBtn.title = 'Switch to mobile preview';
@@ -2238,7 +2263,23 @@
             previewBtn.setAttribute('aria-pressed', 'false');
             previewBtn.classList.remove('text-amber-400');
             previewBtn.classList.add('text-neutral-400');
+            try {
+                localStorage.removeItem(mobilePreviewStorageKey);
+            } catch {
+                // Preview state should remain functional when storage is unavailable.
+            }
             previewBtn.focus();
+        }
+
+        function restoreMobilePreview() {
+            // The preview iframe shares localStorage with the parent page. Do not
+            // let its copy restore another preview dialog inside itself.
+            if (isMobilePreview) return;
+            try {
+                if (localStorage.getItem(mobilePreviewStorageKey) === 'true') toggleMobilePreview();
+            } catch {
+                // Use the closed default when storage is unavailable.
+            }
         }
 
         function unlockSite(event) {
@@ -2272,6 +2313,9 @@
         document.getElementById('mobilePreviewDialog').addEventListener('click', event => {
             if (event.target.id === 'mobilePreviewDialog') closeMobilePreview();
         });
+        const mobilePreviewButton = document.getElementById('mobilePreviewBtn');
+        mobilePreviewButton.addEventListener('pointerenter', prepareMobilePreview);
+        mobilePreviewButton.addEventListener('focus', prepareMobilePreview);
         document.addEventListener('click', event => {
             if (!document.getElementById('instrumentationControl').contains(event.target)) closeInstrumentationMenu();
         });
@@ -2332,9 +2376,12 @@
                 document.getElementById('sitePasswordGate').classList.add('hidden');
             }
             updateThemeToggle();
-            const initialiseWhenIdle = () => initialiseSoundCloudPlayers().catch(() => {});
-            if ('requestIdleCallback' in window) window.requestIdleCallback(initialiseWhenIdle, { timeout: 5000 });
-            else window.setTimeout(initialiseWhenIdle, 0);
+            restoreMobilePreview();
+            if (!isMobilePreview) {
+                const initialiseWhenIdle = () => initialiseSoundCloudPlayers().catch(() => {});
+                if ('requestIdleCallback' in window) window.requestIdleCallback(initialiseWhenIdle, { timeout: 5000 });
+                else window.setTimeout(initialiseWhenIdle, 0);
+            }
         };
     </script>
 </body>

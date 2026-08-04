@@ -40,6 +40,7 @@
 
 ## Maintenance Notes
 
+- This repository is public. Before committing or pushing, inspect changed files for passwords, API keys, tokens, private URLs, personal data and other secrets. Never commit secrets, even in Markdown, tests, logs or documentation examples; use placeholders and ask the user for any required runtime values instead.
 - Follow the applicable decisions in `docs/decisions.md` when changing layout, interaction, accessibility or responsive behaviour.
 - After making code changes, run the relevant automated tests when possible. For this site, use `npx playwright test` for the full suite or `npx playwright test tests/site-load.spec.js --project=chromium -g "<test name>"` for a focused check. Report whether the test passed, failed, or was blocked; do not describe browser tests as unavailable if they actually started. If the configured web-server port is already in use, report the process ID and the command needed to kill it to the user, then stop the stale server/process or use the project's configured test workflow before retrying.
 - When refining UX or reusable components, offer multiple functional, clearly labelled on-page options for the user to compare when practical. Keep each option responsive and accessible, then apply the chosen direction and remove the temporary alternatives.

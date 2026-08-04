@@ -4,7 +4,6 @@ Use this file to track unresolved implementation, product and maintenance work. 
 
 ## Content
 
-- [ ] **HIGH PRIORITY: Add THE EXOPLANETS after confirmation.** Add its confirmed title, catalogue placement and metadata to the site listings and `docs/content.md`.
 - [ ] **Remove unnecessary terminal full stops.** Review repeated listing copy and catalogue metadata, retaining full stops only where they are part of the content.
 
 ## Product And Design

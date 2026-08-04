@@ -224,6 +224,20 @@ test('uses the dark palette for the Instrumentation menu', async ({ page }) => {
   await expect(page.getByRole('option', { name: 'Opera & Stage' })).toHaveCSS('color', 'rgb(212, 212, 212)');
 });
 
+test('keeps the selected Instrumentation option legible in both themes', async ({ page }) => {
+  await page.goto('/#works');
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+
+  const selectedOption = page.getByRole('option', { name: 'Instrumentation: All' });
+  await expect(selectedOption).toHaveCSS('background-color', 'rgb(169, 87, 0)');
+  await expect(selectedOption).toHaveCSS('color', 'rgb(255, 255, 255)');
+
+  await page.locator('#themeToggleBtn').click();
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+  await expect(selectedOption).toHaveCSS('background-color', 'rgb(169, 87, 0)');
+  await expect(selectedOption).toHaveCSS('color', 'rgb(255, 255, 255)');
+});
+
 test('opens and closes the mobile navigation menu @mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -376,6 +390,25 @@ test('shows Wintering watch CTA in All Works', async ({ page }) => {
 
   const wintering = page.locator('#worksContainer > div', { has: page.getByRole('heading', { name: 'Wintering' }) });
   await expect(wintering.getByRole('button', { name: 'Watch Wintering (Trailer)' })).toBeVisible();
+});
+
+test('lists TRAPPIST-1e as an orchestral work with both premieres', async ({ page }) => {
+  await page.goto('/#works');
+
+  const exoplanets = page.locator('#worksContainer > div', {
+    has: page.getByRole('heading', { name: 'Movement 5: TRAPPIST-1e' })
+  });
+  await expect(exoplanets).toContainText('Orchestral');
+  await expect(exoplanets).toContainText('Norwich Theatre Royal, 2025 (Naomi Woo)');
+  await expect(exoplanets).toContainText('Hackney Empire, 2026 (Micah Gleason)');
+  await expect(exoplanets.getByRole('button', { name: 'Watch The Exoplanets: Samantha Fernando introduces TRAPPIST-1e' })).toBeVisible();
+});
+
+test('shows the TRAPPIST-1e introduction in Watch', async ({ page }) => {
+  await page.goto('/#watch');
+
+  await expect(page.locator('#worksContainer')).toContainText('The Exoplanets: Samantha Fernando introduces TRAPPIST-1e');
+  await expect(page.locator('#worksContainer').getByRole('button', { name: 'Watch The Exoplanets: Samantha Fernando introduces TRAPPIST-1e' })).toBeVisible();
 });
 
 test('shows CTAs for title variants linked to works', async ({ page }) => {

@@ -40,7 +40,7 @@ In 2021, Samantha saw the opening of Current, Rising, a world-first hyper-realit
 
 ### Key Highlights
 
-- 2026 - THE EXOPLANETS: Commissioned by City of London Sinfonia and premiered at Hackney Empire.
+- 2025 - Movement 5: TRAPPIST-1e (from The Exoplanets): City of London Sinfonia and curious directive co-commission, premiered at Norwich Theatre Royal.
 - 2025 - Wintering: Commissioned by Wigmore Hall with Manchester Collective & The Marian Consort.
 - 2023 - Sound Inhabitants: 15 players commission premiered by London Sinfonietta at Southbank Centre.
 - 2022 - glass human: Chamber opera premiered at Glyndebourne & UK national tour.
@@ -57,14 +57,14 @@ In 2021, Samantha saw the opening of Current, Rising, a world-first hyper-realit
 
 ### Upcoming Events
 
-- 12 Mar 2026 - THE EXOPLANETS - City of London Sinfonia - Hackney Empire, London
+- 13 Mar 2026 - The Exoplanets - City of London Sinfonia, cond. Micah Gleason - Hackney Empire, London
 - 5 Dec 2025 - Wintering - Manchester Collective - Bristol Beacon, Bristol
 - 3 Dec 2025 - Wintering - Manchester Collective - Sir Jack Lyons, York
 - 29 Nov 2025 - Wintering - Manchester Collective - Tung Auditorium, Liverpool
 - 28 Nov 2025 - Wintering - Manchester Collective - Howard Assembly Room, Leeds
 - 27 Nov 2025 - Wintering - Manchester Collective - Stoller Hall, Manchester
 - 22 Nov 2025 - Wintering (World Premiere) - Manchester Collective & The Marian Consort - Wigmore Hall, London
-- 6 Sep 2025 - THE EXOPLANETS - City of London Sinfonia - Norwich Theatre
+- 6-7 Sep 2025 - The Exoplanets (World Premiere) - City of London Sinfonia, cond. Naomi Woo - Norwich Theatre Royal, Norwich
 - 2 Feb 2025 - Fault Line - Tim Gill, London Sinfonietta - Turner Sims, Southampton
 
 ## Featured Operas & Major Projects
@@ -124,6 +124,7 @@ This Spotlight Works section appears beneath the homepage hero. The full biograp
 
 ### Orchestral
 
+- Movement 5: TRAPPIST-1e (from The Exoplanets) (2025) - Orchestra. Part of a 95-minute continuous suite. Co-commissioned by City of London Sinfonia and curious directive, in association with Norwich Theatre and Norfolk and Suffolk Music Hub. World premiere: City of London Sinfonia, cond. Naomi Woo, Norwich Theatre Royal, 6-7 September 2025. London premiere: City of London Sinfonia, cond. Micah Gleason, Hackney Empire, 13 March 2026. Inspired by the rocky exoplanet TRAPPIST-1e and its habitable zone. One of seven movements in an orchestral and theatrical suite with planetarium visuals and science commentary.
 - Breathing Space (2019) - Symphony orchestra. Commissioned by Philharmonia Orchestra.
 - Echo of a Woman (2018) - Soprano and orchestra. Commissioned by Royal Holloway University Symphony Orchestra.
 
@@ -138,11 +139,12 @@ This Spotlight Works section appears beneath the homepage hero. The full biograp
 
 Each Works card uses the same fields: year, controlled category, duration, title, instrumentation, commission, premiere and optional notes. The category is the only pill shown on the card; venues, ensembles, awards and recording labels belong in the relevant metadata field instead. Works with hosted audio or video have consistent fine-outline media actions, stacked vertically when there is more than one. Each uses a play icon and a specific label such as `Listen`, `Trailer`, `Performance excerpt`, `Insights` or `Watch`; works without hosted media have no row action.
 
-The current card data in `index.html` includes durations and additional details that still need to be reconciled into this source record. See `docs/questions-for-sam.md` for unresolved instrumentation, date and premiere questions. In particular, `Have It All` is present in the card data but is missing from this Works List section, and `THE EXOPLANETS` requires a decision about inclusion.
+The current card data in `index.html` includes durations and additional details that still need to be reconciled into this source record. See `docs/questions-for-sam.md` for unresolved instrumentation, date and premiere questions. In particular, `Have It All` is present in the card data but is missing from this Works List section.
 
 ## Watch
 
-- Catalogue filter: Watch, inside Works & Media. The catalogue contains ten films.
+- Catalogue filter: Watch, inside Works & Media. The catalogue contains eleven films.
+- The Exoplanets: Samantha Fernando introduces TRAPPIST-1e. Related work: Movement 5: TRAPPIST-1e. Label: The Exoplanets (2025). Description: Samantha Fernando introduces her movement inspired by the rocky exoplanet TRAPPIST-1e. Link: https://www.youtube.com/watch?v=PtuinjIcJD0
 - glass human - Official Trailer. Related work: glass human. Label: Glyndebourne (2022). Duration: 0:55. Description: Official trailer for the chamber opera created by Samantha Fernando and sound artist and writer Melanie Wilson, exploring isolation and connection across three lives. Link: https://www.youtube.com/watch?v=-bGBfGd_2aM
 - 'Today the Letter Must Come' - glass human. Related work: glass human. Label: Camille Maalawy (2024). Duration: 3:20. Description: Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain. Link: https://www.youtube.com/watch?v=15R1ci2MHF0
 - Current, Rising: The World's First Hyper-Reality Opera. Action label: Trailer. Related work: Current, Rising. Label: Royal Ballet and Opera (2020). Duration: 0:50. Description: Trailer for a 15-minute hyper-reality opera combining virtual reality with a multisensory set. Music is composed by Samantha Fernando, directed by Netia Jones, with libretto by Melanie Wilson and vocals by Anna Dennis. Link: https://www.youtube.com/watch?v=KXrYuIWLv60

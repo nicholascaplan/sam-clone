@@ -165,12 +165,14 @@
         .instrumentation-option { display: flex; width: 100%; min-height: 2.25rem; align-items: center; gap: 0.55rem; padding: 0.45rem 0.6rem; border-radius: 0.5rem; color: #d4d4d4; font-size: 0.75rem; text-align: left; }
         .instrumentation-option:hover { background: #262626; color: #f5f5f5; }
         .instrumentation-option[aria-selected="true"] { color: #fff; background: #a95700; }
+        .instrumentation-option:focus-visible { outline: 3px solid #f59e0b; outline-offset: -2px; }
         .instrumentation-option i { width: 0.75rem; opacity: 0; }
         .instrumentation-option[aria-selected="true"] i { opacity: 1; }
         .instrumentation-trigger[aria-expanded="true"] { border-color: #a95700; }
         .light-mode .instrumentation-menu { border-color: rgba(24, 33, 31, 0.24); background: #fbfaf6; box-shadow: 0 0.75rem 1.5rem rgba(24, 33, 31, 0.14); }
         .light-mode .instrumentation-option { color: #3f4b44; }
         .light-mode .instrumentation-option:hover { background: #f0e7d6; color: #6e3500; }
+        .light-mode .instrumentation-option[aria-selected="true"] { color: #fff; background: #a95700; }
         .light-mode .works-filter-divider { background: rgba(24, 33, 31, 0.2); }
         @media (min-width: 768px) {
             /* Keep catalogue cards compact on desktop while mobile remains linear. */
@@ -846,7 +848,7 @@
                     <div class="glass-panel p-6 rounded-2xl border border-neutral-800 space-y-6">
                         <h2 class="text-sm font-mono uppercase tracking-widest text-amber-400 border-b border-neutral-800 pb-3">Selected Milestones</h2>
                         <div class="space-y-4 text-xs">
-                            <div><span class="text-neutral-500 font-mono block">2026</span><p class="text-neutral-200 font-medium">THE EXOPLANETS</p><p class="text-neutral-400">City of London Sinfonia</p></div>
+                            <div><span class="text-neutral-500 font-mono block">2025</span><p class="text-neutral-200 font-medium">The Exoplanets: TRAPPIST-1e</p><p class="text-neutral-400">City of London Sinfonia</p></div>
                             <div><span class="text-neutral-500 font-mono block">2025</span><p class="text-neutral-200 font-medium">Wintering</p><p class="text-neutral-400">Wigmore Hall commission</p></div>
                             <div><span class="text-neutral-500 font-mono block">2023</span><p class="text-neutral-200 font-medium">Sound Inhabitants</p><p class="text-neutral-400">London Sinfonietta</p></div>
                             <div><span class="text-neutral-500 font-mono block">2022</span><p class="text-neutral-200 font-medium">glass human</p><p class="text-neutral-400">Glyndebourne premiere</p></div>
@@ -918,6 +920,23 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video: The Exoplanets interview -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
+                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
+                        <img src="https://i.ytimg.com/vi/PtuinjIcJD0/hqdefault.jpg" alt="The Exoplanets: Samantha Fernando introduces TRAPPIST-1e" class="w-full h-full object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <a href="https://www.youtube.com/watch?v=PtuinjIcJD0" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110" aria-label="Watch The Exoplanets: Samantha Fernando introduces TRAPPIST-1e">
+                                <i class="fa-solid fa-play ml-1" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-400">The Exoplanets (2025)</span>
+                        <h3 class="text-xl font-serif text-neutral-100">The Exoplanets: Samantha Fernando introduces TRAPPIST-1e</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Samantha Fernando introduces her movement inspired by the rocky exoplanet TRAPPIST-1e.</p>
+                    </div>
+                </div>
+
                 <!-- Video 1: Sound Inhabitants -->
                 <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
                     <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
@@ -1448,6 +1467,7 @@
             { id: 21, title: 'Everything Passes, Everything is Connected', year: 2021, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '7 mins', commission: 'The Crossing (USA).', premiere: 'The Crossing (USA).' },
             { id: 22, title: 'Have It All', year: 2020, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '6 mins', commission: 'BBC Singers.', notes: 'Broadcast on BBC Radio 3.' },
             // Orchestral
+            { id: 23, title: 'Movement 5: TRAPPIST-1e', year: 2025, category: 'orchestral', instrumentation: 'Orchestra', duration: '95-minute suite', commission: 'City of London Sinfonia and curious directive.', premiere: 'Norwich Theatre Royal, 2025 (Naomi Woo). Hackney Empire, 2026 (Micah Gleason).' },
             { id: 24, title: 'Breathing Space', year: 2019, category: 'orchestral', instrumentation: 'Symphony orchestra', duration: '12 mins', commission: 'Philharmonia Orchestra.', notes: 'Conducted by Martyn Brabbins.' },
             { id: 25, title: 'Echo of a Woman', year: 2018, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '14 mins', commission: 'Royal Holloway University Symphony Orchestra.' },
         ];
@@ -1579,6 +1599,7 @@
             { type: 'listen', title: 'Positive/Negative Space', year: 2013, duration: '6:50', detail: 'Flute, clarinet, alto sax and cello', provider: 'soundcloud', id: 'positive-negative-space' },
             { type: 'listen', title: 'Square of Light', year: 2013, duration: '3:15', detail: 'Soprano and piano', provider: 'soundcloud', id: 'square-of-light' },
             { type: 'listen', title: 'The Journey Between Us - Reflection 1', year: 2016, duration: '3:32', detail: 'Mixed ensemble', provider: 'soundcloud', id: 'journey-between-us' },
+            { type: 'watch', title: 'The Exoplanets: Samantha Fernando introduces TRAPPIST-1e', workTitle: 'Movement 5: TRAPPIST-1e', year: 2025, category: 'orchestral', detail: 'Samantha Fernando introduces her movement inspired by the rocky exoplanet TRAPPIST-1e.', url: 'https://www.youtube.com/watch?v=PtuinjIcJD0' },
             { type: 'watch', title: 'glass human - Official Trailer', actionLabel: 'Trailer', workTitle: 'glass human', year: 2022, category: 'opera', detail: 'Glyndebourne. Official trailer for the chamber opera created with sound artist and writer Melanie Wilson, exploring isolation and connection across three lives.', url: 'https://www.youtube.com/watch?v=-bGBfGd_2aM' },
             { type: 'watch', title: "'Today the Letter Must Come' - glass human", actionLabel: 'Performance', workTitle: 'glass human', year: 2024, category: 'opera', detail: 'Camille Maalawy. Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain.', url: 'https://www.youtube.com/watch?v=15R1ci2MHF0' },
             { type: 'watch', title: "Current, Rising: The World's First Hyper-Reality Opera", actionLabel: 'Trailer', workTitle: 'Current, Rising', year: 2020, category: 'opera', detail: 'Royal Ballet and Opera. Trailer for a 15-minute hyper-reality opera combining virtual reality with a multisensory set.', url: 'https://www.youtube.com/watch?v=KXrYuIWLv60' },
@@ -1730,7 +1751,7 @@
                 ? 'Full repertoire categorised by instrumentation and scale.'
                 : view === 'listen'
                     ? '13 published recordings across SoundCloud and Spotify.'
-                    : '10 performance films and composer features.';
+                    : '11 performance films and composer features.';
             document.querySelectorAll('.works-view-btn').forEach(button => {
                 const active = button.id === `works-view-${view}`;
                 button.classList.toggle('bg-amber-700', active);

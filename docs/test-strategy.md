@@ -14,7 +14,7 @@ npm test
 
 - Page load, core assets and navigation.
 - Hash routes, browser history, Works/Listen/Watch filters and search.
-- Persisted theme switching, including dark-mode instrumentation and mobile-navigation menus. Theme-dependent interactive states are exercised in both light and dark modes.
+- Persisted theme switching, the Instrumentation menu's selected state in both themes, and mobile-navigation menus. Theme-dependent interactive states are exercised in both light and dark modes.
 - Works and YouTube modals, score-request flow and contact-form success/failure states.
 - Mocked Spotify and SoundCloud playback state, including provider hand-off.
 - Password-gate behaviour on the deployed hostname mapped to the local server.

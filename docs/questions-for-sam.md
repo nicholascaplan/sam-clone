@@ -23,7 +23,6 @@ Use this document to collect content decisions needed before the Works & Media c
 - What commission, premiere or context should be recorded for **Square of Light**?
 - What are the correct year and premiere details for **Kinesphere**? Current sources conflict between 2013 at Purcell Room and 2014 at Kings Place.
 - Should **Current, Rising** use 2020 as its composition year and 2021 as its premiere year?
-- Should **THE EXOPLANETS** be included in the Works List? It is represented in the biography and events record but not in the current catalogue.
 - Is **Have It All** a catalogue work? It is in `index.html` but missing from the Works List content record.
 - Are there missing awards, texts, recordings or significant collaborators that should appear in Notes?
 

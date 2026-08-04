@@ -1,0 +1,52 @@
+# Samantha Fernando Site
+
+## GitHub Pages
+
+- Repository: https://github.com/nicholascaplan/sam-clone
+- Published site: https://nicholascaplan.github.io/sam-clone/
+- Deployment workflow: `.github/workflows/pages.yml`
+- Deployment branch: `main`
+
+## Project Notes
+
+- This is a static GitHub Pages site.
+- The site includes an intentionally insecure client-side password gate for testing.
+- The password gate applies only on `nicholascaplan.github.io`; local development does not require a password.
+- SoundCloud playback uses the SoundCloud Widget API. Spotify recordings use custom rows backed by the Spotify IFrame API.
+- `Works List`, `Listen` and `Watch` are separate entry points into the exposed Works & Media catalogue. They open All Works, Listen and Watch respectively. The former separate Watch and Listen sections remain in `index.html` as source content for playback and media metadata.
+- YouTube cards use thumbnails and the existing in-page modal rather than loading multiple embedded players on page load.
+
+## Documentation
+
+- `README.md` is the concise public project overview.
+- `docs/content.md` is the complete CMS-ready source of truth for all content rendered on the site, including metadata, page copy, works, events, media, links, writing, and contact fields. Update it whenever site content changes.
+- `docs/decisions.md` records settled decisions that constrain future work.
+- `docs/next-steps.md` contains unresolved implementation, product and maintenance work.
+- `docs/questions-for-sam.md` contains content and product decisions requiring Samantha's input.
+- `docs/website-content-map-specifications.md` is a concise reference to the retired site's structure.
+- `docs/website-critique-redesign-strategy.md` records the redesign direction and outstanding product questions.
+- `docs/test-strategy.md` describes current automated-test coverage and conventions.
+- `design/` contains local-only design documentation and working visual references, including `playground.html` for component reviews and `design-reference.html` for accepted foundations. These files are not published.
+
+### Documentation Maintenance
+
+- Keep each document scoped to its stated purpose. Do not duplicate content between documents; link to the canonical record instead.
+- `docs/content.md` is the only detailed content inventory. Keep its facts aligned with the rendered site.
+- `docs/next-steps.md` contains only unresolved work. Move Samantha decisions to `docs/questions-for-sam.md` and remove completed work rather than recording session history.
+- `docs/decisions.md` contains only durable constraints. Replace superseded decisions and omit implementation logs.
+- Keep `README.md` and `docs/test-strategy.md` operational: commands, current behaviour and coverage only.
+- Treat legacy and strategy documents as concise context. Update them only when the current direction changes.
+- Before completing a significant change, remove or correct any documentation statement it makes stale. Prefer editing an existing sentence over adding a dated note.
+
+## Maintenance Notes
+
+- Follow the applicable decisions in `docs/decisions.md` when changing layout, interaction, accessibility or responsive behaviour.
+- After making code changes, run the relevant automated tests when possible. For this site, use `npx playwright test` for the full suite or `npx playwright test tests/site-load.spec.js --project=chromium -g "<test name>"` for a focused check. Report whether the test passed, failed, or was blocked; do not describe browser tests as unavailable if they actually started. If the configured web-server port is already in use, report the process ID and the command needed to kill it to the user, then stop the stale server/process or use the project's configured test workflow before retrying.
+- When refining UX or reusable components, offer multiple functional, clearly labelled on-page options for the user to compare when practical. Keep each option responsive and accessible, then apply the chosen direction and remove the temporary alternatives.
+- Review `docs/decisions.md` before revisiting an established product or implementation choice, and update it when a significant decision changes.
+- After every major or significant site change or decision, update the relevant local Markdown documentation, including files in `docs/`, `README.md`, or the planning documents as appropriate. Do this before reporting the work complete.
+- When the user says "closing the session now", review the current session for outstanding documentation, tests, verification and follow-up updates, then make or record the necessary changes before closing. Before closing, ask whether the user wants the changes deployed; deployment remains opt-in and must not happen without explicit approval.
+- Do not deploy or push changes unless the user explicitly asks; ask before deploying if deployment would be useful.
+- When the user explicitly asks to push changes, push the requested commit or branch and verify the GitHub Pages Actions workflow completed successfully. BoxedCode cannot fetch the externally published GitHub Pages URL because outbound access to that site is blocked by the sandbox network allowlist: do not attempt `webfetch`, `curl`, or another external fetch after deployment. Treat live-site propagation as unverified unless the user confirms it outside BoxedCode, and report that limitation explicitly.
+- Documentation may be committed to source control when relevant, but it must not be included in the published GitHub Pages artifact.
+- The published artifact must contain only the public website files: `index.html` and `assets/`. Never publish Markdown, tests, package files, workflow files, repository metadata, or maintainer notes as part of the live site.

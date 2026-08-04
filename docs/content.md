@@ -99,41 +99,41 @@ This Spotlight Works section appears beneath the homepage hero. The full biograp
 
 ### Solo & Chamber (1-4 Players)
 
-- Balconies (2023) - Solo violin (multi-tracked) or ensemble of 5 violins. Commissioned by Olivia de Prato for the Panorama album.
-- 4 Klee Miniatures (2021) - Solo horn. Commissioned by Deepa Goonetilleke.
-- The Way Home (2018) - Soprano, cello, piano. Commissioned by Kettle's Yard.
-- Fault-Line (2015) - Solo cello. Commissioned by London Sinfonietta, premiered at Peckham Asylum.
-- Kinesphere (2014) - Solo flute. Commissioned for London Sinfonietta Shorts, premiered at Kings Place by Michael Cox. Released on NMC.
+- Balconies (2023) - Solo violin (multi-tracked) or ensemble of 5 violins. Commissioned by Olivia de Prato for the Panorama album
+- 4 Klee Miniatures (2021) - Solo horn. Commissioned by Deepa Goonetilleke
+- The Way Home (2018) - Soprano, cello, piano. Commissioned by Kettle's Yard
+- Fault-Line (2015) - Solo cello. Commissioned by London Sinfonietta, premiered at Peckham Asylum
+- Kinesphere (2014) - Solo flute. Commissioned for London Sinfonietta Shorts, premiered at Kings Place by Michael Cox. Released on NMC
 - Kinesphere recording - SoundCloud extract, 1:06: https://soundcloud.com/samanthafernando/kinesphere-for-solo-flute-extract
-- Positive/Negative Space (2013) - Flute, clarinet, alto saxophone, cello. Premiered at Purcell Room, Southbank Centre.
-- 4 Illuminations (2012) - Saxophone quartet. Premiered at Royaumont Abbey by Xasax Quartet.
+- Positive/Negative Space (2013) - Flute, clarinet, alto saxophone, cello. Premiered at Purcell Room, Southbank Centre
+- 4 Illuminations (2012) - Saxophone quartet. Premiered at Royaumont Abbey by Xasax Quartet
 
 ### Vocal & Choral
 
-- Sissay Settings (2016) - Soprano and piano. Settings of poetry by Lemn Sissay. Commissioned by York Late Music.
-- Look Up (2014) - Four voices, bass viol, electronics. Commissioned by LOD Music Theatre & Silbersee vocal ensemble.
-- Ganymede (2014) - Tenor and piano. Commissioned by Oxford Lieder Festival.
-- 3 Songs for Soprano and Cello (2014 / recorded 2020) - Cello and soprano. Recorded by Riot Ensemble: Sarah Dacey & Louise McMonagle. Tracks: Utterance (2:46); The Half Moon (4:11); How Many Moments Must (1:10).
-- Square of Light (2013) - Soprano and piano.
-- Everything Passes, Everything is Connected (2021) - Unaccompanied choir. Commissioned by The Crossing.
+- Sissay Settings (2016) - Soprano and piano. Settings of poetry by Lemn Sissay. Commissioned by York Late Music
+- Look Up (2014) - Four voices, bass viol, electronics. Commissioned by LOD Music Theatre & Silbersee vocal ensemble
+- Ganymede (2014) - Tenor and piano. Commissioned by Oxford Lieder Festival
+- 3 Songs for Soprano and Cello (2014 / recorded 2020) - Cello and soprano. Recorded by Riot Ensemble: Sarah Dacey & Louise McMonagle. Tracks: Utterance (2:46); The Half Moon (4:11); How Many Moments Must (1:10)
+- Square of Light (2013) - Soprano and piano
+- Everything Passes, Everything is Connected (2021) - Unaccompanied choir. Commissioned by The Crossing
 
 ### Opera & Stage
 
-- glass human (2022) - Chamber opera for 3 singers, 5 players, and electronics. Commissioned by Glyndebourne.
-- Current, Rising (2020) - Hyper-reality opera. Commissioned by The Royal Opera House.
+- glass human (2022) - Chamber opera for 3 singers, 5 players, and electronics. Commissioned by Glyndebourne
+- Current, Rising (2020) - Hyper-reality opera. Commissioned by The Royal Opera House
 
 ### Orchestral
 
-- Exoplanets: TRAPPIST-1e (from The Exoplanets) (2025) - 5 mins. Orchestra. Part of a 95-minute continuous suite. Co-commissioned by City of London Sinfonia and curious directive, in association with Norwich Theatre and Norfolk and Suffolk Music Hub. World premiere: City of London Sinfonia, cond. Naomi Woo, Norwich Theatre Royal, 6-7 September 2025. London premiere: City of London Sinfonia, cond. Micah Gleason, Hackney Empire, 13 March 2026. Inspired by the rocky exoplanet TRAPPIST-1e and its habitable zone. One of seven movements in an orchestral and theatrical suite with planetarium visuals and science commentary.
-- Breathing Space (2019) - Symphony orchestra. Commissioned by Philharmonia Orchestra.
-- Echo of a Woman (2018) - Soprano and orchestra. Commissioned by Royal Holloway University Symphony Orchestra.
+- Exoplanets: TRAPPIST-1e (from The Exoplanets) (2025) - 5 mins. Orchestra. Part of a 95-minute continuous suite. Co-commissioned by City of London Sinfonia and curious directive, in association with Norwich Theatre and Norfolk and Suffolk Music Hub. World premiere: City of London Sinfonia, cond. Naomi Woo, Norwich Theatre Royal, 6-7 September 2025. London premiere: City of London Sinfonia, cond. Micah Gleason, Hackney Empire, 13 March 2026. Inspired by the rocky exoplanet TRAPPIST-1e and its habitable zone. One of seven movements in an orchestral and theatrical suite with planetarium visuals and science commentary
+- Breathing Space (2019) - Symphony orchestra. Commissioned by Philharmonia Orchestra
+- Echo of a Woman (2018) - Soprano and orchestra. Commissioned by Royal Holloway University Symphony Orchestra
 
 ### Large Ensemble (5+ Players)
 
-- Sound Inhabitants (2023) - 15 players. Commissioned and premiered by London Sinfonietta.
-- Wintering (2025) - SATB voices + string quartet. Commissioned by Wigmore Hall.
-- Breathing Forest (2022) - Solo soprano, strings, percussion. Commissioned by BCMG.
-- Formations (2018) - 15 players. Commissioned by London Sinfonietta for their 50th anniversary.
+- Sound Inhabitants (2023) - 15 players. Commissioned and premiered by London Sinfonietta
+- Wintering (2025) - SATB voices + string quartet. Commissioned by Wigmore Hall
+- Breathing Forest (2022) - Solo soprano, strings, percussion. Commissioned by BCMG
+- Formations (2018) - 15 players. Commissioned by London Sinfonietta for their 50th anniversary
 
 ### Works Card Standard
 

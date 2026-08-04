@@ -1442,34 +1442,34 @@
         // commission, premiere and notes are rendered as separate metadata rows.
         const worksData = [
             // Solo / Chamber (1-4 players)
-            { id: 1, title: 'Balconies', year: 2023, category: 'chamber', instrumentation: 'Solo violin (multi-tracked or ensemble of 5 violins)', duration: '8 mins', commission: 'Olivia de Prato, for the Panorama album.', notes: 'New Focus Recordings (2023).' },
-            { id: 2, title: '4 Klee Miniatures', year: 2021, category: 'chamber', instrumentation: 'Solo horn', duration: '6 mins', commission: 'Deepa Goonetilleke.' },
-            { id: 3, title: 'The Way Home', year: 2018, category: 'vocal', instrumentation: 'Soprano, cello & piano', duration: '9 mins', commission: 'Kettle\'s Yard.', premiere: 'June 2018.' },
-            { id: 4, title: 'Fault-Line', year: 2015, category: 'chamber', instrumentation: 'Solo cello', duration: '6 mins', commission: 'London Sinfonietta.', premiere: 'Peckham Asylum (June 2015).' },
-            { id: 5, title: 'Kinesphere', year: 2013, category: 'chamber', instrumentation: 'Solo flute', duration: '6 mins', commission: 'London Sinfonietta.', premiere: 'Purcell Room.', notes: 'Released on NMC Recordings. Premiere year and venue require confirmation.' },
-            { id: 6, title: '4 Illuminations', year: 2012, category: 'chamber', instrumentation: 'Saxophone quartet', duration: '8 mins', premiere: 'Royaumont Abbey, France, by the Xasax Quartet.' },
-            { id: 7, title: 'Sissay Settings', year: 2016, category: 'vocal', instrumentation: 'Soprano and piano', duration: '7 mins', commission: 'York Late Music.', notes: 'Settings of poetry by Lemn Sissay.' },
-            { id: 8, title: 'Look Up', year: 2014, category: 'vocal', instrumentation: '4 voices, bass viol & electronics', duration: '12 mins', commission: 'LOD Music Theatre & Silbersee vocal ensemble (Ghent).' },
-            { id: 9, title: 'Ganymede', year: 2014, category: 'vocal', instrumentation: 'Tenor and piano', duration: '5 mins', commission: 'Oxford Lieder Festival.', notes: 'Associated venue: Holywell Music Room.' },
-            { id: 10, title: '3 Songs for Soprano and Cello', year: 2014, category: 'vocal', instrumentation: 'Soprano and cello', duration: '11 mins', notes: 'Recorded and released by Riot Ensemble (Sarah Dacey & Louise McMonagle, 2020).' },
-            { id: 11, title: 'Square of Light', year: 2013, category: 'vocal', instrumentation: 'Soprano and piano', duration: '4 mins', notes: 'Chamber vocal settings.' },
+            { id: 1, title: 'Balconies', year: 2023, category: 'chamber', instrumentation: 'Solo violin (multi-tracked or ensemble of 5 violins)', duration: '8 mins', commission: 'Olivia de Prato, for the Panorama album', notes: 'New Focus Recordings (2023)' },
+            { id: 2, title: '4 Klee Miniatures', year: 2021, category: 'chamber', instrumentation: 'Solo horn', duration: '6 mins', commission: 'Deepa Goonetilleke' },
+            { id: 3, title: 'The Way Home', year: 2018, category: 'vocal', instrumentation: 'Soprano, cello & piano', duration: '9 mins', commission: 'Kettle\'s Yard', premiere: 'June 2018' },
+            { id: 4, title: 'Fault-Line', year: 2015, category: 'chamber', instrumentation: 'Solo cello', duration: '6 mins', commission: 'London Sinfonietta', premiere: 'Peckham Asylum (June 2015)' },
+            { id: 5, title: 'Kinesphere', year: 2013, category: 'chamber', instrumentation: 'Solo flute', duration: '6 mins', commission: 'London Sinfonietta', premiere: 'Purcell Room', notes: 'Released on NMC Recordings' },
+            { id: 6, title: '4 Illuminations', year: 2012, category: 'chamber', instrumentation: 'Saxophone quartet', duration: '8 mins', premiere: 'Royaumont Abbey, France, by the Xasax Quartet' },
+            { id: 7, title: 'Sissay Settings', year: 2016, category: 'vocal', instrumentation: 'Soprano and piano', duration: '7 mins', commission: 'York Late Music', notes: 'Settings of poetry by Lemn Sissay' },
+            { id: 8, title: 'Look Up', year: 2014, category: 'vocal', instrumentation: '4 voices, bass viol & electronics', duration: '12 mins', commission: 'LOD Music Theatre & Silbersee vocal ensemble (Ghent)' },
+            { id: 9, title: 'Ganymede', year: 2014, category: 'vocal', instrumentation: 'Tenor and piano', duration: '5 mins', commission: 'Oxford Lieder Festival', notes: 'Associated venue: Holywell Music Room' },
+            { id: 10, title: '3 Songs for Soprano and Cello', year: 2014, category: 'vocal', instrumentation: 'Soprano and cello', duration: '11 mins', notes: 'Recorded and released by Riot Ensemble (Sarah Dacey & Louise McMonagle, 2020)' },
+            { id: 11, title: 'Square of Light', year: 2013, category: 'vocal', instrumentation: 'Soprano and piano', duration: '4 mins', notes: 'Chamber vocal settings' },
             // Large Ensemble (5+ players)
-            { id: 13, title: 'Wintering', year: 2025, category: 'ensemble', instrumentation: 'SATB + string quartet', duration: '27 mins', commission: 'Wigmore Hall.', premiere: 'Manchester Collective & The Marian Consort.' },
-            { id: 14, title: 'Sound Inhabitants', year: 2023, category: 'ensemble', instrumentation: '15 players (fl, cl, ob, bsn, hn, tpt, trb, perc, hp, pno, 2vlns, vla, vc, db)', duration: '12 mins', commission: 'London Sinfonietta.', premiere: 'Purcell Room, Southbank Centre.' },
-            { id: 15, title: 'Breathing Forest', year: 2022, category: 'ensemble', instrumentation: 'Solo soprano, strings and percussion', duration: '15 mins', commission: 'Birmingham Contemporary Music Group (BCMG) & Anna Dennis.' },
-            { id: 16, title: 'Formations', year: 2018, category: 'ensemble', instrumentation: '15 players', duration: '10 mins', commission: 'London Sinfonietta 50th anniversary.', premiere: 'Royal Festival Hall, conducted by Vladimir Jurowski.' },
-            { id: 17, title: 'Positive/Negative Space', year: 2013, category: 'ensemble', instrumentation: 'Flute, clarinet, alto saxophone & cello', duration: '8 mins', premiere: 'London Sinfonietta at Purcell Room, Southbank Centre.', notes: 'RPS Composition Prize commission.' },
+            { id: 13, title: 'Wintering', year: 2025, category: 'ensemble', instrumentation: 'SATB + string quartet', duration: '27 mins', commission: 'Wigmore Hall', premiere: 'Manchester Collective & The Marian Consort' },
+            { id: 14, title: 'Sound Inhabitants', year: 2023, category: 'ensemble', instrumentation: '15 players (fl, cl, ob, bsn, hn, tpt, trb, perc, hp, pno, 2vlns, vla, vc, db)', duration: '12 mins', commission: 'London Sinfonietta', premiere: 'Purcell Room, Southbank Centre' },
+            { id: 15, title: 'Breathing Forest', year: 2022, category: 'ensemble', instrumentation: 'Solo soprano, strings and percussion', duration: '15 mins', commission: 'Birmingham Contemporary Music Group (BCMG) & Anna Dennis' },
+            { id: 16, title: 'Formations', year: 2018, category: 'ensemble', instrumentation: '15 players', duration: '10 mins', commission: 'London Sinfonietta 50th anniversary', premiere: 'Royal Festival Hall, conducted by Vladimir Jurowski' },
+            { id: 17, title: 'Positive/Negative Space', year: 2013, category: 'ensemble', instrumentation: 'Flute, clarinet, alto saxophone & cello', duration: '8 mins', premiere: 'London Sinfonietta at Purcell Room, Southbank Centre', notes: 'RPS Composition Prize commission' },
             // Opera & Stage
-            { id: 19, title: 'glass human', year: 2022, category: 'opera', instrumentation: '3 singers, 5 players & electronics', duration: '50 mins', commission: 'Glyndebourne.', premiere: 'Glyndebourne.', notes: 'Chamber opera created with Melanie Wilson.' },
-            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble CHROMA & electronics', duration: '15 mins', commission: 'Royal Opera House & Figment Productions.', notes: 'Hyper-reality opera experience. Composition year requires confirmation.' },
+            { id: 19, title: 'glass human', year: 2022, category: 'opera', instrumentation: '3 singers, 5 players & electronics', duration: '50 mins', commission: 'Glyndebourne', premiere: 'Glyndebourne', notes: 'Chamber opera created with Melanie Wilson' },
+            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble CHROMA & electronics', duration: '15 mins', commission: 'Royal Opera House & Figment Productions', notes: 'Hyper-reality opera experience. Composition year requires confirmation' },
 
             // Choral
-            { id: 21, title: 'Everything Passes, Everything is Connected', year: 2021, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '7 mins', commission: 'The Crossing (USA).', premiere: 'The Crossing (USA).' },
-            { id: 22, title: 'Have It All', year: 2020, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '6 mins', commission: 'BBC Singers.', notes: 'Broadcast on BBC Radio 3.' },
+            { id: 21, title: 'Everything Passes, Everything is Connected', year: 2021, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '7 mins', commission: 'The Crossing (USA)', premiere: 'The Crossing (USA)' },
+            { id: 22, title: 'Have It All', year: 2020, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '6 mins', commission: 'BBC Singers', notes: 'Broadcast on BBC Radio 3' },
             // Orchestral
-              { id: 23, title: 'Exoplanets: TRAPPIST-1e', year: 2025, category: 'orchestral', instrumentation: 'Orchestra', duration: '5 mins', commission: 'City of London Sinfonia and curious directive.', premiere: 'Norwich Theatre Royal, 2025 (Naomi Woo). Hackney Empire, 2026 (Micah Gleason).' },
-            { id: 24, title: 'Breathing Space', year: 2019, category: 'orchestral', instrumentation: 'Symphony orchestra', duration: '12 mins', commission: 'Philharmonia Orchestra.', notes: 'Conducted by Martyn Brabbins.' },
-            { id: 25, title: 'Echo of a Woman', year: 2018, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '14 mins', commission: 'Royal Holloway University Symphony Orchestra.' },
+              { id: 23, title: 'Exoplanets: TRAPPIST-1e', year: 2025, category: 'orchestral', instrumentation: 'Orchestra', duration: '5 mins', commission: 'City of London Sinfonia and curious directive', premiere: 'Norwich Theatre Royal, 2025 (Naomi Woo). Hackney Empire, 2026 (Micah Gleason)' },
+            { id: 24, title: 'Breathing Space', year: 2019, category: 'orchestral', instrumentation: 'Symphony orchestra', duration: '12 mins', commission: 'Philharmonia Orchestra', notes: 'Conducted by Martyn Brabbins' },
+            { id: 25, title: 'Echo of a Woman', year: 2018, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '14 mins', commission: 'Royal Holloway University Symphony Orchestra' },
         ];
 
         // Keep featured recordings ordered newest first; unknown years remain at the end.

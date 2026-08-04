@@ -2,10 +2,6 @@
 
 Use this file to track unresolved implementation, product and maintenance work. Completed work belongs in `docs/decisions.md`; questions requiring Samantha's input belong in `docs/questions-for-sam.md`.
 
-## Content
-
-- [ ] **Remove unnecessary terminal full stops.** Review repeated listing copy and catalogue metadata, retaining full stops only where they are part of the content.
-
 ## Product And Design
 
 - [ ] **Review mobile header and menu.** Assess the close-control position and whether a narrower header improves phone layouts without compromising the title, descriptor or controls.

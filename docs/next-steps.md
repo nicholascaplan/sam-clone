@@ -5,8 +5,6 @@ Use this file to track unresolved implementation, product and maintenance work. 
 ## Product And Design
 
 - [ ] **Review mobile header and menu.** Assess the close-control position and whether a narrower header improves phone layouts without compromising the title, descriptor or controls.
-- [ ] **Review dark mode end to end.** Check mobile and desktop menus, controls, contrast, borders, active states and all content sections.
-- [ ] **Validate the need for a home-page scroll cue.** Add one only if review shows visitors miss content below the fold.
 
 ## Verification And Accessibility
 

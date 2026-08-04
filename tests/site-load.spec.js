@@ -284,6 +284,14 @@ test('keeps mobile header controls and hero content usable @mobile', async ({ pa
   await expect(page.locator('#mobileMenu')).toBeVisible();
 });
 
+test('shows the next home section in the initial mobile viewport @mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  await expect(page.locator('#featured-projects')).toBeInViewport();
+  await expect(page.locator('#featured-projects')).toContainText('Spotlight Works');
+});
+
 test('uses the shared Instrumentation menu on mobile @mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/#works');

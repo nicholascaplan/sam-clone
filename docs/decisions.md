@@ -32,7 +32,7 @@ Record only decisions that constrain future work. Implementation history and com
 ## Responsive And Performance
 
 - Use the real page in a `430px` iframe for desktop mobile preview. Do not create preview-only responsive CSS.
-- Keep compact mobile layout rules in the page's narrow-screen media queries, including the 4rem header and 13rem hero portrait.
+- Keep compact mobile layout rules in the page's narrow-screen media queries, including the 3.5rem header, icon-only narrow-phone sound control, persistent top-right menu close control and 13rem hero portrait.
 - Preload `assets/sam-1-1200.webp` for the homepage hero. Load the smaller `assets/sam-6-800.webp` contact portrait eagerly at low priority.
 
 ## Testing And Deployment

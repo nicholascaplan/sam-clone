@@ -2,10 +2,6 @@
 
 Use this file to track unresolved implementation, product and maintenance work. Completed work belongs in `docs/decisions.md`; questions requiring Samantha's input belong in `docs/questions-for-sam.md`.
 
-## Product And Design
-
-- [ ] **Review mobile header and menu.** Assess the close-control position and whether a narrower header improves phone layouts without compromising the title, descriptor or controls.
-
 ## Verification And Accessibility
 
 - [ ] **HIGH PRIORITY: Manually verify third-party media on the deployed site.** Check SoundCloud playback events, Spotify and SoundCloud mutual exclusion, soundbar restart and stop controls, soundbar visibility during navigation, and YouTube thumbnail/modal behaviour. Use widget events, not the soundbar alone, to establish that audio is playing.

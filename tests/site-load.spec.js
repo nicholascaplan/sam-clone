@@ -267,20 +267,28 @@ test('uses the dark palette for the mobile navigation menu @mobile', async ({ pa
 
   await expect(page.locator('#mobileMenu')).toHaveCSS('background-color', 'rgb(26, 26, 26)');
   await expect(page.locator('#mobileMenu').getByRole('button', { name: 'Home' })).toHaveCSS('color', 'rgb(212, 212, 212)');
+  await expect(page.locator('#mobileMenuToggle')).toHaveCSS('border-top-color', 'rgba(245, 158, 11, 0.7)');
 });
 
 test('keeps mobile header controls and hero content usable @mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
+  const headerBar = page.locator('header > div').first();
   const menuButton = page.locator('#mobileMenuToggle');
   const portrait = page.locator('#tab-home .lg\\:col-span-5 img');
   const introduction = page.locator('.hero-introduction');
 
+  await expect(headerBar).toHaveCSS('height', '56px');
   await expect(menuButton).toBeVisible();
+  await expect(menuButton).toHaveCSS('align-items', 'center');
+  await expect(menuButton).toHaveCSS('justify-content', 'center');
   await expect(portrait).toBeVisible();
   await expect(introduction).toBeVisible();
+  await expect(page.locator('#soundLabel')).toBeHidden();
   await menuButton.click();
+  await expect(menuButton).toHaveAttribute('aria-label', 'Close navigation menu');
+  await expect(menuButton).toHaveCSS('border-top-color', 'rgba(169, 87, 0, 0.7)');
   await expect(page.locator('#mobileMenu')).toBeVisible();
 });
 

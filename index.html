@@ -230,13 +230,19 @@
         @media (hover: none) {
             [data-tooltip]::after { display: none; }
         }
-        #soundbar { width: min(34rem, calc(100vw - 2rem)); box-sizing: border-box; display: block; padding: 0.5rem 7rem 0.625rem 1.5rem; transition: opacity 0.3s ease, transform 0.3s ease; }
+        #soundbar { position: fixed; bottom: 0; width: min(34rem, calc(100vw - 2rem)); box-sizing: border-box; display: block; padding: 0.5rem 7rem 0.625rem 1.5rem; color: #f5f5f5; transition: opacity 0.3s ease, transform 0.3s ease; }
         #soundbarTrackInfo { min-width: 0; width: 100%; display: grid; gap: 0.2rem; }
         #soundbarLabel { min-width: 0; overflow: hidden; text-overflow: ellipsis; text-align: center; }
         #soundbarProgress { width: 100%; height: 0.35rem; overflow: hidden; border: 1px solid rgba(180, 83, 9, 0.3); border-radius: 9999px; background: rgba(139, 129, 117, 0.35); }
         #soundbarProgressFill { width: 0; height: 100%; border-radius: inherit; background: #b45309; box-shadow: 0 0 0.4rem rgba(180, 83, 9, 0.65); transition: width 0.2s linear; }
-        #soundbarTimes { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; color: #8b8175; }
+        #soundbarTimes { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; color: #d4d4d4; }
         #soundbarControls { position: absolute; right: 1.25rem; top: 50%; display: flex; gap: 0.2rem; transform: translateY(-50%); }
+        #soundbarControls button { color: #f6bf7b; }
+        #soundbarControls button:hover { background: rgba(180, 83, 9, 0.24); }
+        .light-mode #soundbar { color: #18211f; }
+        .light-mode #soundbarTimes { color: #5d655f; }
+        .light-mode #soundbarControls button { color: #944900; }
+        .light-mode #soundbarControls button:hover { background: #f0e7d6; }
         @media (max-width: 420px) {
             #soundbar { padding: 0.5rem 6.5rem 0.625rem 1rem; }
             #soundbarControls { right: 0.75rem; }
@@ -758,7 +764,7 @@
         </div>
     </header>
 
-    <div id="soundbar" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 rounded-full glass-panel shadow-lg text-xs text-neutral-700 whitespace-nowrap">
+    <div id="soundbar" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 z-40 rounded-full glass-panel shadow-lg text-xs whitespace-nowrap">
         <div id="soundbarTrackInfo">
             <span id="soundbarLabel" class="text-[13px] font-semibold">Everything Passes, Everything is Connected · The Crossing</span>
             <div id="soundbarProgress" role="progressbar" aria-label="Track progress" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
@@ -971,49 +977,83 @@
             </div>
 
             <!-- Featured Article: On My Creative Process: 1. Wintering -->
-            <article class="glass-panel p-6 sm:p-10 rounded-3xl border border-neutral-800 space-y-6">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-800 pb-4">
-                    <div>
-                        <span class="text-xs font-mono text-amber-400 uppercase tracking-wider">Featured Essay</span>
-                        <h3 class="text-2xl sm:text-3xl font-serif text-neutral-100 mt-1">On My Creative Process: 1. Wintering</h3>
-                    </div>
-                    <span class="text-xs font-mono text-neutral-500">November 2025 • Photo ©️ Mike Skelton</span>
+            <article class="glass-panel p-6 sm:p-10 rounded-3xl border border-neutral-800 space-y-8">
+                <div class="border-b border-neutral-800 pb-6">
+                    <span class="text-xs font-mono text-amber-400 uppercase tracking-wider">Featured Essay</span>
+                    <h3 class="text-2xl sm:text-3xl font-serif text-neutral-100 mt-1">On My Creative Process: 1. Wintering</h3>
+                    <span class="text-xs font-mono text-neutral-500 block mt-4">November 2025</span>
                 </div>
 
-                <div class="space-y-5 text-neutral-300 text-sm leading-relaxed font-serif font-light">
-                    <p class="text-base text-neutral-200 font-serif-italic">
-                        "Why do I write? What makes me start? Sometimes it's a book, sometimes a painting, a poem, or a place. Reflecting on my practice, I see there is always the impulse to respond to something or somewhere. It is an emotive impulse before it is a musical utterance..."
+                <div class="max-w-none space-y-5 text-neutral-300 text-sm leading-relaxed font-serif font-light">
+                    <figure class="writing-portrait float-right w-[42%] sm:w-56 md:w-80 lg:w-96 ml-5 sm:ml-8 mb-3 space-y-2">
+                        <img src="assets/sam-3.webp" alt="Samantha Fernando in a blue top" width="640" height="800" class="w-full aspect-[4/5] object-cover object-center rounded-2xl border border-neutral-800" loading="eager" fetchpriority="high" decoding="async">
+                        <figcaption class="text-[10px] font-mono text-neutral-500">Photo © Mike Skelton</figcaption>
+                    </figure>
+
+                    <p class="text-lg sm:text-xl text-neutral-200 font-serif-italic leading-relaxed">
+                        Why do I write? What makes me start? Sometimes it’s a book, sometimes a painting, a poem, or a place. Reflecting on my practice, I see there is always the impulse to respond to something or somewhere. It is an emotive impulse before it is a musical utterance.
                     </p>
 
                     <p>
-                        When I began thinking about <em class="text-amber-300">Wintering</em>, I was reading Katherine May's book of the same title. Her reflections on human life and its natural cycles resonated deeply with me. Rather than pushing against the cold and darkness, could I find value in stillness and restoration?
+                        For this first foray into writing about my process, it makes sense to consider the book <em class="text-amber-300">Wintering</em> by Katherine May, since the piece it inspired will be premiered in a matter of days by the Manchester Collective and the Marian Consort at the Wigmore Hall.
                     </p>
 
                     <p>
-                        Scored for four voices (soprano, alto, tenor and baritone) and string quartet, <em class="text-amber-300">Wintering</em> explores the tension between quiet introspection and the ever-present hum of the outside world. I was drawn to this ensemble for its rich potential: the voices not only convey text but also blur into the instrumental texture, becoming part of the quartet's fabric.
+                        Like many, I have always found winter difficult—something to endure. Its approach fills me with foreboding. The lack of sunlight, the cold seeping into my bones, and the threat of illness all contribute to the struggle. I used to try to keep busy in the hope that the weeks would pass more quickly.
                     </p>
 
                     <p>
-                        The sound world is often hazy and ambiguous. At times, it evokes frozen landscapes and moments of stasis; at others, it reflects a restless, churning mind caught in the noise of modern urban life. One movement (IV) is hectic and even playful: an attempt to find stillness through meditation, yet thwarted by internal chatter.
+                        Reading May’s book was something of a revelation; it offered a way of accepting, even embracing, winter. It suggested that constant busyness might not be the answer—that there might be value in stepping back.
                     </p>
-
-                    <div class="p-5 rounded-2xl bg-neutral-900/80 border border-neutral-800 my-6 font-mono text-xs space-y-2">
-                        <span class="text-amber-400 font-bold uppercase block mb-1">Structure of Movements in Wintering:</span>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-neutral-300">
-                            <div>I. Vista</div>
-                            <div>II. Cloud Canvas 1</div>
-                            <div>III. Cloud Canvas 2</div>
-                            <div>IV. To Do: Do Less</div>
-                            <div>V. Snow on Snow</div>
-                            <div>VI. Cocoon</div>
-                        </div>
-                    </div>
 
                     <p>
-                        <em class="text-amber-300">Wintering</em> moves through restlessness and retreat, ultimately leading the listener toward a place of stillness and quiet resilience in the turning of the seasons.
+                        The notion of “wintering” applies not only to the season but to any period in life when rest, repair, and nourishment are needed: grief, illness, or times of transition. May uses examples from nature, how animals hibernate as well as telling her own story of how she wintered through a difficult period of her life. She also references winter rituals and the power they have to provide solidarity and comfort.
                     </p>
+
+                    <p>
+                        The book is very evocative; the descriptive writing conjures up both external wintery landscapes as well as the complex internal landscapes we create in our minds. It is this sense of landscape that resonated with me on a musical level. I could hear these landscapes.
+                    </p>
+
+                    <p>
+                        It has taken some time to get to this point, but I am finally finding a sense of my creative voice. What it is that I want to explore through sound. I’ve found this through reflecting on my recent work and the patterns that have begun to emerge. Landscape, a sense of place, architecture, these things all feed into my impulse to compose. I am trying to create a place in sound. One that I can invite an audience into.
+                    </p>
+
+                    <p>
+                        This necessitates a musical language that is not overly-complicated but has a certain directness. I try to create space and time to breathe within the music I write. In pursuit of this, I have found the need to strip things back, take things out, linger for longer. My music isn’t minimalist with a capital M but minimal in material, yes. Stripping back has meant that the material I do use is very deliberate and carries more weight. Detail matters enormously and gestures are intentional.
+                    </p>
+
+                    <p>
+                        I’ve realised that uncovering my musical voice requires attentiveness to what I want to hear—not what I think others want to hear. It means letting go of the fear of judgement.
+                    </p>
+
+                    <p>
+                        Most recently I have found inspiration in composers like Jurg Frey, John Luther Adams and Hildegard Von Bingen. Looking far back and not so far back. <em class="text-amber-300">Wintering</em> is a piece that culminates some of these influences, impulses and my sense of purpose. It isn’t supposed to be a piece that acts as some sort of musical balm but an evocation of both external Winter landscape and the internal psychological landscape that necessitates the need to winter.
+                    </p>
+
+                    <p>
+                        I’m still uncovering, still trying to get closer to the compositional ideals I hold in mind. Creation isn’t linear. But in articulating these thoughts now, I’m putting a pin on the map—in the hope that this moment of clarity propels me forward and, more hopefully still, offers you some insight into my music.
+                    </p>
+
+                    <p class="pt-2 text-xs font-mono text-neutral-500">November 2025</p>
                 </div>
             </article>
+
+            <section aria-labelledby="writing-video-title" class="space-y-4">
+                <div>
+                    <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Listen and Watch</span>
+                    <h3 id="writing-video-title" class="text-2xl font-serif text-neutral-100 mt-1">Wintering</h3>
+                </div>
+                <article class="glass-panel p-4 sm:p-5 rounded-2xl border border-neutral-800">
+                    <button type="button" onclick="openVideoModal('https://www.youtube.com/watch?v=5BApW0VSCes', 'Wintering (Trailer)')" aria-label="Watch Wintering (Trailer)" class="relative w-full aspect-video overflow-hidden rounded-xl bg-neutral-900 text-white group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                        <img src="https://i.ytimg.com/vi/5BApW0VSCes/hqdefault.jpg" alt="Wintering trailer" class="w-full h-full object-cover" loading="lazy">
+                        <span class="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/40 transition-colors"><span class="w-14 h-14 rounded-full bg-amber-600/90 text-white flex items-center justify-center text-xl shadow-xl transition-transform group-hover:scale-110"><i class="fa-solid fa-play ml-1" aria-hidden="true"></i></span></span>
+                    </button>
+                    <div class="pt-4 space-y-1">
+                        <p class="text-xs font-mono text-amber-400">Manchester Collective · The Marian Consort</p>
+                        <p class="text-sm text-neutral-300">A preview of <em class="text-amber-300">Wintering</em>, the work discussed in the essay above.</p>
+                    </div>
+                </article>
+            </section>
 
         </section>
 
@@ -1180,7 +1220,7 @@
             { id: 17, title: 'Positive/Negative Space', year: 2013, category: 'ensemble', instrumentation: 'Flute, clarinet, alto saxophone & cello', duration: '8 mins', premiere: 'London Sinfonietta at Purcell Room, Southbank Centre', notes: 'RPS Composition Prize commission' },
             // Opera & Stage
             { id: 19, title: 'glass human', year: 2022, category: 'opera', instrumentation: '3 singers, 5 players & electronics', duration: '50 mins', commission: 'Glyndebourne', premiere: 'Glyndebourne', notes: 'Chamber opera created with Melanie Wilson' },
-            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble CHROMA & electronics', duration: '15 mins', commission: 'Royal Opera House & Figment Productions', notes: 'Hyper-reality opera experience. Composition year requires confirmation' },
+            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble, electronics', duration: '15 mins', commission: 'Royal Opera House & Figment Productions', notes: 'Hyper-reality opera experience. Composition year requires confirmation' },
 
             // Choral
             { id: 21, title: 'Everything Passes, Everything is Connected', year: 2021, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '7 mins', commission: 'The Crossing (USA)', premiere: 'The Crossing (USA)' },
@@ -1295,7 +1335,7 @@
             { type: 'watch', title: 'Fault Line for Solo Cello', workTitle: 'Fault-Line', year: 2022, category: 'chamber', detail: 'Louise McMonagle. Performance of Fault Line, a solo cello piece originally commissioned by the London Sinfonietta.', url: 'https://www.youtube.com/watch?v=k3jRJHzIu4Q' },
             { type: 'watch', title: "Charlotte Ashton Performs Samantha Fernando 'Kinesphere'", workTitle: 'Kinesphere', year: 2022, category: 'chamber', detail: 'Hebrides Ensemble. Solo flute performance by Charlotte Ashton, filmed by Flux Video.', url: 'https://www.youtube.com/watch?v=iDo-EkKhbl4' },
             { type: 'watch', title: 'Samantha Fernando: Four Klee Miniatures, Horn Solo', workTitle: '4 Klee Miniatures', year: 2021, category: 'chamber', detail: 'Trio Radial. Solo horn performance of four miniatures inspired by Paul Klee.', url: 'https://www.youtube.com/watch?v=x2q25aBh48Y' },
-            { type: 'watch', title: 'Composition for Voice & Electronics (enoa Workshop)', year: 2015, category: 'vocal', detail: 'enoa community. Final concert recording from the European Network of Opera Academies workshop exploring vocal textures and electronic processing.', url: 'https://www.youtube.com/watch?v=b_w_uYmFwZ4' },
+             { type: 'watch', title: 'Look Up', workTitle: 'Look Up', year: 2015, category: 'vocal', detail: 'enoa community. Final concert recording from the European Network of Opera Academies workshop exploring vocal textures and electronic processing.', url: 'https://www.youtube.com/watch?v=b_w_uYmFwZ4' },
             { type: 'watch', title: 'Samantha Fernando: Pathways', year: 2018, detail: 'Sound and Music. Documentary profile on Samantha Fernando\'s musical philosophy, tableaux-like textures, openness in composition and motherhood as a creative catalyst.', url: 'https://www.youtube.com/watch?v=XcRdZftNuYA' },
             { type: 'watch', title: "Samantha Fernando: The Composer's Mind", year: 2016, detail: 'London Sinfonietta. Short documentary detailing Samantha Fernando\'s creative process, structural thinking and writing techniques.', url: 'https://www.youtube.com/watch?v=94EkZLEuKBA' }
         ];
@@ -1527,6 +1567,7 @@
         let pendingSoundCloudPlaybackStartsAtZero = false;
         let soundcloudPlayers = {};
         let soundcloudInitialisation = null;
+        let playbackRequestToken = 0;
 
         function initialiseSoundCloudPlayers() {
             if (soundcloudInitialisation) return soundcloudInitialisation;
@@ -1662,6 +1703,7 @@
         }
 
         function playSpotifyTrack(trackId) {
+            const requestToken = ++playbackRequestToken;
             const track = document.querySelector(`[data-spotify-track="${trackId}"]`);
             const spotifyTrackNames = {
                 '2wNL47uCuwDpbOqCIpbSTS': 'Balconies · Olivia de Prato',
@@ -1714,7 +1756,7 @@
             document.body.appendChild(container);
             spotifyReady.createController(container, { width: 1, height: 1 }, controller => {
                 spotifyController = controller;
-                if (activeAudioProvider !== 'spotify') return;
+                if (requestToken !== playbackRequestToken || activeAudioProvider !== 'spotify') return;
                 controller.loadUri(`spotify:track:${currentTrackId}`);
                 controller.seek(0);
                 controller.play();
@@ -1829,20 +1871,7 @@
 
         function stopPlayback() {
             isPlaybackStopped = true;
-            if (activeAudioProvider === 'spotify') {
-                pendingSpotifyTrack = null;
-                spotifyController?.pause();
-                isSpotifyPlaying = false;
-                spotifyElapsedMs = 0;
-                spotifyPlaybackStartedAt = null;
-                setSpotifyPlaybackState(false, activeSpotifyTrack);
-                return;
-            }
-
-            pendingSoundCloudPlaybackId = null;
-            const player = soundcloudPlayers[currentTrackId];
-            if (player) player.pause();
-            else setPlaybackState(false);
+            clearStoppedPlayback();
         }
 
         function restartActivePlayback() {
@@ -1877,18 +1906,31 @@
         }
 
         function clearStoppedPlayback() {
+            playbackRequestToken += 1;
             stopSoundbarProgressTimer();
             pendingSpotifyTrack = null;
             pendingSoundCloudPlaybackId = null;
+            pendingSoundCloudPlaybackStartsAtZero = false;
+            spotifyController?.pause();
+            pauseSoundCloudPlayers();
             activeSpotifyTrack = null;
             isSpotifyPlaying = false;
             isAudioPlaying = false;
             isPlaybackStopped = false;
             spotifyElapsedMs = 0;
+            spotifyPlaybackStartedAt = null;
             trackDurationMs = 0;
             currentTrackName = defaultSpotifyTrackName;
             currentTrackId = defaultSpotifyTrackId;
             activeAudioProvider = 'spotify';
+            updateSoundbarProgress(0, 0);
+            document.getElementById('soundStatusIcon').className = 'fa-solid fa-play text-sm';
+            document.getElementById('soundbarPauseIcon').className = 'fa-solid fa-play text-xs';
+            document.getElementById('soundbarPauseBtn').setAttribute('aria-label', 'Pause playback');
+            document.getElementById('soundbarPauseBtn').title = 'Pause playback';
+            document.getElementById('soundbarLabel').textContent = defaultSpotifyTrackName;
+            document.getElementById('waveContainer').classList.add('paused');
+            updatePlaybackIcons();
             document.getElementById('soundbar').classList.add('hidden');
         }
 
@@ -2058,6 +2100,7 @@
         function openVideoModal(url, title) {
             const videoId = new URL(url).searchParams.get('v');
             if (!videoId) return;
+            clearStoppedPlayback();
             document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
             document.getElementById('videoModalTitle').textContent = title || 'YouTube video';
             const overlay = document.getElementById('videoModalOverlay');

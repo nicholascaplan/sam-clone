@@ -178,6 +178,20 @@ test('Biography opens as the shared in-page route', async ({ page }) => {
   await expect(page.locator('#tab-contact')).toBeVisible();
 });
 
+test('Writing shows the Wintering essay, portrait and video', async ({ page }) => {
+  await page.goto('/#writing');
+
+  const writing = page.locator('#tab-writing');
+  await expect(writing).toBeVisible();
+  await expect(writing.getByRole('heading', { name: 'On My Creative Process: 1. Wintering' })).toBeVisible();
+  await expect(writing).toContainText('Why do I write? What makes me start?');
+  await expect(writing).toContainText('I’m still uncovering, still trying to get closer to the compositional ideals I hold in mind.');
+  await expect(writing.locator('figure.writing-portrait')).toHaveClass(/float-right/);
+  await expect(writing.locator('figure.writing-portrait img')).toHaveAttribute('src', /sam-3\.webp$/);
+  await expect(writing.locator('p.text-lg')).toContainText('Why do I write? What makes me start?');
+  await expect(writing.getByRole('button', { name: 'Watch Wintering (Trailer)' })).toBeVisible();
+});
+
 test('restores site sections with browser Back and Forward', async ({ page }) => {
   await page.goto('/');
 
@@ -482,7 +496,7 @@ test('resets filters when switching between Works, Listen and Watch views', asyn
   await expect(page.locator('#works-view-watch')).toHaveAttribute('aria-pressed', 'true');
   await expect(search).toHaveValue('');
   await expect(page.locator('#worksInstrumentationLabel')).toHaveText('Instrumentation: All');
-  await expect(page.locator('#worksContainer')).toContainText('Composition for Voice & Electronics');
+  await expect(page.locator('#worksContainer')).toContainText('Look Up');
   await expect(page.locator('#worksContainer').getByRole('button', { name: 'Watch Sound Inhabitants' })).toBeVisible();
 
   await page.locator('#works-view-all').click();
@@ -613,6 +627,30 @@ test('header Listen opens the soundbar for the default track', async ({ page }) 
   await expect(page.locator('#soundbarLabel')).toHaveText('Everything Passes, Everything is Connected · The Crossing');
 });
 
+test('soundbar is anchored to the viewport bottom with readable theme colours', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('theme', 'dark'));
+  await page.goto('/');
+  await page.locator('#ambientSoundBtn').click();
+
+  const soundbar = page.locator('#soundbar');
+  await expect(soundbar).toBeVisible();
+  await expect(soundbar).toHaveCSS('bottom', '0px');
+  await expect(soundbar).toHaveCSS('color', 'rgb(245, 245, 245)');
+  await expect(page.locator('#soundbarTimes')).toHaveCSS('color', 'rgb(212, 212, 212)');
+
+  await page.locator('#themeToggleBtn').click();
+  await expect(soundbar).toHaveCSS('color', 'rgb(24, 33, 31)');
+  await expect(page.locator('#soundbarTimes')).toHaveCSS('color', 'rgb(93, 101, 95)');
+});
+
+test('soundbar is anchored to the viewport bottom on mobile @mobile', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#ambientSoundBtn').click();
+
+  await expect(page.locator('#soundbar')).toBeVisible();
+  await expect(page.locator('#soundbar')).toHaveCSS('bottom', '0px');
+});
+
 test('soundbar stays visible while navigating between pages', async ({ page }) => {
   await page.goto('/');
   await page.locator('#ambientSoundBtn').click();
@@ -635,6 +673,18 @@ test('stopped playback is cleared when navigating away', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Works List' }).click();
   await expect(page.locator('#soundbar')).toBeHidden();
+});
+
+test('stop playback removes and hides the soundbar immediately', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#ambientSoundBtn').click();
+  await expect(page.locator('#soundbar')).toBeVisible();
+
+  await page.locator('#soundbarStopBtn').click();
+
+  await expect(page.locator('#soundbar')).toBeHidden();
+  await expect(page.locator('#soundbarLabel')).toHaveText('Everything Passes, Everything is Connected · The Crossing');
+  await expect(page.locator('#soundbarElapsedTime')).toHaveText('0:00');
 });
 
 test('initialises navigation before the audio players', async ({ page }) => {
@@ -674,6 +724,19 @@ test('opens and closes a YouTube modal without playing video', async ({ page }) 
   await page.getByRole('button', { name: 'Close video' }).click();
   await expect(page.locator('#videoModalOverlay')).toBeHidden();
   await expect(page.locator('#videoFrame')).toHaveAttribute('src', '');
+});
+
+test('opening a video removes active audio and hides the soundbar', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#ambientSoundBtn').click();
+  await expect(page.locator('#soundbar')).toBeVisible();
+
+  await page.getByRole('button', { name: 'Watch', exact: true }).first().click();
+  await page.locator('#worksContainer').getByRole('button', { name: /^Watch / }).first().click();
+
+  await expect(page.locator('#videoModalOverlay')).toBeVisible();
+  await expect(page.locator('#soundbar')).toBeHidden();
+  await expect(page.locator('#soundbarElapsedTime')).toHaveText('0:00');
 });
 
 test('announces catalogue result changes and exposes mutually exclusive views', async ({ page }) => {

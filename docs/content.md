@@ -92,7 +92,7 @@ This Spotlight Works section appears beneath the homepage hero. The full biograp
 ### Current, Rising
 
 - Label: Royal Opera House (2021)
-- Instrumentation: Soprano, CHROMA & VR Electronics
+- Instrumentation: Soprano, ensemble, electronics
 - Duration: 15 mins
 - Description: World-first hyper-reality opera produced by ROH & Figment Productions. Blending stagecraft with CG technology, placing the audience at the center of the performance.
 - Creative team: Director Netia Jones; Soprano Anna Dennis; Ensemble CHROMA; CGI Figment Productions
@@ -158,7 +158,7 @@ The current card data in `index.html` includes durations and additional details 
 - Fault Line for Solo Cello. Related work: Fault-Line. Label: Louise McMonagle (2022). Duration: 6:06. Description: Performance of a solo cello piece originally commissioned by the London Sinfonietta. Link: https://www.youtube.com/watch?v=k3jRJHzIu4Q
 - Charlotte Ashton Performs Samantha Fernando 'Kinesphere'. Related work: Kinesphere. Label: Hebrides Ensemble (2022). Published 8 March 2022. Description: Solo flute performance by Charlotte Ashton, filmed by Flux Video. Link: https://www.youtube.com/watch?v=iDo-EkKhbl4
 - Samantha Fernando: Four Klee Miniatures, Horn Solo. Related work: 4 Klee Miniatures. Label: Trio Radial (2021). Published 9 December 2021. Description: Solo horn performance of four miniatures inspired by Paul Klee. Link: https://www.youtube.com/watch?v=x2q25aBh48Y
-- Composition for Voice & Electronics (enoa Workshop). Label: enoa community (2015). Duration: 8:27. Description: Final concert recording from the European Network of Opera Academies workshop exploring vocal textures and electronic processing. Link: https://www.youtube.com/watch?v=b_w_uYmFwZ4
+- Look Up. Related work: Look Up. Label: enoa community (2015). Duration: 8:27. Description: Final concert recording from the European Network of Opera Academies workshop exploring vocal textures and electronic processing. Link: https://www.youtube.com/watch?v=b_w_uYmFwZ4
 - Samantha Fernando: Pathways. Label: Sound and Music (2018). Duration: 6:34. Description: Documentary profile in which Samantha Fernando discusses her musical philosophy, tableaux-like textures, openness in composition and motherhood as a creative catalyst. Link: https://www.youtube.com/watch?v=XcRdZftNuYA
 - Samantha Fernando: The Composer's Mind. Label: London Sinfonietta (2016). Duration: 5:00. Description: Short documentary detailing Samantha Fernando's creative process, structural thinking and writing techniques. Link: https://www.youtube.com/watch?v=94EkZLEuKBA
 
@@ -197,7 +197,7 @@ More tracks are available on Samantha's SoundCloud page and Spotify page. Record
 - SoundCloud progress is retrieved from the Widget API and includes the recording duration.
 - Spotify progress is a local elapsed-time estimate for the fixed 30-second preview. The Spotify IFrame API does not expose playback position or seeking.
 - The header Listen control and soundbar pause control pause or resume the active recording.
-- The soundbar has separate restart and stop controls. Navigating away after a stop clears the stopped playback state and hides the soundbar.
+- The soundbar has separate restart and stop controls. Stop clears all playback state and hides the soundbar immediately; opening a video does the same before playback begins.
 
 ## Works & Media Catalogue
 
@@ -212,13 +212,20 @@ More tracks are available on Samantha's SoundCloud page and Spotify page. Record
 - Article type: Featured Essay
 - Title: On My Creative Process: 1. Wintering
 - Date: November 2025
+- Image: `assets/sam-3.webp`, portrait of Samantha Fernando.
 - Photo credit: Mike Skelton
-- Opening quote: Why do I write? What makes me start? Sometimes it's a book, sometimes a painting, a poem, or a place. Reflecting on my practice, I see there is always the impulse to respond to something or somewhere. It is an emotive impulse before it is a musical utterance...
-- Paragraph: When I began thinking about Wintering, I was reading Katherine May's book of the same title. Her reflections on human life and its natural cycles resonated deeply with me. Rather than pushing against the cold and darkness, could I find value in stillness and restoration?
-- Paragraph: Scored for four voices (soprano, alto, tenor, and baritone) and string quartet, Wintering explores the tension between quiet introspection and the ever-present hum of the outside world. I was drawn to this ensemble for its rich potential - the voices not only convey text but also blur into the instrumental texture, becoming part of the quartet's fabric.
-- Paragraph: The sound world is often hazy and ambiguous. At times, it evokes frozen landscapes and moments of stasis; at others, it reflects a restless, churning mind caught in the noise of modern urban life. One movement (IV) is hectic and even playful - an attempt to find stillness through meditation, yet thwarted by internal chatter.
-- Structure of Movements in Wintering: I. Vista; II. Cloud Canvas 1; III. Cloud Canvas 2; IV. To Do: Do Less; V. Snow on Snow; VI. Cocoon
-- Closing paragraph: Wintering moves through restlessness and retreat, ultimately leading the listener toward a place of stillness and quiet resilience in the turning of the seasons.
+- Opening paragraph: Why do I write? What makes me start? Sometimes it’s a book, sometimes a painting, a poem, or a place. Reflecting on my practice, I see there is always the impulse to respond to something or somewhere. It is an emotive impulse before it is a musical utterance.
+- Paragraph: For this first foray into writing about my process, it makes sense to consider the book Wintering by Katherine May, since the piece it inspired will be premiered in a matter of days by the Manchester Collective and the Marian Consort at the Wigmore Hall.
+- Paragraph: Like many, I have always found winter difficult—something to endure. Its approach fills me with foreboding. The lack of sunlight, the cold seeping into my bones, and the threat of illness all contribute to the struggle. I used to try to keep busy in the hope that the weeks would pass more quickly.
+- Paragraph: Reading May’s book was something of a revelation; it offered a way of accepting, even embracing, winter. It suggested that constant busyness might not be the answer—that there might be value in stepping back.
+- Paragraph: The notion of “wintering” applies not only to the season but to any period in life when rest, repair, and nourishment are needed: grief, illness, or times of transition. May uses examples from nature, how animals hibernate as well as telling her own story of how she wintered through a difficult period of her life. She also references winter rituals and the power they have to provide solidarity and comfort.
+- Paragraph: The book is very evocative; the descriptive writing conjures up both external wintery landscapes as well as the complex internal landscapes we create in our minds. It is this sense of landscape that resonated with me on a musical level. I could hear these landscapes.
+- Paragraph: It has taken some time to get to this point, but I am finally finding a sense of my creative voice. What it is that I want to explore through sound. I’ve found this through reflecting on my recent work and the patterns that have begun to emerge. Landscape, a sense of place, architecture, these things all feed into my impulse to compose. I am trying to create a place in sound. One that I can invite an audience into.
+- Paragraph: This necessitates a musical language that is not overly-complicated but has a certain directness. I try to create space and time to breathe within the music I write. In pursuit of this, I have found the need to strip things back, take things out, linger for longer. My music isn’t minimalist with a capital M but minimal in material, yes. Stripping back has meant that the material I do use is very deliberate and carries more weight. Detail matters enormously and gestures are intentional.
+- Paragraph: I’ve realised that uncovering my musical voice requires attentiveness to what I want to hear—not what I think others want to hear. It means letting go of the fear of judgement.
+- Paragraph: Most recently I have found inspiration in composers like Jurg Frey, John Luther Adams and Hildegard Von Bingen. Looking far back and not so far back. Wintering is a piece that culminates some of these influences, impulses and my sense of purpose. It isn’t supposed to be a piece that acts as some sort of musical balm but an evocation of both external Winter landscape and the internal psychological landscape that necessitates the need to winter.
+- Closing paragraph: I’m still uncovering, still trying to get closer to the compositional ideals I hold in mind. Creation isn’t linear. But in articulating these thoughts now, I’m putting a pin on the map—in the hope that this moment of clarity propels me forward and, more hopefully still, offers you some insight into my music.
+- Video below article: Wintering (Trailer), Manchester Collective and The Marian Consort, https://www.youtube.com/watch?v=5BApW0VSCes
 
 ## Contact & Score Hire
 

@@ -203,9 +203,25 @@ test('toggles the visual theme', async ({ page }) => {
 
   await page.locator('#themeToggleBtn').click();
   await expect(page.locator('body')).not.toHaveClass(/light-mode/);
+  await expect(page.locator('#themeToggleBtn')).toHaveAttribute('aria-label', 'Switch to light mode');
+  await expect(page.locator('#themeToggleBtn')).toHaveAttribute('aria-pressed', 'true');
+
+  await page.reload();
+  await expect(page.locator('body')).not.toHaveClass(/light-mode/);
 
   await page.locator('#themeToggleBtn').click();
   await expect(page.locator('body')).toHaveClass(/light-mode/);
+  await expect(page.locator('#themeToggleBtn')).toHaveAttribute('aria-label', 'Switch to dark mode');
+  await expect(page.locator('#themeToggleBtn')).toHaveAttribute('aria-pressed', 'false');
+});
+
+test('uses the dark palette for the Instrumentation menu', async ({ page }) => {
+  await page.goto('/#works');
+  await page.locator('#themeToggleBtn').click();
+  await page.getByRole('button', { name: 'Instrumentation: All' }).click();
+
+  await expect(page.locator('#worksInstrumentationMenu')).toHaveCSS('background-color', 'rgb(26, 26, 26)');
+  await expect(page.getByRole('option', { name: 'Opera & Stage' })).toHaveCSS('color', 'rgb(212, 212, 212)');
 });
 
 test('opens and closes the mobile navigation menu @mobile', async ({ page }) => {
@@ -227,6 +243,16 @@ test('opens and closes the mobile navigation menu @mobile', async ({ page }) => 
   await menuButton.click();
   await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
   await expect(menu).toBeHidden();
+});
+
+test('uses the dark palette for the mobile navigation menu @mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.locator('#themeToggleBtn').click();
+  await page.locator('#mobileMenuToggle').click();
+
+  await expect(page.locator('#mobileMenu')).toHaveCSS('background-color', 'rgb(26, 26, 26)');
+  await expect(page.locator('#mobileMenu').getByRole('button', { name: 'Home' })).toHaveCSS('color', 'rgb(212, 212, 212)');
 });
 
 test('keeps mobile header controls and hero content usable @mobile', async ({ page }) => {

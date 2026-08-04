@@ -411,17 +411,33 @@ test('shows the TRAPPIST-1e introduction in Watch', async ({ page }) => {
   await expect(page.locator('#worksContainer').getByRole('button', { name: 'Watch The Exoplanets: Samantha Fernando introduces TRAPPIST-1e' })).toBeVisible();
 });
 
+test('includes all newly catalogued films', async ({ page }) => {
+  await page.goto('/#watch');
+
+  const works = page.locator('#worksContainer');
+  await expect(works.getByRole('button', { name: "Watch Trailer: Current, Rising - The World's First Hyper-Reality Opera" })).toBeVisible();
+  await expect(works.getByRole('button', { name: "Watch Current, Rising: The World's First Hyper-Reality Opera" })).toBeVisible();
+  await expect(works.getByRole('button', { name: 'Watch How Many Moments Must - Samantha Fernando' })).toBeVisible();
+  await expect(works.getByRole('button', { name: "Watch Charlotte Ashton Performs Samantha Fernando 'Kinesphere'" })).toBeVisible();
+  await expect(works.getByRole('button', { name: 'Watch Samantha Fernando: Four Klee Miniatures, Horn Solo' })).toBeVisible();
+  await expect(page.locator('#worksViewDescription')).toHaveText('16 performance films and composer features.');
+});
+
 test('shows CTAs for title variants linked to works', async ({ page }) => {
   await page.goto('/#works');
 
   for (const [workTitle, mediaTitle] of [
     ['glass human', 'glass human - Official Trailer'],
-    ['Current, Rising', "Current, Rising: The World's First Hyper-Reality Opera"],
+    ['Current, Rising', "Trailer: Current, Rising - The World's First Hyper-Reality Opera"],
     ['Fault-Line', 'Fault Line for Solo Cello']
   ]) {
     const work = page.locator('#worksContainer > div', { has: page.getByRole('heading', { name: workTitle, exact: true }) });
     await expect(work.getByRole('button', { name: `Watch ${mediaTitle}` })).toBeVisible();
   }
+
+  const currentRising = page.locator('#worksContainer > div', { has: page.getByRole('heading', { name: 'Current, Rising', exact: true }) });
+  await expect(currentRising.getByRole('button', { name: "Watch Trailer: Current, Rising - The World's First Hyper-Reality Opera" })).toBeVisible();
+  await expect(currentRising.getByRole('button', { name: "Watch Current, Rising: The World's First Hyper-Reality Opera" })).toHaveCount(0);
 });
 
 test('resets filters when switching between Works, Listen and Watch views', async ({ page }) => {

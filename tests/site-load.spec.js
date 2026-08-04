@@ -173,7 +173,7 @@ test('Biography opens as the shared in-page route', async ({ page }) => {
   await expect(page.locator('#tab-bio')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Samantha Fernando' })).toBeVisible();
   await expect(page.locator('#tab-bio')).toContainText('In recent years, her music');
-  await page.getByRole('button', { name: /Commissions, score hire/ }).click();
+  await page.getByRole('button', { name: 'Discuss a commission or performance' }).click();
   await expect(page).toHaveURL(/#contact$/);
   await expect(page.locator('#tab-contact')).toBeVisible();
 });
@@ -516,15 +516,13 @@ test('soundbar starts with the default track name', async ({ page }) => {
   await expect(page.locator('#worksContainer [data-spotify-track="3YV79qjiJLOgYjjEzTsVEy"]')).toBeVisible();
 });
 
-test('exposes legacy audio rows as keyboard-operable buttons', async ({ page }) => {
+test('exposes catalogue audio actions as keyboard-operable buttons', async ({ page }) => {
   await mockPlaybackProviders(page);
-  await page.goto('/');
+  await page.goto('/#listen');
 
-  const row = page.locator('#tab-listen [data-track="illuminations"]');
-  await expect(row).toHaveAttribute('role', 'button');
-  await expect(row).toHaveAttribute('tabindex', '0');
-  await expect(row).toHaveAttribute('aria-label', /Play 4 Illuminations/);
-  await row.press('Enter');
+  const action = page.locator('#worksContainer [data-track="illuminations"]');
+  await expect(action).toHaveRole('button');
+  await action.press('Enter');
   await expect.poll(() => page.evaluate(() => Boolean(window.__soundCloudPlayers?.soundcloudPlayerIlluminations))).toBe(true);
 });
 

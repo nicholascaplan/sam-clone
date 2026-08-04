@@ -29,8 +29,10 @@ Use this document to collect content decisions needed before the Works & Media c
 ## Recordings
 
 - Confirm the original premiere details for **3 Songs for Soprano and Cello**. The 2020 Riot Ensemble recording is not necessarily its premiere.
-- Confirm the composition and recording dates, performers and ensemble for **Recollections**.
-- Confirm the recording date and collaborators for **The Journey Between Us - Reflection 1**. Add it to the Works List if it is a Samantha Fernando composition.
+- When was **Recollections** composed? Also confirm its recording date, performers and ensemble.
+- **The Journey Between Us - Reflection 1** is missing from the Works List. Should it be added as a Samantha Fernando composition?
+- What instrumentation is required for **The Journey Between Us - Reflection 1**?
+- Confirm the recording date and collaborators for **The Journey Between Us - Reflection 1**.
 
 ## Confirmed Context
 

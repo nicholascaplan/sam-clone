@@ -75,9 +75,7 @@
         .light-mode .text-amber-300,
         .light-mode .text-amber-400,
         .light-mode .text-amber-500 { color: #944900 !important; }
-        body.light-mode .text-red-400,
-        body.light-mode .audio-catalog-list .text-red-400 { color: #8d2f1d !important; }
-        body.light-mode .audio-extract-status { color: #5d655f; }
+        body.light-mode .text-red-400 { color: #8d2f1d !important; }
         body.light-mode button.works-view-btn[aria-pressed="true"] {
             background-color: #6f3508 !important;
             color: #ffffff !important;
@@ -131,17 +129,9 @@
         #themeToggleBtn { width: 2.5rem; height: 2.5rem; display: inline-flex; align-items: center; justify-content: center; }
         #mobilePreviewBtn { width: 2.5rem; height: 2.5rem; display: inline-flex; align-items: center; justify-content: center; }
         #ambientSoundBtn { width: auto; justify-content: center; position: relative; }
-        .audio-track-play { flex: 0 0 2.5rem; width: 2.5rem; height: 2.5rem; aspect-ratio: 1; }
-        .audio-provider { position: absolute; top: 1rem; right: 1rem; width: 1.25rem; height: 1.25rem; display: inline-flex; align-items: center; justify-content: center; color: #8b8175; font-size: 0.78rem; }
-        .audio-duration { position: absolute; right: 1rem; bottom: 1rem; }
-        .audio-extract-status { position: absolute; right: 1rem; bottom: 1rem; color: #8b8175; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.06em; line-height: 1.15; text-transform: uppercase; }
-        .audio-catalog-list > div > div:first-child { min-width: 0; flex: 1 1 auto; }
-        .audio-catalog-list > div > div:first-child > div:last-child { min-width: 0; flex: 1 1 auto; }
-        .audio-catalog-list > [data-spotify-track] { padding-right: 3.5rem !important; }
         @media (max-width: 767px) {
             #tab-home > * + * { margin-top: 2rem; }
             #featured-projects { padding-top: 1.5rem; }
-            .audio-catalog-list > [data-spotify-track] { padding-bottom: 2rem !important; }
         }
         .audio-card-heading { display: block; }
         .work-media-action {
@@ -190,19 +180,16 @@
         .light-mode .works-filter-divider { background: rgba(24, 33, 31, 0.2); }
         @media (min-width: 768px) {
             /* Keep catalogue cards compact on desktop while mobile remains linear. */
-            .audio-catalog-list,
             .works-catalogue {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 0.75rem;
             }
-            .audio-catalog-list > div,
             .works-catalogue > div,
             .works-catalogue > article {
                 min-width: 0;
                 margin-top: 0 !important;
             }
-            .audio-catalog-list .text-xs.text-neutral-400,
             .works-catalogue .text-xs.text-neutral-400,
             .works-catalogue .text-xs.text-neutral-500 {
                 display: block;
@@ -381,6 +368,30 @@
         .light-mode .hero-actions button { border-color: rgba(24, 33, 31, 0.2); color: #34403a; }
         .light-mode .hero-actions button:hover { color: #944900; }
         .light-mode .hero-action-icon { color: #944900; }
+        .bio-contact-cta {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            padding-bottom: 0.35rem;
+            border-bottom: 1px solid currentColor;
+            color: #fcd6a7;
+            font-family: Georgia, serif;
+            font-size: 1.25rem;
+            line-height: 1.2;
+            text-align: left;
+            transition: color 0.2s ease;
+        }
+        .bio-contact-cta span {
+            font-family: ui-sans-serif, system-ui, sans-serif;
+            font-size: 0.9rem;
+            transition: transform 180ms ease;
+        }
+        .bio-contact-cta:hover { color: #ffffff; }
+        .bio-contact-cta:hover span,
+        .bio-contact-cta:focus-visible span { transform: translateX(0.25rem); }
+        .bio-contact-cta:focus-visible { outline: 2px solid #f59e0b; outline-offset: 3px; }
+        .light-mode .bio-contact-cta { color: #944900; }
+        .light-mode .bio-contact-cta:hover { color: #6f3508; }
 
         /* Image containers retain their crop without motion on hover. */
         .img-hover-zoom {
@@ -877,7 +888,7 @@
                     <p>Samantha has worked with numerous world-leading ensembles including the <strong class="text-neutral-100">Philharmonia Orchestra</strong>, <strong class="text-neutral-100">London Sinfonietta</strong>, <strong class="text-neutral-100">BCMG</strong>, <strong class="text-neutral-100">Riot Ensemble</strong>, <strong class="text-neutral-100">The BBC Singers</strong>, <strong class="text-neutral-100">LOD Muziektheater (Ghent)</strong>, <strong class="text-neutral-100">Silbersee Vocal Ensemble (Amsterdam)</strong> and <strong class="text-neutral-100">The Crossing (USA)</strong>. Her music has been performed at major international festivals including Aldeburgh Music, Huddersfield Contemporary Music Festival, Sounds New, Gaudeamus Muziekweek, York Late Music and the Oxford Lieder Festival.</p>
                     <p>Samantha studied Composition at the Royal Academy of Music and the University of Oxford. She is an Honorary Research Fellow in Composition at Royal Holloway, University of London.</p>
                     <p>In 2021, Samantha saw the opening of <em class="text-amber-300">Current, Rising</em>, a world-first hyper-reality opera experience produced by the Royal Opera House and Figment Productions. Her chamber opera <em class="text-amber-300">glass human</em>, created in collaboration with Melanie Wilson, premiered at Glyndebourne in Autumn 2022. Recent commissions include <em class="text-amber-300">Sound Inhabitants</em> for the London Sinfonietta and <em class="text-amber-300">Wintering</em>, commissioned by Wigmore Hall and performed by Manchester Collective and The Marian Consort.</p>
-                    <button type="button" onclick="switchTab('contact')" class="inline-flex items-center gap-2 text-sm text-amber-300 hover:text-amber-200 transition-colors">Commissions, score hire and performance materials <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                    <button type="button" onclick="switchTab('contact')" class="bio-contact-cta">Discuss a commission or performance <span aria-hidden="true">→</span></button>
                 </article>
 
                 <aside class="space-y-6">
@@ -948,338 +959,7 @@
 
             <!-- Works Container -->
             <div id="worksContainer" class="works-catalogue" role="region" aria-live="polite" aria-label="Works and media results"></div>
-        </section>
-
-        <!-- ================= TAB 3: WATCH ================= -->
-        <section id="tab-watch" class="tab-content space-y-10">
-            <div class="border-b border-neutral-800 pb-6">
-                <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Video Films & Performances</span>
-                <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Watch</h2>
-                <p class="text-neutral-400 text-sm mt-1">Performance films, opera trailers and documentations of Samantha Fernando's compositions.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Video: The Exoplanets interview -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="https://i.ytimg.com/vi/PtuinjIcJD0/hqdefault.jpg" alt="The Exoplanets: Samantha Fernando introduces TRAPPIST-1e" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <a href="https://www.youtube.com/watch?v=PtuinjIcJD0" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110" aria-label="Watch The Exoplanets: Samantha Fernando introduces TRAPPIST-1e">
-                                <i class="fa-solid fa-play ml-1" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">The Exoplanets (2025)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">The Exoplanets: Samantha Fernando introduces TRAPPIST-1e</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">Samantha Fernando introduces her movement inspired by the rocky exoplanet TRAPPIST-1e.</p>
-                    </div>
-                </div>
-
-                <!-- Video 1: Sound Inhabitants -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-2.webp" alt="Samantha Fernando at work in her studio" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <a href="https://www.youtube.com/watch?v=hirZmf8DoA4" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
-                                <i class="fa-solid fa-play ml-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">London Sinfonietta Academy (2023)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Sound Inhabitants - Live Performance Film</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">
-                            Recorded as part of the London Sinfonietta Academy's "Musicians of Tomorrow" Concert at Purcell Room, Southbank Centre, co-produced with Folkestone New Music. Constructed out of contrasting blocks and rooms of sound.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Video 2: Current, Rising trailer -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-6.webp" alt="Current, Rising trailer artwork" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                             <a href="https://www.youtube.com/watch?v=KXrYuIWLv60" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
-                                <i class="fa-solid fa-play ml-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">Royal Opera House (2021)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising - Official Trailer</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">
-                            A trailer for the world-first hyper-reality opera experience produced at the Royal Opera House, London.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Video 3: Wintering trailer -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/wintering.webp" alt="Wintering film trailer artwork" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <a href="https://www.youtube.com/watch?v=5BApW0VSCes" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
-                                <i class="fa-solid fa-play ml-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">Wigmore Hall Commission (2025)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Wintering - Film Trailer</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">
-                            Manchester Collective & The Marian Consort. A film trailer for Samantha Fernando's work for SATB voices and string quartet.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Video 4: glass human -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/glass-huma.webp" alt="glass human trailer artwork" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <button onclick="openModal('glasshuman')" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">Glyndebourne Chamber Opera (2022)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">glass human - Production Insights</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">
-                            A chamber opera created with librettist Melanie Wilson for Glyndebourne, exploring human loneliness through three isolated voices finding resonance.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Video 4: Current, Rising -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-6.webp" alt="Samantha Fernando working with a score" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <button onclick="openModal('currentrising')" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">Royal Opera House (2021)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising - Hyper-Reality Opera Experience</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">
-                            Behind the scenes and VR documentation of the world's first hyper-reality opera experience produced at the Royal Opera House, London.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Video 5: Current, Rising creation -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-3.webp" alt="Portrait of Samantha Fernando" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <a href="https://www.youtube.com/watch?v=AVXYPqdAYdY" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
-                                <i class="fa-solid fa-play ml-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">Royal Opera House Insights (2021)</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Current, Rising - How it was created</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">
-                            A documentary featurette exploring the CGI, VR, and sound composition process.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Video 6: Composer interview -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-1.webp" alt="Portrait of Samantha Fernando" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <a href="https://www.youtube.com/watch?v=94EkZLEuKBA" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
-                                <i class="fa-solid fa-play ml-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">London Sinfonietta</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Samantha Fernando: The Composer's Mind</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">
-                            Interview feature exploring Samantha Fernando's compositional philosophy and process.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Video 7: enoa community -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-6.webp" alt="Samantha Fernando working with a score" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <a href="https://www.youtube.com/watch?v=b_w_uYmFwZ4" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110">
-                                <i class="fa-solid fa-play ml-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <span class="text-xs font-mono text-amber-400">enoa community</span>
-                        <h3 class="text-xl font-serif text-neutral-100">Composition for Voice & Electronics</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">Workshop final concert performance of experimental vocal and electronic work.</p>
-                    </div>
-                </div>
-
-                <!-- Video 8: 4 Klee Miniatures -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-1.webp" alt="Samantha Fernando portrait" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <a href="https://www.youtube.com/watch?v=x2q25aBh48Y" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110"><i class="fa-solid fa-play ml-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="space-y-2"><span class="text-xs font-mono text-amber-400">Solo Horn (2021)</span><h3 class="text-xl font-serif text-neutral-100">4 Klee Miniatures</h3><p class="text-neutral-400 text-xs leading-relaxed">Performed by Deepa Goonetilleke / Trio Radial; inspired by Paul Klee.</p></div>
-                </div>
-
-                <!-- Video 9: Fault Line -->
-                <div class="glass-panel rounded-2xl overflow-hidden border border-neutral-800 group space-y-4 p-5">
-                    <div class="relative aspect-video bg-neutral-900 rounded-xl overflow-hidden img-hover-zoom">
-                        <img src="assets/sam-2.webp" alt="Samantha Fernando at work" class="w-full h-full object-cover" loading="lazy">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <a href="https://www.youtube.com/watch?v=k3jRJHzIu4Q" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-amber-600/90 hover:bg-amber-500 text-white flex items-center justify-center text-xl shadow-xl transition-all hover:scale-110"><i class="fa-solid fa-play ml-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="space-y-2"><span class="text-xs font-mono text-amber-400">Solo Cello (2015)</span><h3 class="text-xl font-serif text-neutral-100">Fault Line</h3><p class="text-neutral-400 text-xs leading-relaxed">Solo cello performance by Louise McMonagle / Oliver Coates.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= TAB 4: LISTEN ================= -->
-        <section id="tab-listen" class="tab-content space-y-10">
-            <div class="border-b border-neutral-800 pb-6">
-                <span class="text-xs font-mono text-amber-500 tracking-widest uppercase">Audio Recordings</span>
-                <h2 class="text-3xl font-display uppercase tracking-wider text-neutral-100 mt-1">Listen</h2>
-                <p class="text-neutral-400 text-sm mt-1">Studio recordings, broadcasts, and album tracks.</p>
-            </div>
-
-            <!-- Tracklist -->
-            <div class="glass-panel p-6 rounded-3xl border border-neutral-800 space-y-4">
-                <h3 class="text-lg font-serif text-neutral-100 border-b border-neutral-800 pb-3">Featured Audio Catalog</h3>
-                <p id="audioAvailabilityMessage" class="hidden text-sm text-amber-900 bg-amber-100 border border-amber-700/40 rounded-xl px-4 py-3" role="status"></p>
-
-                <div class="audio-catalog-list space-y-3" role="list" aria-label="Featured audio recordings">
-                    <div data-track="illuminations" onclick="playTrack('4 Illuminations', 'Xasax Saxophone Quartet', 'illuminations')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4">
-                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">4 Illuminations [2012]</h4>
-                                <p class="text-xs text-neutral-400">Saxophone Quartet, performed by Xasax Saxophone Quartet at Royaumont Abbey</p>
-                            </div>
-                        </div>
-                        <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">8:08</span>
-                    </div>
-
-                    <div data-track="faultline" onclick="playTrack('Fault-Line', 'Oliver Coates (cello)', 'faultline')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4">
-                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Fault-Line [2015]</h4>
-                                <p class="text-xs text-neutral-400">Solo Cello, performed by Oliver Coates (London Sinfonietta Commission)</p>
-                            </div>
-                        </div>
-                        <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:03</span>
-                    </div>
-
-                    <div data-track="recollections" onclick="playTrack('Recollections', 'Elsbeth Gerritsen & Eva Reiter', 'recollections')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4">
-                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Recollections <span class="text-red-400">[Missing year]</span></h4>
-                                <p class="text-xs text-neutral-400">Mezzo-soprano & Paetzold Contrabass Recorder, Elsbeth Gerritsen & Eva Reiter</p>
-                            </div>
-                        </div>
-                        <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:25</span>
-                    </div>
-
-                    <div data-spotify-track="2wNL47uCuwDpbOqCIpbSTS" onclick="playSpotifyTrack('2wNL47uCuwDpbOqCIpbSTS')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4">
-                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
-                            </div>
-                            <div>
-                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Balconies [2023]</h4>
-                                <p class="text-xs text-neutral-400">Multi-tracked Solo Violin, Olivia de Prato (Panorama Album, New Focus Recordings)</p>
-                            </div>
-                        </div>
-                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-extract-status">Extract</span>
-                    </div>
-
-                    <div data-track="kinesphere" onclick="playTrack('Kinesphere', 'Michael Cox', 'kinesphere')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4">
-                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
-                            </div>
-                            <div>
-                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Kinesphere [2014]</h4>
-                                 <p class="text-xs text-neutral-400">Solo Flute, performed by Michael Cox (NMC Recordings)</p>
-                             </div>
-                         </div>
-                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:06</span>
-                     </div>
-
-                    <div data-spotify-track="3YV79qjiJLOgYjjEzTsVEy" onclick="playSpotifyTrack('3YV79qjiJLOgYjjEzTsVEy')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4">
-                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-xs" aria-hidden="true"></i>
-                            </div>
-                            <div>
-                                 <h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Everything Passes, Everything is Connected [2021]</h4>
-                                <p class="text-xs text-neutral-400">Unaccompanied Choir, commissioned and performed by The Crossing (USA)</p>
-                            </div>
-                        </div>
-                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-extract-status">Extract</span>
-                    </div>
-
-                    <div data-spotify-track="3yRPnEWI5IHASxiNNgvyuh" onclick="playSpotifyTrack('3yRPnEWI5IHASxiNNgvyuh')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4">
-                            <div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs" aria-hidden="true"></i></div>
-                                <div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">How Many Moments Must <span class="text-red-400">[Missing year]</span></h4><p class="text-xs text-red-400">More Info Needed</p></div>
-                        </div>
-                        <span class="audio-provider" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></span><span class="audio-extract-status">Extract</span>
-                    </div>
-
-                    <div data-spotify-track="5k4j31qldbj9wqg9VBKo01" onclick="playSpotifyTrack('5k4j31qldbj9wqg9VBKo01')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs" aria-hidden="true"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Utterance <span class="text-red-400">[Missing year]</span></h4><p class="text-xs text-red-400">More Info Needed</p></div></div>
-                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:06</span>
-                    </div>
-
-                    <div data-spotify-track="1o0qiFnwPPgBA3k6QWVPM8" onclick="playSpotifyTrack('1o0qiFnwPPgBA3k6QWVPM8')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group">
-                        <div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs" aria-hidden="true"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">The Half Moon <span class="text-red-400">[Missing year]</span></h4><p class="text-xs text-red-400">More Info Needed</p></div></div>
-                         <span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">1:06</span>
-                    </div>
-
-                    <div data-track="look-up" onclick="playTrack('Look Up', '4 voices, viola da gamba and electronics', 'look-up')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Look Up</h4><p class="text-xs text-neutral-400">4 voices, viola da gamba and electronics</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:53</span></div>
-
-                    <div data-track="positive-negative-space" onclick="playTrack('Positive/Negative Space', 'flute, clarinet, alto sax & cello', 'positive-negative-space')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Positive/Negative Space</h4><p class="text-xs text-neutral-400">Flute, clarinet, alto sax & cello</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">6:50</span></div>
-
-                    <div data-track="square-of-light" onclick="playTrack('Square Of Light', '', 'square-of-light')" class="relative flex items-center justify-between p-4 pr-14 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800/80 border border-neutral-800 cursor-pointer transition-all group"><div class="flex items-center gap-4"><div class="audio-track-play rounded-full bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform"><i class="fa-solid fa-play text-xs"></i></div><div><h4 class="text-sm font-medium text-neutral-200 group-hover:text-amber-300 transition-colors">Square Of Light</h4><p class="text-xs text-neutral-400">2013 · Soprano and piano</p></div></div><span class="audio-provider" aria-label="SoundCloud"><i class="fa-brands fa-soundcloud" aria-hidden="true"></i></span><span class="audio-duration text-xs font-mono text-neutral-500">3:15</span></div>
-
-                </div>
-            </div>
-
-            <!-- Recording availability note follows the listening options. -->
-            <div data-recording-availability-note class="glass-panel p-4 rounded-2xl text-xs font-sans flex items-start gap-3">
-                <i class="fa-solid fa-headphones text-neutral-500 text-base mt-0.5" aria-hidden="true"></i>
-                <div class="space-y-1">
-                    <p class="font-semibold text-neutral-300">Recording availability</p>
-                    <p class="text-neutral-400 leading-relaxed">
-                        More tracks are available on Samantha's <a href="https://on.soundcloud.com/Ohbj2UPBnWa5Scw8AB" target="_blank" rel="noopener" class="underline text-neutral-300 hover:text-neutral-100">SoundCloud page</a> and <a href="https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM?si=-nnE1u-AQnypJGW2RpvPMg" target="_blank" rel="noopener" class="underline text-neutral-300 hover:text-neutral-100">Spotify page</a>. Recordings exist for all compositions, but for rights reasons not all of these are hosted publicly online. Please <button onclick="switchTab('contact')" class="underline text-neutral-300 hover:text-neutral-100">contact Samantha directly</button> if you would like to request audio for specific unreleased works.
-                    </p>
-                </div>
-            </div>
-
+            <p id="audioAvailabilityMessage" class="hidden text-sm text-amber-900 bg-amber-100 border border-amber-700/40 rounded-xl px-4 py-3" role="status"></p>
         </section>
 
         <!-- ================= TAB 5: WRITING ================= -->
@@ -1510,42 +1190,6 @@
             { id: 24, title: 'Breathing Space', year: 2019, category: 'orchestral', instrumentation: 'Symphony orchestra', duration: '12 mins', commission: 'Philharmonia Orchestra', notes: 'Conducted by Martyn Brabbins' },
             { id: 25, title: 'Echo of a Woman', year: 2018, category: 'orchestral', instrumentation: 'Soprano and orchestra', duration: '14 mins', commission: 'Royal Holloway University Symphony Orchestra' },
         ];
-
-        // Keep featured recordings ordered newest first; unknown years remain at the end.
-        const audioCatalog = document.querySelector('#tab-listen .space-y-3');
-        if (audioCatalog) {
-            const yearByTitle = {
-                'Balconies': 2023,
-                'Everything Passes, Everything is Connected': 2021,
-                'Fault-Line': 2015,
-                'Look Up': 2014,
-                'Kinesphere': 2014,
-                'Positive/Negative Space': 2013,
-                'Square Of Light': 2013,
-                '4 Illuminations': 2012,
-                'How Many Moments Must': 2014,
-                'Utterance': 2014,
-                'The Half Moon': 2014,
-                'Recollections': 0
-            };
-                [...audioCatalog.children].forEach(track => {
-                    const title = track.querySelector('h4');
-                    const key = title?.textContent.replace(/ \[[^\]]+\]$/, '');
-                    const year = yearByTitle[key];
-                    title?.childNodes.forEach(node => {
-                        if (node.nodeType === Node.TEXT_NODE) {
-                            node.nodeValue = node.nodeValue.replace(/ \[(\d{4})\]/g, '\u00a0[$1]');
-                        }
-                    });
-                    if (title && year && !title.textContent.includes('[')) {
-                        title.append(document.createTextNode(`\u00a0[${year}]`));
-                    }
-                track.dataset.year = year || 0;
-            });
-            [...audioCatalog.children]
-                .sort((a, b) => Number(b.dataset.year) - Number(a.dataset.year))
-                .forEach(track => audioCatalog.appendChild(track));
-        }
 
         const workCategoryLabels = {
             chamber: 'Solo & Chamber',
@@ -1852,20 +1496,6 @@
             renderWorks();
         }
 
-        function initialiseLegacyAudioRows() {
-            document.querySelectorAll('#tab-listen .audio-catalog-list > [data-track], #tab-listen .audio-catalog-list > [data-spotify-track]').forEach(row => {
-                row.setAttribute('role', 'button');
-                row.setAttribute('tabindex', '0');
-                row.addEventListener('keydown', event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        row.click();
-                    }
-                });
-            });
-            updateLegacyAudioRowLabels();
-        }
-
         const initialAnchor = window.location.hash.slice(1);
         const initialTab = anchorTabs[initialAnchor] || 'home';
         switchTab(initialTab, initialAnchor === 'watch' ? 'watch' : undefined, false);
@@ -2126,18 +1756,6 @@
                     icon.className = 'fa-solid fa-pause text-xs';
                 });
             }
-            updateLegacyAudioRowLabels();
-        }
-
-        function updateLegacyAudioRowLabels() {
-            document.querySelectorAll('#tab-listen .audio-catalog-list > [data-track], #tab-listen .audio-catalog-list > [data-spotify-track]').forEach(row => {
-                const trackId = row.dataset.track || row.dataset.spotifyTrack;
-                const title = row.querySelector('h4')?.textContent.trim() || 'recording';
-                const isActive = isAudioPlaying && trackId === currentTrackId
-                    && (row.dataset.track ? activeAudioProvider === 'soundcloud' : activeAudioProvider === 'spotify');
-                row.setAttribute('aria-label', `${isActive ? 'Pause' : 'Play'} ${title}`);
-                row.setAttribute('aria-pressed', String(isActive));
-            });
         }
 
         function bindSoundCloudEvents() {
@@ -2329,12 +1947,7 @@
                 return;
             }
 
-            if (!player) {
-                notice.textContent = `${title} does not yet have a verified embeddable SoundCloud source.`;
-                notice.classList.remove('hidden');
-                return;
-            }
-
+            notice.classList.add('hidden');
             pendingSpotifyTrack = null;
             if (isSpotifyPlaying && spotifyController) {
                 spotifyController.pause();
@@ -2676,13 +2289,6 @@
                 document.getElementById('sitePasswordGate').classList.add('hidden');
             }
             updateThemeToggle();
-            initialiseLegacyAudioRows();
-            document.querySelectorAll('#tab-watch a[href*="youtube.com/watch"]').forEach(link => {
-                link.addEventListener('click', event => {
-                    event.preventDefault();
-                    openVideoModal(link.href, link.closest('.glass-panel')?.querySelector('h3')?.textContent);
-                });
-            });
             const initialiseWhenIdle = () => initialiseSoundCloudPlayers().catch(() => {});
             if ('requestIdleCallback' in window) window.requestIdleCallback(initialiseWhenIdle, { timeout: 5000 });
             else window.setTimeout(initialiseWhenIdle, 0);

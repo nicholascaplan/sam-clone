@@ -33,6 +33,8 @@ Samantha studied Composition at the Royal Academy of Music and the University of
 
 In 2021, Samantha saw the opening of Current, Rising, a world-first hyper-reality opera experience produced by the Royal Opera House and Figment Productions. Her chamber opera glass human, created in collaboration with Melanie Wilson, premiered at Glyndebourne in Autumn 2022. Recent commissions include Sound Inhabitants for the London Sinfonietta and Wintering, commissioned by Wigmore Hall and performed by Manchester Collective and The Marian Consort.
 
+- Contact call to action: Discuss a commission or performance. Opens Contact & Score Hire.
+
 ### Education and Fellowship
 
 - Education: Royal Academy of Music and University of Oxford
@@ -163,7 +165,6 @@ The current card data in `index.html` includes durations and additional details 
 ## Listen
 
 - Catalogue filter: Listen, inside Works & Media. The catalogue contains thirteen recordings. Cards show the related Work's category pill and the track time when known. Spotify actions read `Preview`; SoundCloud actions read `Listen`.
-- Section heading: Featured Audio Catalog
 
 ### SoundCloud Tracks
 

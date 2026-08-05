@@ -8,6 +8,7 @@ Record only decisions that constrain future work. Implementation history and com
 - Push browser-history entries for deliberate section and Works & Media view changes. Restore the matching state on `popstate`.
 - Keep the homepage URL free of a redundant `#bio` fragment.
 - Keep local design experiments in Git-ignored `design/`; do not publish them.
+- Keep one canonical public URL for the single-page site. Represent the client-rendered compositions as static `MusicComposition` structured data until an approved multi-page architecture split. The essay is already static HTML; recordings and films retain links to their authoritative provider pages rather than duplicating third-party metadata in structured data.
 
 ## Content And Navigation
 

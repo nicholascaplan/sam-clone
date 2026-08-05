@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nicholascaplan.github.io/sam-clone/sitemap.xml

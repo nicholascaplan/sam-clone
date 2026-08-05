@@ -12,7 +12,7 @@ npm test
 
 ## Covered
 
-- Page load, core assets and navigation.
+- Page load, core assets, search metadata, crawl-discovery files and navigation.
 - Hash routes, browser history, Works/Listen/Watch filters and search.
 - Persisted theme switching and mobile preview state, the Instrumentation menu's selected state in both themes, and mobile-navigation menus. Theme-dependent interactive states are exercised in both light and dark modes.
 - Works and YouTube modal semantics, focus restoration, score-request flow and contact-form success/failure states.
@@ -30,4 +30,4 @@ npm test
 
 ## Deployment
 
-The Pages workflow must run tests and publish an allowlisted artifact containing only `index.html` and `assets/`. Verify the GitHub Actions deployment after each push; live-site propagation should be checked separately.
+The Pages workflow must run tests and publish an allowlisted artifact containing only `index.html`, `robots.txt`, `sitemap.xml` and `assets/`. Verify the GitHub Actions deployment after each push; live-site propagation should be checked separately.

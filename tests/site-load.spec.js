@@ -64,6 +64,45 @@ test('loads the site and renders primary navigation', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Watch', exact: true }).first()).toBeVisible();
 });
 
+test('exposes canonical metadata and structured data for search', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    'content',
+    /Official website of British composer Samantha Fernando/,
+  );
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://nicholascaplan.github.io/sam-clone/',
+  );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    'https://nicholascaplan.github.io/sam-clone/assets/sam-1-1200.webp',
+  );
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+  await expect(page.getByRole('heading', { name: 'Samantha Fernando, British Composer', level: 1 })).toBeVisible();
+
+  const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
+  const graph = JSON.parse(structuredData)['@graph'];
+  expect(graph.find(item => item['@type'] === 'Person')).toMatchObject({
+    name: 'Samantha Fernando',
+    jobTitle: 'Composer',
+  });
+  expect(graph.find(item => item['@type'] === 'ItemList').itemListElement).toHaveLength(23);
+});
+
+test('publishes crawl-discovery files', async ({ request }) => {
+  const [robots, sitemap] = await Promise.all([
+    request.get('/robots.txt'),
+    request.get('/sitemap.xml'),
+  ]);
+
+  expect(robots.ok()).toBe(true);
+  expect(await robots.text()).toMatch(/Sitemap: https:\/\/nicholascaplan\.github\.io\/sam-clone\/sitemap\.xml/);
+  expect(sitemap.ok()).toBe(true);
+  expect(await sitemap.text()).toMatch(/<loc>https:\/\/nicholascaplan\.github\.io\/sam-clone\/<\/loc>/);
+});
+
 test('navigation opens the Listen and Watch catalogue views', async ({ page }) => {
   await page.goto('/');
 

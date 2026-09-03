@@ -813,22 +813,12 @@ test('Listen and Watch views expose their selected state and deep links', async 
   await expect(page.locator('#works-view-all')).toHaveAttribute('aria-pressed', 'true');
 });
 
-test('deployed hostname shows the password gate and honours persisted unlocks', async ({ page, browserName }) => {
+test('deployed hostname is publicly accessible', async ({ page, browserName }) => {
   test.skip(browserName !== 'chromium', 'Chromium maps the deployed hostname to the local server.');
   await page.goto('http://nicholascaplan.github.io:8000/');
 
-  const gate = page.getByRole('dialog', { name: 'Private site' });
-  await expect(gate).toBeVisible();
-  await page.getByPlaceholder('Password').fill('invalid');
-  await page.getByRole('button', { name: 'Enter site' }).click();
-  await expect(page.getByRole('alert')).toHaveText('Incorrect password.');
-  await page.getByRole('button', { name: 'Show password' }).click();
-  await expect(page.getByPlaceholder('Password')).toHaveAttribute('type', 'text');
-
-  await page.evaluate(() => sessionStorage.setItem('siteUnlocked', 'true'));
-  await page.reload();
-  await expect(gate).toBeHidden();
   await expect(page.getByRole('navigation')).toBeVisible();
+  await expect(page.getByRole('dialog', { name: 'Private site' })).toHaveCount(0);
 });
 
 test('searches works and shows the empty result state', async ({ page }) => {

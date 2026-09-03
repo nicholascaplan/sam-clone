@@ -12,7 +12,7 @@ No. Keep the single-page site until a concrete need outweighs the maintenance co
 
 ## Trade-Off
 
-Separate documents would interrupt audio playback and require duplicated navigation, theme, password-gate and shared-player behaviour without a build system.
+Separate documents would interrupt audio playback and require duplicated navigation, theme and shared-player behaviour without a build system.
 
 ## If Approved
 

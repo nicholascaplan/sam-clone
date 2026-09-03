@@ -26,7 +26,6 @@ Use this file to track unresolved implementation, product and maintenance work. 
 
 ## Constraints And Verification
 
-- The deployed GitHub Pages site has an intentionally insecure client-side password gate. It is a testing deterrent, not a security boundary, and local development remains ungated.
 - The visualizer is simulated because the SoundCloud Widget API does not expose audio amplitude. SoundCloud progress comes from the Widget API; Spotify progress is a display-only local elapsed-time estimate. Neither progress bar supports seeking.
 - Tailwind is compiled locally to `assets/tailwind.min.css`. Run `npm run build:css` after changing `tailwind.css` or Tailwind utility usage.
 - Serve the site over HTTP, not `file://`: `python3 -m http.server 8000`.

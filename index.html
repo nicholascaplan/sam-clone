@@ -476,62 +476,6 @@
             overflow: hidden;
         }
 
-        body.site-locked > *:not(#sitePasswordGate) { display: none !important; }
-        body:not(.site-locked) #sitePasswordGate { display: none; }
-        #sitePasswordGate {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            background: #f4f0e8;
-            color: #18211f;
-        }
-        #sitePasswordGate.hidden { display: none; }
-        #sitePasswordGate form {
-            width: min(100%, 25rem);
-            padding: 2rem;
-            border: 1px solid rgba(24, 33, 31, 0.2);
-            border-radius: 1.25rem;
-            background: #fbfaf6;
-            box-shadow: 0 1rem 3rem rgba(24, 33, 31, 0.12);
-        }
-        #sitePasswordGate input {
-            width: 100%;
-            margin-top: 1rem;
-            padding: 0.75rem 0.9rem;
-            border: 1px solid rgba(24, 33, 31, 0.25);
-            border-radius: 0.65rem;
-            background: #fff;
-            color: #18211f;
-        }
-        .password-field { position: relative; }
-        .password-field input { padding-right: 3rem !important; }
-        #sitePasswordGate #togglePasswordVisibility {
-            position: absolute;
-            right: 0.75rem;
-            bottom: 0.7rem;
-            color: #6d7570;
-            width: auto;
-            margin-top: 0;
-            padding: 0;
-            background: transparent;
-            font-weight: 400;
-        }
-        #sitePasswordGate #togglePasswordVisibility:hover,
-        #sitePasswordGate #togglePasswordVisibility:focus-visible { color: #18211f; }
-        #sitePasswordGate button {
-            width: 100%;
-            margin-top: 0.75rem;
-            padding: 0.75rem;
-            border-radius: 0.65rem;
-            background: #a95700;
-            color: #fff;
-            font-weight: 600;
-        }
-        #sitePasswordError { min-height: 1.25rem; margin-top: 0.5rem; color: #a33b24; font-size: 0.8rem; }
         html.mobile-preview-session { scrollbar-width: none; }
         html.mobile-preview-session::-webkit-scrollbar { display: none; }
         #mobilePreviewDialog {
@@ -724,8 +668,6 @@
 </head>
 <body class="light-mode min-h-screen flex flex-col selection:bg-amber-800/30 selection:text-amber-200">
     <script>
-        // Keep local development friction-free; only gate the published GitHub Pages site.
-        const isDeployedSite = window.location.hostname === 'nicholascaplan.github.io';
         const themeStorageKey = 'theme';
         const mobilePreviewStorageKey = 'mobilePreviewOpen';
         const isMobilePreview = new URLSearchParams(window.location.search).has('mobilePreview');
@@ -748,28 +690,7 @@
         if (isMobilePreview) {
             document.documentElement.classList.add('mobile-preview-session');
         }
-        if (isDeployedSite) {
-            document.body.classList.add('site-locked');
-        } else {
-            document.body.classList.remove('site-locked');
-        }
     </script>
-    <div id="sitePasswordGate" role="dialog" aria-modal="true" aria-labelledby="sitePasswordTitle">
-        <form onsubmit="unlockSite(event)">
-            <h2 id="sitePasswordTitle" class="text-2xl font-serif">Private site</h2>
-            <p class="mt-2 text-sm text-neutral-500">Enter the password to continue.</p>
-            <label class="sr-only" for="sitePassword">Password</label>
-            <div class="password-field">
-                <input id="sitePassword" type="password" autocomplete="current-password" placeholder="Password" autofocus>
-                <button id="togglePasswordVisibility" type="button" aria-label="Show password" title="Show password">
-                    <i id="passwordVisibilityIcon" class="fa-solid fa-eye" aria-hidden="true"></i>
-                </button>
-            </div>
-            <button type="submit">Enter site</button>
-            <p id="sitePasswordError" role="alert"></p>
-        </form>
-    </div>
-
     <div id="mobilePreviewDialog" class="hidden" role="dialog" aria-modal="true" aria-label="Mobile site preview">
         <div class="mobile-preview-shell">
             <button id="closeMobilePreview" type="button" onclick="closeMobilePreview()" aria-label="Close mobile preview">
@@ -2356,34 +2277,6 @@
             }
         }
 
-        function unlockSite(event) {
-            event.preventDefault();
-            const password = document.getElementById('sitePassword').value;
-            const error = document.getElementById('sitePasswordError');
-
-            if (password === 'verysecretsite') {
-                document.body.classList.remove('site-locked');
-                document.getElementById('sitePasswordGate').classList.add('hidden');
-                sessionStorage.setItem('siteUnlocked', 'true');
-                return;
-            }
-
-            error.textContent = 'Incorrect password.';
-            document.getElementById('sitePassword').select();
-        }
-
-        function togglePasswordVisibility() {
-            const input = document.getElementById('sitePassword');
-            const button = document.getElementById('togglePasswordVisibility');
-            const icon = document.getElementById('passwordVisibilityIcon');
-            const isVisible = input.type === 'text';
-            input.type = isVisible ? 'password' : 'text';
-            button.setAttribute('aria-label', isVisible ? 'Show password' : 'Hide password');
-            button.title = isVisible ? 'Show password' : 'Hide password';
-            icon.classList.toggle('fa-eye', isVisible);
-            icon.classList.toggle('fa-eye-slash', !isVisible);
-        }
-
         document.getElementById('mobilePreviewDialog').addEventListener('click', event => {
             if (event.target.id === 'mobilePreviewDialog') closeMobilePreview();
         });
@@ -2441,14 +2334,6 @@
         });
 
         window.onload = function() {
-            document.getElementById('togglePasswordVisibility').addEventListener('click', event => {
-                event.preventDefault();
-                togglePasswordVisibility();
-            });
-            if (isDeployedSite && sessionStorage.getItem('siteUnlocked') === 'true') {
-                document.body.classList.remove('site-locked');
-                document.getElementById('sitePasswordGate').classList.add('hidden');
-            }
             updateThemeToggle();
             restoreMobilePreview();
             if (!isMobilePreview) {

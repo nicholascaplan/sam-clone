@@ -18,7 +18,7 @@ npm test
 - Works and YouTube modal semantics, focus restoration, score-request flow and contact-form success/failure states.
 - Keyboard-operable audio rows, catalogue view state, result announcements and Instrumentation-menu keyboard navigation.
 - Mocked Spotify and SoundCloud playback state, including provider hand-off.
-- Password-gate behaviour on the deployed hostname mapped to the local server.
+- Public accessibility on the deployed hostname mapped to the local server.
 - Serious and critical Axe violations across interactive states.
 
 ## Principles

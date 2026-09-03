@@ -4,7 +4,7 @@ Record only decisions that constrain future work. Implementation history and com
 
 ## Architecture
 
-- Keep a single `index.html` with hash routes until a planned architecture split is approved. Separate pages would duplicate navigation, theme, password-gate and playback behaviour.
+- Keep a single `index.html` with hash routes until a planned architecture split is approved. Separate pages would duplicate navigation, theme and playback behaviour.
 - Push browser-history entries for deliberate section and Works & Media view changes. Restore the matching state on `popstate`.
 - Keep the homepage URL free of a redundant `#bio` fragment.
 - Keep local design experiments in Git-ignored `design/`; do not publish them.
@@ -42,6 +42,5 @@ Record only decisions that constrain future work. Implementation history and com
 ## Testing And Deployment
 
 - Test provider integrations through mocked browser APIs, not live providers.
-- Test the deployed-host password-gate condition locally without duplicating its credential in tests.
-- The client-side password gate is a testing deterrent, not a security boundary. It applies only to the deployed host.
+- Test the deployed-host mapping locally to ensure the public site loads without host-specific behaviour.
 - For theme-dependent interactive surfaces, Playwright coverage must exercise the visible state in both light and dark modes.

@@ -10,8 +10,7 @@
 ## Project Notes
 
 - This is a static GitHub Pages site.
-- The site includes an intentionally insecure client-side password gate for testing.
-- The password gate applies only on `nicholascaplan.github.io`; local development does not require a password.
+- The published site is publicly accessible without a client-side password gate.
 - SoundCloud playback uses the SoundCloud Widget API. Spotify recordings use custom rows backed by the Spotify IFrame API.
 - `Works`, `Listen` and `Watch` are separate entry points into the exposed Works & Media catalogue. They open All Works, Listen and Watch respectively. The former separate Watch and Listen sections remain in `index.html` as source content for playback and media metadata.
 - YouTube cards use thumbnails and the existing in-page modal rather than loading multiple embedded players on page load.

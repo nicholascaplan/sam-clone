@@ -19,7 +19,7 @@ module.exports = defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         launchOptions: {
-          args: ['--host-resolver-rules=MAP nicholascaplan.github.io 127.0.0.1'],
+          args: ['--host-resolver-rules=MAP www.samanthafernando.com 127.0.0.1'],
         },
       },
     },
@@ -39,7 +39,7 @@ module.exports = defineConfig({
       use: {
         ...devices['Pixel 5'],
         launchOptions: {
-          args: ['--host-resolver-rules=MAP nicholascaplan.github.io 127.0.0.1'],
+          args: ['--host-resolver-rules=MAP www.samanthafernando.com 127.0.0.1'],
         },
       },
     },

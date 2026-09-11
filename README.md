@@ -26,4 +26,4 @@ Install dependencies and Chromium once with `npm install` and `npx playwright in
 
 ## Deployment
 
-- Live site: <https://nicholascaplan.github.io/sam-clone/>
+- Production domain: <https://www.samanthafernando.com/>

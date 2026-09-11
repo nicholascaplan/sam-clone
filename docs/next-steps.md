@@ -5,6 +5,7 @@ Use this file to track unresolved implementation, product and maintenance work. 
 ## Verification And Accessibility
 
 - [ ] **HIGH PRIORITY: Manually verify third-party media on the deployed site.** Check SoundCloud playback events, Spotify and SoundCloud mutual exclusion, soundbar restart and stop controls, soundbar visibility during navigation, and YouTube thumbnail/modal behaviour. Use widget events, not the soundbar alone, to establish that audio is playing.
+- [ ] **HIGH PRIORITY: Configure and verify Formspree delivery controls.** Confirm server-side spam protection, recipient notifications and the intended recipient inbox in Formspree; submit a non-sensitive deployed-site test during cutover and confirm delivery.
 - [ ] **Align responsive breakpoints.** Reconcile the documented and implemented mobile thresholds, then test desktop, phone landscape, narrow mobile and iframe preview layouts.
 - [ ] **Standardise notice and reduced-motion behaviour.** Distinguish informational availability or metadata gaps from errors, and provide reduced-motion alternatives for transitions, playback animation and media hover scaling.
 
@@ -21,8 +22,9 @@ Use this file to track unresolved implementation, product and maintenance work. 
 
 ## Deferred Structural Work
 
-- [ ] **Plan the new-site migration.** Document cutover, URL and CNAME mappings, redirects, DNS ownership and rollback. Confirm whether GoDaddy manages the domain and DNS.
-- [ ] **Evaluate Cloudflare.** Compare its DNS, redirects, caching, security, analytics and traffic-measurement benefits against the current GoDaddy and GitHub Pages setup.
+- [ ] **Execute the GitHub Pages go-live plan.** Follow `docs/go-live-plan.md` during the approved cutover window. Namecheap manages DNS; do not add the `CNAME` file or change DNS before then.
+- [ ] **Evaluate Cloudflare.** Compare its DNS, redirects, caching, security, analytics and traffic-measurement benefits against the current Namecheap and GitHub Pages setup.
+- [ ] **Choose and implement analytics.** Decide between GA4 with a suitable privacy/cookie-consent implementation and a privacy-first alternative, then track only agreed visitor and contact-form events.
 
 ## Constraints And Verification
 

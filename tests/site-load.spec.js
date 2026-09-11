@@ -80,6 +80,10 @@ test('exposes canonical metadata and structured data for search', async ({ page 
     'https://nicholascaplan.github.io/sam-clone/assets/sam-1-1200.webp',
   );
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+  await expect(page.locator('link[rel="preload"][href="assets/sam-1-1200.webp"]')).toHaveAttribute(
+    'fetchpriority',
+    'high',
+  );
   await expect(page.getByRole('heading', { name: 'Samantha Fernando, British Composer', level: 1 })).toBeVisible();
 
   const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
@@ -332,7 +336,7 @@ test('uses the dark palette for the mobile navigation menu @mobile', async ({ pa
   await page.locator('#mobileMenuToggle').click();
 
   await expect(page.locator('#mobileMenu')).toHaveCSS('background-color', 'rgb(26, 26, 26)');
-  await expect(page.locator('#mobileMenu').getByRole('button', { name: 'Home' })).toHaveCSS('color', 'rgb(212, 212, 212)');
+  await expect(page.locator('#mobileMenu').getByRole('button', { name: 'Home' })).toHaveCSS('color', 'rgb(251, 191, 36)');
   await expect(page.locator('#mobileMenuToggle')).toHaveCSS('border-top-color', 'rgba(245, 158, 11, 0.7)');
 });
 
@@ -429,6 +433,15 @@ test('restores mobile preview after refresh', async ({ page }) => {
   await expect(page.frameLocator('#mobilePreviewFrame').locator('#mobileMenuToggle')).toBeVisible();
 });
 
+test('gates the mobile preview tool on the production hostname', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'Chromium maps the production hostname to the local server.');
+  await page.goto('http://www.samanthafernando.com:8000/');
+
+  await expect(page.locator('#mobilePreviewBtn')).toBeHidden();
+  await page.evaluate(() => window.toggleMobilePreview());
+  await expect(page.locator('#mobilePreviewDialog')).toBeHidden();
+});
+
 test('submits the contact form through Formspree', async ({ page }) => {
   await page.goto('/');
   await page.route('https://formspree.io/f/mlgqqjen', async route => {
@@ -445,6 +458,26 @@ test('submits the contact form through Formspree', async ({ page }) => {
 
   await expect(page.locator('#contactToast')).toBeVisible();
   await expect(page.locator('#contactToast')).toContainText('Message sent successfully');
+});
+
+test('includes a non-interactive Formspree honeypot', async ({ page }) => {
+  await page.goto('/#contact');
+
+  const honeypot = page.locator('#contactForm input[name="_gotcha"]');
+  await expect(honeypot).toHaveAttribute('tabindex', '-1');
+  await expect(honeypot).toHaveAttribute('autocomplete', 'off');
+  await expect(honeypot).toHaveAttribute('aria-hidden', 'true');
+  await expect(honeypot).toBeHidden();
+});
+
+test('keeps Samantha email address out of public contact content', async ({ page }) => {
+  await page.goto('/#contact');
+
+  await expect(page.locator('a[href^="mailto:"]')).toHaveCount(0);
+  await expect(page.locator('body')).not.toContainText('sam@samanthafernando.com');
+
+  const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(JSON.parse(structuredData)['@graph'].find(item => item['@type'] === 'Person')).not.toHaveProperty('email');
 });
 
 test('shows a contact error when Formspree rejects the submission', async ({ page }) => {
@@ -814,8 +847,8 @@ test('Listen and Watch views expose their selected state and deep links', async 
 });
 
 test('deployed hostname is publicly accessible', async ({ page, browserName }) => {
-  test.skip(browserName !== 'chromium', 'Chromium maps the deployed hostname to the local server.');
-  await page.goto('http://nicholascaplan.github.io:8000/');
+  test.skip(browserName !== 'chromium', 'Chromium maps the production hostname to the local server.');
+  await page.goto('http://www.samanthafernando.com:8000/');
 
   await expect(page.getByRole('navigation')).toBeVisible();
   await expect(page.getByRole('dialog', { name: 'Private site' })).toHaveCount(0);

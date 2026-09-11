@@ -9,6 +9,7 @@ Record only decisions that constrain future work. Implementation history and com
 - Keep the homepage URL free of a redundant `#bio` fragment.
 - Keep local design experiments in Git-ignored `design/`; do not publish them.
 - Keep one canonical public URL for the single-page site. Represent the client-rendered compositions as static `MusicComposition` structured data until an approved multi-page architecture split. The essay is already static HTML; recordings and films retain links to their authoritative provider pages rather than duplicating third-party metadata in structured data.
+- Keep the enquiry form as the sole public contact route. Do not expose Samantha's email address in rendered content, links or structured data; use Formspree's hidden `_gotcha` honeypot to filter basic automated submissions.
 
 ## Content And Navigation
 

@@ -32,7 +32,6 @@
           "image": "https://nicholascaplan.github.io/sam-clone/assets/sam-1-1200.webp",
           "jobTitle": "Composer",
           "description": "British composer exploring timbre, space and the unfolding of sound.",
-          "email": "sam@samanthafernando.com",
           "sameAs": [
             "https://on.soundcloud.com/Ohbj2UPBnWa5Scw8AB",
             "https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM",
@@ -77,6 +76,7 @@
       ]
     }
     </script>
+    <link rel="preload" as="image" href="assets/sam-1-1200.webp" type="image/webp" fetchpriority="high">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="stylesheet" href="assets/tailwind.min.css">
@@ -671,15 +671,7 @@
         const themeStorageKey = 'theme';
         const mobilePreviewStorageKey = 'mobilePreviewOpen';
         const isMobilePreview = new URLSearchParams(window.location.search).has('mobilePreview');
-        if (!isMobilePreview) {
-            const heroPreload = document.createElement('link');
-            heroPreload.rel = 'preload';
-            heroPreload.as = 'image';
-            heroPreload.href = 'assets/sam-1-1200.webp';
-            heroPreload.type = 'image/webp';
-            heroPreload.fetchPriority = 'high';
-            document.head.appendChild(heroPreload);
-        }
+        const isLocalDev = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
         try {
             if (localStorage.getItem(themeStorageKey) === 'dark') {
                 document.body.classList.remove('light-mode');
@@ -706,7 +698,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
             
             <!-- Site Title / Logo -->
-                <a href="./index.html" onclick="switchTab('home')" class="flex flex-col group cursor-pointer flex-shrink-0">
+                <a href="#home" onclick="event.preventDefault(); switchTab('home')" class="flex flex-col group cursor-pointer flex-shrink-0">
                 <span class="font-display text-lg sm:text-2xl font-medium tracking-wider text-neutral-100 group-hover:text-amber-400 transition-colors uppercase">
                     Samantha Fernando
                 </span>
@@ -1073,22 +1065,12 @@
                 <div class="lg:col-span-5 space-y-6">
                     <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-6">
                         <img src="assets/sam-6-800.webp" alt="Samantha Fernando" width="800" height="534" class="w-full h-48 object-cover rounded-2xl border border-neutral-800" loading="eager" fetchpriority="low" decoding="async">
-                        <h3 class="text-xl font-serif text-neutral-100">Direct Contact</h3>
+                        <h3 class="text-xl font-serif text-neutral-100">Contact &amp; Score Hire</h3>
                         <p class="text-neutral-300 text-xs leading-relaxed">
-                            If you would like to contact Samantha about her compositions, score hire, performance materials or academic research, please send a message or email directly:
+                            For compositions, score hire, performance materials or academic research, please use the enquiry form.
                         </p>
 
                         <div class="space-y-4 pt-2">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300">
-                                    <i class="fa-regular fa-envelope"></i>
-                                </div>
-                                <div>
-                                    <span class="text-xs font-mono text-neutral-500 block">Email Address</span>
-                                    <a href="mailto:sam@samanthafernando.com" class="text-sm font-medium text-amber-300 hover:underline">sam@samanthafernando.com</a>
-                                </div>
-                            </div>
-
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-xl bg-amber-900/40 border border-amber-600/40 flex items-center justify-center text-amber-300">
                                     <i class="fa-solid fa-building-columns"></i>
@@ -1113,6 +1095,9 @@
                 <div class="lg:col-span-7">
                     <form id="contactForm" action="https://formspree.io/f/mlgqqjen" method="POST" onsubmit="handleContactSubmit(event)" class="glass-panel p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-6">
                         <h3 class="text-xl font-serif text-neutral-100">Send a Message</h3>
+
+                        <!-- Formspree discards submissions that fill this bot-only field. -->
+                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden">
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
@@ -1148,7 +1133,7 @@
                             <i class="fa-solid fa-circle-check mr-2"></i> Message sent successfully! I will respond shortly.
                         </div>
                         <div id="contactError" role="alert" class="hidden p-4 rounded-xl bg-red-950/80 border border-red-600/40 text-red-300 text-xs font-mono text-center">
-                            <i class="fa-solid fa-circle-exclamation mr-2"></i> Unable to send your message. Please try again or email Samantha directly.
+                            <i class="fa-solid fa-circle-exclamation mr-2"></i> Unable to send your message. Please try again shortly.
                         </div>
                     </form>
                 </div>
@@ -1223,7 +1208,7 @@
             { id: 17, title: 'Positive/Negative Space', year: 2013, category: 'ensemble', instrumentation: 'Flute, clarinet, alto saxophone & cello', duration: '8 mins', premiere: 'London Sinfonietta at Purcell Room, Southbank Centre', notes: 'RPS Composition Prize commission' },
             // Opera & Stage
             { id: 19, title: 'glass human', year: 2022, category: 'opera', instrumentation: '3 singers, 5 players & electronics', duration: '50 mins', commission: 'Glyndebourne', premiere: 'Glyndebourne', notes: 'Chamber opera created with Melanie Wilson' },
-            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble, electronics', duration: '15 mins', commission: 'Royal Opera House & Figment Productions', notes: 'Hyper-reality opera experience. Composition year requires confirmation' },
+            { id: 20, title: 'Current, Rising', year: 2021, category: 'opera', instrumentation: 'Soprano, ensemble, electronics', duration: '15 mins', commission: 'Royal Opera House & Figment Productions', notes: 'Hyper-reality opera experience' },
 
             // Choral
             { id: 21, title: 'Everything Passes, Everything is Connected', year: 2021, category: 'vocal', instrumentation: 'Unaccompanied choir', duration: '7 mins', commission: 'The Crossing (USA)', premiere: 'The Crossing (USA)' },
@@ -2221,6 +2206,7 @@
         }
 
         function toggleMobilePreview() {
+            if (!isLocalDev || isMobilePreview) return;
             const dialog = document.getElementById('mobilePreviewDialog');
             if (!dialog.classList.contains('hidden')) {
                 closeMobilePreview();
@@ -2269,7 +2255,7 @@
         function restoreMobilePreview() {
             // The preview iframe shares localStorage with the parent page. Do not
             // let its copy restore another preview dialog inside itself.
-            if (isMobilePreview) return;
+            if (isMobilePreview || !isLocalDev) return;
             try {
                 if (localStorage.getItem(mobilePreviewStorageKey) === 'true') toggleMobilePreview();
             } catch {
@@ -2281,8 +2267,12 @@
             if (event.target.id === 'mobilePreviewDialog') closeMobilePreview();
         });
         const mobilePreviewButton = document.getElementById('mobilePreviewBtn');
-        mobilePreviewButton.addEventListener('pointerenter', prepareMobilePreview);
-        mobilePreviewButton.addEventListener('focus', prepareMobilePreview);
+        if (!isLocalDev) {
+            mobilePreviewButton.style.display = 'none';
+        } else {
+            mobilePreviewButton.addEventListener('pointerenter', prepareMobilePreview);
+            mobilePreviewButton.addEventListener('focus', prepareMobilePreview);
+        }
         document.addEventListener('click', event => {
             if (!document.getElementById('instrumentationControl').contains(event.target)) closeInstrumentationMenu();
         });

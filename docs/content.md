@@ -234,17 +234,16 @@ More tracks are available on Samantha's SoundCloud page and Spotify page. Record
 ## Contact & Score Hire
 
 - Page description: For commissions, score hire inquiries, or performance notifications.
-- Direct Contact heading: Direct Contact
-- Direct Contact copy: If you would like to contact Samantha about her compositions, score hire, performance materials, or academic research, please send a message or email directly:
-- Email: sam@samanthafernando.com
+- Contact panel heading: Contact & Score Hire
+- Contact panel copy: For compositions, score hire, performance materials or academic research, please use the enquiry form.
 - Academic Affiliation: Department of Music, Royal Holloway, University of London
 - Score Availability: Performance scores for chamber, orchestral, and opera works are available upon request or via NMC Recordings and the British Music Collection.
 - Form heading: Send a Message
-- Form fields: Your Name (required), Email Address (required), Inquiry Type, Message (required)
+- Form fields: Your Name (required), Email Address (required), Inquiry Type, Message (required), and a hidden Formspree `_gotcha` honeypot excluded from visitor interaction.
 - Inquiry types: Score Hire / Purchase Request; Composition Commission; Performance Notification; General / Academic Inquiry
 - Submit label: Send Inquiry Message
 - Success message: Message sent successfully! I will respond shortly.
-- Error message: Unable to send your message. Please try again or email Samantha directly.
+- Error message: Unable to send your message. Please try again shortly.
 - Delivery: The form submits its name, email, inquiry type and message fields to Formspree at `https://formspree.io/f/mlgqqjen` without leaving the site.
 
 ## Footer Links

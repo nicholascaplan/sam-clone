@@ -8,7 +8,7 @@ Copy conventions: use British English, do not use em dashes and do not use Oxfor
 
 - Site title: Samantha Fernando - Composer
 - Site type: Composer portfolio
-- Canonical URL: https://nicholascaplan.github.io/sam-clone/
+- Canonical URL: https://www.samanthafernando.com/
 - Meta description: Official website of British composer Samantha Fernando. Explore her compositions, recordings, films, writing and score-hire information.
 - Social image: `assets/sam-1-1200.webp`, Samantha Fernando portrait
 - Structured data: `Person` for Samantha Fernando and an `ItemList` of her compositions. Official profiles are SoundCloud, Spotify, Instagram and NMC.

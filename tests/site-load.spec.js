@@ -73,11 +73,11 @@ test('exposes canonical metadata and structured data for search', async ({ page 
   );
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     'href',
-    'https://nicholascaplan.github.io/sam-clone/',
+    'https://www.samanthafernando.com/',
   );
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     'content',
-    'https://nicholascaplan.github.io/sam-clone/assets/sam-1-1200.webp',
+    'https://www.samanthafernando.com/assets/sam-1-1200.webp',
   );
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
   await expect(page.locator('link[rel="preload"][href="assets/sam-1-1200.webp"]')).toHaveAttribute(
@@ -102,9 +102,9 @@ test('publishes crawl-discovery files', async ({ request }) => {
   ]);
 
   expect(robots.ok()).toBe(true);
-  expect(await robots.text()).toMatch(/Sitemap: https:\/\/nicholascaplan\.github\.io\/sam-clone\/sitemap\.xml/);
+  expect(await robots.text()).toMatch(/Sitemap: https:\/\/www\.samanthafernando\.com\/sitemap\.xml/);
   expect(sitemap.ok()).toBe(true);
-  expect(await sitemap.text()).toMatch(/<loc>https:\/\/nicholascaplan\.github\.io\/sam-clone\/<\/loc>/);
+  expect(await sitemap.text()).toMatch(/<loc>https:\/\/www\.samanthafernando\.com\/<\/loc>/);
 });
 
 test('navigation opens the Listen and Watch catalogue views', async ({ page }) => {

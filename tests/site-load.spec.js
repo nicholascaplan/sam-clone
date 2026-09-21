@@ -84,7 +84,10 @@ test('exposes canonical metadata and structured data for search', async ({ page 
     'fetchpriority',
     'high',
   );
-  await expect(page.getByRole('heading', { name: 'Samantha Fernando, British Composer', level: 1 })).toBeVisible();
+  const heading = page.getByRole('heading', { name: 'Samantha Fernando, British Composer', level: 1 });
+  await expect(heading).toBeVisible();
+  await expect(heading.locator('span')).toHaveText('British Composer');
+  await expect(heading.locator('span')).toHaveClass(/text-xl/);
 
   const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
   const graph = JSON.parse(structuredData)['@graph'];
@@ -536,15 +539,14 @@ test('shows the TRAPPIST-1e introduction in Watch', async ({ page }) => {
   await expect(page.locator('#worksContainer').getByRole('button', { name: 'Watch The Exoplanets: Samantha Fernando introduces TRAPPIST-1e' })).toBeVisible();
 });
 
-test('includes all newly catalogued films', async ({ page }) => {
+test('excludes removed films from Watch', async ({ page }) => {
   await page.goto('/#watch');
 
   const works = page.locator('#worksContainer');
-  await expect(works.getByRole('button', { name: "Watch Trailer: Current, Rising - The World's First Hyper-Reality Opera" })).toBeVisible();
-  await expect(works.getByRole('button', { name: "Watch Current, Rising: The World's First Hyper-Reality Opera" })).toBeVisible();
-  await expect(works.getByRole('button', { name: 'Watch How Many Moments Must - Samantha Fernando' })).toBeVisible();
-  await expect(works.getByRole('button', { name: "Watch Charlotte Ashton Performs Samantha Fernando 'Kinesphere'" })).toBeVisible();
-  await expect(works.getByRole('button', { name: 'Watch Samantha Fernando: Four Klee Miniatures, Horn Solo' })).toBeVisible();
+  await expect(works).not.toContainText('Today the Letter Must Come');
+  await expect(works).not.toContainText('glass human - Official Trailer');
+  await expect(works).not.toContainText("The Composer's Mind");
+  await expect(works).not.toContainText('Samantha Fernando: Pathways');
   await expect(page.locator('#worksViewDescription')).toHaveText('Performance films and composer features.');
 });
 
@@ -552,7 +554,6 @@ test('shows CTAs for title variants linked to works', async ({ page }) => {
   await page.goto('/#works');
 
   for (const [workTitle, mediaTitle] of [
-    ['glass human', 'glass human - Official Trailer'],
     ['Current, Rising', "Trailer: Current, Rising - The World's First Hyper-Reality Opera"],
     ['Fault-Line', 'Fault Line for Solo Cello']
   ]) {
@@ -563,6 +564,12 @@ test('shows CTAs for title variants linked to works', async ({ page }) => {
   const currentRising = page.locator('#worksContainer > div', { has: page.getByRole('heading', { name: 'Current, Rising', exact: true }) });
   await expect(currentRising.getByRole('button', { name: "Watch Trailer: Current, Rising - The World's First Hyper-Reality Opera" })).toBeVisible();
   await expect(currentRising.getByRole('button', { name: "Watch Current, Rising: The World's First Hyper-Reality Opera" })).toHaveCount(0);
+});
+
+test('includes Samantha\'s PhD in the biography', async ({ page }) => {
+  await page.goto('/#bio');
+
+  await expect(page.locator('#tab-bio')).toContainText('She holds a PhD in Composition.');
 });
 
 test('resets filters when switching between Works, Listen and Watch views', async ({ page }) => {

@@ -33,7 +33,7 @@ Collaboration with performers is central to her practice, particularly in shapin
 
 Samantha has worked with numerous world-leading ensembles including the Philharmonia Orchestra, London Sinfonietta, BCMG, Riot Ensemble, The BBC Singers, LOD Muziektheater (Ghent), Silbersee Vocal Ensemble (Amsterdam), and The Crossing (USA). Her music has been performed at major international festivals including Aldeburgh Music, Huddersfield Contemporary Music Festival, Sounds New, Gaudeamus Muziekweek, York Late Music, and the Oxford Lieder Festival.
 
-Samantha studied Composition at the Royal Academy of Music and the University of Oxford. She is an Honorary Research Fellow in Composition at Royal Holloway, University of London.
+Samantha studied Composition at the Royal Academy of Music and the University of Oxford. She holds a PhD in Composition. She is an Honorary Research Fellow in Composition at Royal Holloway, University of London.
 
 In 2021, Samantha saw the opening of Current, Rising, a world-first hyper-reality opera experience produced by the Royal Opera House and Figment Productions. Her chamber opera glass human, created in collaboration with Melanie Wilson, premiered at Glyndebourne in Autumn 2022. Recent commissions include Sound Inhabitants for the London Sinfonietta and Wintering, commissioned by Wigmore Hall and performed by Manchester Collective and The Marian Consort.
 
@@ -149,10 +149,8 @@ The current card data in `index.html` includes durations and additional details 
 
 ## Watch
 
-- Catalogue filter: Watch, inside Works & Media. The catalogue contains sixteen films.
+- Catalogue filter: Watch, inside Works & Media. The catalogue contains twelve films.
 - The Exoplanets: Samantha Fernando introduces TRAPPIST-1e. Related work: Exoplanets: TRAPPIST-1e. Label: The Exoplanets (2025). Description: Samantha Fernando introduces her movement inspired by the rocky exoplanet TRAPPIST-1e. Link: https://www.youtube.com/watch?v=PtuinjIcJD0
-- glass human - Official Trailer. Related work: glass human. Label: Glyndebourne (2022). Duration: 0:55. Description: Official trailer for the chamber opera created by Samantha Fernando and sound artist and writer Melanie Wilson, exploring isolation and connection across three lives. Link: https://www.youtube.com/watch?v=-bGBfGd_2aM
-- 'Today the Letter Must Come' - glass human. Related work: glass human. Label: Camille Maalawy (2024). Duration: 3:20. Description: Performance excerpt featuring mezzo-soprano Camille Maalawy as Oma, a Syrian refugee awaiting her leave to remain. Link: https://www.youtube.com/watch?v=15R1ci2MHF0
 - Current, Rising: The World's First Hyper-Reality Opera. Action label: Trailer. Label: Royal Ballet and Opera (2020). Duration: 0:50. Description: Trailer for a 15-minute hyper-reality opera combining virtual reality with a multisensory set. Music is composed by Samantha Fernando, directed by Netia Jones, with libretto by Melanie Wilson and vocals by Anna Dennis. Link: https://www.youtube.com/watch?v=KXrYuIWLv60
 - Trailer: Current, Rising - The World's First Hyper-Reality Opera. Action label: Trailer. Related work: Current, Rising. Label: Royal Opera House (2021). Published 6 May 2021. Description: Official trailer for the hyper-reality opera composed by Samantha Fernando with libretto by Melanie Wilson. Link: https://www.youtube.com/watch?v=eY0GioXHBL4
 - How Was the World's First Hyper-Reality Opera Created?. Related work: Current, Rising. Label: Royal Ballet and Opera (2020). Duration: 33:35. Description: Insights panel discussing the development and technology behind Current, Rising, featuring Samantha Fernando and the creative team. Link: https://www.youtube.com/watch?v=AVXYPqdAYdY
@@ -163,8 +161,6 @@ The current card data in `index.html` includes durations and additional details 
 - Charlotte Ashton Performs Samantha Fernando 'Kinesphere'. Related work: Kinesphere. Label: Hebrides Ensemble (2022). Published 8 March 2022. Description: Solo flute performance by Charlotte Ashton, filmed by Flux Video. Link: https://www.youtube.com/watch?v=iDo-EkKhbl4
 - Samantha Fernando: Four Klee Miniatures, Horn Solo. Related work: 4 Klee Miniatures. Label: Trio Radial (2021). Published 9 December 2021. Description: Solo horn performance of four miniatures inspired by Paul Klee. Link: https://www.youtube.com/watch?v=x2q25aBh48Y
 - Look Up. Related work: Look Up. Label: enoa community (2015). Duration: 8:27. Description: Final concert recording from the European Network of Opera Academies workshop exploring vocal textures and electronic processing. Link: https://www.youtube.com/watch?v=b_w_uYmFwZ4
-- Samantha Fernando: Pathways. Label: Sound and Music (2018). Duration: 6:34. Description: Documentary profile in which Samantha Fernando discusses her musical philosophy, tableaux-like textures, openness in composition and motherhood as a creative catalyst. Link: https://www.youtube.com/watch?v=XcRdZftNuYA
-- Samantha Fernando: The Composer's Mind. Label: London Sinfonietta (2016). Duration: 5:00. Description: Short documentary detailing Samantha Fernando's creative process, structural thinking and writing techniques. Link: https://www.youtube.com/watch?v=94EkZLEuKBA
 
 ## Listen
 

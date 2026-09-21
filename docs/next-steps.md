@@ -24,7 +24,7 @@ Use this file to track unresolved implementation, product and maintenance work. 
 
 - [ ] **Execute the GitHub Pages go-live plan.** Follow `docs/go-live-plan.md` during the approved cutover window. Namecheap manages DNS; do not add the `CNAME` file or change DNS before then.
 - [ ] **Evaluate Cloudflare.** Compare its DNS, redirects, caching, security, analytics and traffic-measurement benefits against the current Namecheap and GitHub Pages setup.
-- [ ] **Choose and implement analytics.** Decide between GA4 with a suitable privacy/cookie-consent implementation and a privacy-first alternative, then track only agreed visitor and contact-form events.
+- [ ] **Secure durable Google Analytics ownership.** Ask the existing GA4 account administrator to grant Administrator access to Samantha or another durable site-owner account, then retain at least two trusted administrators. The site implementation and consent controls are documented in `docs/google-analytics-setup.md`.
 
 ## Constraints And Verification
 

@@ -53,6 +53,13 @@ async function mockPlaybackProviders(page) {
   await page.route('https://open.spotify.com/embed/iframe-api/v1', route => route.abort());
 }
 
+async function rejectAnalyticsCookies(page) {
+  const banner = page.locator('#cookieConsentBanner');
+  if (await banner.isVisible()) {
+    await page.getByRole('button', { name: 'Reject' }).click();
+  }
+}
+
 test('loads the site and renders primary navigation', async ({ page }) => {
   await page.goto('/');
 
@@ -128,6 +135,43 @@ test('uses compact browser and home-screen icons', async ({ page }) => {
   await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', 'assets/favicon.png');
   await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute('href', 'assets/apple-touch-icon.png');
   await expect(page.locator('link[rel="icon"]')).not.toHaveAttribute('href', /new-favicon/);
+});
+
+test('loads Google Analytics only after the visitor accepts analytics cookies', async ({ page }) => {
+  const analyticsRequests = [];
+  await page.route('https://www.googletagmanager.com/gtag/js?id=G-N74SECKP5X', route => {
+    analyticsRequests.push(route.request().url());
+    return route.fulfill({ contentType: 'application/javascript', body: '' });
+  });
+
+  await page.goto('/');
+  await expect(page.locator('#cookieConsentBanner')).toBeVisible();
+  expect(analyticsRequests).toEqual([]);
+
+  await page.getByRole('button', { name: 'Accept' }).click();
+  await expect.poll(() => analyticsRequests).toHaveLength(1);
+  await expect(page.locator('#cookieConsentBanner')).toBeHidden();
+  await expect.poll(() => page.evaluate(() => window.dataLayer?.[1]?.[0])).toBe('config');
+});
+
+test('persists a rejected analytics choice and exposes cookie preferences', async ({ page }) => {
+  const analyticsRequests = [];
+  await page.route('https://www.googletagmanager.com/gtag/js?id=G-N74SECKP5X', route => {
+    analyticsRequests.push(route.request().url());
+    return route.fulfill({ contentType: 'application/javascript', body: '' });
+  });
+
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Reject' }).click();
+  await page.reload();
+  await expect(page.locator('#cookieConsentBanner')).toBeHidden();
+  expect(analyticsRequests).toEqual([]);
+
+  await page.getByRole('button', { name: 'Cookie preferences' }).click();
+  await expect(page.getByRole('dialog', { name: 'Analytics and privacy' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Cookie preferences' })).toBeFocused();
+  await expect(page.locator('#cookieConsentBanner')).toBeVisible();
 });
 
 test('defers the Spotify API until playback is requested', async ({ page }) => {
@@ -692,6 +736,7 @@ test('SoundCloud and Spotify playback are mutually exclusive', async ({ page }) 
 test('SoundCloud queued playback responds to pause and finish events', async ({ page }) => {
   await mockPlaybackProviders(page);
   await page.goto('/');
+  await rejectAnalyticsCookies(page);
   await page.getByRole('button', { name: 'Listen', exact: true }).first().click();
 
   await page.locator('#worksContainer [data-track="look-up"]').click();
@@ -753,6 +798,7 @@ test('soundbar stays visible while navigating between pages', async ({ page }) =
 
 test('stopped playback is cleared when navigating away', async ({ page }) => {
   await page.goto('/');
+  await rejectAnalyticsCookies(page);
   await page.locator('#ambientSoundBtn').click();
   await expect(page.locator('#soundbar')).toBeVisible();
 
@@ -766,6 +812,7 @@ test('stopped playback is cleared when navigating away', async ({ page }) => {
 
 test('stop playback removes and hides the soundbar immediately', async ({ page }) => {
   await page.goto('/');
+  await rejectAnalyticsCookies(page);
   await page.locator('#ambientSoundBtn').click();
   await expect(page.locator('#soundbar')).toBeVisible();
 

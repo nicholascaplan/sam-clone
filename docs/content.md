@@ -20,6 +20,7 @@ Copy conventions: use British English, do not use em dashes and do not use Oxfor
 - Audio control tooltip: Listen to Samantha's music
 - Default audio track: Everything Passes, Everything is Connected - The Crossing
 - Footer copyright: © Samantha Fernando. All rights reserved.
+- Analytics: Google Analytics 4 uses Measurement ID `G-N74SECKP5X`. The tag loads only after a visitor accepts analytics cookies. Visitors can reject analytics or revisit the choice through the footer's Cookie preferences control.
 
 ## Biography Page
 

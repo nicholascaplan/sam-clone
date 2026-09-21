@@ -45,3 +45,4 @@ Record only decisions that constrain future work. Implementation history and com
 - Test provider integrations through mocked browser APIs, not live providers.
 - Test the deployed-host mapping locally to ensure the public site loads without host-specific behaviour.
 - For theme-dependent interactive surfaces, Playwright coverage must exercise the visible state in both light and dark modes.
+- Load GA4 only after a visitor explicitly accepts analytics cookies. Persist accept or reject choices locally and provide a footer control to revisit the choice.

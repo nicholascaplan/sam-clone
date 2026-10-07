@@ -14,7 +14,7 @@ Record only decisions that constrain future work. Implementation history and com
 ## Content Management
 
 - Manage site content in Sanity (project `9a66iw1t`, public `production` dataset) and render it into static HTML at build time. Do not fetch Sanity content in the browser; the site must render without JavaScript calls to a CMS.
-- Keep the Studio standalone in `studio/` with its own `package.json`. It is never part of the published artifact.
+- Keep the Studio standalone in `studio/` with its own `package.json`. It is never part of the published artifact. It is hosted by Sanity; see `docs/sanity.md` for URLs and administration.
 - Keep a complete committed fallback between the `sanity:<section>:start` and `:end` markers in `index.html`. If Sanity is unreachable or the document is incomplete, the build warns and ships the fallback rather than failing the deploy. Playwright tests run against this committed markup.
 - Self-host CMS images: the build downloads them into `assets/` with a content-hash filename. Do not hotlink `cdn.sanity.io`.
 - Singleton pages use a fixed document ID equal to the type name and are hidden from generic Studio lists, with duplicate, delete and unpublish disabled.

@@ -26,6 +26,7 @@
 - `docs/website-content-map-specifications.md` is a concise reference to the retired site's structure.
 - `docs/website-critique-redesign-strategy.md` records the redesign direction and outstanding product questions.
 - `docs/test-strategy.md` describes current automated-test coverage and conventions.
+- `docs/sanity.md` is the operational guide for Sanity: Studio and Manage URLs, members, the publish webhook, GitHub token expiry and renewal, and troubleshooting. Keep it updated when the Sanity setup changes.
 - `design/` contains local-only design documentation and working visual references, including `playground.html` for component reviews and `design-reference.html` for accepted foundations. These files are not published.
 
 ### Documentation Maintenance
@@ -40,7 +41,7 @@
 
 ## Maintenance Notes
 
-- Biography content comes from Sanity at build time (`npm run build:content`, see `docs/decisions.md`). Edit copy in Sanity Studio, not in the marked region of `index.html`, which is only the fallback. When fallback copy changes, update the Sanity document and `docs/content.md` together. Unit tests live in `unit-tests/` (`npm run test:unit`).
+- Biography content comes from Sanity at build time (`npm run build:content`, see `docs/decisions.md`). The Studio is at https://samantha-fernando.sanity.studio (administration and token renewal: `docs/sanity.md`). Edit copy in Sanity Studio, not in the marked region of `index.html`, which is only the fallback. When fallback copy changes, update the Sanity document and `docs/content.md` together. Unit tests live in `unit-tests/` (`npm run test:unit`).
 
 - This repository is public. Before committing or pushing, inspect changed files for passwords, API keys, tokens, private URLs, personal data and other secrets. Never commit secrets, even in Markdown, tests, logs or documentation examples; use placeholders and ask the user for any required runtime values instead.
 - Follow the applicable decisions in `docs/decisions.md` when changing layout, interaction, accessibility or responsive behaviour.

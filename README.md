@@ -14,7 +14,7 @@ Static single-page portfolio for composer Samantha Fernando. Biography, works, r
 
 ## Content (Sanity)
 
-The Biography is edited in Sanity Studio (`studio/`, project `9a66iw1t`) and baked into the page at build time.
+The Biography is edited in Sanity Studio (`studio/`, project `9a66iw1t`) and baked into the page at build time. Editors use <https://samantha-fernando.sanity.studio> and click Publish, which redeploys the site in about two minutes. See `docs/sanity.md` for administration, the webhook and token renewal.
 
 ```bash
 npm run build:content        # writes the publishable site to _site/ using live Sanity content

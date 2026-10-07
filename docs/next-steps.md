@@ -11,7 +11,8 @@ Use this file to track unresolved implementation, product and maintenance work. 
 
 ## Sanity CMS
 
-- [ ] **HIGH PRIORITY: Deploy the hosted Studio and add the publish webhook.** Run `npm run deploy` in `studio/`, then in Sanity Manage create a webhook on publish of `biographyPage` that POSTs `{"event_type": "sanity-content-published"}` to the GitHub `repository_dispatches` endpoint using a repo-scoped token. Verify that a publish triggers a successful Pages workflow run.
+- [ ] **Renew the Sanity publish-webhook token by 5 January 2027.** The GitHub token has a 90-day expiry and an expired token silently stops deploys. Follow the renewal steps in `docs/sanity.md` and update the expiry date there.
+- [ ] **Confirm Samantha can sign in to the Studio and publish.** She was invited as an Editor on 7 October 2026. Check her first edit appears on the live site.
 - [ ] **Migrate the remaining sections to Sanity, one at a time.** Suggested order: Writing essay, Events, site metadata and hero, Works catalogue, Contact. Reuse `scripts/lib/` and the marker pattern in `index.html`.
 - [ ] **Decide whether to add the 2013 RPS Composition Prize to the Biography milestones.** It is in the content record but not on the page; see `docs/questions-for-sam.md`.
 - [ ] **Add a draft preview route.** Studio cannot preview a static build; consider a local `build:content` against drafts or a separate preview deploy.

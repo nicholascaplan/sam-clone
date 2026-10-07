@@ -8,13 +8,13 @@ Static single-page portfolio for composer Samantha Fernando. Biography, works, r
 - Compiled Tailwind CSS in `assets/tailwind.min.css`; Font Awesome and Google Fonts loaded from CDNs.
 - SoundCloud Widget API for verified SoundCloud recordings.
 - Spotify track playback through the Spotify IFrame API.
-- A unified Works & Media catalogue. `Works` opens all works, `Listen` opens thirteen recordings and `Watch` opens twelve films.
+- A unified Works & Media catalogue. The committed fallback contains 23 works, thirteen recordings and eleven films; Sanity can add or remove entries.
 - YouTube videos open in an in-page modal from thumbnail cards.
 - GitHub Pages deployment from the `main` branch.
 
 ## Content (Sanity)
 
-The Biography is edited in Sanity Studio (`studio/`, project `9a66iw1t`) and baked into the page at build time. Editors use <https://samantha-fernando.sanity.studio> and click Publish, which redeploys the site in about two minutes. See `docs/sanity.md` for administration, the webhook and token renewal.
+Biography and the Works & Media catalogue have Sanity schemas (`studio/`, project `9a66iw1t`) and build-time integration. Biography is editable at <https://samantha-fernando.sanity.studio>. Catalogue schemas and the initial content are in Sanity; wait until the website deployment and publish-webhook update are complete before editing the catalogue. Published content is baked into the static site, never fetched from Sanity in the browser.
 
 ```bash
 npm run build:content        # writes the publishable site to _site/ using live Sanity content
@@ -22,7 +22,7 @@ cd studio && npm run dev     # run the Studio locally
 cd studio && npm run deploy  # publish the hosted Studio after schema changes
 ```
 
-If Sanity is unavailable, `build:content` keeps the committed Biography markup in `index.html`. `scripts/seed-biography.ts` in `studio/scripts/` recreates the document from the original copy.
+If Sanity is unavailable or incomplete, `build:content` keeps the committed section fallback in `index.html`. Biography and Works & Media fall back independently. `studio/scripts/seed-biography.ts` recreates Biography; `studio/scripts/seed-catalogue.ts` imports the catalogue without overwriting existing editor changes. See `docs/sanity.md` before running either import.
 
 ## Run Locally
 

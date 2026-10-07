@@ -18,19 +18,48 @@ Studio is where content is edited. Manage is where the project is administered: 
 
 ## How Publishing Works
 
-1. An editor changes the Biography Page in the Studio and clicks **Publish**.
+1. An editor changes a document in the Studio and clicks **Publish**. Biography is active; catalogue publishing requires the activation steps below.
 2. The Sanity webhook `Trigger site deploy` sends a `repository_dispatch` event (`sanity-content-published`) to GitHub.
 3. The Pages workflow (`.github/workflows/pages.yml`) runs the tests, builds the site with `npm run build:content` and deploys it.
 4. The change is live in about two minutes.
 
-Only published content is used. Drafts never affect the site. If Sanity is unreachable or the document is incomplete, the build logs a `Sanity content unavailable` warning and ships the committed Biography markup in `index.html`.
+Only published content is used. Drafts never affect the site. The build reads the published perspective directly from the API, without CDN caching. If Sanity is unreachable or content is incomplete, the build warns and ships the corresponding committed fallback in `index.html`. Biography and the complete Works & Media snapshot fall back independently.
 
 ## Editing Content (Editors)
 
 - Sign in at the Studio URL and open **Biography Page**.
 - Use bold for ensemble and organisation names and italic for work titles. Follow the copy conventions in `docs/content.md`: British English, no em dashes, no Oxford commas. The Studio blocks em dashes, requires image alt text and requires four-digit milestone years; it cannot check spelling or commas.
 - There is no live preview. Publish, wait about two minutes, then check the live page. Sanity keeps document history, so earlier versions can be restored from the document's history menu.
-- Only the Biography Page is editable so far. Other sections move over one at a time (see `docs/next-steps.md`).
+- The hosted Studio exposes Biography and the Works & Media schemas. **The initial 48-document catalogue import is complete**, but the website build has not been deployed and the webhook remains Biography-only. Do not edit or publish Works & Media records until the website deployment and webhook update are complete; publication currently will not trigger a site deploy. Other sections move over one at a time (see `docs/next-steps.md`).
+
+### Works & Media Editing (After Activation)
+
+- Open **Works & Media**, then **Works**, **Recordings (Listen)**, **Films (Watch)** or **Settings & Default Recording**.
+- A Work holds composition metadata. A Recording or Film optionally references a Work, so changing a composition title does not disconnect its media. Publish the Work before attaching and publishing media.
+- Recording/publication year and track duration are separate from composition year and duration. Leave optional unknown values blank rather than inventing them. Tracks from a song cycle reference the cycle, not new standalone Work documents.
+- Paste a full public Spotify track, SoundCloud track or YouTube video URL. Private SoundCloud access-token links, short share links, playlists and artist/album pages are not supported. The dataset is public, so never paste private access tokens into it. No audio/video upload is needed. Spotify actions say **Preview**; SoundCloud actions say **Listen**.
+- **Media-action order within the Work** controls button order across its recordings and films. Lower numbers come first; use distinct numbers when ordering matters. Catalogue views remain newest first, then alphabetical.
+- In Settings, select a published **Default header recording** from either audio provider. With no default selected, the header Listen control opens the catalogue. Stop restores the default selection. Optional Recording **Soundbar label** overrides its title.
+- Remove a default selection and any Work references before deleting referenced documents. Unpublishing removes a document from the next successful build; drafts remain private. An unpublished related Work no longer supplies a category or a Work action, but its published media remains available.
+- An intentionally empty published list stays empty. Invalid published content or a network error uses the entire committed catalogue fallback, including its structured data. Check the build warning if a publication appears not to take effect.
+
+### Catalogue Activation (Maintainers, Approval Required)
+
+The Studio deployment and initial import below have been approved and completed. The website deployment and webhook update still need completion. Keep the existing Biography-only webhook filter during import to avoid a deploy for every created document.
+
+1. Run unit/browser tests and Studio type/schema checks. **Completed 7 October 2026:** unit tests, TypeScript check, schema validation and Studio build passed. The Playwright suite could not launch Chromium because macOS denied Chromium Mach-port registration in BoxedCode; generated-site browser review was done with the available desktop browser tool. Studio schemas were deployed with `npm run deploy`; Sanity reported `Deployed 1/1 schemas` and `Success!` at the hosted Studio URL.
+2. From `studio/`, run `npx sanity exec scripts/seed-catalogue.ts --with-user-token`. **Completed 7 October 2026:** 48 documents created (23 Works, thirteen Recordings, eleven Films and Settings); existing content was left unchanged. Sanity generated ordinary document IDs; source keys make reruns skip existing content.
+3. Run `npm run build:content` from the repository root and confirm **Works & Media rendered from Sanity**, not a fallback warning. **Completed 7 October 2026:** build rendered Biography and Works & Media from Sanity. A local HTTP review confirmed 23 Works, thirteen Recordings, eleven Films, the selected default Recording, all views and the YouTube modal.
+4. Deploy the website code and verify GitHub Pages Actions. Then update the existing webhook filter to:
+
+   ```groq
+   _type in ["biographyPage", "worksMediaSettings", "work", "recording", "film"] && !(_id in path("drafts.**"))
+   ```
+
+   Keep Create, Update and Delete enabled and Drafts off. Type-based filtering covers new ordinary documents with generated IDs as well as unpublish/delete events.
+5. Verify a catalogue edit dispatches a deploy, add a test Recording with an existing public provider URL, test default selection and Stop, then remove the test entry. Verify unpublishing media removes it rather than restoring fallback entries. Confirm the result outside BoxedCode; sandbox access to the public website is restricted.
+
+**Webhook update status:** not yet changed. The Sanity Manage page requires a browser login; BoxedCode redirected to login and has no authenticated session. Complete step 4's filter change in Manage after the site deploy, preserving Create/Update/Delete triggers and Drafts off.
 
 ## Members And Roles
 
@@ -54,7 +83,7 @@ Configured under **API**, then **Webhooks** in Sanity Manage.
 | Headers | `Authorization` set to `Bearer <token>` (word `Bearer`, one space, no colon) and `Accept: application/vnd.github+json` |
 | Drafts | Off |
 
-Add the document ID to the filter when a new section is migrated to Sanity, for example `_id in ["biographyPage", "<newId>"]`.
+The table describes the currently configured Biography-only filter. Replace it with the type-based filter in Catalogue Activation when activating Works & Media; update this table to reflect the actual configuration at that point.
 
 ### GitHub Token
 
@@ -96,8 +125,10 @@ npx tsc --noEmit
 - Schema changes must be deployed with `npm run deploy` before editors see them. The hosted Studio auto-updates the Sanity version.
 - Biography is a singleton with the fixed document ID `biographyPage`. Follow the same pattern for new singletons: fixed ID, hidden from generic lists and no duplicate, delete or unpublish actions (see `studio/structure.ts` and `studio/sanity.config.ts`).
 - `studio/scripts/seed-biography.ts` recreates the Biography document from the original copy: `npx sanity exec scripts/seed-biography.ts --with-user-token`. It overwrites the published document, so use it only to restore or reseed.
+- `studio/scripts/seed-catalogue.ts` is non-overwriting; follow Catalogue Activation above. Keep import source keys and legacy playback keys hidden/read-only in Studio.
+- `npx sanity build --no-auto-updates` checks the local Studio bundle without fetching the hosted auto-update module. This does not alter hosted Studio configuration. The normal auto-update build needs network access to `sanity-cdn.com`.
 - Document history and the dataset live in Sanity, not in this repository.
 
 ## Sandbox Note For Maintainers
 
-When working inside BoxedCode, the sandbox allowlist in `~/.nwb/box/box.json` must include `api.sanity.io`, `9a66iw1t.api.sanity.io`, `9a66iw1t.apicdn.sanity.io` and `cdn.sanity.io` for the build and Studio commands to reach Sanity.
+When working inside BoxedCode, the sandbox allowlist in `~/.nwb/box/box.json` must include `api.sanity.io`, `9a66iw1t.api.sanity.io`, `9a66iw1t.apicdn.sanity.io` and `cdn.sanity.io` for the build and Studio commands to reach Sanity. Hosted auto-update Studio builds also need `sanity-cdn.com`; the local-only check can use `--no-auto-updates` instead.

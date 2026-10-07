@@ -24,7 +24,8 @@ Use this document to collect content decisions needed before the Works & Media c
 - What commission, premiere or context should be recorded for **Square of Light**?
 - What are the correct year and premiere details for **Kinesphere**? Current sources conflict between 2013 at Purcell Room and 2014 at Kings Place.
 - Should **Current, Rising** use 2020 as its composition year and 2021 as its premiere year?
-- Is **Have It All** a catalogue work? It is in `index.html` but missing from the Works List content record.
+- Confirm **Have It All** belongs in the catalogue. It is retained in the fallback and import pending confirmation.
+- Should **Positive/Negative Space** be categorised as Solo & Chamber rather than Large Ensemble? The current four-player work retains its existing Large Ensemble category pending confirmation.
 - Are there missing awards, texts, recordings or significant collaborators that should appear in Notes?
 
 ## Recordings
@@ -34,6 +35,7 @@ Use this document to collect content decisions needed before the Works & Media c
 - **The Journey Between Us - Reflection 1** is missing from the Works List. Should it be added as a Samantha Fernando composition?
 - What instrumentation is required for **The Journey Between Us - Reflection 1**?
 - Confirm the recording date and collaborators for **The Journey Between Us - Reflection 1**.
+- Confirm **Kinesphere** recording metadata. The current Listen card says Michael Cox / NMC and 4:49, but plays a SoundCloud extract; the separately documented extract is 1:06. Which provider, performance details and duration should be displayed?
 
 ## Confirmed Context
 

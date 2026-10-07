@@ -13,7 +13,10 @@ Use this file to track unresolved implementation, product and maintenance work. 
 
 - [ ] **Renew the Sanity publish-webhook token by 5 January 2027.** The GitHub token has a 90-day expiry and an expired token silently stops deploys. Follow the renewal steps in `docs/sanity.md` and update the expiry date there.
 - [ ] **Confirm Samantha can sign in to the Studio and publish.** She was invited as an Editor on 7 October 2026. Check her first edit appears on the live site.
-- [ ] **Migrate the remaining sections to Sanity, one at a time.** Suggested order: Writing essay, Events, site metadata and hero, Works catalogue, Contact. Reuse `scripts/lib/` and the marker pattern in `index.html`.
+- [ ] **Finish Works & Media activation.** Studio schemas and initial 48-document import are complete, and `build:content` rendered the full Sanity snapshot. Deploy the website code, then update the publish webhook filter in Sanity Manage (BoxedCode has no authenticated Manage session). Follow `docs/sanity.md`. Verify add/edit/publish/unpublish and both default-recording providers.
+- [ ] **Complete catalogue browser verification before deployment.** Run `npm test` and `npm run test:all` with Chromium launch permitted. The sandbox currently blocks Chromium's macOS Mach-port registration; configure an override in `~/.nwb/box/box.json` or use the shell-sandbox control. Generated-catalogue browser tests are in `tests/catalogue-build.spec.js`.
+- [ ] **Review Studio dependency audit findings.** Dependency installation reports 9 moderate and 9 high vulnerabilities. Assess affected dependencies and safe updates separately; do not apply breaking `npm audit fix --force` updates as part of the catalogue migration.
+- [ ] **Migrate the remaining sections to Sanity, one at a time.** Remaining scope: Writing essay, Events, site metadata and hero, homepage Spotlight Works, Contact. Reuse `scripts/lib/` and the marker pattern in `index.html`.
 - [ ] **Decide whether to add the 2013 RPS Composition Prize to the Biography milestones.** It is in the content record but not on the page; see `docs/questions-for-sam.md`.
 - [ ] **Add a draft preview route.** Studio cannot preview a static build; consider a local `build:content` against drafts or a separate preview deploy.
 

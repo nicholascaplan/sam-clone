@@ -19,6 +19,11 @@ Record only decisions that constrain future work. Implementation history and com
 - Self-host CMS images: the build downloads them into `assets/` with a content-hash filename. Do not hotlink `cdn.sanity.io`.
 - Singleton pages use a fixed document ID equal to the type name and are hidden from generic Studio lists, with duplicate, delete and unpublish disabled.
 - Publishing in Sanity triggers a deploy through a webhook that sends `repository_dispatch` (`sanity-content-published`). The GitHub token lives only in the Sanity webhook settings, never in the repository.
+- Model Works, Recordings and Films as separate documents connected by Work references, not matching titles. Related Works are optional for media-only entries. Keep composition year separate from media recording/publication year and composition duration separate from track duration.
+- Keep catalogue introductory text, availability copy and the default header Recording in the `worksMediaSettings` singleton. With no published default selected, the header Listen control opens the Listen catalogue. Stop resets playback to the selected default.
+- Render the catalogue, provider playback configuration and composition structured data from one validated published snapshot. Use an independent complete catalogue fallback on fetch or validation failure; intentionally empty published lists are not errors. Resolve references against published documents so unpublished Works are not resurrected by stale links.
+- Let editors order media actions within each Work using non-negative order numbers shared across recordings and films. Keep all three catalogue views newest first, then alphabetical.
+- Keep source import keys separate from Sanity-generated document IDs. Catalogue imports create missing records but never overwrite existing published records or drafts.
 
 ## Content And Navigation
 

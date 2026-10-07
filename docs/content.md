@@ -1,6 +1,6 @@
 # Samantha Fernando Website Content Record
 
-This file is the content source of truth for the static site and is intended to be migrated into a headless CMS. Keep content, labels, descriptions, metadata, media references, and external links here rather than treating `index.html` as the canonical content store.
+This file is the complete content inventory for the static site. Biography is managed in Sanity; Works & Media has a prepared Sanity import and build integration pending activation. Keep this record aligned with published CMS content and committed fallbacks rather than treating `index.html` as the editorial content store.
 
 Copy conventions: use British English, do not use em dashes and do not use Oxford commas.
 
@@ -18,7 +18,7 @@ Copy conventions: use British English, do not use em dashes and do not use Oxfor
 - Hero quote: "Creating a space in sound that an audience can enter and inhabit."
 - Audio control label: Listen
 - Audio control tooltip: Listen to Samantha's music
-- Default audio track: Everything Passes, Everything is Connected - The Crossing
+- Default audio track: Everything Passes, Everything is Connected - The Crossing (Spotify preview). The catalogue Settings singleton selects a published Recording from either audio provider; with no default selected, the header Listen control opens the catalogue instead.
 - Footer copyright: © Samantha Fernando. All rights reserved.
 - Analytics: Google Analytics 4 uses Measurement ID `G-N74SECKP5X`. The tag loads only after a visitor accepts analytics cookies. Visitors can reject analytics or revisit the choice through the footer's Cookie preferences control.
 
@@ -106,53 +106,45 @@ This Spotlight Works section appears beneath the homepage hero. The full biograp
 
 ## Works List
 
-### Solo & Chamber (1-4 Players)
+The 23 entries below are the current committed fallback and Sanity import source. After activation, each is a `work` document; Recordings and Films reference it explicitly. Empty optional cells mean no value is currently displayed. The view sorts newest first, then alphabetically. Existing uncertain metadata is preserved pending the questions in `docs/questions-for-sam.md`.
 
-- Balconies (2023) - Solo violin (multi-tracked) or ensemble of 5 violins. Commissioned by Olivia de Prato for the Panorama album
-- 4 Klee Miniatures (2021) - Solo horn. Commissioned by Deepa Goonetilleke
-- The Way Home (2018) - Soprano, cello, piano. Commissioned by Kettle's Yard
-- Fault-Line (2015) - Solo cello. Commissioned by London Sinfonietta, premiered at Peckham Asylum
-- Kinesphere (2014) - Solo flute. Commissioned for London Sinfonietta Shorts, premiered at Kings Place by Michael Cox. Released on NMC
-- Kinesphere recording - SoundCloud extract, 1:06: https://soundcloud.com/samanthafernando/kinesphere-for-solo-flute-extract
-- Positive/Negative Space (2013) - Flute, clarinet, alto saxophone, cello. Premiered at Purcell Room, Southbank Centre
-- 4 Illuminations (2012) - Saxophone quartet. Premiered at Royaumont Abbey by Xasax Quartet
+| Title | Year | Category | Duration | Instrumentation | Commission | Premiere | Notes |
+|---|---|---|---|---|---|---|---|
+| Balconies | 2023 | Solo & Chamber | 8 mins | Solo violin (multi-tracked or ensemble of 5 violins) | Olivia de Prato, for the Panorama album | | New Focus Recordings (2023) |
+| 4 Klee Miniatures | 2021 | Solo & Chamber | 6 mins | Solo horn | Deepa Goonetilleke | | |
+| The Way Home | 2018 | Vocal & Choral | 9 mins | Soprano, cello & piano | Kettle's Yard | June 2018 | |
+| Fault-Line | 2015 | Solo & Chamber | 6 mins | Solo cello | London Sinfonietta | Peckham Asylum (June 2015) | |
+| Kinesphere | 2013 | Solo & Chamber | 6 mins | Solo flute | London Sinfonietta | Purcell Room | Released on NMC Recordings |
+| 4 Illuminations | 2012 | Solo & Chamber | 8 mins | Saxophone quartet | | Royaumont Abbey, France, by the Xasax Quartet | |
+| Sissay Settings | 2016 | Vocal & Choral | 7 mins | Soprano and piano | York Late Music | | Settings of poetry by Lemn Sissay |
+| Look Up | 2014 | Vocal & Choral | 12 mins | 4 voices, bass viol & electronics | LOD Music Theatre & Silbersee vocal ensemble (Ghent) | | |
+| Ganymede | 2014 | Vocal & Choral | 5 mins | Tenor and piano | Oxford Lieder Festival | | Associated venue: Holywell Music Room |
+| 3 Songs for Soprano and Cello | 2014 | Vocal & Choral | 11 mins | Soprano and cello | | | Recorded and released by Riot Ensemble (Sarah Dacey & Louise McMonagle, 2020) |
+| Square of Light | 2013 | Vocal & Choral | 4 mins | Soprano and piano | | | Chamber vocal settings |
+| Wintering | 2025 | Large Ensemble | 27 mins | SATB + string quartet | Wigmore Hall | Manchester Collective & The Marian Consort | |
+| Sound Inhabitants | 2023 | Large Ensemble | 12 mins | 15 players (fl, cl, ob, bsn, hn, tpt, trb, perc, hp, pno, 2vlns, vla, vc, db) | London Sinfonietta | Purcell Room, Southbank Centre | |
+| Breathing Forest | 2022 | Large Ensemble | 15 mins | Solo soprano, strings and percussion | Birmingham Contemporary Music Group (BCMG) & Anna Dennis | | |
+| Formations | 2018 | Large Ensemble | 10 mins | 15 players | London Sinfonietta 50th anniversary | Royal Festival Hall, conducted by Vladimir Jurowski | |
+| Positive/Negative Space | 2013 | Large Ensemble | 8 mins | Flute, clarinet, alto saxophone & cello | | London Sinfonietta at Purcell Room, Southbank Centre | RPS Composition Prize commission |
+| glass human | 2022 | Opera & Stage | 50 mins | 3 singers, 5 players & electronics | Glyndebourne | Glyndebourne | Chamber opera created with Melanie Wilson |
+| Current, Rising | 2021 | Opera & Stage | 15 mins | Soprano, ensemble, electronics | Royal Opera House & Figment Productions | | Hyper-reality opera experience |
+| Everything Passes, Everything is Connected | 2021 | Vocal & Choral | 7 mins | Unaccompanied choir | The Crossing (USA) | The Crossing (USA) | |
+| Have It All | 2020 | Vocal & Choral | 6 mins | Unaccompanied choir | BBC Singers | | Broadcast on BBC Radio 3 |
+| Exoplanets: TRAPPIST-1e | 2025 | Orchestral | 5 mins | Orchestra | City of London Sinfonia and curious directive | Norwich Theatre Royal, 2025 (Naomi Woo). Hackney Empire, 2026 (Micah Gleason) | |
+| Breathing Space | 2019 | Orchestral | 12 mins | Symphony orchestra | Philharmonia Orchestra | | Conducted by Martyn Brabbins |
+| Echo of a Woman | 2018 | Orchestral | 14 mins | Soprano and orchestra | Royal Holloway University Symphony Orchestra | | |
 
-### Vocal & Choral
-
-- Sissay Settings (2016) - Soprano and piano. Settings of poetry by Lemn Sissay. Commissioned by York Late Music
-- Look Up (2014) - Four voices, bass viol, electronics. Commissioned by LOD Music Theatre & Silbersee vocal ensemble
-- Ganymede (2014) - Tenor and piano. Commissioned by Oxford Lieder Festival
-- 3 Songs for Soprano and Cello (2014 / recorded 2020) - Cello and soprano. Recorded by Riot Ensemble: Sarah Dacey & Louise McMonagle. Tracks: Utterance (2:46); The Half Moon (4:11); How Many Moments Must (1:10)
-- Square of Light (2013) - Soprano and piano
-- Everything Passes, Everything is Connected (2021) - Unaccompanied choir. Commissioned by The Crossing
-
-### Opera & Stage
-
-- glass human (2022) - Chamber opera for 3 singers, 5 players, and electronics. Commissioned by Glyndebourne
-- Current, Rising (2020) - Hyper-reality opera. Commissioned by The Royal Opera House
-
-### Orchestral
-
-- Exoplanets: TRAPPIST-1e (from The Exoplanets) (2025) - 5 mins. Orchestra. Part of a 95-minute continuous suite. Co-commissioned by City of London Sinfonia and curious directive, in association with Norwich Theatre and Norfolk and Suffolk Music Hub. World premiere: City of London Sinfonia, cond. Naomi Woo, Norwich Theatre Royal, 6-7 September 2025. London premiere: City of London Sinfonia, cond. Micah Gleason, Hackney Empire, 13 March 2026. Inspired by the rocky exoplanet TRAPPIST-1e and its habitable zone. One of seven movements in an orchestral and theatrical suite with planetarium visuals and science commentary
-- Breathing Space (2019) - Symphony orchestra. Commissioned by Philharmonia Orchestra
-- Echo of a Woman (2018) - Soprano and orchestra. Commissioned by Royal Holloway University Symphony Orchestra
-
-### Large Ensemble (5+ Players)
-
-- Sound Inhabitants (2023) - 15 players. Commissioned and premiered by London Sinfonietta
-- Wintering (2025) - SATB voices + string quartet. Commissioned by Wigmore Hall
-- Breathing Forest (2022) - Solo soprano, strings, percussion. Commissioned by BCMG
-- Formations (2018) - 15 players. Commissioned by London Sinfonietta for their 50th anniversary
+Additional supplied Exoplanets context, not currently shown on the compact card: part of a 95-minute continuous suite, one of seven movements with planetarium visuals and science commentary; associated partners Norwich Theatre and Norfolk and Suffolk Music Hub. World premiere 6-7 September 2025; London premiere 13 March 2026. Inspired by the rocky exoplanet TRAPPIST-1e and its habitable zone.
 
 ### Works Card Standard
 
 Each Works card uses the same fields: year, controlled category, duration, title, instrumentation, commission, premiere and optional notes. The category is the only pill shown on the card; venues, ensembles, awards and recording labels belong in the relevant metadata field instead. Works with hosted audio or video have consistent fine-outline media actions, stacked vertically when there is more than one. Each uses a play icon and a specific label such as `Listen`, `Trailer`, `Performance excerpt`, `Insights` or `Watch`; works without hosted media have no row action.
 
-The current card data in `index.html` includes durations and additional details that still need to be reconciled into this source record. See `docs/questions-for-sam.md` for unresolved instrumentation, date and premiere questions. In particular, `Have It All` is present in the card data but is missing from this Works List section.
+Media actions use explicit related-Work references, including the three tracks from 3 Songs for Soprano and Cello. Editors can set their order within a Work; Listen and Watch remain newest-first catalogue views. Composition structured data is generated from the same published Work records during the content build.
 
 ## Watch
 
-- Catalogue filter: Watch, inside Works & Media. The catalogue contains twelve films.
+- Catalogue filter: Watch, inside Works & Media. The committed fallback and import contain eleven films.
 - The Exoplanets: Samantha Fernando introduces TRAPPIST-1e. Related work: Exoplanets: TRAPPIST-1e. Label: The Exoplanets (2025). Description: Samantha Fernando introduces her movement inspired by the rocky exoplanet TRAPPIST-1e. Link: https://www.youtube.com/watch?v=PtuinjIcJD0
 - Current, Rising: The World's First Hyper-Reality Opera. Action label: Trailer. Label: Royal Ballet and Opera (2020). Duration: 0:50. Description: Trailer for a 15-minute hyper-reality opera combining virtual reality with a multisensory set. Music is composed by Samantha Fernando, directed by Netia Jones, with libretto by Melanie Wilson and vocals by Anna Dennis. Link: https://www.youtube.com/watch?v=KXrYuIWLv60
 - Trailer: Current, Rising - The World's First Hyper-Reality Opera. Action label: Trailer. Related work: Current, Rising. Label: Royal Opera House (2021). Published 6 May 2021. Description: Official trailer for the hyper-reality opera composed by Samantha Fernando with libretto by Melanie Wilson. Link: https://www.youtube.com/watch?v=eY0GioXHBL4
@@ -173,6 +165,7 @@ The current card data in `index.html` includes durations and additional details 
 
 - 4 Illuminations - Xasax Saxophone Quartet at Royaumont Abbey - 8:08 - https://api.soundcloud.com/tracks/105152235
 - Fault-Line - Oliver Coates, solo cello / London Sinfonietta commission - 6:03 - https://api.soundcloud.com/tracks/236811796
+- Kinesphere (Listen year 2014) - Michael Cox, solo flute, NMC Recordings - displayed duration 4:49 - https://api.soundcloud.com/tracks/332996028. Provider/details/duration require confirmation; see `docs/questions-for-sam.md`. The separately supplied public extract URL is https://soundcloud.com/samanthafernando/kinesphere-for-solo-flute-extract (1:06).
 - Recollections [year unavailable] - Elsbeth Gerritsen & Eva Reiter - 1:25 - https://api.soundcloud.com/tracks/125817887
 - The Journey Between Us - Reflection 1 (2016) (mixed ensemble) - 3:32 - https://api.soundcloud.com/tracks/292087616
 - Look Up (2014) (4 voices, viola da gamba and electronics) - 6:53 - https://api.soundcloud.com/tracks/204818278
@@ -183,16 +176,17 @@ The current card data in `index.html` includes durations and additional details 
 ### Spotify Tracks
 
 - Balconies - Extract - Olivia de Prato, Panorama Album, New Focus Recordings - 6:53 - https://open.spotify.com/track/2wNL47uCuwDpbOqCIpbSTS
-- Kinesphere - Extract - Michael Cox, solo flute, NMC Recordings - 4:49 - https://open.spotify.com/track/7lmUNPa9oAkmYwdo88guI4
 - Everything Passes, Everything is Connected - Extract - The Crossing, unaccompanied choir - 3:30 - https://open.spotify.com/track/3YV79qjiJLOgYjjEzTsVEy
 - How Many Moments Must (2014) - Extract - 1:10 - https://open.spotify.com/track/3yRPnEWI5IHASxiNNgvyuh
 - Utterance (2014) - Extract - 2:46 - https://open.spotify.com/track/5k4j31qldbj9wqg9VBKo01
 - The Half Moon (2014) - Extract - 4:11 - https://open.spotify.com/track/1o0qiFnwPPgBA3k6QWVPM8
 - Spotify artist profile: https://open.spotify.com/artist/1AOLNCJ11mI6ewx8CZ8gvM
 
+Soundbar label overrides: Balconies uses `Balconies · Olivia de Prato`; Everything Passes, Everything is Connected uses `Everything Passes, Everything is Connected · The Crossing`. Other Spotify recordings use their titles. SoundCloud row playback displays title and performer/details.
+
 ### Recording Availability
 
-More tracks are available on Samantha's SoundCloud page and Spotify page. Recordings exist for all compositions, but for rights reasons not all of these are hosted publicly online. Please contact Samantha directly if you would like to request audio for specific unreleased works.
+More tracks are available on Samantha's SoundCloud and Spotify pages. Not all recordings are hosted publicly for rights reasons. Please use the enquiry form to request audio for unreleased works.
 
 ### Soundbar Progress Proof Of Concept
 
@@ -205,6 +199,10 @@ More tracks are available on Samantha's SoundCloud page and Spotify page. Record
 ## Works & Media Catalogue
 
 - Navigation labels: Works, Listen and Watch.
+- Eyebrow: Compositions & Recordings. Heading: Works & Media.
+- Works introductory text: Full repertoire categorised by instrumentation and scale.
+- Listen introductory text: Published recordings across SoundCloud and Spotify.
+- Watch introductory text: Performance films and composer features.
 - Entry model: Works opens All Works. Listen opens the Listen filter. Watch opens the Watch filter.
 - Watch content: Actual YouTube videos only. Project-information cards such as glass human and Current, Rising remain in project or biography content.
 - Video behaviour: Watch renders editorial YouTube thumbnail cards from `768px` in two columns and from `1280px` in three columns, showing the year without a redundant `Film` label, then opens the existing in-page modal after a user clicks.

@@ -3,6 +3,7 @@ import {cp, mkdir, readFile, writeFile} from 'node:fs/promises'
 import {resolve} from 'node:path'
 import {createClient} from '@sanity/client'
 import {renderBiography, replaceRegion, validateBiography} from './lib/biography.mjs'
+import {buildCatalogue, CATALOGUE_QUERY} from './lib/catalogue.mjs'
 
 const PROJECT_ID = '9a66iw1t'
 const DATASET = 'production'
@@ -25,7 +26,8 @@ const client = createClient({
   projectId: PROJECT_ID,
   dataset: DATASET,
   apiVersion: '2025-02-19',
-  useCdn: true,
+  useCdn: false,
+  perspective: 'published',
 })
 
 async function buildBiography(html) {
@@ -57,5 +59,7 @@ try {
 } catch (error) {
   console.warn(`::warning::Sanity content unavailable, using committed Biography fallback. ${error.message}`)
 }
-await writeFile(resolve(outDir, 'index.html'), html)
+const catalogue = await buildCatalogue(html, () => client.fetch(CATALOGUE_QUERY))
+await writeFile(resolve(outDir, 'index.html'), catalogue.html)
+if (!catalogue.usedFallback) console.log('Works & Media rendered from Sanity.')
 console.log(`Public site written to ${outDir}`)

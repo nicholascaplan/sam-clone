@@ -15,6 +15,8 @@ npm test
 ## Covered
 
 - Sanity Biography renderer (`unit-tests/biography.test.mjs`): output keeps the committed fallback's structure and mark classes, CMS content is HTML-escaped, hotspots become `object-position`, missing fields are reported and only the marked region is replaced.
+- Sanity catalogue (`unit-tests/catalogue.test.mjs`): complete fallback, provider URL allowlist/canonicalisation, references, either default provider, empty published lists, unsafe input rejection, script-safe JSON, shared composition structured data and atomic fallback. The import uses generated IDs and returned references, skips existing editor content and refuses draft-only imported records before writing.
+- Generated catalogue browser fixtures (`tests/catalogue-build.spec.js`): renamed Work relationships, media-action ordering, new SoundCloud/Spotify playback configuration, default selection, unrelated media, empty lists and safe rendering/modal actions in both themes. Fixtures use the production renderer and mocked providers, not live Sanity or provider playback.
 - Page load, core assets, search metadata, crawl-discovery files and navigation.
 - Hash routes, browser history, Works/Listen/Watch filters and search.
 - Persisted theme switching and mobile preview state, the Instrumentation menu's selected state in both themes, and mobile-navigation menus. Theme-dependent interactive states are exercised in both light and dark modes.

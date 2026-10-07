@@ -1,0 +1,61 @@
+import {createHash} from 'node:crypto'
+import {cp, mkdir, readFile, writeFile} from 'node:fs/promises'
+import {resolve} from 'node:path'
+import {createClient} from '@sanity/client'
+import {renderBiography, replaceRegion, validateBiography} from './lib/biography.mjs'
+
+const PROJECT_ID = '9a66iw1t'
+const DATASET = 'production'
+const root = resolve(import.meta.dirname, '..')
+const outDir = resolve(root, process.argv[2] ?? '_site')
+
+const QUERY = `*[_id == "biographyPage"][0]{
+  eyebrow, heading, body, contactCtaLabel, milestonesHeading, milestones[]{year, title, detail},
+  educationHeading, education,
+  "portrait": {
+    "alt": portrait.alt,
+    "url": portrait.asset->url,
+    "width": portrait.asset->metadata.dimensions.width,
+    "height": portrait.asset->metadata.dimensions.height,
+    "hotspot": portrait.hotspot{x, y}
+  }
+}`
+
+const client = createClient({
+  projectId: PROJECT_ID,
+  dataset: DATASET,
+  apiVersion: '2025-02-19',
+  useCdn: true,
+})
+
+async function buildBiography(html) {
+  const doc = await client.fetch(QUERY)
+  if (!doc) throw new Error('biographyPage document not found or not published')
+  const missing = validateBiography({...doc, portrait: doc.portrait})
+  if (missing.length) throw new Error(`biographyPage is missing: ${missing.join(', ')}`)
+
+  const response = await fetch(`${doc.portrait.url}?w=1200&fm=webp&q=80`)
+  if (!response.ok) throw new Error(`Portrait download failed: ${response.status}`)
+  const bytes = Buffer.from(await response.arrayBuffer())
+  const hash = createHash('sha256').update(bytes).digest('hex').slice(0, 10)
+  const filename = `bio-portrait-${hash}.webp`
+  await writeFile(resolve(outDir, 'assets', filename), bytes)
+
+  return replaceRegion(html, 'biography', renderBiography(doc, {portraitSrc: `assets/${filename}`}))
+}
+
+await mkdir(resolve(outDir, 'assets'), {recursive: true})
+await cp(resolve(root, 'assets'), resolve(outDir, 'assets'), {recursive: true})
+for (const file of ['CNAME', 'robots.txt', 'sitemap.xml']) {
+  await cp(resolve(root, file), resolve(outDir, file))
+}
+
+let html = await readFile(resolve(root, 'index.html'), 'utf8')
+try {
+  html = await buildBiography(html)
+  console.log('Biography rendered from Sanity.')
+} catch (error) {
+  console.warn(`::warning::Sanity content unavailable, using committed Biography fallback. ${error.message}`)
+}
+await writeFile(resolve(outDir, 'index.html'), html)
+console.log(`Public site written to ${outDir}`)

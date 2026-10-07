@@ -8,6 +8,7 @@ Use this document to collect content decisions needed before the Works & Media c
 
 ## Site Decisions
 
+- [ ] Confirm whether the 2013 RPS Composition Prize should be added to the Biography's Selected Milestones in Sanity.
 - [ ] Confirm whether `assets/new-favicon.png` is the preferred browser-tab and home-screen icon.
 - [ ] Confirm whether Listen and Watch should move to the second position in the primary and mobile navigation.
 - [ ] Confirm whether the final recording catalogue needs a per-item availability indicator. The current availability note is sufficient when every listed recording is playable.

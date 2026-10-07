@@ -12,6 +12,18 @@ Static single-page portfolio for composer Samantha Fernando. Biography, works, r
 - YouTube videos open in an in-page modal from thumbnail cards.
 - GitHub Pages deployment from the `main` branch.
 
+## Content (Sanity)
+
+The Biography is edited in Sanity Studio (`studio/`, project `9a66iw1t`) and baked into the page at build time.
+
+```bash
+npm run build:content        # writes the publishable site to _site/ using live Sanity content
+cd studio && npm run dev     # run the Studio locally
+cd studio && npm run deploy  # publish the hosted Studio after schema changes
+```
+
+If Sanity is unavailable, `build:content` keeps the committed Biography markup in `index.html`. `scripts/seed-biography.ts` in `studio/scripts/` recreates the document from the original copy.
+
 ## Run Locally
 
 ```bash

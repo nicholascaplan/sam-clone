@@ -5,9 +5,16 @@ Use this file to track unresolved implementation, product and maintenance work. 
 ## Verification And Accessibility
 
 - [ ] **HIGH PRIORITY: Manually verify third-party media on the deployed site.** Check SoundCloud playback events, Spotify and SoundCloud mutual exclusion, soundbar restart and stop controls, soundbar visibility during navigation, and YouTube thumbnail/modal behaviour. Use widget events, not the soundbar alone, to establish that audio is playing.
-- [ ] **HIGH PRIORITY: Configure and verify Formspree delivery controls.** Confirm server-side spam protection, recipient notifications and the intended recipient inbox in Formspree; submit a non-sensitive deployed-site test during cutover and confirm delivery.
+- [ ] **HIGH PRIORITY: Configure and verify Formspree delivery controls.** Confirm server-side spam protection, recipient notifications and the intended recipient inbox in Formspree; submit a non-sensitive deployed-site test and confirm delivery.
 - [ ] **Align responsive breakpoints.** Reconcile the documented and implemented mobile thresholds, then test desktop, phone landscape, narrow mobile and iframe preview layouts.
 - [ ] **Standardise notice and reduced-motion behaviour.** Distinguish informational availability or metadata gaps from errors, and provide reduced-motion alternatives for transitions, playback animation and media hover scaling.
+
+## Sanity CMS
+
+- [ ] **HIGH PRIORITY: Deploy the hosted Studio and add the publish webhook.** Run `npm run deploy` in `studio/`, then in Sanity Manage create a webhook on publish of `biographyPage` that POSTs `{"event_type": "sanity-content-published"}` to the GitHub `repository_dispatches` endpoint using a repo-scoped token. Verify that a publish triggers a successful Pages workflow run.
+- [ ] **Migrate the remaining sections to Sanity, one at a time.** Suggested order: Writing essay, Events, site metadata and hero, Works catalogue, Contact. Reuse `scripts/lib/` and the marker pattern in `index.html`.
+- [ ] **Decide whether to add the 2013 RPS Composition Prize to the Biography milestones.** It is in the content record but not on the page; see `docs/questions-for-sam.md`.
+- [ ] **Add a draft preview route.** Studio cannot preview a static build; consider a local `build:content` against drafts or a separate preview deploy.
 
 ## Mobile Preview Performance
 
@@ -22,7 +29,6 @@ Use this file to track unresolved implementation, product and maintenance work. 
 
 ## Deferred Structural Work
 
-- [ ] **Execute the GitHub Pages go-live plan.** Follow `docs/go-live-plan.md` during the approved cutover window. Namecheap manages DNS; do not add the `CNAME` file or change DNS before then.
 - [ ] **Evaluate Cloudflare.** Compare its DNS, redirects, caching, security, analytics and traffic-measurement benefits against the current Namecheap and GitHub Pages setup.
 - [ ] **Secure durable Google Analytics ownership.** Ask the existing GA4 account administrator to grant Administrator access to Samantha or another durable site-owner account, then retain at least two trusted administrators. The site implementation and consent controls are documented in `docs/google-analytics-setup.md`.
 

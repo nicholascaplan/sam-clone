@@ -24,6 +24,8 @@ Copy conventions: use British English, do not use em dashes and do not use Oxfor
 
 ## Biography Page
 
+**Source of truth: Sanity.** The Biography is managed in the `biographyPage` singleton in Sanity project `9a66iw1t` (dataset `production`) and rendered into `index.html` at build time. The copy below is the seeded content and the committed fallback; after the first edit in Sanity, the Studio is canonical and this section should be kept in step with it.
+
 Biography is an in-page `#bio` route in `index.html`, opened by the `Biography` navigation item. On mobile, a compact circular portrait breaks up the opening copy; larger screens retain the supporting portrait alongside the profile, milestones, education and fellowship.
 
 ### Artistic Philosophy & Biography

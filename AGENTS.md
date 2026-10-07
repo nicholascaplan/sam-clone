@@ -40,6 +40,8 @@
 
 ## Maintenance Notes
 
+- Biography content comes from Sanity at build time (`npm run build:content`, see `docs/decisions.md`). Edit copy in Sanity Studio, not in the marked region of `index.html`, which is only the fallback. When fallback copy changes, update the Sanity document and `docs/content.md` together. Unit tests live in `unit-tests/` (`npm run test:unit`).
+
 - This repository is public. Before committing or pushing, inspect changed files for passwords, API keys, tokens, private URLs, personal data and other secrets. Never commit secrets, even in Markdown, tests, logs or documentation examples; use placeholders and ask the user for any required runtime values instead.
 - Follow the applicable decisions in `docs/decisions.md` when changing layout, interaction, accessibility or responsive behaviour.
 - **IMPORTANT: `assets/tailwind.min.css` is generated and must be rebuilt after every change to Tailwind utility classes in `index.html` or `tailwind.css`. Run `npm run build:css` before testing or reporting the change complete.** The browser loads `assets/tailwind.min.css`, not the source Tailwind directives, so utility changes will not take effect until this build runs.

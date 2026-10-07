@@ -11,6 +11,15 @@ Record only decisions that constrain future work. Implementation history and com
 - Keep one canonical public URL for the single-page site. Represent the client-rendered compositions as static `MusicComposition` structured data until an approved multi-page architecture split. The essay is already static HTML; recordings and films retain links to their authoritative provider pages rather than duplicating third-party metadata in structured data.
 - Keep the enquiry form as the sole public contact route. Do not expose Samantha's email address in rendered content, links or structured data; use Formspree's hidden `_gotcha` honeypot to filter basic automated submissions.
 
+## Content Management
+
+- Manage site content in Sanity (project `9a66iw1t`, public `production` dataset) and render it into static HTML at build time. Do not fetch Sanity content in the browser; the site must render without JavaScript calls to a CMS.
+- Keep the Studio standalone in `studio/` with its own `package.json`. It is never part of the published artifact.
+- Keep a complete committed fallback between the `sanity:<section>:start` and `:end` markers in `index.html`. If Sanity is unreachable or the document is incomplete, the build warns and ships the fallback rather than failing the deploy. Playwright tests run against this committed markup.
+- Self-host CMS images: the build downloads them into `assets/` with a content-hash filename. Do not hotlink `cdn.sanity.io`.
+- Singleton pages use a fixed document ID equal to the type name and are hidden from generic Studio lists, with duplicate, delete and unpublish disabled.
+- Publishing in Sanity triggers a deploy through a webhook that sends `repository_dispatch` (`sanity-content-published`). The GitHub token lives only in the Sanity webhook settings, never in the repository.
+
 ## Content And Navigation
 
 - Keep Biography at `#bio`. The root route remains the quote-led homepage with Spotlight Works.

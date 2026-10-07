@@ -30,7 +30,7 @@ Only published content is used. Drafts never affect the site. The build reads th
 - Sign in at the Studio URL and open **Biography Page**.
 - Use bold for ensemble and organisation names and italic for work titles. Follow the copy conventions in `docs/content.md`: British English, no em dashes, no Oxford commas. The Studio blocks em dashes, requires image alt text and requires four-digit milestone years; it cannot check spelling or commas.
 - There is no live preview. Publish, wait about two minutes, then check the live page. Sanity keeps document history, so earlier versions can be restored from the document's history menu.
-- The hosted Studio exposes Biography and the Works & Media schemas. **The initial 48-document catalogue import is complete**, but the website build has not been deployed and the webhook remains Biography-only. Do not edit or publish Works & Media records until the website deployment and webhook update are complete; publication currently will not trigger a site deploy. Other sections move over one at a time (see `docs/next-steps.md`).
+- The hosted Studio exposes Biography and the Works & Media schemas. The initial 48-document catalogue import and website deployment are complete. The Works & Media webhook filter was updated and its Settings-document trigger was verified on 7 October 2026. Catalogue edits can now trigger rebuilds. Other sections move over one at a time (see `docs/next-steps.md`).
 
 ### Works & Media Editing (After Activation)
 
@@ -45,21 +45,21 @@ Only published content is used. Drafts never affect the site. The build reads th
 
 ### Catalogue Activation (Maintainers, Approval Required)
 
-The Studio deployment and initial import below have been approved and completed. The website deployment and webhook update still need completion. Keep the existing Biography-only webhook filter during import to avoid a deploy for every created document.
+The Studio deployment, initial import, website deployment and webhook update are complete. Keep the Biography-only webhook filter during import to avoid a deploy for every created document if repeating the initial seed process.
 
 1. Run unit/browser tests and Studio type/schema checks. **Completed 7 October 2026:** unit tests, TypeScript check, schema validation and Studio build passed. The Playwright suite could not launch Chromium because macOS denied Chromium Mach-port registration in BoxedCode; generated-site browser review was done with the available desktop browser tool. Studio schemas were deployed with `npm run deploy`; Sanity reported `Deployed 1/1 schemas` and `Success!` at the hosted Studio URL.
 2. From `studio/`, run `npx sanity exec scripts/seed-catalogue.ts --with-user-token`. **Completed 7 October 2026:** 48 documents created (23 Works, thirteen Recordings, eleven Films and Settings); existing content was left unchanged. Sanity generated ordinary document IDs; source keys make reruns skip existing content.
 3. Run `npm run build:content` from the repository root and confirm **Works & Media rendered from Sanity**, not a fallback warning. **Completed 7 October 2026:** build rendered Biography and Works & Media from Sanity. A local HTTP review confirmed 23 Works, thirteen Recordings, eleven Films, the selected default Recording, all views and the YouTube modal.
-4. Deploy the website code and verify GitHub Pages Actions. **Completed 7 October 2026:** commit `d0888f6` deployed successfully in workflow run `37676994880` (test and deploy jobs passed). Live-site propagation was not independently checked because the published GitHub Pages URL is blocked from BoxedCode. Update the existing webhook filter to:
+4. Deploy the website code and verify GitHub Pages Actions. **Completed 7 October 2026:** commit `d0888f6` deployed successfully in workflow run `37676994880` (test and deploy jobs passed). Live-site propagation was not independently checked because the published GitHub Pages URL is blocked from BoxedCode. The configured webhook filter is:
 
    ```groq
    _type in ["biographyPage", "worksMediaSettings", "work", "recording", "film"] && !(_id in path("drafts.**"))
    ```
 
    Keep Create, Update and Delete enabled and Drafts off. Type-based filtering covers new ordinary documents with generated IDs as well as unpublish/delete events.
-5. Verify a catalogue edit dispatches a deploy, add a test Recording with an existing public provider URL, test default selection and Stop, then remove the test entry. Verify unpublishing media removes it rather than restoring fallback entries. Confirm the result outside BoxedCode; sandbox access to the public website is restricted.
+5. **Completed 7 October 2026:** verified that updating the published `worksMediaSettings` document dispatched repository_dispatch event `sanity-content-published`; Pages workflow runs `37682942324` and `37683304284` passed. A temporary non-rendered marker was added and removed, leaving no visitor-visible content change. Still verify a real Recording add/edit/unpublish and both default-recording providers during normal content operations. Confirm the live result outside BoxedCode; sandbox access to the public website is restricted.
 
-**Webhook update status:** not yet changed. The Sanity Manage page requires a browser login; BoxedCode redirected to login and has no authenticated session. Complete step 4's filter change in Manage after the site deploy, preserving Create/Update/Delete triggers and Drafts off.
+Keep Create, Update and Delete triggers enabled and Drafts off. The dispatch verification confirms the published Settings document matched the configured webhook and GitHub accepted the event.
 
 ## Members And Roles
 

@@ -25,6 +25,8 @@ Studio is where content is edited. Manage is where the project is administered: 
 
 Only published content is used. Drafts never affect the site. The build reads the published perspective directly from the API, without CDN caching. If Sanity is unreachable or content is incomplete, the build warns and ships the corresponding committed fallback in `index.html`. Biography and the complete Works & Media snapshot fall back independently.
 
+The Pages workflow also rebuilds and deploys daily at **8am UK time** (`Europe/London`, automatically following GMT/BST), independently of the publish webhook. The schedule becomes active once `.github/workflows/pages.yml` is on `main`. GitHub Actions may delay or drop scheduled runs under high load, so 8am is the requested start time, not a guaranteed live-update time. GitHub disables schedules in public repositories after 60 days without repository activity; re-enable the workflow in Actions if this happens.
+
 ## Editing Content (Editors)
 
 - Sign in at the Studio URL and open **Biography Page**.

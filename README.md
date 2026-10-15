@@ -39,3 +39,4 @@ Install dependencies and Chromium once with `npm install` and `npx playwright in
 ## Deployment
 
 - Production domain: <https://www.samanthafernando.com/>
+- The Pages workflow runs on pushes to `main`, Sanity publish webhooks, manual dispatch and daily at 8am UK time (`Europe/London`, following GMT/BST). See `docs/sanity.md` for scheduling limitations.

@@ -7,6 +7,9 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [sanity-content-published]
+  schedule:
+    - cron: '0 8 * * *'
+      timezone: Europe/London
 
 permissions:
   contents: read
